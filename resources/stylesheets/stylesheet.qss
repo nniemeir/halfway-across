@@ -2,7 +2,7 @@
     background: black;
     color: white;
     selection-background-color: black;
-    font: 16pt "Press Start";
+    font: 16pt "Press Start 2P";
 }
 
 #settingImage {

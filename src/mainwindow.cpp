@@ -4,11 +4,13 @@
 #include "../include/locations.h"
 #include "../include/world.h"
 #include "src/ui_mainwindow.h"
+ #include <QFontDatabase>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
   ui->setupUi(this);
   importStylesheet();
+  QFontDatabase::addApplicationFont(":/fonts/PressStart2P-Regular.ttf");
   setUiProperties();
   setWindowTitle("Halfway Across");
   setLocation("", "", &intro);

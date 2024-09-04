@@ -18,5 +18,6 @@
         <file>images/valley.png</file>
         <file>stylesheets/stylesheet.qss</file>
         <file>images/perished.png</file>
+        <file>fonts/PressStart2P-Regular.ttf</file>
     </qresource>
 </RCC>
