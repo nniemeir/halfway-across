@@ -1,2 +1,2 @@
-# halfwayAcross
-A graphical text adventure in Qt
+# Halfway Across
+This project is a work in progress.
