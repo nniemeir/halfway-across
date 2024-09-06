@@ -16,7 +16,7 @@ void handling::waitLake(MainWindow *mainWindow) {
     QString generatedFish = world.generateFish();
     int itemIndex = world.searchFish(generatedFish);
     if (itemIndex != -1) {
-      sfxPlayer.play("qrc:/audio/sfx/fishReel.mp3", 0);
+      sfxPlayer.play("qrc:/audio/sfx/fishReel.mp3", sfxPlayer.getdefSfxVol(), 0);
       mainWindow->setDescription(
           QString("You caught a %1!\n")
               .arg(world.getFishName(itemIndex).toLower()));

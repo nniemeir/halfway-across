@@ -7,6 +7,7 @@
 class worldStats {
 public:
   worldStats();
+    typedef enum { TRAVEL_YES = 1, TRAVEL_BLIZZARD, TRAVEL_TIRED } TravelResponses;
 
   // Day
   void advanceDay();
@@ -49,7 +50,6 @@ private:
   std::vector<QString> directions;
 };
 
-typedef enum { TRAVEL_YES = 1, TRAVEL_BLIZZARD, TRAVEL_TIRED } TravelResponses;
 
 extern worldStats world;
 #endif // WORLD_H

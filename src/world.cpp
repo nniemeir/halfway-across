@@ -10,7 +10,7 @@ worldStats::worldStats()
       fish{{"CUTTHROAT TROUT", 1, 0, 25, "food"},
            {"BROOK TROUT", 1, 0, 25, "food"},
            {"RAINBOW TROUT", 1, 0, 30, "food"},
-           {"BROWN TROUT", 1, 0, 35, "food"}}, directions{"NORTH", "WEST", "SOUTH", "EAST"} {}
+           {"BROWN TROUT", 1, 0, 35, "food"}}, directions{"NORTH", "WEST", "SOUTH", "EAST", "N", "W", "S", "E"} {}
 
 bool worldStats::validDirection(const QString &value)
 {

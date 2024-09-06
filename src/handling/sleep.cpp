@@ -1,7 +1,7 @@
 #include "../../include/handling.h"
 #include "../../include/world.h"
 
-void handling::sleep(MainWindow *mainWindow, QString target,
+void handling::sleep(MainWindow *mainWindow,
                      Location *location) {
   if (location->getName() == "camp") {
     mainWindow->setDescription(

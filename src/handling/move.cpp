@@ -34,19 +34,19 @@ void handling::move(MainWindow *mainWindow, QString target,
 }
 
 void handling::moveCamp(MainWindow *mainWindow, QString target) {
-  if (target == "NORTH") {
+  if (target == "NORTH" || target == "N") {
     int canTravel = world.travelChecks();
     switch (canTravel) {
-    case TRAVEL_BLIZZARD:
+    case world.TRAVEL_BLIZZARD:
       mainWindow->setDescription(
           "You can't risk traveling in such a blizzard.\n");
       break;
-    case TRAVEL_TIRED:
+    case world.TRAVEL_TIRED:
       mainWindow->setDescription(
           "You do not have the energy to travel anywhere else today.\n");
       break;
-    case TRAVEL_YES:
-      sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", 0);
+    case world.TRAVEL_YES:
+      sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(), 0);
       mainWindow->setLocation(camp.getMusicPath(), camp.getAmbiencePath(),
                               &campPath);
       break;
@@ -58,23 +58,23 @@ void handling::moveCamp(MainWindow *mainWindow, QString target) {
 }
 
 void handling::moveCampPath(MainWindow *mainWindow, QString target) {
-    if (target == "WEST") {
-    sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", 0);
+    if (target == "WEST" || target == "W") {
+    sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(), 0);
     mainWindow->setLocation(campPath.getMusicPath(), campPath.getAmbiencePath(),
                             &lake);
     player.setEnergy(0);
-  } else if (target == "EAST") {
-    sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", 0);
+  } else if (target == "EAST" || target == "E") {
+    sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(), 0);
     mainWindow->setLocation(campPath.getMusicPath(), campPath.getAmbiencePath(),
                             &caveEntrance);
     player.setEnergy(0);
-  } else if (target == "NORTH") {
-    sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", 0);
+  } else if (target == "NORTH" || target == "N") {
+    sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(), 0);
     mainWindow->setLocation(campPath.getMusicPath(), campPath.getAmbiencePath(),
                             &valley);
     player.setEnergy(0);
-  } else if (target == "SOUTH") {
-    sfxPlayer.play("qrc:/audio/sfx/moveStone.mp3", 0);
+  } else if (target == "SOUTH" || target == "S") {
+    sfxPlayer.play("qrc:/audio/sfx/moveStone.mp3", sfxPlayer.getdefSfxVol(), 0);
     mainWindow->setLocation(campPath.getMusicPath(), campPath.getAmbiencePath(),
                             &camp);
   } else {
@@ -84,8 +84,8 @@ void handling::moveCampPath(MainWindow *mainWindow, QString target) {
 }
 
 void handling::moveCave(MainWindow *mainWindow, QString target) {
-  if (target == "WEST") {
-    sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", 0);
+  if (target == "WEST" || target == "W") {
+    sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(), 0);
     mainWindow->setLocation(cave.getMusicPath(), cave.getAmbiencePath(),
                             &caveEntrance);
   } else {
@@ -95,13 +95,13 @@ void handling::moveCave(MainWindow *mainWindow, QString target) {
 }
 
 void handling::moveCaveEntrance(MainWindow *mainWindow, QString target) {
-  if (target == "WEST") {
+  if (target == "WEST" || target == "W") {
 
-    sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", 0);
+    sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(), 0);
     mainWindow->setLocation(caveEntrance.getMusicPath(),
                             caveEntrance.getAmbiencePath(), &campPath);
-  } else if (target == "EAST") {
-    sfxPlayer.play("qrc:/audio/sfx/moveStone.mp3", 0);
+  } else if (target == "EAST" || target == "E") {
+    sfxPlayer.play("qrc:/audio/sfx/moveStone.mp3", sfxPlayer.getdefSfxVol(), 0);
 
     mainWindow->setLocation(caveEntrance.getMusicPath(),
                             caveEntrance.getAmbiencePath(), &cave);
@@ -112,8 +112,8 @@ void handling::moveCaveEntrance(MainWindow *mainWindow, QString target) {
 }
 
 void handling::moveLake(MainWindow *mainWindow, QString target) {
-  if (target == "EAST") {
-    sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", 0);
+  if (target == "EAST" || target == "E") {
+    sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(), 0);
     mainWindow->setLocation(lake.getMusicPath(), lake.getAmbiencePath(),
                             &campPath);
   } else {
@@ -123,8 +123,8 @@ void handling::moveLake(MainWindow *mainWindow, QString target) {
 }
 
 void handling::moveValley(MainWindow *mainWindow, QString target) {
-  if (target == "SOUTH") {
-    sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", 0);
+  if (target == "SOUTH" || target == "S") {
+    sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(), 0);
     mainWindow->setLocation(valley.getMusicPath(), valley.getAmbiencePath(),
                             &campPath);
   } else {

@@ -24,12 +24,12 @@ void handling::look(MainWindow *mainWindow, QString target,
 void handling::lookCamp(MainWindow *mainWindow, QString target) {
   QMap<QString, QString> descriptions = {
       {"AROUND", camp.getDescription()},
-      {"AT FIRE", "The fire burns low."},
-      {"AT BED", "The bed seems to be quite worn."},
-      {"AT CHEST", "The rusty chest contains your belongings."},
-      {"AT GROUND", camp.locInventory()},
+      {"FIRE", "The fire burns low."},
+      {"BED", "The bed seems to be quite worn."},
+      {"CHEST", "The rusty chest contains your belongings."},
+      {"GROUND", camp.locInventory()},
       {"IN BAG", player.bagInventory()},
-      {"AT SELF", player.clothesInventory()},
+      {"SELF", player.clothesInventory()},
       {"OUTSIDE",
        QString("It is %1 outside.").arg(world.getCurrentWeather().toLower())}};
 
@@ -44,10 +44,10 @@ void handling::lookCampPath(MainWindow *mainWindow, QString target,
                             Location *location) {
   QMap<QString, QString> descriptions = {
       {"AROUND", location->getDescription()},
-      {"AT GROUND", location->locInventory()},
-      {"AT PATH", "The other branches of the path go off into the distance.\n"},
+      {"GROUND", location->locInventory()},
+      {"PATH", "The other branches of the path go off into the distance.\n"},
       {"IN BAG", player.bagInventory()},
-      {"AT SELF", player.clothesInventory()}};
+      {"SELF", player.clothesInventory()}};
 
   if (descriptions.contains(target)) {
     mainWindow->setDescription(descriptions.value(target));
@@ -59,10 +59,10 @@ void handling::lookCampPath(MainWindow *mainWindow, QString target,
 void handling::lookCave(MainWindow *mainWindow, QString target) {
   QMap<QString, QString> descriptions = {
       {"AROUND", valley.getDescription()},
-      {"AT GROUND", cave.locInventory()},
+      {"GROUND", cave.locInventory()},
 
       {"IN BAG", player.bagInventory()},
-      {"AT SELF", player.clothesInventory()}};
+      {"SELF", player.clothesInventory()}};
   if (descriptions.contains(target)) {
     mainWindow->setDescription(descriptions.value(target));
   } else {
@@ -73,10 +73,10 @@ void handling::lookCave(MainWindow *mainWindow, QString target) {
 void handling::lookCaveEntrance(MainWindow *mainWindow, QString target) {
   QMap<QString, QString> descriptions = {
       {"AROUND", caveEntrance.getDescription()},
-      {"AT GROUND", caveEntrance.locInventory()},
+      {"GROUND", caveEntrance.locInventory()},
 
       {"IN BAG", player.bagInventory()},
-      {"AT SELF", player.clothesInventory()}};
+      {"SELF", player.clothesInventory()}};
   if (descriptions.contains(target)) {
     mainWindow->setDescription(descriptions.value(target));
   } else {
@@ -87,12 +87,11 @@ void handling::lookCaveEntrance(MainWindow *mainWindow, QString target) {
 void handling::lookLake(MainWindow *mainWindow, QString target) {
   QMap<QString, QString> descriptions = {
       {"AROUND", lake.getDescription()},
-      {"AT GROUND", lake.locInventory()},
-      {"AT LAKE", "The lake has frozen over.\n"},
-      {"AT MOUNTAIN", "Who knows what that mountain holds?\n"},
-
+      {"GROUND", lake.locInventory()},
+      {"LAKE", "The lake has frozen over.\n"},
+      {"MOUNTAIN", "Who knows whthmountain holds?\n"},
       {"IN BAG", player.bagInventory()},
-      {"AT SELF", player.clothesInventory()}};
+      {"SELF", player.clothesInventory()}};
 
   if (descriptions.contains(target)) {
     mainWindow->setDescription(descriptions.value(target));
@@ -104,11 +103,11 @@ void handling::lookLake(MainWindow *mainWindow, QString target) {
 void handling::lookValley(MainWindow *mainWindow, QString target) {
   QMap<QString, QString> descriptions = {
       {"AROUND", valley.getDescription()},
-      {"AT GROUND", valley.locInventory()},
-      {"AT TREES", "The trees are covered in snow."},
+      {"GROUND", valley.locInventory()},
+      {"TREES", "The trees are covered in snow."},
 
       {"IN BAG", player.bagInventory()},
-      {"AT SELF", player.clothesInventory()}};
+      {"SELF", player.clothesInventory()}};
   if (descriptions.contains(target)) {
     mainWindow->setDescription(descriptions.value(target));
   } else {

@@ -6,7 +6,7 @@ void handling::take(MainWindow *mainWindow, QString target,
                     Location *location) {
   int itemIndex = location->searchInventory(target.toUpper());
   if (itemIndex != -1) {
-    sfxPlayer.play("qrc:/audio/sfx/take.mp3", 0);
+    sfxPlayer.play("qrc:/audio/sfx/take.mp3", sfxPlayer.getdefSfxVol(), 0);
     mainWindow->setDescription(
         QString("Took %1.").arg(location->getItemName(itemIndex).toLower()));
     int playerItemIndex = player.searchInventory(target.toUpper());

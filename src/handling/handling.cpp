@@ -1,16 +1,28 @@
 #include "../../include/handling.h"
 #include "../../include/player.h"
 #include "../../include/world.h"
+#include <QRegularExpression>
 
-const char *argVerbs[NUM_OF_ARG_VERBS] = {
-    "COOK",  "CHISEL", "DRINK", "DROP",  "EAT",    "EXAMINE",
-    "GO",    "LOOK",   "MOVE",  "OPEN",  "REMOVE", "SIT",
-    "STAND", "TAKE",   "TELL",  "THROW", "USE",    "WEAR"};
+handling::handling() {
 
-const char *noArgVerbs[NUM_OF_NO_ARG_VERBS] = {"BEGIN", "QUIT", "REFLECT",
-                                               "SLEEP", "WAIT"};
+    argVerbs = {
+                                              "COOK",  "CHISEL", "DRINK", "DROP",  "EAT",    "EXAMINE",
+                                              "GO",    "LOOK",   "MOVE",  "OPEN",  "REMOVE", "SIT",
+                                              "STAND", "TAKE",   "TELL",  "THROW", "USE",    "WEAR"};
+
+   noArgVerbs = {"BEGIN", "QUIT", "REFLECT",
+                                                   "SLEEP", "WAIT", "Z"};
+}
 
 handling handle;
+
+QString handling::removeWords(const QString& text, const QStringList& words) {
+    QString pattern = QString("\\b(%1)\\b").arg(words.join("|"));
+    QRegularExpression regex(pattern);
+    QString modifiedText = text;
+    modifiedText.remove(regex);
+    return modifiedText.trimmed().replace(QRegularExpression("\\s+"), " ");
+}
 
 // Inputted verb must match an element of argVerbs or noArgVerbs to be
 // considered valid
@@ -18,26 +30,21 @@ int handling::validateVerb(QString input) {
   bool validArgVerb = false;
   bool validNoArgVerb = false;
   QString inputVerb = input.split(" ").at(0);
-  for (int i = 0; i < NUM_OF_ARG_VERBS; i++) {
-    if (inputVerb == argVerbs[i]) {
-      validArgVerb = true;
-    }
-  }
-  for (int i = 0; i < NUM_OF_NO_ARG_VERBS; i++) {
-    if (inputVerb == noArgVerbs[i]) {
-      validNoArgVerb = true;
-    }
-  }
 
-  if (validArgVerb) {
-    return 0;
-  } else if (validNoArgVerb) {
-    return 1;
+  if (std::find(argVerbs.begin(), argVerbs.end(), inputVerb) != argVerbs.end()) {
+      return 0;
+  }
+  if (std::find(noArgVerbs.begin(), noArgVerbs.end(), inputVerb) != noArgVerbs.end()) {
+      return 1;
   }
   return -1;
 }
 
 void handling::splitInput(MainWindow *mainWindow, QString input) {
+QStringList fillerWords = {"AT", "ON", "THE"};
+    input = removeWords(input, fillerWords);
+
+qDebug() << input;
   QStringList parts = input.split(" ");
 
   QString verb;
@@ -60,7 +67,7 @@ void handling::splitInput(MainWindow *mainWindow, QString input) {
 void handling::handleVerb(MainWindow *mainWindow, QString verb, QString target,
                           Location *location) {
   if (verb == "BEGIN") {
-    handling::begin(mainWindow, target, location);
+    handling::begin(mainWindow, location);
   } else if (verb == "DRINK") {
     handling::drink(mainWindow, target, location);
   } else if (verb == "DROP") {
@@ -78,14 +85,14 @@ void handling::handleVerb(MainWindow *mainWindow, QString verb, QString target,
   } else if (verb == "SIT") {
     handling::sit(mainWindow, target, location);
   } else if (verb == "SLEEP") {
-    handling::sleep(mainWindow, target, location);
+    handling::sleep(mainWindow, location);
   } else if (verb == "STAND") {
     handling::stand(mainWindow);
   } else if (verb == "TAKE") {
     handling::take(mainWindow, target, location);
   } else if (verb == "USE") {
     handling::use(mainWindow, target, location);
-  } else if (verb == "WAIT") {
+  } else if (verb == "WAIT" || verb == "Z") {
     handling::wait(mainWindow, location);
   } else if (verb == "WEAR") {
     handling::wear(mainWindow, target);

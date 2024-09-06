@@ -10,11 +10,11 @@ void handling::sit(MainWindow *mainWindow, QString target, Location *location) {
 }
 
 void handling::sitCamp(MainWindow *mainWindow, QString target) {
-  if (target == "ON LOG") {
+  if (target == "LOG") {
     mainWindow->setDescription("You feel a bit warmer sitting by the fire.");
     player.setStanding(0);
   }
-  else if (target == "ON FIRE") {
+  else if (target == "FIRE") {
       mainWindow->setDescription("You burned yourself.");
       player.setHealth(player.getHealth() - 20);
   } else {

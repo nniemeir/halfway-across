@@ -55,10 +55,10 @@ void MainWindow::setLocation(QString currentMusic, QString currentAmbience,
     QString musicPath = object->getMusicPath();
     QString ambiencePath = object->getAmbiencePath();
     if (currentMusic != musicPath) {
-      musicPlayer.play(musicPath, 1);
+      musicPlayer.play(musicPath, ambiencePlayer.getdefMusicVol(), 1);
     }
     if (currentAmbience != ambiencePath) {
-      ambiencePlayer.play(ambiencePath, 1);
+      ambiencePlayer.play(ambiencePath, ambiencePlayer.getdefAmbienceVol(), 1);
     }
     world.setCurrentLocation(object);
   }

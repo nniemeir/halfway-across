@@ -1,12 +1,10 @@
 #include "../../include/audio.h"
 #include "../../include/handling.h"
-#include "../../include/player.h"
-#include "../../include/world.h"
 
-void handling::begin(MainWindow *mainWindow, QString target,
+void handling::begin(MainWindow *mainWindow,
                      Location *location) {
   if (location->getName() == "intro") {
-    sfxPlayer.play("qrc:/audio/sfx/lanternRustle.mp3", 0);
+    sfxPlayer.play("qrc:/audio/sfx/lanternRustle.mp3", sfxPlayer.getdefSfxVol(), 0);
 
     mainWindow->setLocation(intro.getMusicPath(), intro.getAmbiencePath(),
                             &camp);

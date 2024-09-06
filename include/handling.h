@@ -2,19 +2,20 @@
 #define HANDLING_H
 #include "../include/mainwindow.h"
 
-#define NUM_OF_ARG_VERBS 27
-#define NUM_OF_NO_ARG_VERBS 5
-
 class handling {
 public:
+  handling();
   int validateVerb(QString input);
   void splitInput(MainWindow *mainWindow, QString input);
   void handleVerb(MainWindow *mainWindow, QString verb, QString target,
                   Location *location);
 
 private:
+  std::vector<QString> argVerbs;
+  std::vector<QString> noArgVerbs;
+  QString removeWords(const QString& text, const QStringList& words);
   // Verb-specific handling
-  void begin(MainWindow *mainWindow, QString target, Location *location);
+  void begin(MainWindow *mainWindow, Location *location);
   void drink(MainWindow *mainWindow, QString target, Location *location);
   void drinkLake(MainWindow *mainWindow, QString target);
   void drop(MainWindow *mainWindow, QString target, Location *location);
@@ -35,8 +36,7 @@ private:
   void remove(MainWindow *mainWindow, QString target);
   void sit(MainWindow *mainWindow, QString target, Location *location);
   void sitCamp(MainWindow *mainWindow, QString target);
-  void sleep(MainWindow *mainWindow, QString target, Location *location);
-  void sleepCamp(MainWindow *mainWindow, QString target);
+  void sleep(MainWindow *mainWindow, Location *location);
   void stand(MainWindow *mainWindow);
   void take(MainWindow *mainWindow, QString target, Location *location);
   void use(MainWindow *mainWindow, QString target, Location *location);
@@ -46,9 +46,7 @@ private:
   void waitLake(MainWindow *mainWindow);
   void wear(MainWindow *mainWindow, QString target);
 };
-extern handling handle;
 
-extern const char *argVerbs[NUM_OF_ARG_VERBS];
-extern const char *noArgVerbs[NUM_OF_NO_ARG_VERBS];
+extern handling handle;
 
 #endif // HANDLING_H
