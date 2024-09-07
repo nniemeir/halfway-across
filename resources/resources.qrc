@@ -19,5 +19,7 @@
         <file>stylesheets/stylesheet.qss</file>
         <file>images/perished.png</file>
         <file>fonts/PressStart2P-Regular.ttf</file>
+        <file>audio/sfx/eat.mp3</file>
+        <file>audio/sfx/drop.mp3</file>
     </qresource>
 </RCC>

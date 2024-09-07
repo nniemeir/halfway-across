@@ -3,6 +3,10 @@
 
 chiselLake: Breaking ice by Aurelon -- https://freesound.org/s/422621/ -- License: Creative Commons 0
 
+drop: Dropping, Metal Pin on Wood, A.wav by InspectorJ -- https://freesound.org/s/414437/ -- License: Attribution 4.0
+
+eat: Eating An Apple 03.wav by omgbong -- https://freesound.org/s/411595/ -- License: Attribution 4.0
+
 fishReel: Old fishing reel fast rewinding fishing line by AudioPapkin -- https://freesound.org/s/716635/ -- License: Attribution NonCommercial 4.0
 
 fishSet: Dropping tiny pebble in still water surface by jorickhoofd -- https://freesound.org/s/160119/ -- License: Attribution 4.0
