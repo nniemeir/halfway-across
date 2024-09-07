@@ -1,6 +1,6 @@
 #ifndef PLAYER_H_
 #define PLAYER_H_
-#include "halfway.h"
+#include "item.h"
 
 class playerStats {
 public:
@@ -29,7 +29,7 @@ public:
   QString clothesInventory();
   QString bagInventory();
   const item &getInventoryItem(int index) const;
-  void addItem(item itemToAdd);
+  void addItem(const item itemToAdd, int itemIndex);
   void removeItem(int index);
   QString getItemName(int index) const;
   int getItemEffect(int index) const;
@@ -37,6 +37,8 @@ public:
   void setItemEquipped(int index, int value);
   int getItemQuantity(int index) const;
   void setItemQuantity(int index, int value);
+  QString getItemType(int index) const;
+
 
 private:
   int health;

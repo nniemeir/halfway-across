@@ -66,12 +66,14 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 
 
         src/handling/stand.cpp
-        include/halfway.h
+        include/item.h
         src/handling/remove.cpp
         src/handling/wear.cpp
         src/handling/wait.cpp
         include/audio.h
         src/handling/audio.cpp
+        src/handling/cook.cpp
+        src/handling/eat.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET Halfway_Across APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

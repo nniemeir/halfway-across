@@ -1,7 +1,7 @@
 #ifndef WORLD_H
 #define WORLD_H
 #include "../include/locations.h"
-#include "halfway.h"
+#include "item.h"
 #include <time.h>
 
 class worldStats {

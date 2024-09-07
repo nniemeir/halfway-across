@@ -20,9 +20,13 @@ AGAIN (G)*
 
 BEGIN*
 
+COOK
+
 DRINK
 
 DROP
+
+EAT
 
 LOOK
 

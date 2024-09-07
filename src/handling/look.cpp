@@ -28,7 +28,7 @@ void handling::lookCamp(MainWindow *mainWindow, QString target) {
       {"BED", "The bed seems to be quite worn."},
       {"CHEST", "The rusty chest contains your belongings."},
       {"GROUND", camp.locInventory()},
-      {"IN BAG", player.bagInventory()},
+      {"BAG", player.bagInventory()},
       {"SELF", player.clothesInventory()},
       {"OUTSIDE",
        QString("It is %1 outside.").arg(world.getCurrentWeather().toLower())}};
@@ -46,7 +46,7 @@ void handling::lookCampPath(MainWindow *mainWindow, QString target,
       {"AROUND", location->getDescription()},
       {"GROUND", location->locInventory()},
       {"PATH", "The other branches of the path go off into the distance.\n"},
-      {"IN BAG", player.bagInventory()},
+      {"BAG", player.bagInventory()},
       {"SELF", player.clothesInventory()}};
 
   if (descriptions.contains(target)) {
@@ -61,7 +61,7 @@ void handling::lookCave(MainWindow *mainWindow, QString target) {
       {"AROUND", valley.getDescription()},
       {"GROUND", cave.locInventory()},
 
-      {"IN BAG", player.bagInventory()},
+      {"BAG", player.bagInventory()},
       {"SELF", player.clothesInventory()}};
   if (descriptions.contains(target)) {
     mainWindow->setDescription(descriptions.value(target));
@@ -75,7 +75,7 @@ void handling::lookCaveEntrance(MainWindow *mainWindow, QString target) {
       {"AROUND", caveEntrance.getDescription()},
       {"GROUND", caveEntrance.locInventory()},
 
-      {"IN BAG", player.bagInventory()},
+      {"BAG", player.bagInventory()},
       {"SELF", player.clothesInventory()}};
   if (descriptions.contains(target)) {
     mainWindow->setDescription(descriptions.value(target));
@@ -90,7 +90,7 @@ void handling::lookLake(MainWindow *mainWindow, QString target) {
       {"GROUND", lake.locInventory()},
       {"LAKE", "The lake has frozen over.\n"},
       {"MOUNTAIN", "Who knows whthmountain holds?\n"},
-      {"IN BAG", player.bagInventory()},
+      {"BAG", player.bagInventory()},
       {"SELF", player.clothesInventory()}};
 
   if (descriptions.contains(target)) {
@@ -106,7 +106,7 @@ void handling::lookValley(MainWindow *mainWindow, QString target) {
       {"GROUND", valley.locInventory()},
       {"TREES", "The trees are covered in snow."},
 
-      {"IN BAG", player.bagInventory()},
+      {"BAG", player.bagInventory()},
       {"SELF", player.clothesInventory()}};
   if (descriptions.contains(target)) {
     mainWindow->setDescription(descriptions.value(target));

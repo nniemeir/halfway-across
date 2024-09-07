@@ -96,7 +96,7 @@ QString playerStats::constructReflection() const {
 int playerStats::searchInventory(const QString &itemName) const {
   auto it =
       std::find_if(inventory.begin(), inventory.end(),
-                   [&](const item &i) { return i.name == itemName.toUpper(); });
+                           [&](const item &i) { return i.name == itemName; });
 
   if (it != inventory.end()) {
     int index = std::distance(inventory.begin(), it);
@@ -142,12 +142,20 @@ const item &playerStats::getInventoryItem(int index) const {
   return inventory[index];
 }
 
-void playerStats::addItem(const item itemToAdd) {
-  inventory.push_back(itemToAdd);
+void playerStats::addItem(const item itemToAdd, int itemIndex) {
+    if (itemIndex == -1) {
+        inventory.push_back(itemToAdd);
+    } else {
+        setItemQuantity(itemIndex, getItemQuantity(itemIndex) + 1);
+    }
 }
 
-void playerStats::removeItem(int index) {
-  inventory.erase(inventory.begin() + index);
+void playerStats::removeItem(int itemIndex) {
+    if (getItemQuantity(itemIndex) >= 1) {
+        inventory.erase(inventory.begin() + itemIndex);
+    } else {
+        setItemQuantity(itemIndex, getItemQuantity(itemIndex) - 1);
+    }
 }
 
 QString playerStats::getItemName(int index) const {
@@ -172,4 +180,8 @@ int playerStats::getItemQuantity(int index) const {
 
 void playerStats::setItemQuantity(int index, int value) {
   inventory[index].amount = value;
+}
+
+QString playerStats::getItemType(int index) const {
+    return inventory[index].type;
 }

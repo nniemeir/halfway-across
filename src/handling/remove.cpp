@@ -2,7 +2,7 @@
 #include "../../include/player.h"
 
 void handling::remove(MainWindow *mainWindow, QString target) {
-  int index = player.searchInventory(target.toUpper());
+  int index = player.searchInventory(target);
   if (index != -1) {
     if (player.getItemEquipped(index) == 1) {
       player.setItemEquipped(index, 0);

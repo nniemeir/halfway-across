@@ -41,10 +41,9 @@ int handling::validateVerb(QString input) {
 }
 
 void handling::splitInput(MainWindow *mainWindow, QString input) {
-QStringList fillerWords = {"AT", "ON", "THE"};
+QStringList fillerWords = {"AT", "IN", "ON", "THE"};
     input = removeWords(input, fillerWords);
 
-qDebug() << input;
   QStringList parts = input.split(" ");
 
   QString verb;
@@ -68,10 +67,14 @@ void handling::handleVerb(MainWindow *mainWindow, QString verb, QString target,
                           Location *location) {
   if (verb == "BEGIN") {
     handling::begin(mainWindow, location);
+  } else if (verb == "COOK") {
+    handling::cook(mainWindow, target, location);
   } else if (verb == "DRINK") {
     handling::drink(mainWindow, target, location);
   } else if (verb == "DROP") {
     handling::drop(mainWindow, target, location);
+  } else if (verb == "EAT") {
+    handling::eat(mainWindow, target);
   } else if (verb == "EXAMINE" || verb == "LOOK") {
     handling::look(mainWindow, target, location);
   } else if (verb == "GO" || verb == "MOVE") {

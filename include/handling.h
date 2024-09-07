@@ -16,9 +16,11 @@ private:
   QString removeWords(const QString& text, const QStringList& words);
   // Verb-specific handling
   void begin(MainWindow *mainWindow, Location *location);
+  void cook(MainWindow *mainWindow, QString target, Location *location);
   void drink(MainWindow *mainWindow, QString target, Location *location);
   void drinkLake(MainWindow *mainWindow, QString target);
   void drop(MainWindow *mainWindow, QString target, Location *location);
+  void eat(MainWindow *mainWindow, QString target);
   void look(MainWindow *mainWindow, QString target, Location *location);
   void lookCamp(MainWindow *mainWindow, QString target);
   void lookCampPath(MainWindow *mainWindow, QString target, Location *location);

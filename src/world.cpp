@@ -7,10 +7,10 @@ worldStats world;
 worldStats::worldStats()
     : currentLocation(nullptr), day(1), currentTemperature(32),
       currentWeather("clear"), chiseledIce(0),
-      fish{{"CUTTHROAT TROUT", 1, 0, 25, "food"},
-           {"BROOK TROUT", 1, 0, 25, "food"},
-           {"RAINBOW TROUT", 1, 0, 30, "food"},
-           {"BROWN TROUT", 1, 0, 35, "food"}}, directions{"NORTH", "WEST", "SOUTH", "EAST", "N", "W", "S", "E"} {}
+      fish{{"CUTTHROAT TROUT", 1, 0, 25, "RAW MEAT"},
+           {"BROOK TROUT", 1, 0, 25, "RAW MEAT"},
+           {"RAINBOW TROUT", 1, 0, 30, "RAW MEAT"},
+           {"BROWN TROUT", 1, 0, 35, "RAW MEAT"}}, directions{"NORTH", "WEST", "SOUTH", "EAST", "N", "W", "S", "E"} {}
 
 bool worldStats::validDirection(const QString &value)
 {
@@ -94,13 +94,12 @@ const item &worldStats::getFish(int index) const { return fish[index]; }
 
 int worldStats::searchFish(const QString &itemName) const {
   auto it = std::find_if(fish.begin(), fish.end(), [&](const item &i) {
-    return i.name == itemName.toUpper();
+    return i.name == itemName;
   });
   if (it != fish.end()) {
     int index = std::distance(fish.begin(), it);
     return index;
   } else {
-    qDebug() << "Generated fish was:" << itemName;
     return -1;
   }
 }

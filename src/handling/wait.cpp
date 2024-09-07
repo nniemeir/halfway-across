@@ -21,12 +21,7 @@ void handling::waitLake(MainWindow *mainWindow) {
           QString("You caught a %1!\n")
               .arg(world.getFishName(itemIndex).toLower()));
       int playerItemIndex = player.searchInventory(generatedFish);
-      if (playerItemIndex != -1) {
-        player.setItemQuantity(playerItemIndex,
-                               player.getItemQuantity(playerItemIndex) + 1);
-      } else {
-        player.addItem(world.getFish(itemIndex));
-      }
+        player.addItem(world.getFish(itemIndex), playerItemIndex);
     }
     world.setLineSet(0);
   }

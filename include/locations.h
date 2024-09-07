@@ -1,6 +1,6 @@
 #ifndef LOCATIONS_H
 #define LOCATIONS_H
-#include "halfway.h"
+#include "item.h"
 
 class Location {
 public:
@@ -20,7 +20,7 @@ public:
   int searchInventory(const QString &itemName) const;
   QString locInventory() const;
   const item &getInventoryItem(int index) const;
-  void addItem(const item &itemToAdd);
+  void addItem(const item itemToAdd, int itemIndex);
   void removeItem(int index);
   QString getItemName(int index) const;
   int getItemEquipped(int index) const;
