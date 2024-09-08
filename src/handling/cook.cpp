@@ -5,14 +5,14 @@
 
 void handling::cook(MainWindow *mainWindow, QString target, Location *location) {
     if (location->getName() == "camp") {
-        int itemIndex = player.searchInventory(target);
+        int itemIndex = inventoryObj.searchInventory(player.getInventory(), target);
         if (itemIndex!= -1) {
-            if (player.getItemType(itemIndex) == "RAW MEAT") {
+            if (inventoryObj.getItemType(player.getInventory(), itemIndex) == "RAW MEAT") {
                 mainWindow->setDescription(QString("You cook the %1.").arg(target.toLower()));
                 item cooker;
-                item cookedItem = cooker.makeCookedVersion(player.getInventoryItem(itemIndex));
-                int cookedIndex = player.searchInventory(cookedItem.name);
-                player.addItem(cookedItem, cookedIndex);
+                item cookedItem = cooker.makeCookedVersion(inventoryObj.getInventoryItem(player.getInventory(), itemIndex));
+                int cookedIndex = inventoryObj.searchInventory(player.getInventory(), cookedItem.name);
+                inventoryObj.addItem(player.getInventory(), cookedItem, cookedIndex);
             } else {
                 mainWindow->setDescription("You can't cook that.");
             }

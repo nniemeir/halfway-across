@@ -65,17 +65,7 @@ QString Location::getImage() const { return image; }
 QString Location::getAmbiencePath() const { return ambiencePath; }
 QString Location::getMusicPath() const { return musicPath; }
 
-int Location::searchInventory(const QString &itemName) const {
-  auto it =
-      std::find_if(inventory.begin(), inventory.end(),
-                   [&](const item &i) { return i.name == itemName; });
-  if (it != inventory.end()) {
-    int index = std::distance(inventory.begin(), it);
-    return index;
-  } else {
-    return -1;
-  }
-}
+std::vector<item> &Location::getInventory() { return inventory; }
 
 QString Location::locInventory() const {
   QString inventoryText;
@@ -84,41 +74,4 @@ QString Location::locInventory() const {
     inventoryText.append(QString("%1\n").arg(item.name));
   }
   return inventoryText;
-}
-
-const item &Location::getInventoryItem(int index) const {
-  return inventory[index];
-}
-void Location::addItem(const item itemToAdd, int itemIndex) {
-    if (itemIndex == -1) {
-        inventory.push_back(itemToAdd);
-    } else {
-        setItemQuantity(itemIndex, getItemQuantity(itemIndex) + 1);
-    }
-}
-
-void Location::removeItem(int itemIndex) {
-    if (getItemQuantity(itemIndex) == 1) {
-        inventory.erase(inventory.begin() + itemIndex);
-    } else {
-        setItemQuantity(itemIndex, getItemQuantity(itemIndex) - 1);
-    }
-}
-
-QString Location::getItemName(int index) const { return inventory[index].name; }
-
-int Location::getItemEquipped(int index) const {
-  return inventory[index].active;
-}
-
-void Location::setItemEquipped(int index, int value) {
-  inventory[index].active = value;
-}
-
-int Location::getItemQuantity(int index) const {
-  return inventory[index].amount;
-}
-
-void Location::setItemQuantity(int index, int value) {
-  inventory[index].amount = value;
 }

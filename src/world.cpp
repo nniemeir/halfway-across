@@ -84,26 +84,6 @@ QString worldStats::generateWeather() {
   }
 }
 
-QString worldStats::getFishName(int index) const { return fish[index].name; }
-
-int worldStats::getFishEffect(int index) const { return fish[index].effects; }
-
-int worldStats::getFishQuantity(int index) const { return fish[index].amount; }
-
-const item &worldStats::getFish(int index) const { return fish[index]; }
-
-int worldStats::searchFish(const QString &itemName) const {
-  auto it = std::find_if(fish.begin(), fish.end(), [&](const item &i) {
-    return i.name == itemName;
-  });
-  if (it != fish.end()) {
-    int index = std::distance(fish.begin(), it);
-    return index;
-  } else {
-    return -1;
-  }
-}
-
 QString worldStats::generateFish() {
   float brownTroutProb = 10;
   float rainbowTroutProb = 30;
@@ -119,3 +99,5 @@ QString worldStats::generateFish() {
     return "CUTTHROAT TROUT";
   }
 }
+
+std::vector<item> &worldStats::getFishInventory() { return fish; }

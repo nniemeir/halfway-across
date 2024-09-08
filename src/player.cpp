@@ -39,6 +39,8 @@ void playerStats::setCharm(int c) { charm = constrainStat(c); }
 int playerStats::getStanding() const { return standing; }
 void playerStats::setStanding(int s) { standing = constrainStat(s); }
 
+std::vector<item> &playerStats::getInventory() { return inventory; }
+
 int playerStats::constrainStat(int stat) {
   return std::max(0, std::min(stat, 100));
 }
@@ -90,22 +92,6 @@ QString playerStats::constructReflection() const {
   return reflection;
 }
 
-// Since verb handling often involves checking if the player has a given item in
-// their inventory, this and its equivalent in Location will be altered later to
-// use a hash table for the sake of performance
-int playerStats::searchInventory(const QString &itemName) const {
-  auto it =
-      std::find_if(inventory.begin(), inventory.end(),
-                           [&](const item &i) { return i.name == itemName; });
-
-  if (it != inventory.end()) {
-    int index = std::distance(inventory.begin(), it);
-    return index;
-  } else {
-    return -1;
-  }
-}
-
 QString playerStats::clothesInventory() {
   QString inventoryText;
   for (const auto &item : inventory) {
@@ -138,50 +124,3 @@ QString playerStats::bagInventory() {
   return inventoryText;
 }
 
-const item &playerStats::getInventoryItem(int index) const {
-  return inventory[index];
-}
-
-void playerStats::addItem(const item itemToAdd, int itemIndex) {
-    if (itemIndex == -1) {
-        inventory.push_back(itemToAdd);
-    } else {
-        setItemQuantity(itemIndex, getItemQuantity(itemIndex) + 1);
-    }
-}
-
-void playerStats::removeItem(int itemIndex) {
-    if (getItemQuantity(itemIndex) >= 1) {
-        inventory.erase(inventory.begin() + itemIndex);
-    } else {
-        setItemQuantity(itemIndex, getItemQuantity(itemIndex) - 1);
-    }
-}
-
-QString playerStats::getItemName(int index) const {
-  return inventory[index].name;
-}
-
-int playerStats::getItemEquipped(int index) const {
-  return inventory[index].active;
-}
-
-int playerStats::getItemEffect(int index) const {
-  return inventory[index].effects;
-}
-
-void playerStats::setItemEquipped(int index, int value) {
-  inventory[index].active = value;
-}
-
-int playerStats::getItemQuantity(int index) const {
-  return inventory[index].amount;
-}
-
-void playerStats::setItemQuantity(int index, int value) {
-  inventory[index].amount = value;
-}
-
-QString playerStats::getItemType(int index) const {
-    return inventory[index].type;
-}

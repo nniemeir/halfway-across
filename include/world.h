@@ -29,11 +29,7 @@ public:
   int travelChecks();
 
   QString generateFish();
-  int searchFish(const QString &itemName) const;
-  QString getFishName(int index) const;
-  int getFishEffect(int index) const;
-  int getFishQuantity(int index) const;
-  const item &getFish(int index) const;
+  std::vector<item> &getFishInventory();
 
   bool validDirection(const QString &value);
 

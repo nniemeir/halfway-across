@@ -21,7 +21,7 @@ void handling::useCamp(MainWindow *mainWindow, QString target) {
 
 void handling::useLake(MainWindow *mainWindow, QString target) {
   if (target == "CHISEL") {
-    if (player.searchInventory("CHISEL") != -1) {
+    if (inventoryObj.searchInventory(player.getInventory(), "CHISEL") != -1) {
       sfxPlayer.play("qrc:/audio/sfx/chiselLake.mp3", sfxPlayer.getdefSfxVol(), 0);
       mainWindow->setDescription("You chisel a hole in the ice.\n");
       world.setChiseledIce(1);
@@ -29,7 +29,7 @@ void handling::useLake(MainWindow *mainWindow, QString target) {
       mainWindow->setDescription("You don't have a chisel.");
     }
   } else if (target == "FISHING ROD") {
-    if (player.searchInventory("FISHING ROD") != -1) {
+    if (inventoryObj.searchInventory(player.getInventory(), "FISHING ROD") != -1) {
       if (world.getChiseledIce()) {
         sfxPlayer.play("qrc:/audio/sfx/fishSet.mp3", sfxPlayer.getdefSfxVol(), 0);
         world.setLineSet(1);

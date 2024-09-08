@@ -2,11 +2,11 @@
 #include "../../include/player.h"
 
 void handling::remove(MainWindow *mainWindow, QString target) {
-  int index = player.searchInventory(target);
+  int index = inventoryObj.searchInventory(player.getInventory(), target);
   if (index != -1) {
-    if (player.getItemEquipped(index) == 1) {
-      player.setItemEquipped(index, 0);
-      player.setWarmth(player.getWarmth() - player.getItemEffect(index));
+    if (inventoryObj.getItemEquipped(player.getInventory(), index) == 1) {
+      inventoryObj.setItemEquipped(player.getInventory(), index, 0);
+      player.setWarmth(player.getWarmth() - inventoryObj.getItemEffect(player.getInventory(), index));
       mainWindow->setDescription(
           QString("You remove your %1.").arg(target.toLower()));
     } else {

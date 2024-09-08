@@ -2,11 +2,11 @@
 #include "../../include/player.h"
 
 void handling::wear(MainWindow *mainWindow, QString target) {
-  int index = player.searchInventory(target);
+  int index = inventoryObj.searchInventory(player.getInventory(), target);
   if (index != -1) {
-    if (player.getItemEquipped(index) == 0) {
-      player.setItemEquipped(index, 1);
-      player.setWarmth(player.getWarmth() + player.getItemEffect(index));
+    if (inventoryObj.getItemEquipped(player.getInventory(), index) == 0) {
+      inventoryObj.setItemEquipped(player.getInventory(), index, 1);
+      player.setWarmth(player.getWarmth() + inventoryObj.getItemEffect(player.getInventory(), index));
       mainWindow->setDescription(
           QString("You put on your %1.").arg(target.toLower()));
     } else {

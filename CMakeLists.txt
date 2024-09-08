@@ -74,6 +74,9 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/handling/audio.cpp
         src/handling/cook.cpp
         src/handling/eat.cpp
+        include/inventory.h
+        src/inventory.cpp
+
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET Halfway_Across APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

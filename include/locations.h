@@ -1,8 +1,9 @@
 #ifndef LOCATIONS_H
 #define LOCATIONS_H
+#include "inventory.h"
 #include "item.h"
 
-class Location {
+class Location: public Inventory {
 public:
   Location();
   Location(const QString &name, const QString &description,
@@ -16,17 +17,9 @@ public:
   QString getAmbiencePath() const;
   QString getMusicPath() const;
 
-  // Inventory
-  int searchInventory(const QString &itemName) const;
   QString locInventory() const;
-  const item &getInventoryItem(int index) const;
-  void addItem(const item itemToAdd, int itemIndex);
-  void removeItem(int index);
-  QString getItemName(int index) const;
-  int getItemEquipped(int index) const;
-  void setItemEquipped(int index, int value);
-  int getItemQuantity(int index) const;
-  void setItemQuantity(int index, int value);
+  std::vector<item> &getInventory();
+
 
 private:
   QString name;
