@@ -17,6 +17,8 @@ moveSnow: Snow walk. Slow, fast, very fast. wav by rempen -- https://freesound.o
 
 moveStone: Walking on stone by vicleb -- https://freesound.org/s/712859/ -- License: Creative Commons 0
 
+sleep: Sheets Shuffling by Flem0527 -- https://freesound.org/s/629974/ -- License: Creative Commons 0
+
 take: Grab1.wav by sound_and_fury -- https://freesound.org/s/652661/ -- License: Creative Commons 0
 
 ### Ambience sourced from FreeSound.org
