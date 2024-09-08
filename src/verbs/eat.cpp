@@ -1,6 +1,6 @@
+#include "../../include/audio.h"
 #include "../../include/handling.h"
 #include "../../include/player.h"
-#include "../../include/audio.h"
 
 void handling::eat(MainWindow *mainWindow, QString target) {
     int itemIndex = inventoryObj.searchInventory(player.getInventory(), target);

@@ -1,7 +1,7 @@
+#include "../../include/audio.h"
 #include "../../include/handling.h"
 #include "../../include/locations.h"
 #include "../../include/player.h"
-#include "../../include/audio.h"
 
 void handling::drop(MainWindow *mainWindow, QString target,
                     Location *location) {

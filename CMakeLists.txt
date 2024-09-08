@@ -24,59 +24,35 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(Halfway_Across
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+        include/audio.h
         include/handling.h
+        include/inventory.h
+        include/item.h
         include/locations.h
         include/player.h
         include/world.h
         resources/resources.qrc
+        src/audio.cpp
+        src/handling.cpp
+        src/inventory.cpp
         src/locations.cpp
         src/player.cpp
+        src/verbs/begin.cpp
+        src/verbs/cook.cpp
+        src/verbs/drink.cpp
+        src/verbs/drop.cpp
+        src/verbs/eat.cpp
+        src/verbs/look.cpp
+        src/verbs/move.cpp
+        src/verbs/remove.cpp
+        src/verbs/sit.cpp
+        src/verbs/sleep.cpp
+        src/verbs/stand.cpp
+        src/verbs/take.cpp
+        src/verbs/use.cpp
+        src/verbs/wait.cpp
+        src/verbs/wear.cpp
         src/world.cpp
-
-
-        src/handling/begin.cpp
-        src/handling/begin.cpp
-
-        src/handling/drink.cpp
-        src/handling/drink.cpp
-        src/handling/drop.cpp
-
-
-
-        src/handling/handling.cpp
-
-
-        src/handling/look.cpp
-        src/handling/look.cpp
-        src/handling/move.cpp
-        src/handling/move.cpp
-
-
-
-        src/handling/sit.cpp
-        src/handling/sit.cpp
-        src/handling/sleep.cpp
-        src/handling/sleep.cpp
-        src/handling/take.cpp
-
-
-        src/handling/use.cpp
-        src/handling/use.cpp
-
-
-
-        src/handling/stand.cpp
-        include/item.h
-        src/handling/remove.cpp
-        src/handling/wear.cpp
-        src/handling/wait.cpp
-        include/audio.h
-        src/handling/audio.cpp
-        src/handling/cook.cpp
-        src/handling/eat.cpp
-        include/inventory.h
-        src/inventory.cpp
-
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET Halfway_Across APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

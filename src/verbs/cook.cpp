@@ -1,7 +1,6 @@
 #include "../../include/handling.h"
-#include "../../include/player.h"
 #include "../../include/item.h"
-
+#include "../../include/player.h"
 
 void handling::cook(MainWindow *mainWindow, QString target, Location *location) {
     if (location->getName() == "camp") {

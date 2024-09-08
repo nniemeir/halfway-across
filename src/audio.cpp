@@ -1,4 +1,4 @@
-#include "../../include/audio.h"
+#include "../include/audio.h"
 
 audio::audio() {
   music = new QMediaPlayer();

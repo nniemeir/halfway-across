@@ -1,6 +1,5 @@
-#include "../include/world.h"
 #include "../include/player.h"
-#include <QDebug>
+#include "../include/world.h"
 
 worldStats world;
 

@@ -1,7 +1,7 @@
 #include "../../include/audio.h"
 #include "../../include/handling.h"
-#include "../../include/player.h"
 #include "../../include/inventory.h"
+#include "../../include/player.h"
 
 void handling::take(MainWindow *mainWindow, QString target,
                     Location *location) {

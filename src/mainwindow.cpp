@@ -1,10 +1,10 @@
-#include "../include/mainwindow.h"
 #include "../include/audio.h"
 #include "../include/handling.h"
 #include "../include/locations.h"
+#include "../include/mainwindow.h"
 #include "../include/world.h"
 #include "src/ui_mainwindow.h"
- #include <QFontDatabase>
+#include <QFontDatabase>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
