@@ -2,7 +2,7 @@
 #include "../../include/player.h"
 #include "../../include/world.h"
 
-void handling::drink(MainWindow *mainWindow, QString target,
+void Handling::drink(MainWindow *mainWindow, QString target,
                      Location *location) {
   if (location->getName() == "lake") {
     drinkLake(mainWindow, target);
@@ -11,7 +11,7 @@ void handling::drink(MainWindow *mainWindow, QString target,
   }
 }
 
-void handling::drinkLake(MainWindow *mainWindow, QString target) {
+void Handling::drinkLake(MainWindow *mainWindow, QString target) {
   if (target == "FROM LAKE") {
         if (world.getChiseledIce() == 1) {
     mainWindow->setDescription(

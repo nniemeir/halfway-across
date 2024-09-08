@@ -2,7 +2,7 @@
 #include "../../include/item.h"
 #include "../../include/player.h"
 
-void handling::cook(MainWindow *mainWindow, QString target, Location *location) {
+void Handling::cook(MainWindow *mainWindow, QString target, Location *location) {
     if (location->getName() == "camp") {
         int itemIndex = inventoryObj.searchInventory(player.getInventory(), target);
         if (itemIndex!= -1) {

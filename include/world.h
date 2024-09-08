@@ -1,12 +1,11 @@
 #ifndef WORLD_H
 #define WORLD_H
 #include "../include/locations.h"
-#include "item.h"
-#include <time.h>
+#include "../include/item.h"
 
-class worldStats {
+class World {
 public:
-  worldStats();
+  World();
     typedef enum { TRAVEL_YES = 1, TRAVEL_BLIZZARD, TRAVEL_TIRED } TravelResponses;
 
   // Day
@@ -16,7 +15,6 @@ public:
   // Location
   Location *getCurrentLocation() const;
   void initializeLocation(Location *initialLocation);
-
   void setCurrentLocation(Location *location);
 
   // Day-specific
@@ -28,9 +26,11 @@ public:
   void setLineSet(int newValue);
   int travelChecks();
 
+  // Fishing
   QString generateFish();
   std::vector<item> &getFishInventory();
 
+  // Movement
   bool validDirection(const QString &value);
 
 private:
@@ -47,5 +47,5 @@ private:
 };
 
 
-extern worldStats world;
+extern World world;
 #endif // WORLD_H

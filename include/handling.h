@@ -2,9 +2,9 @@
 #define HANDLING_H
 #include "../include/mainwindow.h"
 
-class handling {
+class Handling {
 public:
-  handling();
+  Handling();
   int validateVerb(QString input);
   void splitInput(MainWindow *mainWindow, QString input);
   void handleVerb(MainWindow *mainWindow, QString verb, QString target,
@@ -13,7 +13,7 @@ public:
 private:
   std::vector<QString> argVerbs;
   std::vector<QString> noArgVerbs;
-  QString removeWords(const QString& text, const QStringList& words);
+  QString removeFillerWords(const QString& text, const QStringList& words);
   // Verb-specific handling
   void begin(MainWindow *mainWindow, Location *location);
   void cook(MainWindow *mainWindow, QString target, Location *location);
@@ -49,6 +49,6 @@ private:
   void wear(MainWindow *mainWindow, QString target);
 };
 
-extern handling handle;
+extern Handling handle;
 
 #endif // HANDLING_H

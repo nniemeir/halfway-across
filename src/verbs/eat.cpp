@@ -2,7 +2,7 @@
 #include "../../include/handling.h"
 #include "../../include/player.h"
 
-void handling::eat(MainWindow *mainWindow, QString target) {
+void Handling::eat(MainWindow *mainWindow, QString target) {
     int itemIndex = inventoryObj.searchInventory(player.getInventory(), target);
     if (itemIndex!= -1) {
         if (inventoryObj.getItemType(player.getInventory(), itemIndex) == "FOOD") {

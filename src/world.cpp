@@ -1,9 +1,9 @@
 #include "../include/player.h"
 #include "../include/world.h"
 
-worldStats world;
+World world;
 
-worldStats::worldStats()
+World::World()
     : currentLocation(nullptr), day(1), currentTemperature(32),
       currentWeather("clear"), chiseledIce(0),
       fish{{"CUTTHROAT TROUT", 1, 0, 25, "RAW MEAT"},
@@ -11,40 +11,40 @@ worldStats::worldStats()
            {"RAINBOW TROUT", 1, 0, 30, "RAW MEAT"},
            {"BROWN TROUT", 1, 0, 35, "RAW MEAT"}}, directions{"NORTH", "WEST", "SOUTH", "EAST", "N", "W", "S", "E"} {}
 
-bool worldStats::validDirection(const QString &value)
+bool World::validDirection(const QString &value)
 {
     return std::find(directions.begin(), directions.end(), value) != directions.end();
 }
 
-void worldStats::advanceDay() {
+void World::advanceDay() {
   player.setEnergy(1);
-  world.setChiseledIce(0);
+  setChiseledIce(0);
   day++;
   currentTemperature = generateTemperature();
   currentWeather = generateWeather();
 }
 
-void worldStats::initializeLocation(Location *initialLocation) {
+void World::initializeLocation(Location *initialLocation) {
   currentLocation = initialLocation;
 }
 
-int worldStats::getDay() const { return day; }
+int World::getDay() const { return day; }
 
-Location *worldStats::getCurrentLocation() const { return currentLocation; }
+Location *World::getCurrentLocation() const { return currentLocation; }
 
-void worldStats::setCurrentLocation(Location *location) {
+void World::setCurrentLocation(Location *location) {
   currentLocation = location;
 }
 
-int worldStats::getChiseledIce() const { return chiseledIce; }
+int World::getChiseledIce() const { return chiseledIce; }
 
-void worldStats::setChiseledIce(int newValue) { chiseledIce = newValue; }
+void World::setChiseledIce(int newValue) { chiseledIce = newValue; }
 
-int worldStats::getLineSet() const { return lineSet; }
+int World::getLineSet() const { return lineSet; }
 
-void worldStats::setLineSet(int newValue) { lineSet = newValue; }
+void World::setLineSet(int newValue) { lineSet = newValue; }
 
-int worldStats::travelChecks() {
+int World::travelChecks() {
   if (currentWeather == "snowing heavily") {
     return TRAVEL_BLIZZARD;
   } else if (player.getEnergy() == 0) {
@@ -54,20 +54,20 @@ int worldStats::travelChecks() {
   }
 }
 
-int worldStats::getCurrentTemperature() const { return currentTemperature; }
+int World::getCurrentTemperature() const { return currentTemperature; }
 
-QString worldStats::getCurrentWeather() const { return currentWeather; }
+QString World::getCurrentWeather() const { return currentWeather; }
 
 // A given day's temperature will have an effect on
 // how high the warmth stat must be to avoid losing health
-int worldStats::generateTemperature() {
+int World::generateTemperature() {
   int temperature = rand() % (30 + 1);
   return temperature;
 }
 
 // A given day's weather will have an effect on
 // what actions the player can take and how likely they are to succeed at them
-QString worldStats::generateWeather() {
+QString World::generateWeather() {
   float blizzardProb = 5;
   float snowyProb = 20;
   float cloudyProb = 50;
@@ -83,7 +83,7 @@ QString worldStats::generateWeather() {
   }
 }
 
-QString worldStats::generateFish() {
+QString World::generateFish() {
   float brownTroutProb = 10;
   float rainbowTroutProb = 30;
   float brookTroutProb = 60;
@@ -99,4 +99,4 @@ QString worldStats::generateFish() {
   }
 }
 
-std::vector<item> &worldStats::getFishInventory() { return fish; }
+std::vector<item> &World::getFishInventory() { return fish; }

@@ -3,7 +3,7 @@
 #include "../../include/player.h"
 #include "../../include/world.h"
 
-void handling::use(MainWindow *mainWindow, QString target, Location *location) {
+void Handling::use(MainWindow *mainWindow, QString target, Location *location) {
     if (location->getName() == "camp") {
     } else if (location->getName() == "campPath") {
     } else if (location->getName() == "caveEntrance") {
@@ -16,10 +16,10 @@ void handling::use(MainWindow *mainWindow, QString target, Location *location) {
   }
 }
 
-void handling::useCamp(MainWindow *mainWindow, QString target) {
+void Handling::useCamp(MainWindow *mainWindow, QString target) {
 }
 
-void handling::useLake(MainWindow *mainWindow, QString target) {
+void Handling::useLake(MainWindow *mainWindow, QString target) {
   if (target == "CHISEL") {
     if (inventoryObj.searchInventory(player.getInventory(), "CHISEL") != -1) {
       sfxPlayer.play("qrc:/audio/sfx/chiselLake.mp3", sfxPlayer.getdefSfxVol(), 0);

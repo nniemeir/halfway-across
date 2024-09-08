@@ -1,6 +1,6 @@
 #include "../include/audio.h"
 
-audio::audio() {
+Audio::Audio() {
   music = new QMediaPlayer();
   audioOutput = new QAudioOutput();
   defAmbienceVol = 0.8;
@@ -8,7 +8,7 @@ audio::audio() {
   defSfxVol = 1;
 }
 
-void audio::play(QString filePath, int volume, int isBackground) {
+void Audio::play(QString filePath, int volume, int isBackground) {
   if (music->playbackState() == QMediaPlayer::PlayingState) {
     music->stop();
   }
@@ -21,18 +21,18 @@ void audio::play(QString filePath, int volume, int isBackground) {
   music->play();
 }
 
-float audio::getdefAmbienceVol() const {
+float Audio::getdefAmbienceVol() const {
     return defAmbienceVol;
 }
 
-float audio::getdefMusicVol() const {
+float Audio::getdefMusicVol() const {
     return defMusicVol;
 }
 
-float audio::getdefSfxVol() const {
+float Audio::getdefSfxVol() const {
     return defSfxVol;
 }
 
-audio ambiencePlayer;
-audio musicPlayer;
-audio sfxPlayer;
+Audio ambiencePlayer;
+Audio musicPlayer;
+Audio sfxPlayer;

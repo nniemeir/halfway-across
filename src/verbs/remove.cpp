@@ -1,7 +1,7 @@
 #include "../../include/handling.h"
 #include "../../include/player.h"
 
-void handling::remove(MainWindow *mainWindow, QString target) {
+void Handling::remove(MainWindow *mainWindow, QString target) {
   int index = inventoryObj.searchInventory(player.getInventory(), target);
   if (index != -1) {
     if (inventoryObj.getItemEquipped(player.getInventory(), index) == 1) {

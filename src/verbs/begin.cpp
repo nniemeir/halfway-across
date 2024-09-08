@@ -1,7 +1,7 @@
 #include "../../include/audio.h"
 #include "../../include/handling.h"
 
-void handling::begin(MainWindow *mainWindow,
+void Handling::begin(MainWindow *mainWindow,
                      Location *location) {
   if (location->getName() == "intro") {
     sfxPlayer.play("qrc:/audio/sfx/lanternRustle.mp3", sfxPlayer.getdefSfxVol(), 0);

@@ -3,7 +3,7 @@
 #include "../../include/player.h"
 #include "../../include/world.h"
 
-void handling::wait(MainWindow *mainWindow, Location *location) {
+void Handling::wait(MainWindow *mainWindow, Location *location) {
   if (location->getName() == "lake") {
     waitLake(mainWindow);
   } else {
@@ -11,7 +11,7 @@ void handling::wait(MainWindow *mainWindow, Location *location) {
   }
 }
 
-void handling::waitLake(MainWindow *mainWindow) {
+void Handling::waitLake(MainWindow *mainWindow) {
   if (world.getLineSet() == 1) {
     QString generatedFish = world.generateFish();
     int itemIndex = inventoryObj.searchInventory(world.getFishInventory(), generatedFish);

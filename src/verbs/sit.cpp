@@ -1,7 +1,7 @@
 #include "../../include/handling.h"
 #include "../../include/player.h"
 
-void handling::sit(MainWindow *mainWindow, QString target, Location *location) {
+void Handling::sit(MainWindow *mainWindow, QString target, Location *location) {
   if (location->getName() == "camp") {
     sitCamp(mainWindow, target);
   } else {
@@ -9,7 +9,7 @@ void handling::sit(MainWindow *mainWindow, QString target, Location *location) {
   }
 }
 
-void handling::sitCamp(MainWindow *mainWindow, QString target) {
+void Handling::sitCamp(MainWindow *mainWindow, QString target) {
   if (target == "LOG") {
     mainWindow->setDescription("You feel a bit warmer sitting by the fire.");
     player.setStanding(0);

@@ -3,7 +3,7 @@
 #include "../../include/locations.h"
 #include "../../include/player.h"
 
-void handling::drop(MainWindow *mainWindow, QString target,
+void Handling::drop(MainWindow *mainWindow, QString target,
                     Location *location) {
   int itemIndex = inventoryObj.searchInventory(player.getInventory(), target);
   if (itemIndex != -1) {

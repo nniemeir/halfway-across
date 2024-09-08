@@ -3,7 +3,7 @@
 #include "../include/world.h"
 #include <QRegularExpression>
 
-handling::handling() {
+Handling::Handling() {
 
     argVerbs = {
                                               "COOK",  "CHISEL", "DRINK", "DROP",  "EAT",    "EXAMINE",
@@ -14,19 +14,11 @@ handling::handling() {
                                                    "SLEEP", "WAIT", "Z"};
 }
 
-handling handle;
-
-QString handling::removeWords(const QString& text, const QStringList& words) {
-    QString pattern = QString("\\b(%1)\\b").arg(words.join("|"));
-    QRegularExpression regex(pattern);
-    QString modifiedText = text;
-    modifiedText.remove(regex);
-    return modifiedText.trimmed().replace(QRegularExpression("\\s+"), " ");
-}
+Handling handle;
 
 // Inputted verb must match an element of argVerbs or noArgVerbs to be
 // considered valid
-int handling::validateVerb(QString input) {
+int Handling::validateVerb(QString input) {
   bool validArgVerb = false;
   bool validNoArgVerb = false;
   QString inputVerb = input.split(" ").at(0);
@@ -40,9 +32,9 @@ int handling::validateVerb(QString input) {
   return -1;
 }
 
-void handling::splitInput(MainWindow *mainWindow, QString input) {
-QStringList fillerWords = {"AT", "IN", "ON", "THE"};
-    input = removeWords(input, fillerWords);
+void Handling::splitInput(MainWindow *mainWindow, QString input) {
+QStringList fillerWords = {"A", "AT", "IN", "ON", "THE", "TO"};
+    input = removeFillerWords(input, fillerWords);
 
   QStringList parts = input.split(" ");
 
@@ -60,47 +52,55 @@ QStringList fillerWords = {"AT", "IN", "ON", "THE"};
     mainWindow->setDescription(
         QString("You don't know what to %1.").arg(verb.toLower()));
   }
-  handle.handleVerb(mainWindow, verb, target, world.getCurrentLocation());
+  handleVerb(mainWindow, verb, target, world.getCurrentLocation());
 }
 
-void handling::handleVerb(MainWindow *mainWindow, QString verb, QString target,
+void Handling::handleVerb(MainWindow *mainWindow, QString verb, QString target,
                           Location *location) {
   if (verb == "BEGIN") {
-    handling::begin(mainWindow, location);
+    begin(mainWindow, location);
   } else if (verb == "COOK") {
-    handling::cook(mainWindow, target, location);
+    cook(mainWindow, target, location);
   } else if (verb == "DRINK") {
-    handling::drink(mainWindow, target, location);
+    drink(mainWindow, target, location);
   } else if (verb == "DROP") {
-    handling::drop(mainWindow, target, location);
+    drop(mainWindow, target, location);
   } else if (verb == "EAT") {
-    handling::eat(mainWindow, target);
+    eat(mainWindow, target);
   } else if (verb == "EXAMINE" || verb == "LOOK") {
-    handling::look(mainWindow, target, location);
+    look(mainWindow, target, location);
   } else if (verb == "GO" || verb == "MOVE") {
-    handling::move(mainWindow, target, location);
+    move(mainWindow, target, location);
   } else if (verb == "QUIT") {
     mainWindow->closeProgram();
   } else if (verb == "REFLECT") {
     mainWindow->setDescription(player.constructReflection());
   } else if (verb == "REMOVE") {
-    handling::remove(mainWindow, target);
+    remove(mainWindow, target);
   } else if (verb == "SIT") {
-    handling::sit(mainWindow, target, location);
+    sit(mainWindow, target, location);
   } else if (verb == "SLEEP") {
-    handling::sleep(mainWindow, location);
+    sleep(mainWindow, location);
   } else if (verb == "STAND") {
-    handling::stand(mainWindow);
+    stand(mainWindow);
   } else if (verb == "TAKE") {
-    handling::take(mainWindow, target, location);
+    take(mainWindow, target, location);
   } else if (verb == "USE") {
-    handling::use(mainWindow, target, location);
+    use(mainWindow, target, location);
   } else if (verb == "WAIT" || verb == "Z") {
-    handling::wait(mainWindow, location);
+    wait(mainWindow, location);
   } else if (verb == "WEAR") {
-    handling::wear(mainWindow, target);
+    wear(mainWindow, target);
   } else {
     mainWindow->setDescription(
         QString("You can't %1 here.").arg(verb.toLower()));
   }
+}
+
+QString Handling::removeFillerWords(const QString& text, const QStringList& words) {
+    QString pattern = QString("\\b(%1)\\b").arg(words.join("|"));
+    QRegularExpression regex(pattern);
+    QString modifiedText = text;
+    modifiedText.remove(regex);
+    return modifiedText.trimmed().replace(QRegularExpression("\\s+"), " ");
 }

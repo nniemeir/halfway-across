@@ -3,7 +3,7 @@
 #include "../../include/player.h"
 #include "../../include/world.h"
 
-void handling::move(MainWindow *mainWindow, QString target,
+void Handling::move(MainWindow *mainWindow, QString target,
                     Location *location) {
     if (player.getStanding() == 1) {
     if (world.validDirection(target))
@@ -33,7 +33,7 @@ void handling::move(MainWindow *mainWindow, QString target,
   }
 }
 
-void handling::moveCamp(MainWindow *mainWindow, QString target) {
+void Handling::moveCamp(MainWindow *mainWindow, QString target) {
   if (target == "NORTH" || target == "N") {
     int canTravel = world.travelChecks();
     switch (canTravel) {
@@ -57,7 +57,7 @@ void handling::moveCamp(MainWindow *mainWindow, QString target) {
   }
 }
 
-void handling::moveCampPath(MainWindow *mainWindow, QString target) {
+void Handling::moveCampPath(MainWindow *mainWindow, QString target) {
     if (target == "WEST" || target == "W") {
     sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(), 0);
     mainWindow->setLocation(campPath.getMusicPath(), campPath.getAmbiencePath(),
@@ -83,7 +83,7 @@ void handling::moveCampPath(MainWindow *mainWindow, QString target) {
   }
 }
 
-void handling::moveCave(MainWindow *mainWindow, QString target) {
+void Handling::moveCave(MainWindow *mainWindow, QString target) {
   if (target == "WEST" || target == "W") {
     sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(), 0);
     mainWindow->setLocation(cave.getMusicPath(), cave.getAmbiencePath(),
@@ -94,7 +94,7 @@ void handling::moveCave(MainWindow *mainWindow, QString target) {
   }
 }
 
-void handling::moveCaveEntrance(MainWindow *mainWindow, QString target) {
+void Handling::moveCaveEntrance(MainWindow *mainWindow, QString target) {
   if (target == "WEST" || target == "W") {
 
     sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(), 0);
@@ -111,7 +111,7 @@ void handling::moveCaveEntrance(MainWindow *mainWindow, QString target) {
   }
 }
 
-void handling::moveLake(MainWindow *mainWindow, QString target) {
+void Handling::moveLake(MainWindow *mainWindow, QString target) {
   if (target == "EAST" || target == "E") {
     sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(), 0);
     mainWindow->setLocation(lake.getMusicPath(), lake.getAmbiencePath(),
@@ -122,7 +122,7 @@ void handling::moveLake(MainWindow *mainWindow, QString target) {
   }
 }
 
-void handling::moveValley(MainWindow *mainWindow, QString target) {
+void Handling::moveValley(MainWindow *mainWindow, QString target) {
   if (target == "SOUTH" || target == "S") {
     sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(), 0);
     mainWindow->setLocation(valley.getMusicPath(), valley.getAmbiencePath(),

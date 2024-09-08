@@ -3,11 +3,11 @@
 #include "inventory.h"
 #include "item.h"
 
-class playerStats: public Inventory {
+class Player: public Inventory {
 public:
-  playerStats();
+  Player();
 
-  // Stats
+  // Stats management
   int getHealth() const;
   void setHealth(int health);
   int getEnergy() const;
@@ -26,9 +26,9 @@ public:
   QString constructReflection() const;
 
   // Inventory
+  std::vector<item> &getInventory();
   QString clothesInventory();
   QString bagInventory();
-  std::vector<item> &getInventory();
 
 private:
   int health;
@@ -42,6 +42,6 @@ private:
 
 };
 
-extern playerStats player;
+extern Player player;
 
 #endif
