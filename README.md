@@ -34,6 +34,8 @@ MOVE
 
 REMOVE
 
+SCRIPT*
+
 SIT
 
 SLEEP
@@ -42,7 +44,11 @@ STAND*
 
 TAKE
 
+UNSCRIPT
+
 USE
+
+VERSION*
 
 WAIT (Z)*
 

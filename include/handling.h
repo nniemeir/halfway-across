@@ -41,6 +41,7 @@ private:
   void moveLake(MainWindow *mainWindow, QString target);
   void moveValley(MainWindow *mainWindow, QString target);
   void remove(MainWindow *mainWindow, QString target);
+  void script(MainWindow *mainWindow);
   void sit(MainWindow *mainWindow, QString target, Location *location);
   void sitCamp(MainWindow *mainWindow, QString target);
   void sleep(MainWindow *mainWindow, Location *location);
@@ -49,6 +50,8 @@ private:
   void use(MainWindow *mainWindow, QString target, Location *location);
   void useCamp(MainWindow *mainWindow, QString target);
   void useLake(MainWindow *mainWindow, QString target);
+  void unscript(MainWindow *mainWindow);
+  void version(MainWindow *mainWindow);
   void wait(MainWindow *mainWindow, Location *location);
   void waitLake(MainWindow *mainWindow);
   void wear(MainWindow *mainWindow, QString target);

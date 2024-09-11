@@ -9,8 +9,7 @@ Handling::Handling() {
                                               "GO",    "LOOK",   "MOVE",  "OPEN",  "REMOVE", "SIT",
                                               "STAND", "TAKE",   "TELL",  "THROW", "USE",    "WEAR"};
 
-   noArgVerbs = {"BEGIN", "QUIT", "REFLECT",
-                                                   "SLEEP", "WAIT", "Z"};
+   noArgVerbs = {"BEGIN", "QUIT", "REFLECT", "SCRIPT", "SLEEP", "UNSCRIPT", "VERSION", "WAIT", "Z"};
 }
 
 Handling handle;
@@ -77,11 +76,14 @@ void Handling::handleVerb(MainWindow *mainWindow, QString verb, QString target,
     actions["QUIT"] = [mainWindow, this]() {     mainWindow->closeProgram(); };
     actions["REFLECT"] = [mainWindow, this]() {     mainWindow->setDescription(player.constructReflection()); };
     actions["REMOVE"] = [mainWindow, target, this]() {     remove(mainWindow, target); };
+    actions["SCRIPT"] = [mainWindow, this]() {   script(mainWindow); };
     actions["SIT"] = [mainWindow, target, location, this]() {     sit(mainWindow, target, location); };
     actions["SLEEP"] = [mainWindow, location, this]() {     sleep(mainWindow, location); };
     actions["STAND"] = [mainWindow, this]() {     stand(mainWindow); };
     actions["TAKE"] = [mainWindow, target, location, this]() {     take(mainWindow, target, location); };
+    actions["UNSCRIPT"] = [mainWindow, this]() {   unscript(mainWindow); };
     actions["USE"] = [mainWindow, target, location, this]() {     use(mainWindow, target, location); };
+    actions["VERSION"] = [mainWindow, this]() {   version(mainWindow); };
     actions["WAIT"] = [mainWindow, location, this]() {     wait(mainWindow, location); };
     actions["WEAR"] = [mainWindow, target, this]() {     wear(mainWindow, target); };
     actions["Z"] = [mainWindow, location, this]() {     wait(mainWindow, location); };

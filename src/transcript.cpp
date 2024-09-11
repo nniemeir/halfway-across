@@ -1,6 +1,6 @@
 #include "../include/transcript.h"
 
-Transcript transcript("transcript.txt");
+Transcript transcript("transcript-" + QDate::currentDate().toString("MM-dd-yy") + ".txt");
 
 bool Transcript::writeFile(const QString &outputText) {
     if (!file.isOpen()) {
@@ -9,4 +9,12 @@ bool Transcript::writeFile(const QString &outputText) {
     }
     out << outputText;
     return true;
+}
+
+bool Transcript::getRecordingStatus() {
+    return recordingStatus;
+}
+
+void Transcript::setRecordingStatus(bool status) {
+    recordingStatus = status;
 }
