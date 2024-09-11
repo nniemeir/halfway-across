@@ -3,6 +3,7 @@
 
 World world;
 
+// The temperature and weather for Day 1 are the same each time to avoid immediately trapping the player at camp
 World::World()
     : currentLocation(nullptr), day(1), currentTemperature(32),
       currentWeather("clear"), chiseledIce(0),
@@ -44,6 +45,7 @@ int World::getLineSet() const { return lineSet; }
 
 void World::setLineSet(int newValue) { lineSet = newValue; }
 
+// A chance existing for the weather to trap the player at camp is intended to encourage them to plan ahead
 int World::travelChecks() {
   if (currentWeather == "snowing heavily") {
     return TRAVEL_BLIZZARD;
@@ -83,6 +85,7 @@ QString World::generateWeather() {
   }
 }
 
+// The odds will differ by bait type once that is implemented
 QString World::generateFish() {
   float brownTroutProb = 10;
   float rainbowTroutProb = 30;

@@ -45,6 +45,7 @@ int Player::constrainStat(int stat) {
   return std::max(0, std::min(stat, 100));
 }
 
+// Warning messages were opted for over showing the player the associated ints for the sake of realism
 QString Player::constructReflection() const {
   QString reflection;
   reflection.append(
@@ -92,6 +93,7 @@ QString Player::constructReflection() const {
   return reflection;
 }
 
+// Limits on how many of each type of clothing item can be equipped at once will be implemented in the future
 QString Player::clothesInventory() {
   QString inventoryText;
   for (const auto &item : inventory) {
@@ -108,6 +110,7 @@ QString Player::clothesInventory() {
   return inventoryText;
 }
 
+// The space inside the player's inventory will likely be limited in the future
 QString Player::bagInventory() {
   QString inventoryText;
   for (const auto &item : inventory) {

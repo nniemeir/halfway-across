@@ -2,9 +2,12 @@
 #define MAINWINDOW_H
 
 #include "locations.h"
-#include <QEvent> // Include QEvent header if necessary
+#include <QApplication>
+#include <QEvent>
 #include <QFile>
-#include <QKeyEvent> // Include QKeyEvent header
+#include <QFontDatabase>
+#include <QIcon>
+#include <QKeyEvent>
 #include <QLineEdit>
 #include <QMainWindow>
 #include <QPixmap>

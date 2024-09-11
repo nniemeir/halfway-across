@@ -30,6 +30,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         include/item.h
         include/locations.h
         include/player.h
+        include/transcript.h
         include/world.h
         resources/resources.qrc
         src/audio.cpp
@@ -49,12 +50,11 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/verbs/sleep.cpp
         src/verbs/stand.cpp
         src/verbs/take.cpp
+        src/transcript.cpp
         src/verbs/use.cpp
         src/verbs/wait.cpp
         src/verbs/wear.cpp
         src/world.cpp
-        src/transcript.cpp
-        include/transcript.h
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET Halfway_Across APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

@@ -5,7 +5,6 @@
 #include "../include/transcript.h"
 #include "../include/world.h"
 #include "src/ui_mainwindow.h"
-#include <QFontDatabase>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {

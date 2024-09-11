@@ -1,4 +1,5 @@
 #include "../include/inventory.h"
+
 Inventory inventoryObj;
 
 // Since verb handling often involves checking if the player has a given item in

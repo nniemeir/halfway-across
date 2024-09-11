@@ -1,5 +1,4 @@
 #include "../include/locations.h"
-#include "QDebug"
 
 Location::Location(const QString &name, const QString &description,
                    const QString &image, const QString &musicPath,

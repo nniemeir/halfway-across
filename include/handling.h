@@ -1,6 +1,7 @@
 #ifndef HANDLING_H
 #define HANDLING_H
 #include "../include/mainwindow.h"
+#include <QRegularExpression>
 
 class Handling {
 public:
