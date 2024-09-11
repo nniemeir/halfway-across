@@ -55,3 +55,5 @@ WAIT (Z)*
 WEAR
 
 \* indicates verbs that can be understood without context
+
+[Credits](docs/credits.md)
