@@ -2,6 +2,7 @@
 #include "../include/handling.h"
 #include "../include/locations.h"
 #include "../include/mainwindow.h"
+#include "../include/transcript.h"
 #include "../include/world.h"
 #include "src/ui_mainwindow.h"
 #include <QFontDatabase>
@@ -42,7 +43,10 @@ void MainWindow::showEvent(QShowEvent *event) {
   }
 }
 
-void MainWindow::setDescription(QString text) { ui->outputArea->setText(text); }
+void MainWindow::setDescription(QString text) {
+    ui->outputArea->setText(text);
+    transcript.writeFile(QString("%1\n").arg(text));
+ }
 
 void MainWindow::closeProgram() { QApplication::quit(); }
 
@@ -71,6 +75,7 @@ void MainWindow::handleReturnPressed() {
       input = handle.getLastCommand();
   }
   handle.setLastCommand(input);
+  transcript.writeFile(QString("> %1\n").arg(input));
   int validated = handle.validateVerb(input);
   if (validated == 0) {
     handle.splitInput(this, input);
