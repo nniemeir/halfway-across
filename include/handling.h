@@ -10,7 +10,11 @@ public:
   void handleVerb(MainWindow *mainWindow, QString verb, QString target,
                   Location *location);
 
+  QString getLastCommand() const;
+  void setLastCommand(QString command);
+
 private:
+  QString lastCommand;
   std::vector<QString> argVerbs;
   std::vector<QString> noArgVerbs;
   QString removeFillerWords(const QString& text, const QStringList& words);

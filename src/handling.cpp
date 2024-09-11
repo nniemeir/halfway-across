@@ -16,6 +16,13 @@ Handling::Handling() {
 
 Handling handle;
 
+QString Handling::getLastCommand() const {
+    return lastCommand;
+}
+void Handling::setLastCommand(QString command) {
+    lastCommand = command;
+}
+
 // Inputted verb must match an element of argVerbs or noArgVerbs to be
 // considered valid
 int Handling::validateVerb(QString input) {
@@ -58,6 +65,7 @@ QStringList fillerWords = {"A", "AT", "IN", "ON", "THE", "TO"};
 void Handling::handleVerb(MainWindow *mainWindow, QString verb, QString target,
                           Location *location) {
     QMap<QString, std::function<void()>> actions;
+    // The handling for the verb "AGAIN" is located in MainWindow::handleReturnPressed
     actions["BEGIN"] = [mainWindow, location, this]() { begin(mainWindow, location); };
     actions["COOK"] = [mainWindow, target, location, this]() { cook(mainWindow, target, location); };
     actions["DRINK"] = [mainWindow, target, location, this]() { drink(mainWindow, target, location); };

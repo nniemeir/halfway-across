@@ -67,7 +67,10 @@ void MainWindow::setLocation(QString currentMusic, QString currentAmbience,
 void MainWindow::handleReturnPressed() {
   QString input = ui->inputText->text();
   input = input.toUpper();
-
+  if (input == "G" || input == "AGAIN") {
+      input = handle.getLastCommand();
+  }
+  handle.setLastCommand(input);
   int validated = handle.validateVerb(input);
   if (validated == 0) {
     handle.splitInput(this, input);
