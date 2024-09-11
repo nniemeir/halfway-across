@@ -5,26 +5,24 @@
 
 void Handling::move(MainWindow *mainWindow, QString target,
                     Location *location) {
-    if (player.getStanding() == 1) {
-    if (world.validDirection(target))
-    {
-    if (location->getName() == "camp") {
-      moveCamp(mainWindow, target);
-    } else if (location->getName() == "campPath") {
-      moveCampPath(mainWindow, target);
-    } else if (location->getName() == "caveEntrance") {
-      moveCaveEntrance(mainWindow, target);
-    } else if (location->getName() == "cave") {
-      moveCave(mainWindow, target);
-    } else if (location->getName() == "lake") {
-      moveLake(mainWindow, target);
-    } else if (location->getName() == "valley") {
-      moveValley(mainWindow, target);
-    } else {
-      mainWindow->setDescription("You can't do that here.");
-    }
-    }
-    else {
+        QMap<QString, std::function<void()>> actions;
+        actions["camp"] = [mainWindow, target, this]() {     moveCamp(mainWindow, target);};
+        actions["campPath"] = [mainWindow, target, this]() {     moveCampPath(mainWindow, target);};
+        actions["cave"] = [mainWindow, target, this]() {     moveCave(mainWindow, target);};
+        actions["caveEntrance"] = [mainWindow, target, this]() {     moveCaveEntrance(mainWindow, target);};
+        actions["lake"] = [mainWindow, target, this]() {     moveLake(mainWindow, target);};
+        actions["valley"] = [mainWindow, target, this]() {     moveValley(mainWindow, target);};
+
+        if (player.getStanding() == 1) {
+        if (world.validDirection(target))
+        {
+        if (actions.contains(location->getName())) {
+            actions[location->getName()]();
+        } else {
+            mainWindow->setDescription(QString("You can't do that here."));
+        }
+        }
+        else {
         mainWindow->setDescription(QString("%1 is not a direction you are aware of.").arg(target.toLower()));
     }
   }

@@ -4,12 +4,22 @@
 #include "../../include/world.h"
 
 void Handling::wait(MainWindow *mainWindow, Location *location) {
-  if (location->getName() == "lake") {
-    waitLake(mainWindow);
-  } else {
-    mainWindow->setDescription("You can't do that here.");
-  }
+
+    QMap<QString, std::function<void()>> actions;
+    // actions["camp"] = [mainWindow, this]() {     waitCamp(mainWindow);};
+    // actions["campPath"] = [mainWindow, this]() {     waitCampPath(mainWindow);};
+    // actions["cave"] = [mainWindow, this]() {     waitCave(mainWindow);};
+    // actions["caveEntrance"] = [mainWindow, this]() {     waitCaveEntrance(mainWindow);};
+    actions["lake"] = [mainWindow, this]() {     waitLake(mainWindow);};
+    // actions["valley"] = [mainWindow, this]() {     waitValley(mainWindow);};
+
+    if (actions.contains(location->getName())) {
+        actions[location->getName()]();
+    } else {
+        mainWindow->setDescription(QString("You can't do that here."));
+    }
 }
+
 
 void Handling::waitLake(MainWindow *mainWindow) {
   if (world.getLineSet() == 1) {

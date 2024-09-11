@@ -4,21 +4,19 @@
 
 void Handling::look(MainWindow *mainWindow, QString target,
                     Location *location) {
-  if (location->getName() == "camp") {
-    lookCamp(mainWindow, target);
-  } else if (location->getName() == "campPath") {
-    lookCampPath(mainWindow, target, location);
-  } else if (location->getName() == "cave") {
-    lookCave(mainWindow, target);
-  } else if (location->getName() == "caveEntrance") {
-    lookCaveEntrance(mainWindow, target);
-  } else if (location->getName() == "lake") {
-    lookLake(mainWindow, target);
-  } else if (location->getName() == "valley") {
-    lookValley(mainWindow, target);
-  } else {
-    mainWindow->setDescription("You can't do that here.");
-  }
+    QMap<QString, std::function<void()>> actions;
+    actions["camp"] = [mainWindow, target, this]() {     lookCamp(mainWindow, target);};
+    actions["campPath"] = [mainWindow, target, this]() {     lookCampPath(mainWindow, target);};
+    actions["cave"] = [mainWindow, target, this]() {     lookCave(mainWindow, target);};
+    actions["caveEntrance"] = [mainWindow, target, this]() {     lookCaveEntrance(mainWindow, target);};
+    actions["lake"] = [mainWindow, target, this]() {     lookLake(mainWindow, target);};
+    actions["valley"] = [mainWindow, target, this]() {     lookValley(mainWindow, target);};
+
+    if (actions.contains(location->getName())) {
+        actions[location->getName()]();
+    } else {
+        mainWindow->setDescription(QString("You can't do that here."));
+    }
 }
 
 void Handling::lookCamp(MainWindow *mainWindow, QString target) {
@@ -40,12 +38,11 @@ void Handling::lookCamp(MainWindow *mainWindow, QString target) {
   }
 }
 
-void Handling::lookCampPath(MainWindow *mainWindow, QString target,
-                            Location *location) {
+void Handling::lookCampPath(MainWindow *mainWindow, QString target) {
   QMap<QString, QString> descriptions = {
-      {"AROUND", location->getDescription()},
+      {"AROUND", campPath.getDescription()},
       {"BAG", player.bagInventory()},
-      {"GROUND", location->locInventory()},
+      {"GROUND", campPath.locInventory()},
       {"PATH", "The other branches of the path go off into the distance.\n"},
       {"SELF", player.clothesInventory()}};
 

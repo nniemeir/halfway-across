@@ -23,7 +23,7 @@ private:
   void eat(MainWindow *mainWindow, QString target);
   void look(MainWindow *mainWindow, QString target, Location *location);
   void lookCamp(MainWindow *mainWindow, QString target);
-  void lookCampPath(MainWindow *mainWindow, QString target, Location *location);
+  void lookCampPath(MainWindow *mainWindow, QString target);
   void lookCave(MainWindow *mainWindow, QString target);
   void lookCaveEntrance(MainWindow *mainWindow, QString target);
   void lookLake(MainWindow *mainWindow, QString target);

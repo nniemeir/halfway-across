@@ -4,19 +4,20 @@
 #include "../../include/world.h"
 
 void Handling::use(MainWindow *mainWindow, QString target, Location *location) {
-    if (location->getName() == "camp") {
-    } else if (location->getName() == "campPath") {
-    } else if (location->getName() == "caveEntrance") {
-    } else if (location->getName() == "cave") {
-    } else if (location->getName() == "lake") {
-    useLake(mainWindow, target);
-    } else if (location->getName() == "valley") {
-  } else {
-    mainWindow->setDescription("You can't do that here.");
-  }
-}
 
-void Handling::useCamp(MainWindow *mainWindow, QString target) {
+        QMap<QString, std::function<void()>> actions;
+        // actions["camp"] = [mainWindow, target, this]() {     useCamp(mainWindow, target);};
+        // actions["campPath"] = [mainWindow, target, this]() {     useCampPath(mainWindow, target);};
+        // actions["cave"] = [mainWindow, target, this]() {     useCave(mainWindow, target);};
+        // actions["caveEntrance"] = [mainWindow, target, this]() {     useCaveEntrance(mainWindow, target);};
+        actions["lake"] = [mainWindow, target, this]() {     useLake(mainWindow, target);};
+        // actions["valley"] = [mainWindow, target, this]() {     useValley(mainWindow, target);};
+
+        if (actions.contains(location->getName())) {
+            actions[location->getName()]();
+        } else {
+            mainWindow->setDescription(QString("You can't do that here."));
+        }
 }
 
 void Handling::useLake(MainWindow *mainWindow, QString target) {
