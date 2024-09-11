@@ -57,44 +57,33 @@ QStringList fillerWords = {"A", "AT", "IN", "ON", "THE", "TO"};
 
 void Handling::handleVerb(MainWindow *mainWindow, QString verb, QString target,
                           Location *location) {
-  if (verb == "BEGIN") {
-    begin(mainWindow, location);
-  } else if (verb == "COOK") {
-    cook(mainWindow, target, location);
-  } else if (verb == "DRINK") {
-    drink(mainWindow, target, location);
-  } else if (verb == "DROP") {
-    drop(mainWindow, target, location);
-  } else if (verb == "EAT") {
-    eat(mainWindow, target);
-  } else if (verb == "EXAMINE" || verb == "LOOK") {
-    look(mainWindow, target, location);
-  } else if (verb == "GO" || verb == "MOVE") {
-    move(mainWindow, target, location);
-  } else if (verb == "QUIT") {
-    mainWindow->closeProgram();
-  } else if (verb == "REFLECT") {
-    mainWindow->setDescription(player.constructReflection());
-  } else if (verb == "REMOVE") {
-    remove(mainWindow, target);
-  } else if (verb == "SIT") {
-    sit(mainWindow, target, location);
-  } else if (verb == "SLEEP") {
-    sleep(mainWindow, location);
-  } else if (verb == "STAND") {
-    stand(mainWindow);
-  } else if (verb == "TAKE") {
-    take(mainWindow, target, location);
-  } else if (verb == "USE") {
-    use(mainWindow, target, location);
-  } else if (verb == "WAIT" || verb == "Z") {
-    wait(mainWindow, location);
-  } else if (verb == "WEAR") {
-    wear(mainWindow, target);
-  } else {
-    mainWindow->setDescription(
-        QString("You can't %1 here.").arg(verb.toLower()));
-  }
+    QMap<QString, std::function<void()>> actions;
+    actions["BEGIN"] = [mainWindow, location, this]() { begin(mainWindow, location); };
+    actions["COOK"] = [mainWindow, target, location, this]() { cook(mainWindow, target, location); };
+    actions["DRINK"] = [mainWindow, target, location, this]() { drink(mainWindow, target, location); };
+    actions["DROP"] = [mainWindow, target, location, this]() { drop(mainWindow, target, location); };
+    actions["EAT"] = [mainWindow, target, this]() { eat(mainWindow, target); };
+    actions["EXAMINE"] = [mainWindow, target, location, this]() { look(mainWindow, target, location); };
+    actions["GO"] = [mainWindow, target, location, this]() { move(mainWindow, target, location); };
+    actions["LOOK"] = [mainWindow, target, location, this]() { look(mainWindow, target, location); };
+    actions["MOVE"] = [mainWindow, target, location, this]() { move(mainWindow, target, location); };
+    actions["QUIT"] = [mainWindow, this]() {     mainWindow->closeProgram(); };
+    actions["REFLECT"] = [mainWindow, this]() {     mainWindow->setDescription(player.constructReflection()); };
+    actions["REMOVE"] = [mainWindow, target, this]() {     remove(mainWindow, target); };
+    actions["SIT"] = [mainWindow, target, location, this]() {     sit(mainWindow, target, location); };
+    actions["SLEEP"] = [mainWindow, location, this]() {     sleep(mainWindow, location); };
+    actions["STAND"] = [mainWindow, this]() {     stand(mainWindow); };
+    actions["TAKE"] = [mainWindow, target, location, this]() {     take(mainWindow, target, location); };
+    actions["USE"] = [mainWindow, target, location, this]() {     use(mainWindow, target, location); };
+    actions["WAIT"] = [mainWindow, location, this]() {     wait(mainWindow, location); };
+    actions["WEAR"] = [mainWindow, target, this]() {     wear(mainWindow, target); };
+    actions["Z"] = [mainWindow, location, this]() {     wait(mainWindow, location); };
+
+    if (actions.contains(verb)) {
+        actions[verb]();
+    } else {
+        mainWindow->setDescription(QString("You don't know how to %1.").arg(verb.toLower()));
+    }
 }
 
 QString Handling::removeFillerWords(const QString& text, const QStringList& words) {

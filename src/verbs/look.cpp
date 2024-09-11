@@ -88,7 +88,7 @@ void Handling::lookLake(MainWindow *mainWindow, QString target) {
       {"BAG", player.bagInventory()},
       {"GROUND", lake.locInventory()},
       {"LAKE", "The lake has frozen over.\n"},
-      {"MOUNTAIN", "Who knows whthmountain holds?\n"},
+      {"MOUNTAIN", "Who knows what this mountain holds?\n"},
       {"SELF", player.clothesInventory()}};
 
   if (descriptions.contains(target)) {
