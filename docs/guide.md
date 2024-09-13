@@ -1,7 +1,7 @@
 
 **Quick Reference Guide**
 
-To move in a direction, use the keyword  **GO** or **MOVE** and a cardinal direction (North or N, West, East, South). 
+To move in a direction, use the keyword  **GO** or **MOVE** and a cardinal direction (North or N, West, East, South) or simply type the first letter of the cardinal direction. 
 
 You are equipped with a possibles bag. To view its contents, use the command **LOOK IN BAG**.
 
@@ -24,13 +24,21 @@ DROP
 
 EAT
 
-LOOK
+GO
+
+LOOK(L)
 
 MOVE
 
+QUIT*
+
 REMOVE
 
+SCREAM*
+
 SCRIPT*
+
+SHOUT*
 
 SIT
 
@@ -40,7 +48,7 @@ STAND*
 
 TAKE
 
-UNSCRIPT
+UNSCRIPT*
 
 USE
 
@@ -49,5 +57,7 @@ VERSION*
 WAIT (Z)*
 
 WEAR
+
+YELL*
 
 \* indicates verbs that can be understood without context

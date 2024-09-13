@@ -6,7 +6,7 @@ World world;
 // The temperature and weather for Day 1 are the same each time to avoid immediately trapping the player at camp
 World::World()
     : currentLocation(nullptr), day(1), currentTemperature(32),
-      currentWeather("clear"), chiseledIce(0),
+    currentWeather("clear"), chiseledIce(0), conspicuous(true),
       fish{{"CUTTHROAT TROUT", 1, 0, 25, "RAW MEAT"},
            {"BROOK TROUT", 1, 0, 25, "RAW MEAT"},
            {"RAINBOW TROUT", 1, 0, 30, "RAW MEAT"},
@@ -44,6 +44,15 @@ void World::setChiseledIce(int newValue) { chiseledIce = newValue; }
 int World::getLineSet() const { return lineSet; }
 
 void World::setLineSet(int newValue) { lineSet = newValue; }
+
+
+bool World::getConspicuous() const {
+    return conspicuous;
+}
+
+void World::setConspicuous(bool newValue) {
+    conspicuous = newValue;
+}
 
 // A chance existing for the weather to trap the player at camp is intended to encourage them to plan ahead
 int World::travelChecks() {

@@ -55,6 +55,7 @@ private:
   void wait(MainWindow *mainWindow, Location *location);
   void waitLake(MainWindow *mainWindow);
   void wear(MainWindow *mainWindow, QString target);
+  void yell(MainWindow *mainWindow);
 };
 
 extern Handling handle;

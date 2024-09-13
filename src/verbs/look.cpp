@@ -15,7 +15,7 @@ void Handling::look(MainWindow *mainWindow, QString target,
     if (actions.contains(location->getName())) {
         actions[location->getName()]();
     } else {
-        mainWindow->setDescription(QString("You can't do that here."));
+        mainWindow->setDescription("You can't do that here.");
     }
 }
 

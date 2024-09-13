@@ -5,11 +5,11 @@
 Handling::Handling() {
 
     argVerbs = {
-                                              "COOK",  "CHISEL", "DRINK", "DROP",  "EAT",    "EXAMINE",
-                                              "GO",    "LOOK",   "MOVE",  "OPEN",  "REMOVE", "SIT",
-                                              "STAND", "TAKE",   "TELL",  "THROW", "USE",    "WEAR"};
+                                              "COOK", "DRINK", "DROP",  "EAT",    "EXAMINE",
+                                              "GO",    "L", "LOOK",   "MOVE",  "OPEN",  "REMOVE", "SIT",
+                                              "STAND", "TAKE",   "TELL", "USE", "WEAR"};
 
-   noArgVerbs = {"BEGIN", "QUIT", "REFLECT", "SCRIPT", "SLEEP", "UNSCRIPT", "VERSION", "WAIT", "Z"};
+   noArgVerbs = {"BEGIN", "E", "N", "Q", "QUIT", "REFLECT", "S", "SCREAM", "SCRIPT", "SHOUT", "SLEEP", "UNSCRIPT", "VERSION", "W", "WAIT", "YELL", "Z"};
 }
 
 Handling handle;
@@ -68,15 +68,22 @@ void Handling::handleVerb(MainWindow *mainWindow, QString verb, QString target,
     actions["COOK"] = [mainWindow, target, location, this]() { cook(mainWindow, target, location); };
     actions["DRINK"] = [mainWindow, target, location, this]() { drink(mainWindow, target, location); };
     actions["DROP"] = [mainWindow, target, location, this]() { drop(mainWindow, target, location); };
+    actions["E"] = [mainWindow, verb, location, this]() { move(mainWindow, verb, location); };
     actions["EAT"] = [mainWindow, target, this]() { eat(mainWindow, target); };
     actions["EXAMINE"] = [mainWindow, target, location, this]() { look(mainWindow, target, location); };
     actions["GO"] = [mainWindow, target, location, this]() { move(mainWindow, target, location); };
+    actions["L"] = [mainWindow, target, location, this]() { look(mainWindow, target, location); };
     actions["LOOK"] = [mainWindow, target, location, this]() { look(mainWindow, target, location); };
     actions["MOVE"] = [mainWindow, target, location, this]() { move(mainWindow, target, location); };
+    actions["N"] = [mainWindow, verb, location, this]() { move(mainWindow, verb, location); };
+    actions["Q"] = [mainWindow, this]() {     mainWindow->closeProgram(); };
     actions["QUIT"] = [mainWindow, this]() {     mainWindow->closeProgram(); };
     actions["REFLECT"] = [mainWindow, this]() {     mainWindow->setDescription(player.constructReflection()); };
     actions["REMOVE"] = [mainWindow, target, this]() {     remove(mainWindow, target); };
+    actions["S"] = [mainWindow, verb, location, this]() { move(mainWindow, verb, location); };
+    actions["SCREAM"] = [mainWindow, this]() {     yell(mainWindow); };
     actions["SCRIPT"] = [mainWindow, this]() {   script(mainWindow); };
+    actions["SHOUT"] = [mainWindow, this]() {     yell(mainWindow); };
     actions["SIT"] = [mainWindow, target, location, this]() {     sit(mainWindow, target, location); };
     actions["SLEEP"] = [mainWindow, location, this]() {     sleep(mainWindow, location); };
     actions["STAND"] = [mainWindow, this]() {     stand(mainWindow); };
@@ -84,8 +91,10 @@ void Handling::handleVerb(MainWindow *mainWindow, QString verb, QString target,
     actions["UNSCRIPT"] = [mainWindow, this]() {   unscript(mainWindow); };
     actions["USE"] = [mainWindow, target, location, this]() {     use(mainWindow, target, location); };
     actions["VERSION"] = [mainWindow, this]() {   version(mainWindow); };
+    actions["W"] = [mainWindow, verb, location, this]() { move(mainWindow, verb, location); };
     actions["WAIT"] = [mainWindow, location, this]() {     wait(mainWindow, location); };
     actions["WEAR"] = [mainWindow, target, this]() {     wear(mainWindow, target); };
+    actions["YELL"] = [mainWindow, this]() {     yell(mainWindow); };
     actions["Z"] = [mainWindow, location, this]() {     wait(mainWindow, location); };
 
     if (actions.contains(verb)) {

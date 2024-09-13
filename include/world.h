@@ -24,6 +24,8 @@ public:
   void setChiseledIce(int newValue);
   int getLineSet() const;
   void setLineSet(int newValue);
+  bool getConspicuous() const;
+  void setConspicuous(bool newValue);
   int travelChecks();
 
   // Fishing
@@ -40,6 +42,7 @@ private:
   QString currentWeather;
   int chiseledIce;
   int lineSet;
+  bool conspicuous;
   int generateTemperature();
   QString generateWeather();
   std::vector<item> fish;

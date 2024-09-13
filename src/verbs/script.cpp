@@ -8,6 +8,6 @@ void Handling::script(MainWindow *mainWindow) {
 }
 
 void Handling::unscript(MainWindow *mainWindow) {
-transcript.setRecordingStatus(false);
+    transcript.setRecordingStatus(false);
     mainWindow->setDescription("It doesn't seem important to keep a record of this.");
 }

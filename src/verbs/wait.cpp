@@ -16,7 +16,7 @@ void Handling::wait(MainWindow *mainWindow, Location *location) {
     if (actions.contains(location->getName())) {
         actions[location->getName()]();
     } else {
-        mainWindow->setDescription(QString("You can't do that here."));
+        mainWindow->setDescription("You can't do that here.");
     }
 }
 
@@ -34,5 +34,7 @@ void Handling::waitLake(MainWindow *mainWindow) {
         inventoryObj.addItem(player.getInventory(), inventoryObj.getInventoryItem(world.getFishInventory(), itemIndex), playerItemIndex);
     }
     world.setLineSet(0);
+  } else {
+      mainWindow->setDescription("You wait a while.");
   }
 }

@@ -54,6 +54,8 @@ void MainWindow::closeProgram() { QApplication::quit(); }
 void MainWindow::setLocation(QString currentMusic, QString currentAmbience,
                              Location *object) {
   if (object) {
+    world.setConspicuous(false);
+    world.setLineSet(false);
     setDescription(object->getDescription());
     QPixmap pix(object->getImage());
     ui->settingImage->setPixmap(pix);
@@ -87,6 +89,8 @@ void MainWindow::handleReturnPressed() {
   } else {
     if (input != "") {
       setDescription(QString("You don't know how to %1.").arg(input.toLower()));
+    } else {
+        setDescription("Say again?");
     }
   }
   ui->inputText->clear();
