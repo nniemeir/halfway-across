@@ -1,3 +1,4 @@
+#include "../../include/audio.h"
 #include "../../include/handling.h"
 #include "../../include/player.h"
 
@@ -10,6 +11,7 @@ void Handling::hunt(MainWindow *mainWindow, QString target,
         inventoryObj.searchInventory(player.getInventory(), "ARROW");
     if (bowIndex != -1 && arrowIndex != -1) {
       if (target == "DEER") {
+        sfxPlayer.play("qrc:/audio/sfx/arrow.mp3", sfxPlayer.getdefSfxVol(), 0);
         mainWindow->setDescription("I managed to drop a deer in a single shot.");
         int fatIndex =
             inventoryObj.searchInventory(player.getInventory(), "DEER FAT");

@@ -1,3 +1,4 @@
+#include "../../include/audio.h"
 #include "../../include/handling.h"
 #include "../../include/player.h"
 
@@ -9,6 +10,7 @@ void Handling::craft(MainWindow *mainWindow, QString target) {
     int ingredient2Index =
         inventoryObj.searchInventory(player.getInventory(), "WOOD");
     if (ingredient1Index != -1 && ingredient1Index != -1) {
+      sfxPlayer.play("qrc:/audio/sfx/craft.mp3", sfxPlayer.getdefSfxVol(), 0);
       mainWindow->setDescription(QString("I crafted a %1.").arg(target.toLower()));
       int resultIndex = inventoryObj.searchInventory(player.getInventory(),
                                                      "ANIMAL FAT CANDLE");

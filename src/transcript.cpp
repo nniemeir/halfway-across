@@ -1,9 +1,9 @@
 #include "../include/journal.h"
 
-Transcript transcript("journal-" +
+Journal journal("journal-" +
                       QDate::currentDate().toString("MM-dd-yy") + ".txt");
 
-bool Transcript::writeFile(const QString &outputText) {
+bool Journal::writeFile(const QString &outputText) {
   if (!file.isOpen()) {
     qDebug() << "File is not open for writing";
     return false;
@@ -12,6 +12,6 @@ bool Transcript::writeFile(const QString &outputText) {
   return true;
 }
 
-bool Transcript::getRecordingStatus() { return recordingStatus; }
+bool Journal::getRecordingStatus() { return recordingStatus; }
 
-void Transcript::setRecordingStatus(bool status) { recordingStatus = status; }
+void Journal::setRecordingStatus(bool status) { recordingStatus = status; }

@@ -3,12 +3,12 @@
 #include "../../include/journal.h"
 
 void Handling::script(MainWindow *mainWindow) {
-  transcript.setRecordingStatus(true);
+  journal.setRecordingStatus(true);
   mainWindow->setDescription("It seemed important to record my actions.");
 }
 
 void Handling::unscript(MainWindow *mainWindow) {
-  transcript.setRecordingStatus(false);
+  journal.setRecordingStatus(false);
   mainWindow->setDescription(
       "It didn't seem important to keep a record of my actions.");
 }

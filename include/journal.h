@@ -5,9 +5,9 @@
 #include <QFile>
 #include <QTextStream>
 #include <qstring.h>
-class Transcript {
+class Journal {
 public:
-  Transcript(const QString &filename)
+  Journal(const QString &filename)
       : file(filename), out(&file), recordingStatus(false) {
     QDir dir(QDir::homePath() + "/Documents/Halfway Across");
     file.setFileName(dir.path() + "/" + file.fileName());
@@ -19,7 +19,7 @@ public:
     }
   }
 
-  ~Transcript() {
+  ~Journal() {
     if (file.isOpen()) {
       file.close();
     }
@@ -34,5 +34,5 @@ private:
   bool recordingStatus;
 };
 
-extern Transcript transcript;
+extern Journal journal;
 #endif // JOURNAL_H

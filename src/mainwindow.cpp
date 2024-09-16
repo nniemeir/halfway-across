@@ -44,8 +44,8 @@ void MainWindow::showEvent(QShowEvent *event) {
 
 void MainWindow::setDescription(QString text) {
     ui->outputArea->setText(text);
-    if (transcript.getRecordingStatus()) {
-    transcript.writeFile(QString("%1\n").arg(text));
+    if (journal.getRecordingStatus()) {
+    journal.writeFile(QString("%1\n").arg(text));
     }
  }
 
@@ -78,8 +78,8 @@ void MainWindow::handleReturnPressed() {
       input = handle.getLastCommand();
   }
   handle.setLastCommand(input);
-  if (transcript.getRecordingStatus()) {
-  transcript.writeFile(QString("> %1\n").arg(input));
+  if (journal.getRecordingStatus()) {
+  journal.writeFile(QString("> %1\n").arg(input));
   }
   int validated = handle.validateVerb(input);
   if (validated == 0) {

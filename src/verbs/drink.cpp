@@ -1,3 +1,4 @@
+#include "../../include/audio.h"
 #include "../../include/handling.h"
 #include "../../include/player.h"
 #include "../../include/world.h"
@@ -27,6 +28,7 @@ void Handling::drink(MainWindow *mainWindow, QString target,
 void Handling::drinkLake(MainWindow *mainWindow, QString target) {
   if (target == "FROM LAKE") {
     if (world.getChiseledIce() == 1) {
+      sfxPlayer.play("qrc:/audio/sfx/drink.mp3", sfxPlayer.getdefSfxVol(), 0);
       mainWindow->setDescription(
           "I felt more refreshed after drinking the cold water.");
       player.setThirst(player.getThirst() + 20);

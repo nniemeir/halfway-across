@@ -2,11 +2,15 @@
     <qresource prefix="/">
         <file>audio/ambience/mountainWind.mp3</file>
         <file>audio/music/placeholder.mp3</file>
+        <file>audio/sfx/arrow.mp3</file>
         <file>audio/sfx/chiselLake.mp3</file>
+        <file>audio/sfx/craft.mp3</file>
+        <file>audio/sfx/drink.mp3</file>
         <file>audio/sfx/drop.mp3</file>
         <file>audio/sfx/eat.mp3</file>
         <file>audio/sfx/fishReel.mp3</file>
         <file>audio/sfx/fishSet.mp3</file>
+        <file>audio/sfx/flint.mp3</file>
         <file>audio/sfx/lanternRustle.mp3</file>
         <file>audio/sfx/moveSnow.mp3</file>
         <file>audio/sfx/moveStone.mp3</file>

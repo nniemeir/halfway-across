@@ -30,8 +30,8 @@ void Handling::use(MainWindow *mainWindow, QString target, Location *location) {
 void Handling::useCave(MainWindow *mainWindow, QString target) {
   if (target == "LANTERN") {
     if (inventoryObj.searchInventory(player.getInventory(), "LANTERN") != -1) {
-      sfxPlayer.play("qrc:/audio/sfx/lanternRustle.mp3",
-                     sfxPlayer.getdefSfxVol(), 0);
+      sfxPlayer.play("qrc:/audio/sfx/flint.mp3", sfxPlayer.getdefSfxVol(),
+                     0);
       mainWindow->setLocation(cave.getMusicPath(), cave.getAmbiencePath(),
                               &caveLit);
     } else {
