@@ -1,7 +1,13 @@
 
 ### SFX sourced from FreeSound.org
 
+arrow: Arrow_loose02.wav by SonoFxAudio -- https://freesound.org/s/649334/ -- License: Attribution 4.0
+
 chiselLake: Breaking ice by Aurelon -- https://freesound.org/s/422621/ -- License: Creative Commons 0
+
+craft: WoodSnap7.wav by zimbot -- https://freesound.org/s/89400/ -- License: Attribution 4.0
+
+drink: Water Splashes in the River. by Tiger_v15 -- https://freesound.org/s/223968/ -- License: Attribution 4.0
 
 drop: Dropping, Metal Pin on Wood, A.wav by InspectorJ -- https://freesound.org/s/414437/ -- License: Attribution 4.0
 
@@ -10,6 +16,8 @@ eat: Eating An Apple 03.wav by omgbong -- https://freesound.org/s/411595/ -- Lic
 fishReel: Old fishing reel fast rewinding fishing line by AudioPapkin -- https://freesound.org/s/716635/ -- License: Attribution NonCommercial 4.0
 
 fishSet: Dropping tiny pebble in still water surface by jorickhoofd -- https://freesound.org/s/160119/ -- License: Attribution 4.0
+
+flint: 05_Flint and steel.wav by 16FThumaF -- https://freesound.org/s/499027/ -- License: Creative Commons 0
 
 lanternRustle: Candle Lantern by theshaggyfreak -- https://freesound.org/s/315762/ -- License: Attribution 4.0
 
