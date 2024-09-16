@@ -3,21 +3,23 @@
 #include "inventory.h"
 #include "item.h"
 
-class Player: public Inventory {
+class Player : public Inventory {
 public:
   Player();
 
   // Stats management
   int getHealth() const;
-  void setHealth(int health);
+  int setHealth(int health);
+  int getMental() const;
+  int setMental(int mental);
   int getEnergy() const;
   void setEnergy(int energy);
   int getHunger() const;
-  void setHunger(int hunger);
+  int setHunger(int hunger);
   int getThirst() const;
-  void setThirst(int thirst);
+  int setThirst(int thirst);
   int getWarmth() const;
-  void setWarmth(int warmth);
+  int setWarmth(int warmth);
   int getCharm() const;
   void setCharm(int charm);
   int getStanding() const;
@@ -32,6 +34,7 @@ public:
 
 private:
   int health;
+  int mental;
   int energy;
   int hunger;
   int thirst;
@@ -39,7 +42,6 @@ private:
   int charm;
   int standing;
   std::vector<item> inventory;
-
 };
 
 extern Player player;

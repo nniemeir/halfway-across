@@ -1,15 +1,19 @@
 #ifndef WORLD_H
 #define WORLD_H
-#include "../include/locations.h"
 #include "../include/item.h"
+#include "../include/locations.h"
 
 class World {
 public:
   World();
-    typedef enum { TRAVEL_YES = 1, TRAVEL_BLIZZARD, TRAVEL_TIRED } TravelResponses;
+  typedef enum {
+    TRAVEL_YES = 1,
+    TRAVEL_BLIZZARD,
+    TRAVEL_TIRED
+  } TravelResponses;
 
   // Day
-  void advanceDay();
+  int advanceDay();
   int getDay() const;
 
   // Location
@@ -48,7 +52,6 @@ private:
   std::vector<item> fish;
   std::vector<QString> directions;
 };
-
 
 extern World world;
 #endif // WORLD_H

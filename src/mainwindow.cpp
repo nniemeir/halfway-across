@@ -2,7 +2,7 @@
 #include "../include/handling.h"
 #include "../include/locations.h"
 #include "../include/mainwindow.h"
-#include "../include/transcript.h"
+#include "../include/journal.h"
 #include "../include/world.h"
 #include "src/ui_mainwindow.h"
 
@@ -88,9 +88,9 @@ void MainWindow::handleReturnPressed() {
     handle.handleVerb(this, input, "", world.getCurrentLocation());
   } else {
     if (input != "") {
-      setDescription(QString("You don't know how to %1.").arg(input.toLower()));
+      setDescription(QString("I didn't know how to %1.").arg(input.toLower()));
     } else {
-        setDescription("Say again?");
+        setDescription("My memory is failing me at the moment.");
     }
   }
   ui->inputText->clear();

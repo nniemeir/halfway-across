@@ -1,28 +1,36 @@
-#include "../include/player.h"
 #include "../include/world.h"
+#include "../include/player.h"
 
 World world;
 
-// The temperature and weather for Day 1 are the same each time to avoid immediately trapping the player at camp
+// The temperature and weather for Day 1 are the same each time to avoid
+// immediately trapping the player at camp
 World::World()
     : currentLocation(nullptr), day(1), currentTemperature(32),
-    currentWeather("clear"), chiseledIce(0), conspicuous(true),
-      fish{{"CUTTHROAT TROUT", 1, 0, 25, "RAW MEAT"},
-           {"BROOK TROUT", 1, 0, 25, "RAW MEAT"},
-           {"RAINBOW TROUT", 1, 0, 30, "RAW MEAT"},
-           {"BROWN TROUT", 1, 0, 35, "RAW MEAT"}}, directions{"NORTH", "WEST", "SOUTH", "EAST", "N", "W", "S", "E"} {}
+      currentWeather("clear"), chiseledIce(0), conspicuous(true),
+      fish{{"CUTTHROAT TROUT", 1, 0, 25, "RAW MEAT", "NONE"},
+           {"BROOK TROUT", 1, 0, 25, "RAW MEAT", "NONE"},
+           {"RAINBOW TROUT", 1, 0, 30, "RAW MEAT", "NONE"},
+           {"BROWN TROUT", 1, 0, 35, "RAW MEAT", "NONE"}},
+      directions{"NORTH", "WEST", "SOUTH", "EAST", "N", "W", "S", "E"} {}
 
-bool World::validDirection(const QString &value)
-{
-    return std::find(directions.begin(), directions.end(), value) != directions.end();
+bool World::validDirection(const QString &value) {
+  return std::find(directions.begin(), directions.end(), value) !=
+         directions.end();
 }
 
-void World::advanceDay() {
+int World::advanceDay() {
   player.setEnergy(1);
+  if (player.setHunger(player.getHunger() - 20)) {
+    return 1;
+  } else if (player.setThirst(player.getThirst() - 30)) {
+    return 1;
+  }
   setChiseledIce(0);
   day++;
   currentTemperature = generateTemperature();
   currentWeather = generateWeather();
+  return 0;
 }
 
 void World::initializeLocation(Location *initialLocation) {
@@ -45,16 +53,12 @@ int World::getLineSet() const { return lineSet; }
 
 void World::setLineSet(int newValue) { lineSet = newValue; }
 
+bool World::getConspicuous() const { return conspicuous; }
 
-bool World::getConspicuous() const {
-    return conspicuous;
-}
+void World::setConspicuous(bool newValue) { conspicuous = newValue; }
 
-void World::setConspicuous(bool newValue) {
-    conspicuous = newValue;
-}
-
-// A chance existing for the weather to trap the player at camp is intended to encourage them to plan ahead
+// A chance existing for the weather to trap the player at camp is intended to
+// encourage them to plan ahead
 int World::travelChecks() {
   if (currentWeather == "snowing heavily") {
     return TRAVEL_BLIZZARD;

@@ -18,13 +18,23 @@ BEGIN*
 
 COOK
 
+CRAFT
+
+CRY*
+
 DRINK
 
 DROP
 
 EAT
 
+EXAMINE
+
 GO
+
+HUNT
+
+LOAD
 
 LOOK(L)
 

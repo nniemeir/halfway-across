@@ -22,11 +22,15 @@ private:
   // Verb-specific handling
   void begin(MainWindow *mainWindow, Location *location);
   void cook(MainWindow *mainWindow, QString target, Location *location);
+  void craft(MainWindow *mainWindow, QString target);
+  void cry(MainWindow *mainWindow);
   void drink(MainWindow *mainWindow, QString target, Location *location);
   void drinkLake(MainWindow *mainWindow, QString target);
   void drop(MainWindow *mainWindow, QString target, Location *location);
   void eat(MainWindow *mainWindow, QString target);
+  void hunt(MainWindow *mainWindow, QString target, Location *location);
   void look(MainWindow *mainWindow, QString target, Location *location);
+  void load(MainWindow *mainWindow, QString target);
   void lookCamp(MainWindow *mainWindow, QString target);
   void lookCampPath(MainWindow *mainWindow, QString target);
   void lookCave(MainWindow *mainWindow, QString target);
@@ -38,6 +42,7 @@ private:
   void moveCampPath(MainWindow *mainWindow, QString target);
   void moveCave(MainWindow *mainWindow, QString target);
   void moveCaveEntrance(MainWindow *mainWindow, QString target);
+  void moveCaveLit(MainWindow *mainWindow, QString target);
   void moveLake(MainWindow *mainWindow, QString target);
   void moveValley(MainWindow *mainWindow, QString target);
   void remove(MainWindow *mainWindow, QString target);
@@ -49,6 +54,7 @@ private:
   void take(MainWindow *mainWindow, QString target, Location *location);
   void use(MainWindow *mainWindow, QString target, Location *location);
   void useCamp(MainWindow *mainWindow, QString target);
+  void useCave(MainWindow *mainWindow, QString target);
   void useLake(MainWindow *mainWindow, QString target);
   void unscript(MainWindow *mainWindow);
   void version(MainWindow *mainWindow);

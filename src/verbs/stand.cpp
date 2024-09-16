@@ -4,8 +4,8 @@
 void Handling::stand(MainWindow *mainWindow) {
   if (player.getStanding() == 0) {
     player.setStanding(1);
-    mainWindow->setDescription("You stand up.\n");
+    mainWindow->setDescription("I stood up.\n");
   } else {
-    mainWindow->setDescription("You are already standing.\n");
+    mainWindow->setDescription("I was already standing.\n");
   }
 }

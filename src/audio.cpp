@@ -21,17 +21,11 @@ void Audio::play(QString filePath, int volume, int isBackground) {
   music->play();
 }
 
-float Audio::getdefAmbienceVol() const {
-    return defAmbienceVol;
-}
+float Audio::getdefAmbienceVol() const { return defAmbienceVol; }
 
-float Audio::getdefMusicVol() const {
-    return defMusicVol;
-}
+float Audio::getdefMusicVol() const { return defMusicVol; }
 
-float Audio::getdefSfxVol() const {
-    return defSfxVol;
-}
+float Audio::getdefSfxVol() const { return defSfxVol; }
 
 Audio ambiencePlayer;
 Audio musicPlayer;

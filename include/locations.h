@@ -3,7 +3,7 @@
 #include "inventory.h"
 #include "item.h"
 
-class Location: public Inventory {
+class Location : public Inventory {
 public:
   Location();
   Location(const QString &name, const QString &description,
@@ -33,6 +33,7 @@ extern Location camp;
 extern Location campPath;
 extern Location cave;
 extern Location caveEntrance;
+extern Location caveLit;
 extern Location intro;
 extern Location lake;
 extern Location perished;
