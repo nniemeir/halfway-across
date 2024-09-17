@@ -10,7 +10,7 @@ void Handling::cook(MainWindow *mainWindow, QString target,
       if (inventoryObj.getItemType(player.getInventory(), itemIndex) ==
           "RAW MEAT") {
         mainWindow->setDescription(
-            QString("I cooked the %1.").arg(target.toLower()));
+            QString("I cooked some %1 over the fire.").arg(target.toLower()));
         item cooker;
         item cookedItem = cooker.cookMeat(
             inventoryObj.getInventoryItem(player.getInventory(), itemIndex));
@@ -29,11 +29,10 @@ void Handling::cook(MainWindow *mainWindow, QString target,
                              {"RENDERED FAT", 1, 1, 10, "ANIMAL FAT", "NONE"},
                              fatIndex);
       } else {
-        mainWindow->setDescription("I couldn't cook that.");
+          mainWindow->setDescription(QString("I thought of cooking %1 %2, but dismissed the thought.").arg(handle.getArticle(target)).arg(target.toLower()));
       }
     } else {
-      mainWindow->setDescription(
-          QString("I didn't have any %1.").arg(target.toLower()));
+        mainWindow->setDescription(QString("I didn't have %1 %2 to cook.").arg(handle.getArticle(target)).arg(target.toLower()));
     }
   } else {
     mainWindow->setDescription("I needed to be near a campfire to cook.");

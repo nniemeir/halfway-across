@@ -33,7 +33,7 @@ void Handling::move(MainWindow *mainWindow, QString target,
       if (actions.contains(location->getName())) {
         actions[location->getName()]();
       } else {
-        mainWindow->setDescription(QString("I couldn't do that there."));
+          mainWindow->setDescription(QString("I couldn't move %1 there.").arg(target.toLower()));
       }
     } else {
       mainWindow->setDescription(QString("%1 was not a direction I was aware of.")
@@ -65,7 +65,7 @@ void Handling::moveCamp(MainWindow *mainWindow, QString target) {
     }
   } else {
     mainWindow->setDescription(
-        QString("I couldn't move %1 there.\n").arg(target.toLower()));
+        QString("I was unable to move %1 there.\n").arg(target.toLower()));
   }
 }
 
@@ -90,8 +90,7 @@ void Handling::moveCampPath(MainWindow *mainWindow, QString target) {
     mainWindow->setLocation(campPath.getMusicPath(), campPath.getAmbiencePath(),
                             &camp);
   } else {
-    mainWindow->setDescription(
-        QString("I couldn't move %1 there.\n").arg(target.toLower()));
+    mainWindow->setDescription(QString("I was unable to move %1 there.\n").arg(target.toLower()));
   }
 }
 
@@ -101,8 +100,7 @@ void Handling::moveCave(MainWindow *mainWindow, QString target) {
     mainWindow->setLocation(cave.getMusicPath(), cave.getAmbiencePath(),
                             &caveEntrance);
   } else {
-    mainWindow->setDescription(
-        QString("I couldn't move %1 there.\n").arg(target.toLower()));
+    mainWindow->setDescription(QString("I was unable to move %1 there.\n").arg(target.toLower()));
   }
 }
 
@@ -112,8 +110,7 @@ void Handling::moveCaveLit(MainWindow *mainWindow, QString target) {
     mainWindow->setLocation(cave.getMusicPath(), cave.getAmbiencePath(),
                             &caveEntrance);
   } else {
-    mainWindow->setDescription(
-        QString("I couldn't move %1 there.\n").arg(target.toLower()));
+    mainWindow->setDescription(QString("I was unable to move %1 there.\n").arg(target.toLower()));
   }
 }
 
@@ -129,8 +126,7 @@ void Handling::moveCaveEntrance(MainWindow *mainWindow, QString target) {
     mainWindow->setLocation(caveEntrance.getMusicPath(),
                             caveEntrance.getAmbiencePath(), &cave);
   } else {
-    mainWindow->setDescription(
-        QString("I couldn't move %1 there.\n").arg(target.toLower()));
+    mainWindow->setDescription(QString("I was unable to move %1 there.\n").arg(target.toLower()));
   }
 }
 
@@ -140,8 +136,7 @@ void Handling::moveLake(MainWindow *mainWindow, QString target) {
     mainWindow->setLocation(lake.getMusicPath(), lake.getAmbiencePath(),
                             &campPath);
   } else {
-    mainWindow->setDescription(
-        QString("I couldn't move %1 there.\n").arg(target.toLower()));
+    mainWindow->setDescription(QString("I was unable to move %1 there.\n").arg(target.toLower()));
   }
 }
 
@@ -151,7 +146,6 @@ void Handling::moveValley(MainWindow *mainWindow, QString target) {
     mainWindow->setLocation(valley.getMusicPath(), valley.getAmbiencePath(),
                             &campPath);
   } else {
-    mainWindow->setDescription(
-        QString("I couldn't move %1 there.\n").arg(target.toLower()));
+    mainWindow->setDescription(QString("I was unable to move %1 there.\n").arg(target.toLower()));
   }
 }

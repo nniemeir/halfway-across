@@ -29,12 +29,12 @@ void Handling::hunt(MainWindow *mainWindow, QString target,
                              peltIndex);
       } else {
         mainWindow->setDescription(
-            QString("I couldn't hunt %1.").arg(target.toLower()));
+            QString("I was unable to find any %1 in the valley.").arg(target.toLower()));
       }
     } else {
       mainWindow->setDescription("I needed a weapon to hunt.");
     }
   } else {
-    mainWindow->setDescription("I couldn't hunt there.");
+    mainWindow->setDescription("It didn't seem like a good place to hunt.");
   }
 }

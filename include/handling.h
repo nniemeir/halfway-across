@@ -6,6 +6,7 @@
 class Handling {
 public:
   Handling();
+  QString getArticle(QString target);
   int validateVerb(QString input);
   void splitInput(MainWindow *mainWindow, QString input);
   void handleVerb(MainWindow *mainWindow, QString verb, QString target,

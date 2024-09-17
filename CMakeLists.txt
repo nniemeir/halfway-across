@@ -37,6 +37,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/audio.cpp
         src/handling.cpp
         src/inventory.cpp
+        src/journal.cpp
         src/locations.cpp
         src/player.cpp
         src/world.cpp
@@ -57,7 +58,6 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/verbs/sleep.cpp
         src/verbs/stand.cpp
         src/verbs/take.cpp
-        src/transcript.cpp
         src/verbs/use.cpp
         src/verbs/version.cpp
         src/verbs/wait.cpp

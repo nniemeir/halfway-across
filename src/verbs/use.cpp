@@ -23,7 +23,7 @@ void Handling::use(MainWindow *mainWindow, QString target, Location *location) {
   if (actions.contains(location->getName())) {
     actions[location->getName()]();
   } else {
-    mainWindow->setDescription(QString("I couldn't do that there."));
+    mainWindow->setDescription(QString("I didn't have the room to use anything there."));
   }
 }
 

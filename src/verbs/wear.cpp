@@ -15,6 +15,6 @@ void Handling::wear(MainWindow *mainWindow, QString target) {
           QString("I was already wearing my %1.").arg(target.toLower()));
     }
   } else {
-    mainWindow->setDescription("I did not possess that.");
+      mainWindow->setDescription(QString("I didn't have %1 %2 to put on.").arg(handle.getArticle(target)).arg(target.toLower()));
   }
 }

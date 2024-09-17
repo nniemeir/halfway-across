@@ -54,7 +54,7 @@ void Handling::splitInput(MainWindow *mainWindow, QString input) {
   }
   if (target == "") {
     mainWindow->setDescription(
-        QString("I don't know what to %1.").arg(verb.toLower()));
+        QString("I wasn't sure what to %1.").arg(verb.toLower()));
   }
   handleVerb(mainWindow, verb, target, world.getCurrentLocation());
 }
@@ -148,8 +148,7 @@ void Handling::handleVerb(MainWindow *mainWindow, QString verb, QString target,
   if (actions.contains(verb)) {
     actions[verb]();
   } else {
-    mainWindow->setDescription(
-        QString("I don't know how to %1.").arg(verb.toLower()));
+    mainWindow->setDescription("My thoughts were pushing me in a direction that I didn't understand.");
   }
 }
 
@@ -160,4 +159,14 @@ QString Handling::removeFillerWords(const QString &text,
   QString modifiedText = text;
   modifiedText.remove(regex);
   return modifiedText.trimmed().replace(QRegularExpression("\\s+"), " ");
+}
+
+QString Handling::getArticle(QString target) {
+QStringList vowels = {"A", "E", "I", "O", "U"};
+QString firstLetter = target.at( 0 ).toUpper();
+if (vowels.contains(firstLetter)) {
+    return "an";
+} else {
+    return "a";
+}
 }

@@ -11,6 +11,6 @@ void Handling::sleep(MainWindow *mainWindow, Location *location) {
                               &perished);
     }
   } else {
-    mainWindow->setDescription("I couldn't do that there.");
+    mainWindow->setDescription("I felt fairly tired, but I couldn't sleep there.");
   }
 }

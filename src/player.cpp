@@ -16,7 +16,7 @@ Player::Player()
   inventory.push_back({"LEATHER GLOVES", 1, 1, 5, "CLOTHING", "NONE"});
   inventory.push_back({"HEAVY COTTON SHIRT", 1, 1, 10, "CLOTHING", "NONE"});
   inventory.push_back({"HEAVY COTTON TROUSERS", 1, 1, 20, "CLOTHING", "NONE"});
-  inventory.push_back({"MOCCASINS", 1, 1, 10, "CLOTHING", "NONE"});
+  inventory.push_back({"PAIR OF MOCCASINS", 1, 1, 10, "CLOTHING", "NONE"});
 }
 
 int Player::getHealth() const { return health; }
@@ -87,10 +87,10 @@ int Player::constrainStat(int stat) { return std::max(0, std::min(stat, 100)); }
 QString Player::constructReflection() const {
   QString reflection;
   reflection.append(
-      QString("Day %1 in the San Juan mountains.\n").arg(world.getDay()));
+      QString("Day %1\n").arg(world.getDay()));
 
   if (warmth < LOW_STAT_THRESHOLD) {
-    reflection.append("I didn't think I could survive this cold much longer.\n");
+    reflection.append("I didn't think I could survive the cold much longer.\n");
   } else if (LOW_STAT_THRESHOLD <= warmth && warmth < MEDIUM_STAT_THRESHOLD) {
     reflection.append("The cold was becoming unbearable.\n");
   } else if (MEDIUM_STAT_THRESHOLD <= warmth && warmth < HIGH_STAT_THRESHOLD) {
@@ -145,11 +145,11 @@ QString Player::bagInventory() {
   QString inventoryText;
   for (const auto &item : inventory) {
     if (item.type != "CLOTHING" && item.type != "") {
-      inventoryText.append(QString("%1: %2\n").arg(item.name).arg(item.amount));
+      inventoryText.append(QString("%1: %2\n\n").arg(item.name).arg(item.amount));
     }
   }
   if (inventoryText != "") {
-    inventoryText.prepend("I had:\n");
+    inventoryText.prepend("Looking in my possibles bag, I saw:\n");
   } else {
     inventoryText.append("My possibles bag was empty.");
   }

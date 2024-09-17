@@ -8,23 +8,23 @@ void Handling::craft(MainWindow *mainWindow, QString target) {
     int ingredient1Index =
         inventoryObj.searchInventory(player.getInventory(), "RENDERED FAT");
     int ingredient2Index =
-        inventoryObj.searchInventory(player.getInventory(), "WOOD");
+        inventoryObj.searchInventory(player.getInventory(), "PIECE OF WOOD");
     if (ingredient1Index != -1 && ingredient1Index != -1) {
       sfxPlayer.play("qrc:/audio/sfx/craft.mp3", sfxPlayer.getdefSfxVol(), 0);
-      mainWindow->setDescription(QString("I crafted a %1.").arg(target.toLower()));
+      mainWindow->setDescription(QString("I crafted %1 %2.").arg(handle.getArticle(target)).arg(target.toLower()));
       int resultIndex = inventoryObj.searchInventory(player.getInventory(),
-                                                     "ANIMAL FAT CANDLE");
+                                                     "TALLOW CANDLE");
       inventoryObj.addItem(
           player.getInventory(),
-          {"ANIMAL FAT CANDLE", 1, 1, 10, "ANIMAL FAT", "NONE"}, resultIndex);
+          {"TALLOW CANDLE", 1, 1, 10, "ANIMAL FAT", "NONE"}, resultIndex);
       inventoryObj.removeItem(player.getInventory(), ingredient1Index);
       inventoryObj.removeItem(player.getInventory(), ingredient2Index);
     } else {
       mainWindow->setDescription(
-          QString("I didn't have the resources to make a %1.").arg(target));
+          QString("I didn't have the resources to make %1 %2.").arg(getArticle(target)).arg(target));
     }
   } else {
     mainWindow->setDescription(
-        QString("I didn't know how to make a %1.").arg(target));
+        QString("I didn't know how to make %1 %2.").arg(getArticle(target)).arg(target));
   }
 }

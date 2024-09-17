@@ -15,6 +15,6 @@ void Handling::remove(MainWindow *mainWindow, QString target) {
           QString("I was not wearing my %1.").arg(target.toLower()));
     }
   } else {
-    mainWindow->setDescription("I did not possess that.");
+      mainWindow->setDescription(QString("I did not have %1 %2.").arg(handle.getArticle(target)).arg(target.toLower()));
   }
 }

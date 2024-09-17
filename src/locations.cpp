@@ -15,7 +15,7 @@ Location camp("camp",
               {{"ARROW", 1, 0, 0, "TOOLS", "NONE"},
                {"BOW", 1, 0, 0, "TOOLS", "ARROW"},
                {"FISHING ROD", 1, 0, 0, "TOOLS", "RENDERED FAT"},
-               {"LANTERN", 1, 0, 0, "TOOLS", "ANIMAL FAT CANDLE"}});
+               {"LANTERN", 1, 0, 0, "TOOLS", "TALLOW CANDLE"}});
 
 Location
     campPath("campPath",
@@ -23,7 +23,7 @@ Location
              "reaching a fork in the road.\n\nExits: North, South, East, West",
              ":/images/campPath.png", "qrc:/audio/music/placeholder.mp3",
              "qrc:/audio/ambience/mountainWind.mp3",
-             {{"WOOD", 1, 0, 0, "RESOURCES", "NONE"}});
+             {{"PIECE OF WOOD", 1, 0, 0, "RESOURCES", "NONE"}});
 
 Location caveEntrance("caveEntrance",
                       "I happened upon a cave, it didn't seem like a good idea to "
@@ -47,7 +47,7 @@ Location caveLit("caveLit", "My lantern now lit the way.\n\nExit: West",
 Location intro("intro", "HALFWAY ACROSS\n\nType BEGIN to continue.\n",
                ":/images/intro.png", "qrc:/audio/music/placeholder.mp3",
                "qrc:/audio/ambience/mountainWind.mp3",
-               {{"MOTIVATION", 1, 0, 0, "RESOURCES", "NONE"}});
+               {{}});
 
 Location lake("lake", "I arrived at a lake after an hour's journey.\n\nExit: East",
               ":/images/lake.png", "qrc:/audio/music/placeholder.mp3",
@@ -80,7 +80,7 @@ QString Location::locInventory() const {
     inventoryText.append(QString("%1: %2\n").arg(item.name).arg(item.amount));
   }
   if (inventoryText != "") {
-    inventoryText.prepend("I saw:\n");
+    inventoryText.prepend("Looking at the ground, I saw:\n\n");
   } else {
     inventoryText.append("I didn't see anything of note on the ground.");
   }

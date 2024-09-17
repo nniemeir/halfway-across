@@ -90,7 +90,7 @@ void MainWindow::handleReturnPressed() {
     if (input != "") {
       setDescription(QString("I didn't know how to %1.").arg(input.toLower()));
     } else {
-        setDescription("My memory is failing me at the moment.");
+        setDescription("I felt confused for a moment.");
     }
   }
   ui->inputText->clear();

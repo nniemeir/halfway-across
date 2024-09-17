@@ -9,6 +9,6 @@ void Handling::begin(MainWindow *mainWindow, Location *location) {
     mainWindow->setLocation(intro.getMusicPath(), intro.getAmbiencePath(),
                             &camp);
   } else {
-    mainWindow->setDescription("I couldn't do that there.");
+    mainWindow->setDescription("My thoughts weren't making any sense.");
   }
 }

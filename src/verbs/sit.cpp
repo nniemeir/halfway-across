@@ -18,7 +18,7 @@ void Handling::sit(MainWindow *mainWindow, QString target, Location *location) {
   if (actions.contains(location->getName())) {
     actions[location->getName()]();
   } else {
-    mainWindow->setDescription(QString("I couldn't do that there."));
+    mainWindow->setDescription(QString("I couldn't sit down on anything there."));
   }
 }
 

@@ -8,9 +8,10 @@ void Handling::drop(MainWindow *mainWindow, QString target,
   int itemIndex = inventoryObj.searchInventory(player.getInventory(), target);
   if (itemIndex != -1) {
     sfxPlayer.play("qrc:/audio/sfx/drop.mp3", sfxPlayer.getdefSfxVol(), 0);
+    QString itemName = inventoryObj.getItemName(player.getInventory(), itemIndex);
     mainWindow->setDescription(
-        QString("I dropped %1.")
-            .arg(inventoryObj.getItemName(player.getInventory(), itemIndex)));
+        QString("I dropped %1 %2.")
+            .arg(getArticle(target)).arg(itemName));
     int locationItemIndex =
         inventoryObj.searchInventory(location->getInventory(), target);
     inventoryObj.addItem(
@@ -19,6 +20,6 @@ void Handling::drop(MainWindow *mainWindow, QString target,
         locationItemIndex);
     inventoryObj.removeItem(player.getInventory(), itemIndex);
   } else {
-    mainWindow->setDescription("I didn't have that.");
+      mainWindow->setDescription(QString("I didn't have %1 %2 to drop.").arg(handle.getArticle(target)).arg(target.toLower()));
   }
 }
