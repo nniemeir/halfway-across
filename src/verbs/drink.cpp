@@ -6,20 +6,20 @@
 void Handling::drink(MainWindow *mainWindow, QString target,
                      Location *location) {
 
-  QMap<QString, std::function<void()>> actions;
-  // actions["camp"] = [mainWindow, target, this]() {     drinkCamp(mainWindow,
-  // target);}; actions["campPath"] = [mainWindow, target, this]() {
-  // drinkCampPath(mainWindow, target);}; actions["cave"] = [mainWindow, target,
-  // this]() {     drinkCave(mainWindow, target);}; actions["caveEntrance"] =
+  QMap<QString, std::function<void()>> drinkLocations;
+  // drinkLocations["camp"] = [mainWindow, target, this]() {     drinkCamp(mainWindow,
+  // target);}; drinkLocations["campPath"] = [mainWindow, target, this]() {
+  // drinkCampPath(mainWindow, target);}; drinkLocations["cave"] = [mainWindow, target,
+  // this]() {     drinkCave(mainWindow, target);}; drinkLocations["caveEntrance"] =
   // [mainWindow, target, this]() {     drinkCaveEntrance(mainWindow, target);};
-  actions["lake"] = [mainWindow, target, this]() {
+  drinkLocations["lake"] = [mainWindow, target, this]() {
     drinkLake(mainWindow, target);
   };
-  // actions["valley"] = [mainWindow, target, this]() { drinkValley(mainWindow,
+  // drinkLocations["valley"] = [mainWindow, target, this]() { drinkValley(mainWindow,
   // target);};
 
-  if (actions.contains(location->getName())) {
-    actions[location->getName()]();
+  if (drinkLocations.contains(location->getName())) {
+    drinkLocations[location->getName()]();
   } else {
     mainWindow->setDescription(QString("I couldn't drink anything there."));
   }

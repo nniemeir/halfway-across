@@ -5,23 +5,23 @@
 
 void Handling::use(MainWindow *mainWindow, QString target, Location *location) {
 
-  QMap<QString, std::function<void()>> actions;
-  // actions["camp"] = [mainWindow, target, this]() {     useCamp(mainWindow,
-  // target);}; actions["campPath"] = [mainWindow, target, this]() {
+  QMap<QString, std::function<void()>> useLocations;
+  // useLocations["camp"] = [mainWindow, target, this]() {     useCamp(mainWindow,
+  // target);}; useLocations["campPath"] = [mainWindow, target, this]() {
   // useCampPath(mainWindow, target);};
-  actions["cave"] = [mainWindow, target, this]() {
+  useLocations["cave"] = [mainWindow, target, this]() {
     useCave(mainWindow, target);
   };
-  // actions["caveEntrance"] = [mainWindow, target, this]() {
+  // useLocations["caveEntrance"] = [mainWindow, target, this]() {
   // useCaveEntrance(mainWindow, target);};
-  actions["lake"] = [mainWindow, target, this]() {
+  useLocations["lake"] = [mainWindow, target, this]() {
     useLake(mainWindow, target);
   };
-  // actions["valley"] = [mainWindow, target, this]() { useValley(mainWindow,
+  // useLocations["valley"] = [mainWindow, target, this]() { useValley(mainWindow,
   // target);};
 
-  if (actions.contains(location->getName())) {
-    actions[location->getName()]();
+  if (useLocations.contains(location->getName())) {
+    useLocations[location->getName()]();
   } else {
     mainWindow->setDescription(QString("I didn't have the room to use anything there."));
   }

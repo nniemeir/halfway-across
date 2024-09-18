@@ -5,17 +5,17 @@
 
 void Handling::wait(MainWindow *mainWindow, Location *location) {
 
-  QMap<QString, std::function<void()>> actions;
-  // actions["camp"] = [mainWindow, this]() {     waitCamp(mainWindow);};
-  // actions["campPath"] = [mainWindow, this]() { waitCampPath(mainWindow);};
-  // actions["cave"] = [mainWindow, this]() {     waitCave(mainWindow);};
-  // actions["caveEntrance"] = [mainWindow, this]() {
+  QMap<QString, std::function<void()>> waitLocations;
+  // waitLocations["camp"] = [mainWindow, this]() {     waitCamp(mainWindow);};
+  // waitLocations["campPath"] = [mainWindow, this]() { waitCampPath(mainWindow);};
+  // waitLocations["cave"] = [mainWindow, this]() {     waitCave(mainWindow);};
+  // waitLocations["caveEntrance"] = [mainWindow, this]() {
   // waitCaveEntrance(mainWindow);};
-  actions["lake"] = [mainWindow, this]() { waitLake(mainWindow); };
-  // actions["valley"] = [mainWindow, this]() {     waitValley(mainWindow);};
+  waitLocations["lake"] = [mainWindow, this]() { waitLake(mainWindow); };
+  // waitLocations["valley"] = [mainWindow, this]() {     waitValley(mainWindow);};
 
-  if (actions.contains(location->getName())) {
-    actions[location->getName()]();
+  if (waitLocations.contains(location->getName())) {
+    waitLocations[location->getName()]();
   } else {
     mainWindow->setDescription("I didn't feel safe waiting there.");
   }

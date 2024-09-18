@@ -3,20 +3,20 @@
 
 void Handling::sit(MainWindow *mainWindow, QString target, Location *location) {
 
-  QMap<QString, std::function<void()>> actions;
-  actions["camp"] = [mainWindow, target, this]() {
+  QMap<QString, std::function<void()>> sitLocations;
+  sitLocations["camp"] = [mainWindow, target, this]() {
     sitCamp(mainWindow, target);
   };
-  // actions["campPath"] = [mainWindow, target, this]() {
-  // sitCampPath(mainWindow, target);}; actions["cave"] = [mainWindow, target,
-  // this]() {     sitCave(mainWindow, target);}; actions["caveEntrance"] =
+  // sitLocations["campPath"] = [mainWindow, target, this]() {
+  // sitCampPath(mainWindow, target);}; sitLocations["cave"] = [mainWindow, target,
+  // this]() {     sitCave(mainWindow, target);}; sitLocations["caveEntrance"] =
   // [mainWindow, target, this]() {     sitCaveEntrance(mainWindow, target);};
-  // actions["lake"] = [mainWindow, target, this]() {     sitLake(mainWindow,
-  // target);}; actions["valley"] = [mainWindow, target, this]() {
+  // sitLocations["lake"] = [mainWindow, target, this]() {     sitLake(mainWindow,
+  // target);}; sitLocations["valley"] = [mainWindow, target, this]() {
   // sitValley(mainWindow, target);};
 
-  if (actions.contains(location->getName())) {
-    actions[location->getName()]();
+  if (sitLocations.contains(location->getName())) {
+    sitLocations[location->getName()]();
   } else {
     mainWindow->setDescription(QString("I couldn't sit down on anything there."));
   }

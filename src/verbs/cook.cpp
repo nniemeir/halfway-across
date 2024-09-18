@@ -5,24 +5,24 @@
 void Handling::cook(MainWindow *mainWindow, QString target,
                     Location *location) {
   if (location->getName() == "camp") {
-    int itemIndex = inventoryObj.searchInventory(player.getInventory(), target);
-    if (itemIndex != -1) {
-      if (inventoryObj.getInventoryItem(player.getInventory(), itemIndex).getType() ==
+    int targetIndex = inventoryObj.searchInventory(player.getInventory(), target);
+    if (targetIndex != -1) {
+      if (inventoryObj.getInventoryItem(player.getInventory(), targetIndex).getType() ==
           "RAW MEAT") {
         mainWindow->setDescription(
             QString("I cooked some %1 over the fire.").arg(target.toLower()));
         Item cooker;
         Item cookedItem = cooker.cookMeat(
-            inventoryObj.getInventoryItem(player.getInventory(), itemIndex));
-        inventoryObj.removeItem(player.getInventory(), itemIndex);
+            inventoryObj.getInventoryItem(player.getInventory(), targetIndex));
+        inventoryObj.removeItem(player.getInventory(), targetIndex);
         int cookedIndex = inventoryObj.searchInventory(player.getInventory(),
                                                        cookedItem.getName());
         inventoryObj.addItem(player.getInventory(), cookedItem, cookedIndex);
-      } else if (inventoryObj.getInventoryItem(player.getInventory(), itemIndex).getType() ==
+      } else if (inventoryObj.getInventoryItem(player.getInventory(), targetIndex).getType() ==
                  "FAT") {
         mainWindow->setDescription(
             QString("I rendered the %1.").arg(target.toLower()));
-        inventoryObj.removeItem(player.getInventory(), itemIndex);
+        inventoryObj.removeItem(player.getInventory(), targetIndex);
         int fatIndex = inventoryObj.searchInventory(player.getInventory(),
                                                     "RENDERED FAT");
         inventoryObj.addItem(player.getInventory(),

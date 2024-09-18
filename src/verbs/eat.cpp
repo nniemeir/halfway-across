@@ -3,16 +3,16 @@
 #include "../../include/player.h"
 
 void Handling::eat(MainWindow *mainWindow, QString target) {
-  int itemIndex = inventoryObj.searchInventory(player.getInventory(), target);
-  if (itemIndex != -1) {
-    if (inventoryObj.getInventoryItem(player.getInventory(), itemIndex).getType() == "FOOD") {
+  int targetIndex = inventoryObj.searchInventory(player.getInventory(), target);
+  if (targetIndex != -1) {
+    if (inventoryObj.getInventoryItem(player.getInventory(), targetIndex).getType() == "FOOD") {
       sfxPlayer.play("qrc:/audio/sfx/eat.mp3", sfxPlayer.getdefSfxVol(), 0);
-      QString itemName = inventoryObj.getInventoryItem(player.getInventory(), itemIndex).getName();
+      QString itemName = inventoryObj.getInventoryItem(player.getInventory(), targetIndex).getName();
       mainWindow->setDescription(
           QString("I ate %1 %2.").arg(getArticle(itemName)).arg(itemName));
       player.setHunger(
-          player.getHunger() + inventoryObj.getInventoryItem(player.getInventory(), itemIndex).getEffect());
-      inventoryObj.removeItem(player.getInventory(), itemIndex);
+          player.getHunger() + inventoryObj.getInventoryItem(player.getInventory(), targetIndex).getEffect());
+      inventoryObj.removeItem(player.getInventory(), targetIndex);
     } else {
       mainWindow->setDescription(QString("It didn't seem wise to eat %1 %2.").arg(handle.getArticle(target)).arg(target.toLower()));
     }

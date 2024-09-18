@@ -13,11 +13,11 @@ void Handling::craft(MainWindow *mainWindow, QString target) {
     if (ingredient1Index != -1 && ingredient2Index != -1) {
         sfxPlayer.play("qrc:/audio/sfx/craft.mp3", sfxPlayer.getdefSfxVol(), 0);
         mainWindow->setDescription(QString("I crafted %1 %2.").arg(handle.getArticle(target)).arg(target.toLower()));
-        int resultIndex = inventoryObj.searchInventory(player.getInventory(),
+        int recipeIndex = inventoryObj.searchInventory(player.getInventory(),
                                                        targetRecipe->getRecipeName());
         inventoryObj.addItem(
             player.getInventory(),
-            targetRecipe->getOutputItem(), resultIndex);
+            targetRecipe->getOutputItem(), recipeIndex);
         inventoryObj.removeItem(player.getInventory(), ingredient1Index);
         inventoryObj.removeItem(player.getInventory(), ingredient2Index);
     } else {

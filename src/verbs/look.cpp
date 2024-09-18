@@ -4,28 +4,28 @@
 
 void Handling::look(MainWindow *mainWindow, QString target,
                     Location *location) {
-  QMap<QString, std::function<void()>> actions;
-  actions["camp"] = [mainWindow, target, this]() {
+  QMap<QString, std::function<void()>> lookLocations;
+  lookLocations["camp"] = [mainWindow, target, this]() {
     lookCamp(mainWindow, target);
   };
-  actions["campPath"] = [mainWindow, target, this]() {
+  lookLocations["campPath"] = [mainWindow, target, this]() {
     lookCampPath(mainWindow, target);
   };
-  actions["cave"] = [mainWindow, target, this]() {
+  lookLocations["cave"] = [mainWindow, target, this]() {
     lookCave(mainWindow, target);
   };
-  actions["caveEntrance"] = [mainWindow, target, this]() {
+  lookLocations["caveEntrance"] = [mainWindow, target, this]() {
     lookCaveEntrance(mainWindow, target);
   };
-  actions["lake"] = [mainWindow, target, this]() {
+  lookLocations["lake"] = [mainWindow, target, this]() {
     lookLake(mainWindow, target);
   };
-  actions["valley"] = [mainWindow, target, this]() {
+  lookLocations["valley"] = [mainWindow, target, this]() {
     lookValley(mainWindow, target);
   };
 
-  if (actions.contains(location->getName())) {
-    actions[location->getName()]();
+  if (lookLocations.contains(location->getName())) {
+    lookLocations[location->getName()]();
   } else {
     mainWindow->setDescription("I couldn't look at anything there.");
   }
