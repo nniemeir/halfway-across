@@ -7,8 +7,9 @@ Inventory inventoryObj;
 // use a hash table for the sake of performance
 int Inventory::searchInventory(std::vector<Item> &inventory,
                                const QString &itemName) const {
-  auto it = std::find_if(inventory.begin(), inventory.end(),
-                         [&](const Item &i) { return i.getName() == itemName; });
+  auto it =
+      std::find_if(inventory.begin(), inventory.end(),
+                   [&](const Item &i) { return i.getName() == itemName; });
 
   if (it != inventory.end()) {
     int index = std::distance(inventory.begin(), it);
@@ -18,8 +19,7 @@ int Inventory::searchInventory(std::vector<Item> &inventory,
   }
 }
 
-Item &Inventory::getInventoryItem(std::vector<Item> &inventory,
-                                        int index) {
+Item &Inventory::getInventoryItem(std::vector<Item> &inventory, int index) {
   return inventory[index];
 }
 

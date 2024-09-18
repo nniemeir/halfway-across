@@ -1,6 +1,6 @@
 #include "../../include/handling.h"
-#include "../../include/mainwindow.h"
 #include "../../include/journal.h"
+#include "../../include/mainwindow.h"
 
 void Handling::script(MainWindow *mainWindow) {
   journal.setRecordingStatus(true);

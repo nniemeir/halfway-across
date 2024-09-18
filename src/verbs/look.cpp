@@ -39,8 +39,8 @@ void Handling::lookCamp(MainWindow *mainWindow, QString target) {
       {"BED", "The bed seemed to be quite worn."},
       {"GROUND", camp.locInventory()},
       {"SELF", player.clothesInventory()},
-      {"UP",
-       "The cave ceiling seemed sturdy enough that it wouldn't collapse on me."},
+      {"UP", "The cave ceiling seemed sturdy enough that it wouldn't collapse "
+             "on me."},
       {"DOWN", camp.locInventory()},
       {"OUTSIDE",
        QString("It was %1 outside.").arg(world.getCurrentWeather().toLower())}};
@@ -76,8 +76,8 @@ void Handling::lookCave(MainWindow *mainWindow, QString target) {
       {"AROUND", valley.getDescription()},
       {"BAG", player.bagInventory()},
       {"GROUND", cave.locInventory()},
-      {"UP",
-       "The cave ceiling seemed sturdy enough that it wouldn't collapse on me."},
+      {"UP", "The cave ceiling seemed sturdy enough that it wouldn't collapse "
+             "on me."},
       {"DOWN", cave.locInventory()},
       {"SELF", player.clothesInventory()}};
   if (descriptions.contains(target)) {

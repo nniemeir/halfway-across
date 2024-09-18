@@ -1,7 +1,7 @@
 #include "../include/journal.h"
 
-Journal journal("journal-" +
-                      QDate::currentDate().toString("MM-dd-yy") + ".txt");
+Journal journal("journal-" + QDate::currentDate().toString("MM-dd-yy") +
+                ".txt");
 
 bool Journal::writeFile(const QString &outputText) {
   if (!file.isOpen()) {

@@ -4,9 +4,9 @@
 
 Handling::Handling() {
 
-  argVerbs = {"COOK", "CRAFT", "DRINK", "DROP", "EAT",  "EXAMINE", "GO",
-              "HUNT", "L",     "LOAD",  "LOOK", "MOVE", "REMOVE",
-              "SIT",  "STAND", "TAKE", "USE",  "WEAR"};
+  argVerbs = {"COOK",   "CRAFT", "DRINK", "DROP", "EAT",  "EXAMINE",
+              "GO",     "HUNT",  "L",     "LOAD", "LOOK", "MOVE",
+              "REMOVE", "SIT",   "STAND", "TAKE", "USE",  "WEAR"};
 
   noArgVerbs = {"BEGIN",    "CRY",     "E",      "N",      "Q",     "QUIT",
                 "REFLECT",  "S",       "SCREAM", "SCRIPT", "SHOUT", "SLEEP",
@@ -148,7 +148,8 @@ void Handling::handleVerb(MainWindow *mainWindow, QString verb, QString target,
   if (actions.contains(verb)) {
     actions[verb]();
   } else {
-    mainWindow->setDescription("My thoughts were pushing me in a direction that I didn't understand.");
+    mainWindow->setDescription(
+        "My thoughts were pushing me in a direction that I didn't understand.");
   }
 }
 
@@ -162,11 +163,11 @@ QString Handling::removeFillerWords(const QString &text,
 }
 
 QString Handling::getArticle(QString target) {
-QStringList vowels = {"A", "E", "I", "O", "U"};
-QString firstLetter = target.at( 0 ).toUpper();
-if (vowels.contains(firstLetter)) {
+  QStringList vowels = {"A", "E", "I", "O", "U"};
+  QString firstLetter = target.at(0).toUpper();
+  if (vowels.contains(firstLetter)) {
     return "an";
-} else {
+  } else {
     return "a";
-}
+  }
 }

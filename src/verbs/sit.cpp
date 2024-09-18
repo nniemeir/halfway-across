@@ -7,18 +7,12 @@ void Handling::sit(MainWindow *mainWindow, QString target, Location *location) {
   sitLocations["camp"] = [mainWindow, target, this]() {
     sitCamp(mainWindow, target);
   };
-  // sitLocations["campPath"] = [mainWindow, target, this]() {
-  // sitCampPath(mainWindow, target);}; sitLocations["cave"] = [mainWindow, target,
-  // this]() {     sitCave(mainWindow, target);}; sitLocations["caveEntrance"] =
-  // [mainWindow, target, this]() {     sitCaveEntrance(mainWindow, target);};
-  // sitLocations["lake"] = [mainWindow, target, this]() {     sitLake(mainWindow,
-  // target);}; sitLocations["valley"] = [mainWindow, target, this]() {
-  // sitValley(mainWindow, target);};
 
   if (sitLocations.contains(location->getName())) {
     sitLocations[location->getName()]();
   } else {
-    mainWindow->setDescription(QString("I couldn't sit down on anything there."));
+    mainWindow->setDescription(
+        QString("I couldn't sit down on anything there."));
   }
 }
 

@@ -1,8 +1,8 @@
+#include "../include/mainwindow.h"
 #include "../include/audio.h"
 #include "../include/handling.h"
-#include "../include/locations.h"
-#include "../include/mainwindow.h"
 #include "../include/journal.h"
+#include "../include/locations.h"
 #include "../include/world.h"
 #include "src/ui_mainwindow.h"
 
@@ -43,11 +43,11 @@ void MainWindow::showEvent(QShowEvent *event) {
 }
 
 void MainWindow::setDescription(QString text) {
-    ui->outputArea->setText(text);
-    if (journal.getRecordingStatus()) {
+  ui->outputArea->setText(text);
+  if (journal.getRecordingStatus()) {
     journal.writeFile(QString("%1\n").arg(text));
-    }
- }
+  }
+}
 
 void MainWindow::closeProgram() { QApplication::quit(); }
 
@@ -75,11 +75,11 @@ void MainWindow::handleReturnPressed() {
   QString input = ui->inputText->text();
   input = input.toUpper();
   if (input == "G" || input == "AGAIN") {
-      input = handle.getLastCommand();
+    input = handle.getLastCommand();
   }
   handle.setLastCommand(input);
   if (journal.getRecordingStatus()) {
-  journal.writeFile(QString("> %1\n").arg(input));
+    journal.writeFile(QString("> %1\n").arg(input));
   }
   int validated = handle.validateVerb(input);
   if (validated == 0) {
@@ -90,7 +90,7 @@ void MainWindow::handleReturnPressed() {
     if (input != "") {
       setDescription(QString("I didn't know how to %1.").arg(input.toLower()));
     } else {
-        setDescription("I felt confused for a moment.");
+      setDescription("I felt confused for a moment.");
     }
   }
   ui->inputText->clear();

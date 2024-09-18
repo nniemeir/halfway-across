@@ -6,13 +6,7 @@
 void Handling::wait(MainWindow *mainWindow, Location *location) {
 
   QMap<QString, std::function<void()>> waitLocations;
-  // waitLocations["camp"] = [mainWindow, this]() {     waitCamp(mainWindow);};
-  // waitLocations["campPath"] = [mainWindow, this]() { waitCampPath(mainWindow);};
-  // waitLocations["cave"] = [mainWindow, this]() {     waitCave(mainWindow);};
-  // waitLocations["caveEntrance"] = [mainWindow, this]() {
-  // waitCaveEntrance(mainWindow);};
   waitLocations["lake"] = [mainWindow, this]() { waitLake(mainWindow); };
-  // waitLocations["valley"] = [mainWindow, this]() {     waitValley(mainWindow);};
 
   if (waitLocations.contains(location->getName())) {
     waitLocations[location->getName()]();
@@ -31,7 +25,9 @@ void Handling::waitLake(MainWindow *mainWindow) {
                      0);
       mainWindow->setDescription(
           QString("I caught a %1!\n")
-              .arg(inventoryObj.getInventoryItem(world.getFishInventory(), itemIndex).getName()
+              .arg(inventoryObj
+                       .getInventoryItem(world.getFishInventory(), itemIndex)
+                       .getName()
                        .toLower()));
       int playerItemIndex =
           inventoryObj.searchInventory(player.getInventory(), generatedFish);

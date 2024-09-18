@@ -7,16 +7,9 @@ void Handling::drink(MainWindow *mainWindow, QString target,
                      Location *location) {
 
   QMap<QString, std::function<void()>> drinkLocations;
-  // drinkLocations["camp"] = [mainWindow, target, this]() {     drinkCamp(mainWindow,
-  // target);}; drinkLocations["campPath"] = [mainWindow, target, this]() {
-  // drinkCampPath(mainWindow, target);}; drinkLocations["cave"] = [mainWindow, target,
-  // this]() {     drinkCave(mainWindow, target);}; drinkLocations["caveEntrance"] =
-  // [mainWindow, target, this]() {     drinkCaveEntrance(mainWindow, target);};
   drinkLocations["lake"] = [mainWindow, target, this]() {
     drinkLake(mainWindow, target);
   };
-  // drinkLocations["valley"] = [mainWindow, target, this]() { drinkValley(mainWindow,
-  // target);};
 
   if (drinkLocations.contains(location->getName())) {
     drinkLocations[location->getName()]();

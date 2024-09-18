@@ -10,14 +10,15 @@ Player player;
 
 Player::Player()
     : health(100), mental(50), energy(1), hunger(100), thirst(100), warmth(50),
-    charm(50), standing(1), inventory(5), recipeBook(2) {
+      charm(50), standing(1), inventory(5), recipeBook(2) {
   // Format is QString name, int amount, int active, int effects, QString type
   inventory.push_back({"FELT HAT", 1, 1, 5, "CLOTHING", "NONE"});
   inventory.push_back({"LEATHER GLOVES", 1, 1, 5, "CLOTHING", "NONE"});
   inventory.push_back({"HEAVY COTTON SHIRT", 1, 1, 10, "CLOTHING", "NONE"});
   inventory.push_back({"HEAVY COTTON TROUSERS", 1, 1, 20, "CLOTHING", "NONE"});
   inventory.push_back({"PAIR OF MOCCASINS", 1, 1, 10, "CLOTHING", "NONE"});
-  Recipe candle("TALLOW CANDLE", "RENDERED FAT", "PIECE OF WOOD", {"TALLOW CANDLE", 1, 1, 10, "ANIMAL FAT", "NONE"});
+  Recipe candle("TALLOW CANDLE", "RENDERED FAT", "PIECE OF WOOD",
+                {"TALLOW CANDLE", 1, 1, 10, "ANIMAL FAT", "NONE"});
   recipeBook.push_back(candle);
 }
 
@@ -84,15 +85,13 @@ std::vector<Item> &Player::getInventory() { return inventory; }
 
 std::vector<Recipe> &Player::getRecipeBook() { return recipeBook; }
 
-
 int Player::constrainStat(int stat) { return std::max(0, std::min(stat, 100)); }
 
 // Warning messages were opted for over showing the player the associated ints
 // for the sake of realism
 QString Player::constructReflection() const {
   QString reflection;
-  reflection.append(
-      QString("Day %1\n").arg(world.getDay()));
+  reflection.append(QString("Day %1\n").arg(world.getDay()));
 
   if (warmth < LOW_STAT_THRESHOLD) {
     reflection.append("I didn't think I could survive the cold much longer.\n");
@@ -134,7 +133,7 @@ QString Player::clothesInventory() {
   QString inventoryText;
   for (const auto &item : inventory) {
     if (item.getType() == "CLOTHING" && item.getActive() == 1) {
-          inventoryText.append(QString("%1\n").arg(item.getName()));
+      inventoryText.append(QString("%1\n").arg(item.getName()));
     }
   }
   if (inventoryText != "") {
@@ -150,7 +149,8 @@ QString Player::bagInventory() {
   QString inventoryText;
   for (const auto &item : inventory) {
     if (item.getType() != "CLOTHING" && item.getType() != "") {
-      inventoryText.append(QString("%1: %2\n").arg(item.getName()).arg(item.getAmount()));
+      inventoryText.append(
+          QString("%1: %2\n").arg(item.getName()).arg(item.getAmount()));
     }
   }
   if (inventoryText != "") {

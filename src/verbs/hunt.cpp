@@ -12,7 +12,8 @@ void Handling::hunt(MainWindow *mainWindow, QString target,
     if (bowIndex != -1 && arrowIndex != -1) {
       if (target == "DEER") {
         sfxPlayer.play("qrc:/audio/sfx/arrow.mp3", sfxPlayer.getdefSfxVol(), 0);
-        mainWindow->setDescription("I managed to drop a deer in a single shot.");
+        mainWindow->setDescription(
+            "I managed to drop a deer in a single shot.");
         int fatIndex =
             inventoryObj.searchInventory(player.getInventory(), "DEER FAT");
         inventoryObj.addItem(player.getInventory(),
@@ -29,7 +30,8 @@ void Handling::hunt(MainWindow *mainWindow, QString target,
                              peltIndex);
       } else {
         mainWindow->setDescription(
-            QString("I was unable to find any %1 in the valley.").arg(target.toLower()));
+            QString("I was unable to find any %1 in the valley.")
+                .arg(target.toLower()));
       }
     } else {
       mainWindow->setDescription("I needed a weapon to hunt.");

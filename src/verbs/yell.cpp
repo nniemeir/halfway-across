@@ -4,6 +4,6 @@
 
 void Handling::yell(MainWindow *mainWindow) {
   world.setConspicuous(true);
-  mainWindow->setDescription(
-      "I let out a sharp cry that alerted surrounding animals to my prescence.");
+  mainWindow->setDescription("I let out a sharp cry that alerted surrounding "
+                             "animals to my prescence.");
 }

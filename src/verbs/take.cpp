@@ -9,10 +9,13 @@ void Handling::take(MainWindow *mainWindow, QString target,
       inventoryObj.searchInventory(location->getInventory(), target);
   if (itemIndex != -1) {
     sfxPlayer.play("qrc:/audio/sfx/take.mp3", sfxPlayer.getdefSfxVol(), 0);
-      QString itemName = inventoryObj.getInventoryItem(location->getInventory(), itemIndex).getName().toLower();
-    mainWindow->setDescription(
-        QString("I took %1 %2.").arg(handle.getArticle(itemName))
-            .arg(itemName));
+    QString itemName =
+        inventoryObj.getInventoryItem(location->getInventory(), itemIndex)
+            .getName()
+            .toLower();
+    mainWindow->setDescription(QString("I took %1 %2.")
+                                   .arg(handle.getArticle(itemName))
+                                   .arg(itemName));
     int playerItemIndex =
         inventoryObj.searchInventory(player.getInventory(), target);
     inventoryObj.addItem(
@@ -21,7 +24,8 @@ void Handling::take(MainWindow *mainWindow, QString target,
         playerItemIndex);
     inventoryObj.removeItem(location->getInventory(), itemIndex);
   } else {
-    mainWindow->setDescription(
-        QString("There wasn't %1 %2 there.").arg(handle.getArticle(target)).arg(target.toLower()));
+    mainWindow->setDescription(QString("There wasn't %1 %2 there.")
+                                   .arg(handle.getArticle(target))
+                                   .arg(target.toLower()));
   }
 }

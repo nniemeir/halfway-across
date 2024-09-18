@@ -25,13 +25,14 @@ Location
              "qrc:/audio/ambience/mountainWind.mp3",
              {{"PIECE OF WOOD", 1, 0, 0, "RESOURCES", "NONE"}});
 
-Location caveEntrance("caveEntrance",
-                      "I happened upon a cave, it didn't seem like a good idea to "
-                      "find out what it contained.\n\nExits: West, East",
-                      ":/images/caveEntrance.png",
-                      "qrc:/audio/music/placeholder.mp3",
-                      "qrc:/audio/ambience/mountainWind.mp3",
-                      {{"ROCK", 1, 0, 0, "TOOLS", "NONE"}});
+Location
+    caveEntrance("caveEntrance",
+                 "I happened upon a cave, it didn't seem like a good idea to "
+                 "find out what it contained.\n\nExits: West, East",
+                 ":/images/caveEntrance.png",
+                 "qrc:/audio/music/placeholder.mp3",
+                 "qrc:/audio/ambience/mountainWind.mp3",
+                 {{"ROCK", 1, 0, 0, "TOOLS", "NONE"}});
 
 Location cave("cave",
               "Entering the cave, I saw nothing but darkness.\n\nExit: West",
@@ -46,10 +47,10 @@ Location caveLit("caveLit", "My lantern now lit the way.\n\nExit: West",
 
 Location intro("intro", "HALFWAY ACROSS\n\nType BEGIN to continue.\n",
                ":/images/intro.png", "qrc:/audio/music/placeholder.mp3",
-               "qrc:/audio/ambience/mountainWind.mp3",
-               {{}});
+               "qrc:/audio/ambience/mountainWind.mp3", {{}});
 
-Location lake("lake", "I arrived at a lake after an hour's journey.\n\nExit: East",
+Location lake("lake",
+              "I arrived at a lake after an hour's journey.\n\nExit: East",
               ":/images/lake.png", "qrc:/audio/music/placeholder.mp3",
               "qrc:/audio/ambience/mountainWind.mp3",
               {{"CHISEL", 1, 0, 0, "TOOLS", "NONE"}});
@@ -77,7 +78,8 @@ std::vector<Item> &Location::getInventory() { return inventory; }
 QString Location::locInventory() const {
   QString inventoryText;
   for (const auto &item : inventory) {
-      inventoryText.append(QString("%1: %2\n").arg(item.getName()).arg(item.getAmount()));
+    inventoryText.append(
+        QString("%1: %2\n").arg(item.getName()).arg(item.getAmount()));
   }
   if (inventoryText != "") {
     inventoryText.prepend("Looking at the ground, I saw:\n\n");
