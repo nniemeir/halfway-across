@@ -55,9 +55,8 @@ void Handling::useLake(MainWindow *mainWindow, QString target) {
         inventoryObj.searchInventory(player.getInventory(), "FISHING ROD");
     if (rodIndex != -1) {
       if (world.getChiseledIce()) {
-        if (inventoryObj.getItemEffect(player.getInventory(), rodIndex) ==
-            100) {
-          inventoryObj.setItemEffect(player.getInventory(), rodIndex, 0);
+    if (inventoryObj.getInventoryItem(player.getInventory(), rodIndex).getEffect() == 100) {
+          inventoryObj.getInventoryItem(player.getInventory(), rodIndex).setEffect(0);
           sfxPlayer.play("qrc:/audio/sfx/fishSet.mp3", sfxPlayer.getdefSfxVol(),
                          0);
           world.setLineSet(1);

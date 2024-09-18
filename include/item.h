@@ -2,35 +2,35 @@
 #define ITEM_H
 #include <qstring.h>
 
-struct item {
-  QString name;
-  int amount;
-  int active;
-  int effects;
-  QString type;
-  QString payload;
-  item()
-      : name(""), amount(0), active(0), effects(0), type(""), payload("NONE") {}
+class Item {
+public:
+    // Constructors
+    Item()
+        : name(""), amount(0), active(0), effect(0), type(""), payload("NONE") {}
+    Item(const QString &n, int a, int act, int eff, const QString &t, const QString &p)
+        : name(n), amount(a), active(act), effect(eff), type(t), payload(p) {}
 
-  item(const QString &n, int a, int act, int eff, const QString &t,
-       const QString &p)
-      : name(n), amount(a), active(act), effects(eff), type(t), payload(p) {}
+    Item cookMeat(const Item &raw) const {
+        return Item("COOKED " + raw.name, 1, 0, raw.effect, "FOOD", "NONE");
+    }
 
-  item cookMeat(item raw) const {
-    return item("COOKED " + raw.name, 1, 0, raw.effects, "FOOD", "NONE");
-  }
-};
+    QString getName() const;
+    int getAmount() const;
+    int getActive() const;
+    int getEffect() const;
+    QString getType() const;
+    QString getPayload() const;
+    void setEffect(int value);
+    void setActive(int value);
+    void setQuantity(int value);
 
-struct recipe {
-  QString name;
-  QString firstIngredient;
-  QString secondIngredient;
-  item output;
-
-  recipe() : name(""), firstIngredient(""), secondIngredient(""), output({}) {}
-
-  recipe(const QString &n, const QString &f, const QString &s, const item &o)
-      : name(n), firstIngredient(f), secondIngredient(s), output(o) {}
+private:
+    QString name;
+    int amount;
+    int active;
+    int effect;
+    QString type;
+    QString payload;
 };
 
 #endif // ITEM_H

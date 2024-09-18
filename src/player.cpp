@@ -10,13 +10,15 @@ Player player;
 
 Player::Player()
     : health(100), mental(50), energy(1), hunger(100), thirst(100), warmth(50),
-      charm(50), standing(1), inventory(5) {
+    charm(50), standing(1), inventory(5), recipeBook(2) {
   // Format is QString name, int amount, int active, int effects, QString type
   inventory.push_back({"FELT HAT", 1, 1, 5, "CLOTHING", "NONE"});
   inventory.push_back({"LEATHER GLOVES", 1, 1, 5, "CLOTHING", "NONE"});
   inventory.push_back({"HEAVY COTTON SHIRT", 1, 1, 10, "CLOTHING", "NONE"});
   inventory.push_back({"HEAVY COTTON TROUSERS", 1, 1, 20, "CLOTHING", "NONE"});
   inventory.push_back({"PAIR OF MOCCASINS", 1, 1, 10, "CLOTHING", "NONE"});
+  Recipe candle("TALLOW CANDLE", "RENDERED FAT", "PIECE OF WOOD", {"TALLOW CANDLE", 1, 1, 10, "ANIMAL FAT", "NONE"});
+  recipeBook.push_back(candle);
 }
 
 int Player::getHealth() const { return health; }
@@ -78,7 +80,10 @@ void Player::setCharm(int c) { charm = constrainStat(c); }
 int Player::getStanding() const { return standing; }
 void Player::setStanding(int s) { standing = constrainStat(s); }
 
-std::vector<item> &Player::getInventory() { return inventory; }
+std::vector<Item> &Player::getInventory() { return inventory; }
+
+std::vector<Recipe> &Player::getRecipeBook() { return recipeBook; }
+
 
 int Player::constrainStat(int stat) { return std::max(0, std::min(stat, 100)); }
 
@@ -128,8 +133,8 @@ QString Player::constructReflection() const {
 QString Player::clothesInventory() {
   QString inventoryText;
   for (const auto &item : inventory) {
-    if (item.type == "CLOTHING" && item.active == 1) {
-      inventoryText.append(QString("%1\n").arg(item.name));
+    if (item.getType() == "CLOTHING" && item.getActive() == 1) {
+          inventoryText.append(QString("%1\n").arg(item.getName()));
     }
   }
   if (inventoryText != "") {
@@ -144,8 +149,8 @@ QString Player::clothesInventory() {
 QString Player::bagInventory() {
   QString inventoryText;
   for (const auto &item : inventory) {
-    if (item.type != "CLOTHING" && item.type != "") {
-      inventoryText.append(QString("%1: %2\n\n").arg(item.name).arg(item.amount));
+    if (item.getType() != "CLOTHING" && item.getType() != "") {
+      inventoryText.append(QString("%1: %2\n").arg(item.getName()).arg(item.getAmount()));
     }
   }
   if (inventoryText != "") {

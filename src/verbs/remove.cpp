@@ -4,10 +4,9 @@
 void Handling::remove(MainWindow *mainWindow, QString target) {
   int index = inventoryObj.searchInventory(player.getInventory(), target);
   if (index != -1) {
-    if (inventoryObj.getItemEquipped(player.getInventory(), index) == 1) {
-      inventoryObj.setItemEquipped(player.getInventory(), index, 0);
-      player.setWarmth(player.getWarmth() - inventoryObj.getItemEffect(
-                                                player.getInventory(), index));
+    if (inventoryObj.getInventoryItem(player.getInventory(), index).getActive() == 1) {
+          inventoryObj.getInventoryItem(player.getInventory(), index).setActive(0);
+        player.setWarmth(player.getWarmth() - inventoryObj.getInventoryItem(player.getInventory(), index).getEffect());
       mainWindow->setDescription(
           QString("I removed my %1.").arg(target.toLower()));
     } else {

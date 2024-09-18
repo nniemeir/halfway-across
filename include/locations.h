@@ -8,7 +8,7 @@ public:
   Location();
   Location(const QString &name, const QString &description,
            const QString &image, const QString &musicPath,
-           const QString &ambiencePath, const std::vector<item> &inventory);
+           const QString &ambiencePath, const std::vector<Item> &inventory);
 
   // Location-specific
   QString getName() const;
@@ -17,7 +17,7 @@ public:
   QString getAmbiencePath() const;
   QString getMusicPath() const;
 
-  std::vector<item> &getInventory();
+  std::vector<Item> &getInventory();
   QString locInventory() const;
 
 private:
@@ -26,7 +26,7 @@ private:
   QString image;
   QString musicPath;
   QString ambiencePath;
-  std::vector<item> inventory;
+  std::vector<Item> inventory;
 };
 
 extern Location camp;

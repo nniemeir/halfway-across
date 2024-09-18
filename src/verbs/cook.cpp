@@ -7,18 +7,18 @@ void Handling::cook(MainWindow *mainWindow, QString target,
   if (location->getName() == "camp") {
     int itemIndex = inventoryObj.searchInventory(player.getInventory(), target);
     if (itemIndex != -1) {
-      if (inventoryObj.getItemType(player.getInventory(), itemIndex) ==
+      if (inventoryObj.getInventoryItem(player.getInventory(), itemIndex).getType() ==
           "RAW MEAT") {
         mainWindow->setDescription(
             QString("I cooked some %1 over the fire.").arg(target.toLower()));
-        item cooker;
-        item cookedItem = cooker.cookMeat(
+        Item cooker;
+        Item cookedItem = cooker.cookMeat(
             inventoryObj.getInventoryItem(player.getInventory(), itemIndex));
         inventoryObj.removeItem(player.getInventory(), itemIndex);
         int cookedIndex = inventoryObj.searchInventory(player.getInventory(),
-                                                       cookedItem.name);
+                                                       cookedItem.getName());
         inventoryObj.addItem(player.getInventory(), cookedItem, cookedIndex);
-      } else if (inventoryObj.getItemType(player.getInventory(), itemIndex) ==
+      } else if (inventoryObj.getInventoryItem(player.getInventory(), itemIndex).getType() ==
                  "FAT") {
         mainWindow->setDescription(
             QString("I rendered the %1.").arg(target.toLower()));
@@ -29,7 +29,7 @@ void Handling::cook(MainWindow *mainWindow, QString target,
                              {"RENDERED FAT", 1, 1, 10, "ANIMAL FAT", "NONE"},
                              fatIndex);
       } else {
-          mainWindow->setDescription(QString("I thought of cooking %1 %2, but dismissed the thought.").arg(handle.getArticle(target)).arg(target.toLower()));
+          mainWindow->setDescription(QString("I thought of cooking %1 %2, but dismissed the idea.").arg(handle.getArticle(target)).arg(target.toLower()));
       }
     } else {
         mainWindow->setDescription(QString("I didn't have %1 %2 to cook.").arg(handle.getArticle(target)).arg(target.toLower()));

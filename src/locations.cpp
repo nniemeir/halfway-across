@@ -3,7 +3,7 @@
 Location::Location(const QString &name, const QString &description,
                    const QString &image, const QString &musicPath,
                    const QString &ambiencePath,
-                   const std::vector<item> &inventory)
+                   const std::vector<Item> &inventory)
     : name(name), description(description), image(image), musicPath(musicPath),
       ambiencePath(ambiencePath), inventory(inventory) {}
 
@@ -72,12 +72,12 @@ QString Location::getImage() const { return image; }
 QString Location::getAmbiencePath() const { return ambiencePath; }
 QString Location::getMusicPath() const { return musicPath; }
 
-std::vector<item> &Location::getInventory() { return inventory; }
+std::vector<Item> &Location::getInventory() { return inventory; }
 
 QString Location::locInventory() const {
   QString inventoryText;
   for (const auto &item : inventory) {
-    inventoryText.append(QString("%1: %2\n").arg(item.name).arg(item.amount));
+      inventoryText.append(QString("%1: %2\n").arg(item.getName()).arg(item.getAmount()));
   }
   if (inventoryText != "") {
     inventoryText.prepend("Looking at the ground, I saw:\n\n");

@@ -5,7 +5,8 @@ void Handling::load(MainWindow *mainWindow, QString target) {
   int targetIndex = inventoryObj.searchInventory(player.getInventory(), target);
   if (targetIndex != -1) {
     QString payload =
-        inventoryObj.getItemPayload(player.getInventory(), targetIndex);
+      inventoryObj.getInventoryItem(player.getInventory(), targetIndex).getPayload();
+
     int payloadIndex =
         inventoryObj.searchInventory(player.getInventory(), payload);
     if (payloadIndex != -1) {
@@ -13,7 +14,7 @@ void Handling::load(MainWindow *mainWindow, QString target) {
                                      .arg(payload.toLower())
                                      .arg(target.toLower()));
       inventoryObj.removeItem(player.getInventory(), payloadIndex);
-      inventoryObj.setItemEffect(player.getInventory(), targetIndex, 100);
+      inventoryObj.getInventoryItem(player.getInventory(), targetIndex).setEffect(100);
     } else {
       mainWindow->setDescription(
           QString("I needed %1 %2.").arg(getArticle(payload)).arg(payload.toLower()));

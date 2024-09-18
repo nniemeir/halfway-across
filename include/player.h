@@ -2,6 +2,7 @@
 #define PLAYER_H_
 #include "inventory.h"
 #include "item.h"
+#include "recipe.h"
 
 class Player : public Inventory {
 public:
@@ -28,9 +29,10 @@ public:
   QString constructReflection() const;
 
   // Inventory
-  std::vector<item> &getInventory();
+  std::vector<Item> &getInventory();
   QString clothesInventory();
   QString bagInventory();
+  std::vector<Recipe> &getRecipeBook();
 
 private:
   int health;
@@ -41,7 +43,8 @@ private:
   int warmth;
   int charm;
   int standing;
-  std::vector<item> inventory;
+  std::vector<Item> inventory;
+  std::vector<Recipe> recipeBook;
 };
 
 extern Player player;

@@ -9,8 +9,7 @@ void Handling::take(MainWindow *mainWindow, QString target,
       inventoryObj.searchInventory(location->getInventory(), target);
   if (itemIndex != -1) {
     sfxPlayer.play("qrc:/audio/sfx/take.mp3", sfxPlayer.getdefSfxVol(), 0);
-      QString itemName = inventoryObj.getItemName(location->getInventory(), itemIndex)
-                           .toLower();
+      QString itemName = inventoryObj.getInventoryItem(location->getInventory(), itemIndex).getName().toLower();
     mainWindow->setDescription(
         QString("I took %1 %2.").arg(handle.getArticle(itemName))
             .arg(itemName));

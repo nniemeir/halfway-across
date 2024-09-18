@@ -115,4 +115,4 @@ QString World::generateFish() {
   }
 }
 
-std::vector<item> &World::getFishInventory() { return fish; }
+std::vector<Item> &World::getFishInventory() { return fish; }

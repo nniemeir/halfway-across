@@ -34,7 +34,7 @@ public:
 
   // Fishing
   QString generateFish();
-  std::vector<item> &getFishInventory();
+  std::vector<Item> &getFishInventory();
 
   // Movement
   bool validDirection(const QString &value);
@@ -49,7 +49,7 @@ private:
   bool conspicuous;
   int generateTemperature();
   QString generateWeather();
-  std::vector<item> fish;
+  std::vector<Item> fish;
   std::vector<QString> directions;
 };
 

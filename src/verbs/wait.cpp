@@ -31,7 +31,7 @@ void Handling::waitLake(MainWindow *mainWindow) {
                      0);
       mainWindow->setDescription(
           QString("I caught a %1!\n")
-              .arg(inventoryObj.getItemName(world.getFishInventory(), itemIndex)
+              .arg(inventoryObj.getInventoryItem(world.getFishInventory(), itemIndex).getName()
                        .toLower()));
       int playerItemIndex =
           inventoryObj.searchInventory(player.getInventory(), generatedFish);

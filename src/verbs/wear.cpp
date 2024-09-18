@@ -4,10 +4,9 @@
 void Handling::wear(MainWindow *mainWindow, QString target) {
   int index = inventoryObj.searchInventory(player.getInventory(), target);
   if (index != -1) {
-    if (inventoryObj.getItemEquipped(player.getInventory(), index) == 0) {
-      inventoryObj.setItemEquipped(player.getInventory(), index, 1);
-      player.setWarmth(player.getWarmth() + inventoryObj.getItemEffect(
-                                                player.getInventory(), index));
+    if (inventoryObj.getInventoryItem(player.getInventory(), index).getActive() == 0) {
+      inventoryObj.getInventoryItem(player.getInventory(), index).setActive(1);
+      player.setWarmth(player.getWarmth() + inventoryObj.getInventoryItem(player.getInventory(), index).getEffect());
       mainWindow->setDescription(
           QString("I put on my %1.").arg(target.toLower()));
     } else {
