@@ -1,2 +1,0 @@
-set(__QT_DEPLOY_TARGET_Halfway_Across_FILE /home/noodle/halfwayAcross/build/Desktop-Debug/bin/Halfway_Across)
-set(__QT_DEPLOY_TARGET_Halfway_Across_TYPE EXECUTABLE)
