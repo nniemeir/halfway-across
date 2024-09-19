@@ -17,7 +17,7 @@ void Handling::sit(MainWindow *mainWindow, QString target, Location *location) {
 
 void Handling::sitCamp(MainWindow *mainWindow, QString target) {
   if (target == "LOG") {
-    mainWindow->setDescription("I felt a bit warmer sitting by the fire.");
+    mainWindow->setDescription("I felt a bit cozier sitting by the fire.");
     player.setStanding(0);
   } else if (target == "FIRE") {
     mainWindow->setDescription("I burned myself.");
