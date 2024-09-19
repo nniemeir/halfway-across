@@ -52,7 +52,7 @@ SHOUT*
 
 SIT
 
-SLEEP
+SLEEP*
 
 STAND*
 
