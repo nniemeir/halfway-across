@@ -23,8 +23,6 @@ void Handling::load(MainWindow *mainWindow, QString target) {
                                      .arg(payloadName.toLower()));
     }
   } else {
-    mainWindow->setDescription(QString("I didn't have %1 %2.")
-                                   .arg(getArticle(target))
-                                   .arg(target.toLower()));
+    missingItemMsg(mainWindow, getArticle(target) + " " + target);
   }
 }

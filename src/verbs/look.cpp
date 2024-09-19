@@ -27,7 +27,7 @@ void Handling::look(MainWindow *mainWindow, QString target,
   if (lookLocations.contains(location->getName())) {
     lookLocations[location->getName()]();
   } else {
-    mainWindow->setDescription("I couldn't look at anything there.");
+    notAllowedInLocMsg(mainWindow, "look anywhere");
   }
 }
 
@@ -48,8 +48,7 @@ void Handling::lookCamp(MainWindow *mainWindow, QString target) {
   if (descriptions.contains(target)) {
     mainWindow->setDescription(descriptions.value(target));
   } else {
-    mainWindow->setDescription(
-        QString("I couldn't look %1 there.\n").arg(target.toLower()));
+    notAllowedDirMsg(mainWindow, "look", target);
   }
 }
 
@@ -66,8 +65,7 @@ void Handling::lookCampPath(MainWindow *mainWindow, QString target) {
   if (descriptions.contains(target)) {
     mainWindow->setDescription(descriptions.value(target));
   } else {
-    mainWindow->setDescription(
-        QString("I couldn't look %1 there.\n").arg(target.toLower()));
+    notAllowedDirMsg(mainWindow, "look", target);
   }
 }
 
@@ -83,8 +81,7 @@ void Handling::lookCave(MainWindow *mainWindow, QString target) {
   if (descriptions.contains(target)) {
     mainWindow->setDescription(descriptions.value(target));
   } else {
-    mainWindow->setDescription(
-        QString("I couldn't look %1 there.\n").arg(target.toLower()));
+    notAllowedDirMsg(mainWindow, "look", target);
   }
 }
 
@@ -99,8 +96,7 @@ void Handling::lookCaveEntrance(MainWindow *mainWindow, QString target) {
   if (descriptions.contains(target)) {
     mainWindow->setDescription(descriptions.value(target));
   } else {
-    mainWindow->setDescription(
-        QString("I couldn't look %1 there.\n").arg(target.toLower()));
+    notAllowedDirMsg(mainWindow, "look", target);
   }
 }
 
@@ -118,8 +114,7 @@ void Handling::lookLake(MainWindow *mainWindow, QString target) {
   if (descriptions.contains(target)) {
     mainWindow->setDescription(descriptions.value(target));
   } else {
-    mainWindow->setDescription(
-        QString("I couldn't look %1 there.\n").arg(target.toLower()));
+    notAllowedDirMsg(mainWindow, "look", target);
   }
 }
 
@@ -135,7 +130,6 @@ void Handling::lookValley(MainWindow *mainWindow, QString target) {
   if (descriptions.contains(target)) {
     mainWindow->setDescription(descriptions.value(target));
   } else {
-    mainWindow->setDescription(
-        QString("I couldn't look %1 there.\n").arg(target.toLower()));
+    notAllowedDirMsg(mainWindow, "look", target);
   }
 }

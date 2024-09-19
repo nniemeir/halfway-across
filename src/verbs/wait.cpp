@@ -11,12 +11,23 @@ void Handling::wait(MainWindow *mainWindow, Location *location) {
   if (waitLocations.contains(location->getName())) {
     waitLocations[location->getName()]();
   } else {
-    mainWindow->setDescription("I didn't feel safe waiting there.");
+    notAllowedInLocMsg(mainWindow, "wait safely");
   }
 }
 
 void Handling::waitLake(MainWindow *mainWindow) {
-  if (world.getLineSet() == 1) {
+  int rodIndex =
+      inventoryObj.searchInventory(player.getInventory(), "FISHING ROD");
+  if (rodIndex != -1) {
+    waitFishing(mainWindow, rodIndex);
+  } else {
+    waitMsg(mainWindow);
+  }
+}
+
+void Handling::waitFishing(MainWindow *mainWindow, int rodIndex) {
+  if (inventoryObj.getInventoryItem(player.getInventory(), rodIndex)
+          .getActive() == 1) {
     QString generatedFish = world.generateFish();
     int itemIndex =
         inventoryObj.searchInventory(world.getFishInventory(), generatedFish);
@@ -36,8 +47,8 @@ void Handling::waitLake(MainWindow *mainWindow) {
           inventoryObj.getInventoryItem(world.getFishInventory(), itemIndex),
           playerItemIndex);
     }
-    world.setLineSet(0);
+    inventoryObj.getInventoryItem(player.getInventory(), rodIndex).setActive(0);
   } else {
-    mainWindow->setDescription("I waited a while.");
+    waitMsg(mainWindow);
   }
 }

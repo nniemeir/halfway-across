@@ -10,12 +10,12 @@ public:
            const QString &image, const QString &musicPath,
            const QString &ambiencePath, const std::vector<Item> &inventory);
 
-  // Location-specific
   QString getName() const;
   QString getDescription() const;
   QString getImage() const;
   QString getAmbiencePath() const;
   QString getMusicPath() const;
+  QString setDescription(QString message);
 
   std::vector<Item> &getInventory();
   QString locInventory() const;

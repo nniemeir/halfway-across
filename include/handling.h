@@ -6,21 +6,32 @@
 class Handling {
 public:
   Handling();
+  // Formatting
   QString getArticle(QString target);
+  // General handling
   int validateVerb(QString input);
   void splitInput(MainWindow *mainWindow, QString input);
   void handleVerb(MainWindow *mainWindow, QString verb, QString target,
                   Location *location);
-
+  // Journal
   QString getLastCommand() const;
   void setLastCommand(QString command);
 
 private:
-  QString lastCommand;
+  // Input validation
   std::vector<QString> argVerbs;
   std::vector<QString> noArgVerbs;
-  QString removeFillerWords(const QString& text, const QStringList& words);
-  // Verb-specific handling
+  QString removeFillerWords(const QString &text, const QStringList &words);
+  // Journal
+  QString lastCommand;
+  // Messages
+  void gameOverMsg(MainWindow *mainWindow, QString reason);
+  void missingItemMsg(MainWindow *mainWindow, QString target);
+  void notAllowedDirMsg(MainWindow *mainWindow, QString verb, QString target);
+  void notAllowedInLocMsg(MainWindow *mainWindow, QString action);
+  void tiredMsg(MainWindow *mainWindow);
+  void waitMsg(MainWindow *mainWindow);
+  // Verb-specific handling functions
   void begin(MainWindow *mainWindow, Location *location);
   void cook(MainWindow *mainWindow, QString target, Location *location);
   void craft(MainWindow *mainWindow, QString target);
@@ -61,6 +72,7 @@ private:
   void unscript(MainWindow *mainWindow);
   void version(MainWindow *mainWindow);
   void wait(MainWindow *mainWindow, Location *location);
+  void waitFishing(MainWindow *mainWindow, int rodIndex);
   void waitLake(MainWindow *mainWindow);
   void wear(MainWindow *mainWindow, QString target);
   void yell(MainWindow *mainWindow);

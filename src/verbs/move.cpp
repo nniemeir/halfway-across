@@ -5,6 +5,7 @@
 
 void Handling::move(MainWindow *mainWindow, QString target,
                     Location *location) {
+
   QMap<QString, std::function<void()>> moveLocations;
   moveLocations["camp"] = [mainWindow, target, this]() {
     moveCamp(mainWindow, target);
@@ -33,8 +34,7 @@ void Handling::move(MainWindow *mainWindow, QString target,
       if (moveLocations.contains(location->getName())) {
         moveLocations[location->getName()]();
       } else {
-        mainWindow->setDescription(
-            QString("I couldn't move %1 there.").arg(target.toLower()));
+        notAllowedInLocMsg(mainWindow, "move anywhere");
       }
     } else {
       mainWindow->setDescription(
@@ -55,8 +55,7 @@ void Handling::moveCamp(MainWindow *mainWindow, QString target) {
           "I couldn't risk traveling in such a blizzard.\n");
       break;
     case world.TRAVEL_TIRED:
-      mainWindow->setDescription(
-          "I did not have the energy to travel anywhere else that day.\n");
+      tiredMsg(mainWindow);
       break;
     case world.TRAVEL_YES:
       sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(),
@@ -66,34 +65,39 @@ void Handling::moveCamp(MainWindow *mainWindow, QString target) {
       break;
     }
   } else {
-    mainWindow->setDescription(
-        QString("I was unable to move %1 there.\n").arg(target.toLower()));
+    notAllowedDirMsg(mainWindow, "move", target);
   }
 }
 
 void Handling::moveCampPath(MainWindow *mainWindow, QString target) {
-  if (target == "WEST" || target == "W") {
-    sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(), 0);
-    mainWindow->setLocation(campPath.getMusicPath(), campPath.getAmbiencePath(),
-                            &lake);
-    player.setEnergy(0);
-  } else if (target == "EAST" || target == "E") {
-    sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(), 0);
-    mainWindow->setLocation(campPath.getMusicPath(), campPath.getAmbiencePath(),
-                            &caveEntrance);
-    player.setEnergy(0);
-  } else if (target == "NORTH" || target == "N") {
-    sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(), 0);
-    mainWindow->setLocation(campPath.getMusicPath(), campPath.getAmbiencePath(),
-                            &valley);
-    player.setEnergy(0);
-  } else if (target == "SOUTH" || target == "S") {
+  if (target == "SOUTH" || target == "S") {
     sfxPlayer.play("qrc:/audio/sfx/moveStone.mp3", sfxPlayer.getdefSfxVol(), 0);
     mainWindow->setLocation(campPath.getMusicPath(), campPath.getAmbiencePath(),
                             &camp);
+  } else if (player.getEnergy() == 1) {
+    if (target == "WEST" || target == "W") {
+      sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(),
+                     0);
+      mainWindow->setLocation(campPath.getMusicPath(),
+                              campPath.getAmbiencePath(), &lake);
+      player.setEnergy(0);
+    } else if (target == "EAST" || target == "E") {
+      sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(),
+                     0);
+      mainWindow->setLocation(campPath.getMusicPath(),
+                              campPath.getAmbiencePath(), &caveEntrance);
+      player.setEnergy(0);
+    } else if (target == "NORTH" || target == "N") {
+      sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(),
+                     0);
+      mainWindow->setLocation(campPath.getMusicPath(),
+                              campPath.getAmbiencePath(), &valley);
+      player.setEnergy(0);
+    } else {
+      notAllowedDirMsg(mainWindow, "move", target);
+    }
   } else {
-    mainWindow->setDescription(
-        QString("I was unable to move %1 there.\n").arg(target.toLower()));
+    tiredMsg(mainWindow);
   }
 }
 
@@ -103,8 +107,7 @@ void Handling::moveCave(MainWindow *mainWindow, QString target) {
     mainWindow->setLocation(cave.getMusicPath(), cave.getAmbiencePath(),
                             &caveEntrance);
   } else {
-    mainWindow->setDescription(
-        QString("I was unable to move %1 there.\n").arg(target.toLower()));
+    notAllowedDirMsg(mainWindow, "move", target);
   }
 }
 
@@ -114,25 +117,21 @@ void Handling::moveCaveLit(MainWindow *mainWindow, QString target) {
     mainWindow->setLocation(cave.getMusicPath(), cave.getAmbiencePath(),
                             &caveEntrance);
   } else {
-    mainWindow->setDescription(
-        QString("I was unable to move %1 there.\n").arg(target.toLower()));
+    notAllowedDirMsg(mainWindow, "move", target);
   }
 }
 
 void Handling::moveCaveEntrance(MainWindow *mainWindow, QString target) {
   if (target == "WEST" || target == "W") {
-
     sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(), 0);
     mainWindow->setLocation(caveEntrance.getMusicPath(),
                             caveEntrance.getAmbiencePath(), &campPath);
   } else if (target == "EAST" || target == "E") {
     sfxPlayer.play("qrc:/audio/sfx/moveStone.mp3", sfxPlayer.getdefSfxVol(), 0);
-
     mainWindow->setLocation(caveEntrance.getMusicPath(),
                             caveEntrance.getAmbiencePath(), &cave);
   } else {
-    mainWindow->setDescription(
-        QString("I was unable to move %1 there.\n").arg(target.toLower()));
+    notAllowedDirMsg(mainWindow, "move", target);
   }
 }
 
@@ -142,8 +141,7 @@ void Handling::moveLake(MainWindow *mainWindow, QString target) {
     mainWindow->setLocation(lake.getMusicPath(), lake.getAmbiencePath(),
                             &campPath);
   } else {
-    mainWindow->setDescription(
-        QString("I was unable to move %1 there.\n").arg(target.toLower()));
+    notAllowedDirMsg(mainWindow, "move", target);
   }
 }
 
@@ -153,7 +151,6 @@ void Handling::moveValley(MainWindow *mainWindow, QString target) {
     mainWindow->setLocation(valley.getMusicPath(), valley.getAmbiencePath(),
                             &campPath);
   } else {
-    mainWindow->setDescription(
-        QString("I was unable to move %1 there.\n").arg(target.toLower()));
+    notAllowedDirMsg(mainWindow, "move", target);
   }
 }

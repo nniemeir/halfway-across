@@ -27,9 +27,11 @@ void Handling::cook(MainWindow *mainWindow, QString target,
         inventoryObj.removeItem(player.getInventory(), targetIndex);
         int fatIndex =
             inventoryObj.searchInventory(player.getInventory(), "RENDERED FAT");
-        inventoryObj.addItem(player.getInventory(),
-                             {"RENDERED FAT", 1, 1, 10, "ANIMAL FAT", "NONE", "I could use it for crafting or as fishing bait."},
-                             fatIndex);
+        inventoryObj.addItem(
+            player.getInventory(),
+            {"RENDERED FAT", 1, 1, 10, "ANIMAL FAT", "NONE",
+             "I could use it for crafting or as fishing bait."},
+            fatIndex);
       } else {
         mainWindow->setDescription(
             QString("I thought of cooking %1 %2, but dismissed the idea.")
@@ -37,9 +39,7 @@ void Handling::cook(MainWindow *mainWindow, QString target,
                 .arg(target.toLower()));
       }
     } else {
-      mainWindow->setDescription(QString("I didn't have %1 %2 to cook.")
-                                     .arg(handle.getArticle(target))
-                                     .arg(target.toLower()));
+      missingItemMsg(mainWindow, getArticle(target) + " " + target);
     }
   } else {
     mainWindow->setDescription("I needed to be near a campfire to cook.");

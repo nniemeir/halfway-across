@@ -16,8 +16,7 @@ void Handling::use(MainWindow *mainWindow, QString target, Location *location) {
   if (useLocations.contains(location->getName())) {
     useLocations[location->getName()]();
   } else {
-    mainWindow->setDescription(
-        QString("I didn't have the room to use anything there."));
+    notAllowedInLocMsg(mainWindow, "use anything");
   }
 }
 
@@ -31,7 +30,9 @@ void Handling::useCave(MainWindow *mainWindow, QString target) {
       mainWindow->setDescription("I didn't have a lantern.");
     }
   } else {
-      mainWindow->setDescription(QString("I couldn't use %1 %2 there.").arg(handle.getArticle(target)).arg(target.toLower()));
+    notAllowedInLocMsg(mainWindow, QString("use %1 %2")
+                                       .arg(handle.getArticle(target))
+                                       .arg(target.toLower()));
   }
 }
 
@@ -43,7 +44,7 @@ void Handling::useLake(MainWindow *mainWindow, QString target) {
       mainWindow->setDescription("I chiseled a hole in the ice.\n");
       world.setChiseledIce(1);
     } else {
-      mainWindow->setDescription("I didn't have a chisel.");
+      missingItemMsg(mainWindow, getArticle(target) + " " + target);
     }
   } else if (target == "FISHING ROD") {
     int rodIndex =
@@ -56,7 +57,8 @@ void Handling::useLake(MainWindow *mainWindow, QString target) {
               .setEffect(0);
           sfxPlayer.play("qrc:/audio/sfx/fishSet.mp3", sfxPlayer.getdefSfxVol(),
                          0);
-          world.setLineSet(1);
+          inventoryObj.getInventoryItem(player.getInventory(), rodIndex)
+              .setActive(1);
           mainWindow->setDescription(
               "I dropped my line into the hole I had cut into the ice.\n");
         } else {
@@ -65,12 +67,14 @@ void Handling::useLake(MainWindow *mainWindow, QString target) {
         }
       } else {
         mainWindow->setDescription(
-            "I didn't know where to use the fishing rod.\n");
+            "I needed to be near an exposed body of water to fish.\n");
       }
+    } else {
+      missingItemMsg(mainWindow, getArticle(target) + " " + target);
+    }
   } else {
-    mainWindow->setDescription("I didn't have a fishing rod.\n");
-  }
-  } else {
-      mainWindow->setDescription(QString("I couldn't use %1 %2 there.").arg(handle.getArticle(target)).arg(target.toLower()));
+    notAllowedInLocMsg(mainWindow, QString("use %1 %2")
+                                       .arg(handle.getArticle(target))
+                                       .arg(target.toLower()));
   }
 }

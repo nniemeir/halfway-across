@@ -17,16 +17,20 @@ void Handling::hunt(MainWindow *mainWindow, QString target,
         int fatIndex =
             inventoryObj.searchInventory(player.getInventory(), "DEER FAT");
         inventoryObj.addItem(player.getInventory(),
-                             {"DEER FAT", 1, 1, 10, "FAT", "NONE", "I could cook it to get rendered fat."}, fatIndex);
+                             {"DEER FAT", 1, 1, 10, "FAT", "NONE",
+                              "I could cook it to get rendered fat."},
+                             fatIndex);
         int meatIndex =
             inventoryObj.searchInventory(player.getInventory(), "DEER MEAT");
         inventoryObj.addItem(player.getInventory(),
-                             {"DEER MEAT", 1, 1, 10, "RAW MEAT", "NONE", "I could cook it to ease my hunger."},
+                             {"DEER MEAT", 1, 1, 10, "RAW MEAT", "NONE",
+                              "I could cook it to ease my hunger."},
                              meatIndex);
         int peltIndex =
             inventoryObj.searchInventory(player.getInventory(), "DEER PELT");
         inventoryObj.addItem(player.getInventory(),
-                             {"DEER PELT", 1, 1, 10, "PELT", "NONE", "I could use it for crafting."},
+                             {"DEER PELT", 1, 1, 10, "PELT", "NONE",
+                              "I could use it for crafting."},
                              peltIndex);
       } else {
         mainWindow->setDescription(

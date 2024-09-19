@@ -25,6 +25,8 @@ public:
   void setCharm(int charm);
   int getStanding() const;
   void setStanding(int standing);
+  bool getConspicuous() const;
+  void setConspicuous(bool newValue);
   int constrainStat(int stat);
   QString constructReflection() const;
 
@@ -43,6 +45,7 @@ private:
   int warmth;
   int charm;
   int standing;
+  bool conspicuous;
   std::vector<Item> inventory;
   std::vector<Recipe> recipeBook;
 };

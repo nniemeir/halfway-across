@@ -21,8 +21,6 @@ void Handling::drop(MainWindow *mainWindow, QString target,
         locationItemIndex);
     inventoryObj.removeItem(player.getInventory(), targetIndex);
   } else {
-    mainWindow->setDescription(QString("I didn't have %1 %2 to drop.")
-                                   .arg(handle.getArticle(target))
-                                   .arg(target.toLower()));
+    missingItemMsg(mainWindow, getArticle(target) + " " + target);
   }
 }

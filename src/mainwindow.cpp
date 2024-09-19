@@ -3,6 +3,7 @@
 #include "../include/handling.h"
 #include "../include/journal.h"
 #include "../include/locations.h"
+#include "../include/player.h"
 #include "../include/world.h"
 #include "src/ui_mainwindow.h"
 
@@ -54,8 +55,13 @@ void MainWindow::closeProgram() { QApplication::quit(); }
 void MainWindow::setLocation(QString currentMusic, QString currentAmbience,
                              Location *object) {
   if (object) {
-    world.setConspicuous(false);
-    world.setLineSet(false);
+    player.setConspicuous(false);
+    int rodIndex =
+        inventoryObj.searchInventory(player.getInventory(), "FISHING ROD");
+    if (rodIndex != -1) {
+      inventoryObj.getInventoryItem(player.getInventory(), rodIndex)
+          .setActive(0);
+    }
     setDescription(object->getDescription());
     QPixmap pix(object->getImage());
     ui->settingImage->setPixmap(pix);

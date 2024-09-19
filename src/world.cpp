@@ -8,10 +8,14 @@ World world;
 World::World()
     : currentLocation(nullptr), day(1), currentTemperature(32),
       currentWeather("clear"), chiseledIce(0), conspicuous(true),
-      fish{{"CUTTHROAT TROUT", 1, 0, 25, "RAW MEAT", "NONE", "It was a common fish that could be eaten if I cooked it."},
-           {"BROOK TROUT", 1, 0, 25, "RAW MEAT", "NONE", "It was a fairly common fish that could be eaten if I cooked it."},
-           {"RAINBOW TROUT", 1, 0, 30, "RAW MEAT", "NONE", "It was an uncommon fish that could be eaten if I cooked it."},
-           {"BROWN TROUT", 1, 0, 35, "RAW MEAT", "NONE", "It was a rare fish that could be eaten if I cooked it."}},
+      fish{{"CUTTHROAT TROUT", 1, 0, 25, "RAW MEAT", "NONE",
+            "It was a common fish that could be eaten if I cooked it."},
+           {"BROOK TROUT", 1, 0, 25, "RAW MEAT", "NONE",
+            "It was a fairly common fish that could be eaten if I cooked it."},
+           {"RAINBOW TROUT", 1, 0, 30, "RAW MEAT", "NONE",
+            "It was an uncommon fish that could be eaten if I cooked it."},
+           {"BROWN TROUT", 1, 0, 35, "RAW MEAT", "NONE",
+            "It was a rare fish that could be eaten if I cooked it."}},
       directions{"NORTH", "WEST", "SOUTH", "EAST", "N", "W", "S", "E"} {}
 
 bool World::validDirection(const QString &value) {
@@ -19,18 +23,18 @@ bool World::validDirection(const QString &value) {
          directions.end();
 }
 
-int World::advanceDay() {
+QString World::advanceDay() {
   player.setEnergy(1);
   if (player.setHunger(player.getHunger() - 20)) {
-    return 1;
+    return "HUNGER";
   } else if (player.setThirst(player.getThirst() - 30)) {
-    return 1;
+    return "THIRST";
   }
   setChiseledIce(0);
   day++;
   currentTemperature = generateTemperature();
   currentWeather = generateWeather();
-  return 0;
+  return "";
 }
 
 void World::initializeLocation(Location *initialLocation) {
@@ -48,14 +52,6 @@ void World::setCurrentLocation(Location *location) {
 int World::getChiseledIce() const { return chiseledIce; }
 
 void World::setChiseledIce(int newValue) { chiseledIce = newValue; }
-
-int World::getLineSet() const { return lineSet; }
-
-void World::setLineSet(int newValue) { lineSet = newValue; }
-
-bool World::getConspicuous() const { return conspicuous; }
-
-void World::setConspicuous(bool newValue) { conspicuous = newValue; }
 
 // A chance existing for the weather to trap the player at camp is intended to
 // encourage them to plan ahead

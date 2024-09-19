@@ -2,9 +2,6 @@
 
 Inventory inventoryObj;
 
-// Since verb handling often involves checking if the player has a given item in
-// their inventory, this will be altered later to
-// use a hash table for the sake of performance
 int Inventory::searchInventory(std::vector<Item> &inventory,
                                const QString &itemName) const {
   auto it =

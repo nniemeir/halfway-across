@@ -6,12 +6,11 @@ void Handling::sleep(MainWindow *mainWindow, Location *location) {
   if (location->getName() == "camp") {
     sfxPlayer.play("qrc:/audio/sfx/sleep.mp3", sfxPlayer.getdefSfxVol(), 0);
     mainWindow->setDescription("I closed my eyes and another night passed.\n");
-    if (world.advanceDay()) {
-      mainWindow->setLocation(camp.getMusicPath(), camp.getAmbiencePath(),
-                              &perished);
+    QString reason = world.advanceDay();
+    if (reason != "") {
+      gameOverMsg(mainWindow, reason);
     }
   } else {
-    mainWindow->setDescription(
-        "I felt fairly tired, but I couldn't sleep there.");
+    notAllowedInLocMsg(mainWindow, "sleep safely");
   }
 }

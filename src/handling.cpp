@@ -15,8 +15,15 @@ Handling::Handling() {
 
 Handling handle;
 
-QString Handling::getLastCommand() const { return lastCommand; }
-void Handling::setLastCommand(QString command) { lastCommand = command; }
+QString Handling::getArticle(QString target) {
+  QStringList vowels = {"A", "E", "I", "O", "U"};
+  QString firstLetter = target.at(0).toUpper();
+  if (vowels.contains(firstLetter)) {
+    return "an";
+  } else {
+    return "a";
+  }
+}
 
 // Inputted verb must match an element of argVerbs or noArgVerbs to be
 // considered valid
@@ -36,7 +43,7 @@ int Handling::validateVerb(QString input) {
 }
 
 void Handling::splitInput(MainWindow *mainWindow, QString input) {
-  QStringList fillerWords = {"A", "AT", "IN", "ON", "THE", "TO"};
+  QStringList fillerWords = {"A", "AN", "AT", "IN", "ON", "THE", "TO"};
   input = removeFillerWords(input, fillerWords);
 
   QStringList parts = input.split(" ");
@@ -55,7 +62,7 @@ void Handling::splitInput(MainWindow *mainWindow, QString input) {
     mainWindow->setDescription(
         QString("I didn't know what to %1.").arg(verb.toLower()));
   } else {
-  handleVerb(mainWindow, verb, target, world.getCurrentLocation());
+    handleVerb(mainWindow, verb, target, world.getCurrentLocation());
   }
 }
 
@@ -153,6 +160,9 @@ void Handling::handleVerb(MainWindow *mainWindow, QString verb, QString target,
   }
 }
 
+QString Handling::getLastCommand() const { return lastCommand; }
+void Handling::setLastCommand(QString command) { lastCommand = command; }
+
 QString Handling::removeFillerWords(const QString &text,
                                     const QStringList &words) {
   QString pattern = QString("\\b(%1)\\b").arg(words.join("|"));
@@ -162,12 +172,45 @@ QString Handling::removeFillerWords(const QString &text,
   return modifiedText.trimmed().replace(QRegularExpression("\\s+"), " ");
 }
 
-QString Handling::getArticle(QString target) {
-  QStringList vowels = {"A", "E", "I", "O", "U"};
-  QString firstLetter = target.at(0).toUpper();
-  if (vowels.contains(firstLetter)) {
-    return "an";
+void Handling::gameOverMsg(MainWindow *mainWindow, QString reason) {
+  QMap<QString, QString> stat = {
+      {"HEALTH", "My injuries were too grave for me to continue."},
+      {"HUNGER", "I succumbed to my hunger."},
+      {"MENTAL", "I had lost the will to continue."},
+      {"THIRST", "I succumbed to my thirst."}};
+
+  if (stat.contains(reason)) {
+    mainWindow->setDescription(perished.setDescription(stat.value(reason)));
   } else {
-    return "a";
+    qDebug() << "Unable to determine reason for game over.";
   }
+  mainWindow->setLocation(world.getCurrentLocation()->getMusicPath(),
+                          world.getCurrentLocation()->getAmbiencePath(),
+                          &perished);
+}
+
+void Handling::missingItemMsg(MainWindow *mainWindow, QString target) {
+  mainWindow->setDescription(
+      QString("I didn't have %1.").arg(target.toLower()));
+}
+
+void Handling::notAllowedDirMsg(MainWindow *mainWindow, QString verb,
+                                QString target) {
+  mainWindow->setDescription(QString("I couldn't %1 %2 there.")
+                                 .arg(verb.toLower())
+                                 .arg(target.toLower()));
+}
+
+void Handling::notAllowedInLocMsg(MainWindow *mainWindow, QString action) {
+  mainWindow->setDescription(
+      QString("I couldn't %1 there.").arg(action.toLower()));
+}
+
+void Handling::tiredMsg(MainWindow *mainWindow) {
+  mainWindow->setDescription(
+      "I didn't have the energy to travel anywhere else that day.\n");
+}
+
+void Handling::waitMsg(MainWindow *mainWindow) {
+  mainWindow->setDescription("I waited a while.");
 }

@@ -13,7 +13,7 @@ public:
   } TravelResponses;
 
   // Day
-  int advanceDay();
+  QString advanceDay();
   int getDay() const;
 
   // Location
@@ -26,8 +26,6 @@ public:
   QString getCurrentWeather() const;
   int getChiseledIce() const;
   void setChiseledIce(int newValue);
-  int getLineSet() const;
-  void setLineSet(int newValue);
   bool getConspicuous() const;
   void setConspicuous(bool newValue);
   int travelChecks();
@@ -45,7 +43,6 @@ private:
   int currentTemperature;
   QString currentWeather;
   int chiseledIce;
-  int lineSet;
   bool conspicuous;
   int generateTemperature();
   QString generateWeather();

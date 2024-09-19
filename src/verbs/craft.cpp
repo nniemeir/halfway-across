@@ -31,6 +31,6 @@ void Handling::craft(MainWindow *mainWindow, QString target) {
   } else {
     mainWindow->setDescription(QString("I didn't know how to make %1 %2.")
                                    .arg(getArticle(target))
-                                   .arg(target));
+                                   .arg(target.toLower()));
   }
 }

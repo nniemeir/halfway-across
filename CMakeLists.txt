@@ -42,7 +42,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/journal.cpp
         src/locations.cpp
         src/player.cpp
-  	src/recipe.cpp
+  	    src/recipe.cpp
         src/world.cpp
         src/verbs/begin.cpp
         src/verbs/cook.cpp
