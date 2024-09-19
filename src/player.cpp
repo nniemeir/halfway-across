@@ -11,14 +11,14 @@ Player player;
 Player::Player()
     : health(100), mental(50), energy(1), hunger(100), thirst(100), warmth(50),
       charm(50), standing(1), inventory(5), recipeBook(2) {
-  // Format is QString name, int amount, int active, int effects, QString type
-  inventory.push_back({"FELT HAT", 1, 1, 5, "CLOTHING", "NONE"});
-  inventory.push_back({"LEATHER GLOVES", 1, 1, 5, "CLOTHING", "NONE"});
-  inventory.push_back({"HEAVY COTTON SHIRT", 1, 1, 10, "CLOTHING", "NONE"});
-  inventory.push_back({"HEAVY COTTON TROUSERS", 1, 1, 20, "CLOTHING", "NONE"});
-  inventory.push_back({"PAIR OF MOCCASINS", 1, 1, 10, "CLOTHING", "NONE"});
+  // Format is QString name, int amount, int active, int effects, QString type, QString description
+  inventory.push_back({"FELT HAT", 1, 1, 5, "CLOTHING", "NONE", "It was a small hat, providing almost no warmth."});
+  inventory.push_back({"LEATHER GLOVES", 1, 1, 5, "CLOTHING", "NONE", "They were thin gloves, providing almost no warmth."});
+  inventory.push_back({"HEAVY COTTON SHIRT", 1, 1, 10, "CLOTHING", "NONE", "It was a heavy shirt, providing slight warmth."});
+  inventory.push_back({"HEAVY COTTON TROUSERS", 1, 1, 20, "CLOTHING", "NONE", "They were thick pants, providing warmth."});
+  inventory.push_back({"PAIR OF MOCCASINS", 1, 1, 10, "CLOTHING", "NONE", "They were worn shoes, providing slight warmth."});
   Recipe candle("TALLOW CANDLE", "RENDERED FAT", "PIECE OF WOOD",
-                {"TALLOW CANDLE", 1, 1, 10, "ANIMAL FAT", "NONE"});
+                {"TALLOW CANDLE", 1, 1, 10, "ANIMAL FAT", "NONE", "I could use it to fuel my lantern."});
   recipeBook.push_back(candle);
 }
 

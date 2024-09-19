@@ -8,10 +8,10 @@ World world;
 World::World()
     : currentLocation(nullptr), day(1), currentTemperature(32),
       currentWeather("clear"), chiseledIce(0), conspicuous(true),
-      fish{{"CUTTHROAT TROUT", 1, 0, 25, "RAW MEAT", "NONE"},
-           {"BROOK TROUT", 1, 0, 25, "RAW MEAT", "NONE"},
-           {"RAINBOW TROUT", 1, 0, 30, "RAW MEAT", "NONE"},
-           {"BROWN TROUT", 1, 0, 35, "RAW MEAT", "NONE"}},
+      fish{{"CUTTHROAT TROUT", 1, 0, 25, "RAW MEAT", "NONE", "It was a common fish that could be eaten if I cooked it."},
+           {"BROOK TROUT", 1, 0, 25, "RAW MEAT", "NONE", "It was a fairly common fish that could be eaten if I cooked it."},
+           {"RAINBOW TROUT", 1, 0, 30, "RAW MEAT", "NONE", "It was an uncommon fish that could be eaten if I cooked it."},
+           {"BROWN TROUT", 1, 0, 35, "RAW MEAT", "NONE", "It was a rare fish that could be eaten if I cooked it."}},
       directions{"NORTH", "WEST", "SOUTH", "EAST", "N", "W", "S", "E"} {}
 
 bool World::validDirection(const QString &value) {

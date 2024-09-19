@@ -85,7 +85,7 @@ void Handling::handleVerb(MainWindow *mainWindow, QString verb, QString target,
   };
   actions["EAT"] = [mainWindow, target, this]() { eat(mainWindow, target); };
   actions["EXAMINE"] = [mainWindow, target, location, this]() {
-    look(mainWindow, target, location);
+    examine(mainWindow, target);
   };
   actions["GO"] = [mainWindow, target, location, this]() {
     move(mainWindow, target, location);

@@ -12,6 +12,8 @@ QString Item::getType() const { return type; }
 
 QString Item::getPayload() const { return payload; }
 
+QString Item::getDescription() const { return description; }
+
 void Item::setEffect(int value) { effect = value; }
 
 void Item::setActive(int value) { active = value; }
