@@ -51,6 +51,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/verbs/drink.cpp
         src/verbs/drop.cpp
         src/verbs/eat.cpp
+        src/verbs/examine.cpp
         src/verbs/hunt.cpp
         src/verbs/load.cpp
         src/verbs/look.cpp
@@ -66,7 +67,6 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/verbs/wait.cpp
         src/verbs/wear.cpp
         src/verbs/yell.cpp
-        src/verbs/examine.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET Halfway_Across APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
