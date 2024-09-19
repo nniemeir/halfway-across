@@ -43,7 +43,7 @@ int Handling::validateVerb(QString input) {
 }
 
 void Handling::splitInput(MainWindow *mainWindow, QString input) {
-  QStringList fillerWords = {"A", "AN", "AT", "IN", "ON", "THE", "TO"};
+  QStringList fillerWords = {"A", "AN", "AT", "FROM", "IN", "ON", "THE", "TO"};
   input = removeFillerWords(input, fillerWords);
 
   QStringList parts = input.split(" ");

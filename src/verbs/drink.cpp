@@ -19,7 +19,7 @@ void Handling::drink(MainWindow *mainWindow, QString target,
 }
 
 void Handling::drinkLake(MainWindow *mainWindow, QString target) {
-  if (target == "FROM LAKE") {
+  if (target == "LAKE") {
     if (world.getChiseledIce() == 1) {
       if (player.getThirst() < 100) {
         sfxPlayer.play("qrc:/audio/sfx/drink.mp3", sfxPlayer.getdefSfxVol(), 0);
