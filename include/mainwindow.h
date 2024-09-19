@@ -42,4 +42,4 @@ protected:
   void showEvent(QShowEvent *event) override;
 };
 
-#endif // MAINWINDOW_H
+#endif

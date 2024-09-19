@@ -7,6 +7,7 @@ void Handling::eat(MainWindow *mainWindow, QString target) {
   if (targetIndex != -1) {
     if (inventoryObj.getInventoryItem(player.getInventory(), targetIndex)
             .getType() == "FOOD") {
+      if (player.getHunger() < 100) {
       sfxPlayer.play("qrc:/audio/sfx/eat.mp3", sfxPlayer.getdefSfxVol(), 0);
       QString itemName =
           inventoryObj.getInventoryItem(player.getInventory(), targetIndex)
@@ -18,6 +19,9 @@ void Handling::eat(MainWindow *mainWindow, QString target) {
           inventoryObj.getInventoryItem(player.getInventory(), targetIndex)
               .getEffect());
       inventoryObj.removeItem(player.getInventory(), targetIndex);
+      } else {
+          mainWindow->setDescription("I wasn't hungry at the time.");
+      }
     } else {
       mainWindow->setDescription(QString("It didn't seem wise to eat %1 %2.")
                                      .arg(handle.getArticle(target))

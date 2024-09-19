@@ -9,4 +9,9 @@ void Handling::examine(MainWindow *mainWindow, QString target) {
                 .getDescription();
         mainWindow->setDescription(description);
     }
+    else {
+        mainWindow->setDescription(QString("I didn't have %1 %2 in my possession.")
+                                       .arg(handle.getArticle(target))
+                                       .arg(target.toLower()));
+    }
 }

@@ -68,4 +68,4 @@ private:
 
 extern Handling handle;
 
-#endif // HANDLING_H
+#endif

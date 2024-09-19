@@ -54,4 +54,4 @@ private:
 };
 
 extern World world;
-#endif // WORLD_H
+#endif

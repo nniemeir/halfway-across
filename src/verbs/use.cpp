@@ -30,6 +30,8 @@ void Handling::useCave(MainWindow *mainWindow, QString target) {
     } else {
       mainWindow->setDescription("I didn't have a lantern.");
     }
+  } else {
+      mainWindow->setDescription(QString("I couldn't use %1 %2 there.").arg(handle.getArticle(target)).arg(target.toLower()));
   }
 }
 
@@ -65,8 +67,10 @@ void Handling::useLake(MainWindow *mainWindow, QString target) {
         mainWindow->setDescription(
             "I didn't know where to use the fishing rod.\n");
       }
-    }
   } else {
-    mainWindow->setDescription("I didn't have a fishing rod\n");
+    mainWindow->setDescription("I didn't have a fishing rod.\n");
+  }
+  } else {
+      mainWindow->setDescription(QString("I couldn't use %1 %2 there.").arg(handle.getArticle(target)).arg(target.toLower()));
   }
 }

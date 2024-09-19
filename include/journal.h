@@ -35,4 +35,4 @@ private:
 };
 
 extern Journal journal;
-#endif // JOURNAL_H
+#endif

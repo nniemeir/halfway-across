@@ -15,4 +15,4 @@ public:
 
 extern Inventory inventoryObj;
 
-#endif // INVENTORY_H
+#endif

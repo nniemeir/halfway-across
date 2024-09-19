@@ -39,4 +39,4 @@ extern Location lake;
 extern Location perished;
 extern Location valley;
 
-#endif // LOCATIONS_H
+#endif

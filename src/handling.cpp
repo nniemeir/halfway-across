@@ -24,7 +24,6 @@ int Handling::validateVerb(QString input) {
   bool validArgVerb = false;
   bool validNoArgVerb = false;
   QString inputVerb = input.split(" ").at(0);
-
   if (std::find(argVerbs.begin(), argVerbs.end(), inputVerb) !=
       argVerbs.end()) {
     return 0;
@@ -54,9 +53,10 @@ void Handling::splitInput(MainWindow *mainWindow, QString input) {
   }
   if (target == "") {
     mainWindow->setDescription(
-        QString("I wasn't sure what to %1.").arg(verb.toLower()));
-  }
+        QString("I didn't know what to %1.").arg(verb.toLower()));
+  } else {
   handleVerb(mainWindow, verb, target, world.getCurrentLocation());
+  }
 }
 
 void Handling::handleVerb(MainWindow *mainWindow, QString verb, QString target,

@@ -4,7 +4,6 @@
 
 class Item {
 public:
-    // Constructors
     Item()
         : name(""), amount(0), active(0), effect(0), type(""), payload("NONE"), description("") {}
     Item(const QString &n, int a, int act, int eff, const QString &t, const QString &p, const QString &d)
@@ -35,4 +34,4 @@ private:
     QString description;
 };
 
-#endif // ITEM_H
+#endif
