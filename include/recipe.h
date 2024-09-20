@@ -6,17 +6,20 @@ class Recipe {
 public:
   Recipe(){};
   Recipe(const QString &name, const QString &firstIngredient,
-         const QString &secondIngrdient, const Item &outputItem);
+         const QString &secondIngrdient, const QString &description,
+         const Item &outputItem);
 
   QString getRecipeName() const;
   QString getFirstIngredient() const;
   QString getSecondIngredient() const;
+  QString getDescription() const;
   Item getOutputItem() const;
 
 private:
   QString name;
   QString firstIngredient;
   QString secondIngredient;
+  QString description;
   Item output;
 };
 

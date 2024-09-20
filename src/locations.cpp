@@ -54,7 +54,9 @@ Location caveLit("caveLit", "My lantern now lit the way.\n\nExit: West",
                  {{"ROCK", 1, 0, 0, "TOOLS", "NONE",
                    "I could use it to distract animals."}});
 
-Location intro("intro", "HALFWAY ACROSS\n\nType BEGIN to continue.\n",
+Location intro("intro",
+               "HALFWAY ACROSS\n\nType BEGIN to continue.\nType HELP for a "
+               "list of commands.",
                ":/images/intro.png", "qrc:/audio/music/placeholder.mp3",
                "qrc:/audio/ambience/mountainWind.mp3", {{}});
 

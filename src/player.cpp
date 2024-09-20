@@ -24,6 +24,7 @@ Player::Player()
   inventory.push_back({"PAIR OF MOCCASINS", 1, 1, 10, "CLOTHING", "NONE",
                        "They were worn shoes, providing slight warmth."});
   Recipe candle("TALLOW CANDLE", "RENDERED FAT", "PIECE OF WOOD",
+                "Used to fuel candle lanterns.",
                 {"TALLOW CANDLE", 1, 1, 10, "ANIMAL FAT", "NONE",
                  "I could use it to fuel my lantern."});
   recipeBook.push_back(candle);
@@ -101,38 +102,46 @@ int Player::constrainStat(int stat) { return std::max(0, std::min(stat, 100)); }
 // for the sake of realism
 QString Player::constructReflection() const {
   QString reflection;
-  reflection.append(QString("Day %1\n").arg(world.getDay()));
+  reflection.append(QString("Day %1\n\n").arg(world.getDay()));
+
+  if (mental < LOW_STAT_THRESHOLD) {
+    reflection.append("I was losing the will to continue. ");
+  } else if (LOW_STAT_THRESHOLD <= mental && mental < MEDIUM_STAT_THRESHOLD) {
+    reflection.append("My depression was worsening. ");
+  } else if (MEDIUM_STAT_THRESHOLD <= mental && mental < HIGH_STAT_THRESHOLD) {
+    reflection.append("I felt a bit melancholy. ");
+  }
 
   if (warmth < LOW_STAT_THRESHOLD) {
-    reflection.append("I didn't think I could survive the cold much longer.\n");
+    reflection.append("I didn't think I could survive the cold much longer. ");
   } else if (LOW_STAT_THRESHOLD <= warmth && warmth < MEDIUM_STAT_THRESHOLD) {
-    reflection.append("The cold was becoming unbearable.\n");
+    reflection.append("The cold was becoming unbearable. ");
   } else if (MEDIUM_STAT_THRESHOLD <= warmth && warmth < HIGH_STAT_THRESHOLD) {
-    reflection.append("The cold was starting to get to me.\n");
+    reflection.append("The cold was starting to get to me. ");
   }
 
   if (health < LOW_STAT_THRESHOLD) {
-    reflection.append("My health was deteriorating quickly.\n");
+    reflection.append("My health was deteriorating quickly. ");
   } else if (LOW_STAT_THRESHOLD <= health && health < MEDIUM_STAT_THRESHOLD) {
-    reflection.append("I felt very ill.\n");
+    reflection.append("I felt very ill. ");
   } else if (MEDIUM_STAT_THRESHOLD <= health && health < HIGH_STAT_THRESHOLD) {
-    reflection.append("I felt a little under the weather.\n");
+    reflection.append("I felt a little under the weather. ");
   }
 
   if (hunger < LOW_STAT_THRESHOLD) {
-    reflection.append("I was starving.\n");
+    reflection.append("I was starving. ");
   } else if (LOW_STAT_THRESHOLD <= hunger && hunger < MEDIUM_STAT_THRESHOLD) {
-    reflection.append("I needed to eat something soon.\n");
+    reflection.append("I needed to eat something soon. ");
   } else if (MEDIUM_STAT_THRESHOLD <= hunger && hunger < HIGH_STAT_THRESHOLD) {
-    reflection.append("I was starting to get hungry.\n");
+    reflection.append("I was starting to get hungry. ");
   }
 
   if (thirst < LOW_STAT_THRESHOLD) {
-    reflection.append("My throat was very dry.\n");
+    reflection.append("My throat was very dry. ");
   } else if (LOW_STAT_THRESHOLD <= thirst && thirst < MEDIUM_STAT_THRESHOLD) {
-    reflection.append("I needed to drink something soon.\n");
+    reflection.append("I needed to drink something soon. ");
   } else if (MEDIUM_STAT_THRESHOLD <= thirst && thirst < HIGH_STAT_THRESHOLD) {
-    reflection.append("I was starting to get thirsty.\n");
+    reflection.append("I was starting to get thirsty. ");
   }
   return reflection;
 }
@@ -167,6 +176,21 @@ QString Player::bagInventory() {
     inventoryText.prepend("Looking in my possibles bag, I saw:\n");
   } else {
     inventoryText.append("My possibles bag was empty.");
+  }
+  return inventoryText;
+}
+
+QString Player::showRecipeBook() {
+  QString inventoryText;
+  for (const auto &recipe : recipeBook) {
+    if (recipe.getRecipeName() != "") {
+      inventoryText.append(
+          QString("%1\nIngredients:\n   - %2\n   - %3\nDescription:\n%4\n")
+              .arg(recipe.getRecipeName())
+              .arg(recipe.getFirstIngredient().toLower())
+              .arg(recipe.getSecondIngredient().toLower())
+              .arg(recipe.getDescription()));
+    }
   }
   return inventoryText;
 }

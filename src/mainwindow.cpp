@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
   ui->setupUi(this);
   importStylesheet();
-  QFontDatabase::addApplicationFont(":/fonts/PressStart2P-Regular.ttf");
+  QFontDatabase::addApplicationFont(":/fonts/Caveat.ttf");
   setUiProperties();
   setWindowTitle("Halfway Across");
   setLocation("", "", &intro);

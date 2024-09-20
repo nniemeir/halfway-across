@@ -26,7 +26,7 @@ void Handling::craft(MainWindow *mainWindow, QString target) {
       mainWindow->setDescription(
           QString("I didn't have the resources to make %1 %2.")
               .arg(getArticle(target))
-              .arg(target));
+              .arg(target.toLower()));
     }
   } else {
     mainWindow->setDescription(QString("I didn't know how to make %1 %2.")

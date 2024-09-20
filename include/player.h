@@ -34,6 +34,7 @@ public:
   std::vector<Item> &getInventory();
   QString clothesInventory();
   QString bagInventory();
+  QString showRecipeBook();
   std::vector<Recipe> &getRecipeBook();
 
 private:

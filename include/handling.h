@@ -41,6 +41,7 @@ private:
   void drop(MainWindow *mainWindow, QString target, Location *location);
   void eat(MainWindow *mainWindow, QString target);
   void examine(MainWindow *mainWindow, QString target);
+  void help(MainWindow *mainWindow);
   void hunt(MainWindow *mainWindow, QString target, Location *location);
   void look(MainWindow *mainWindow, QString target, Location *location);
   void load(MainWindow *mainWindow, QString target);
@@ -58,6 +59,7 @@ private:
   void moveCaveLit(MainWindow *mainWindow, QString target);
   void moveLake(MainWindow *mainWindow, QString target);
   void moveValley(MainWindow *mainWindow, QString target);
+  void read(MainWindow *mainWindow, QString target);
   void remove(MainWindow *mainWindow, QString target);
   void script(MainWindow *mainWindow);
   void sit(MainWindow *mainWindow, QString target, Location *location);

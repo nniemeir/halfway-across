@@ -2,7 +2,7 @@
     background: black;
     color: white;
     selection-background-color: black;
-    font: 16pt "Press Start 2P";
+    font: 20pt "Caveat";
 }
 
 #settingImage {
@@ -19,21 +19,35 @@ border: 3px solid #a89984;
 }
 
 QPushButton {
-    background-color: #504945;
+    background-color: #c0c0c0;
+}
+
+QScrollBar:vertical {
+background: #2f2f2f;
+width: 15px;
+margin: 0;
+}
+
+QScrollBar::handle:vertical {
+background: #5b5b5b;
+}
+
+QScrollBar::add-line:vertical {
+height: 0px;
+}
+
+QScrollBar::sub-line:vertical {
+height: 0px;
+}
+
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+height: 0px;
 }
 
 #inputText {
 padding-top: 20%;
 padding-bottom: 20%;
 border: none;
-}
-
-#pushButton_encrypt:disabled {
-color: rgb(17, 17, 27);
-}
-
-#pushButton_decrypt:disabled {
-color: rgb(17, 17, 27);
 }
 
 #verticalLayout {

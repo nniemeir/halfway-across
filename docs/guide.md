@@ -5,6 +5,8 @@ To move in a direction, use the keyword  **GO** or **MOVE** and a cardinal direc
 
 You are equipped with a possibles bag. To view its contents, use the command **LOOK IN BAG**.
 
+To view known crafting recipes, use the command **READ RECIPES**.
+
 To get information about your stats, use the command **REFLECT**.
 
 **QUIT** terminates the game.
@@ -32,6 +34,8 @@ EXAMINE
 
 GO
 
+HELP*
+
 HUNT
 
 LOAD
@@ -41,6 +45,8 @@ LOOK(L)
 MOVE
 
 QUIT*
+
+READ 
 
 REMOVE
 

@@ -4,13 +4,14 @@
 
 Handling::Handling() {
 
-  argVerbs = {"COOK",   "CRAFT", "DRINK", "DROP", "EAT",  "EXAMINE",
-              "GO",     "HUNT",  "L",     "LOAD", "LOOK", "MOVE",
-              "REMOVE", "SIT",   "STAND", "TAKE", "USE",  "WEAR"};
+  argVerbs = {"COOK", "CRAFT", "DRINK", "DROP", "EAT",  "EXAMINE", "GO",
+              "HUNT", "L",     "LOAD",  "LOOK", "MOVE", "READ",    "REMOVE",
+              "SIT",  "STAND", "TAKE",  "USE",  "WEAR"};
 
-  noArgVerbs = {"BEGIN",    "CRY",     "E",      "N",      "Q",     "QUIT",
-                "REFLECT",  "S",       "SCREAM", "SCRIPT", "SHOUT", "SLEEP",
-                "UNSCRIPT", "VERSION", "W",      "WAIT",   "YELL",  "Z"};
+  noArgVerbs = {"BEGIN",  "CRY",   "E",       "HELP",     "N",
+                "Q",      "QUIT",  "REFLECT", "S",        "SCREAM",
+                "SCRIPT", "SHOUT", "SLEEP",   "UNSCRIPT", "VERSION",
+                "W",      "WAIT",  "X",       "YELL",     "Z"};
 }
 
 Handling handle;
@@ -43,7 +44,8 @@ int Handling::validateVerb(QString input) {
 }
 
 void Handling::splitInput(MainWindow *mainWindow, QString input) {
-  QStringList fillerWords = {"A", "AN", "AT", "COOKED", "FROM", "IN", "ON", "THE", "TO"};
+  QStringList fillerWords = {"A",  "AN", "AT",  "COOKED", "FROM",
+                             "IN", "ON", "THE", "TO"};
   input = removeFillerWords(input, fillerWords);
 
   QStringList parts = input.split(" ");
@@ -97,6 +99,7 @@ void Handling::handleVerb(MainWindow *mainWindow, QString verb, QString target,
   actions["GO"] = [mainWindow, target, location, this]() {
     move(mainWindow, target, location);
   };
+  actions["HELP"] = [mainWindow, target, this]() { help(mainWindow); };
   actions["HUNT"] = [mainWindow, target, location, this]() {
     hunt(mainWindow, target, location);
   };
@@ -115,6 +118,7 @@ void Handling::handleVerb(MainWindow *mainWindow, QString verb, QString target,
   };
   actions["Q"] = [mainWindow, this]() { mainWindow->closeProgram(); };
   actions["QUIT"] = [mainWindow, this]() { mainWindow->closeProgram(); };
+  actions["READ"] = [mainWindow, target, this]() { read(mainWindow, target); };
   actions["REFLECT"] = [mainWindow, this]() {
     mainWindow->setDescription(player.constructReflection());
   };
@@ -149,6 +153,9 @@ void Handling::handleVerb(MainWindow *mainWindow, QString verb, QString target,
     wait(mainWindow, location);
   };
   actions["WEAR"] = [mainWindow, target, this]() { wear(mainWindow, target); };
+  actions["X"] = [mainWindow, target, location, this]() {
+    examine(mainWindow, target);
+  };
   actions["YELL"] = [mainWindow, this]() { yell(mainWindow); };
   actions["Z"] = [mainWindow, location, this]() { wait(mainWindow, location); };
 

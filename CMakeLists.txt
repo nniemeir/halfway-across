@@ -52,10 +52,12 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/verbs/drop.cpp
         src/verbs/eat.cpp
         src/verbs/examine.cpp
+        src/verbs/help.cpp
         src/verbs/hunt.cpp
         src/verbs/load.cpp
         src/verbs/look.cpp
         src/verbs/move.cpp
+        src/verbs/read.cpp
         src/verbs/remove.cpp
         src/verbs/script.cpp
         src/verbs/sit.cpp
