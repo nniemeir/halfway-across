@@ -2,7 +2,7 @@
 #include "../../include/handling.h"
 #include "../../include/player.h"
 #include "../../include/world.h"
-
+#include <QDebug>
 void Handling::use(MainWindow *mainWindow, QString target, Location *location) {
 
   QMap<QString, std::function<void()>> useLocations;
@@ -21,11 +21,18 @@ void Handling::use(MainWindow *mainWindow, QString target, Location *location) {
 }
 
 void Handling::useCave(MainWindow *mainWindow, QString target) {
+  int targetIndex =
+      inventoryObj.searchInventory(player.getInventory(), "LANTERN");
   if (target == "LANTERN") {
-    if (inventoryObj.searchInventory(player.getInventory(), "LANTERN") != -1) {
-      sfxPlayer.play("qrc:/audio/sfx/flint.mp3", sfxPlayer.getdefSfxVol(), 0);
-      mainWindow->setLocation(cave.getMusicPath(), cave.getAmbiencePath(),
-                              &caveLit);
+    if (targetIndex != -1) {
+      if (inventoryObj.getInventoryItem(player.getInventory(), targetIndex)
+              .getEffect() == 100) {
+        sfxPlayer.play("qrc:/audio/sfx/flint.mp3", sfxPlayer.getdefSfxVol(), 0);
+        mainWindow->setLocation(cave.getMusicPath(), cave.getAmbiencePath(),
+                                &caveLit);
+      } else {
+        mainWindow->setDescription("My lantern needs a fuel source.");
+      }
     } else {
       mainWindow->setDescription("I didn't have a lantern.");
     }

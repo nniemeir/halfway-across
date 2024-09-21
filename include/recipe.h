@@ -1,24 +1,21 @@
 #ifndef RECIPE_H
 #define RECIPE_H
 #include "item.h"
-
+#include <QStringList>
 class Recipe {
 public:
   Recipe(){};
-  Recipe(const QString &name, const QString &firstIngredient,
-         const QString &secondIngrdient, const QString &description,
-         const Item &outputItem);
+  Recipe(const QString &name, const QStringList &ingredients,
+         const QString &description, const Item &outputItem);
 
   QString getRecipeName() const;
-  QString getFirstIngredient() const;
-  QString getSecondIngredient() const;
+  QStringList getIngredients() const;
   QString getDescription() const;
   Item getOutputItem() const;
 
 private:
   QString name;
-  QString firstIngredient;
-  QString secondIngredient;
+  QStringList ingredients;
   QString description;
   Item output;
 };

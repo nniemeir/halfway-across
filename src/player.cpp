@@ -23,10 +23,15 @@ Player::Player()
                        "They were thick pants, providing warmth."});
   inventory.push_back({"PAIR OF MOCCASINS", 1, 1, 10, "CLOTHING", "NONE",
                        "They were worn shoes, providing slight warmth."});
-  Recipe candle("TALLOW CANDLE", "RENDERED FAT", "PIECE OF WOOD",
+  Recipe candle("TALLOW CANDLE", {"RENDERED FAT", "PIECE OF WOOD"},
                 "Used to fuel candle lanterns.",
                 {"TALLOW CANDLE", 1, 1, 10, "ANIMAL FAT", "NONE",
                  "I could use it to fuel my lantern."});
+  Recipe arrow("ARROWS", {"ROCK", "PIECE OF WOOD", "FEATHERS"},
+               "Could be loaded into a bow to hunt at a distance.",
+               {"ARROW", 1, 0, 0, "TOOLS", "NONE",
+                "I could load it into my bow to hunt at a distance."});
+  recipeBook.push_back(arrow);
   recipeBook.push_back(candle);
 }
 
@@ -185,11 +190,12 @@ QString Player::showRecipeBook() {
   for (const auto &recipe : recipeBook) {
     if (recipe.getRecipeName() != "") {
       inventoryText.append(
-          QString("%1\nIngredients:\n   - %2\n   - %3\nDescription:\n%4\n")
-              .arg(recipe.getRecipeName())
-              .arg(recipe.getFirstIngredient().toLower())
-              .arg(recipe.getSecondIngredient().toLower())
-              .arg(recipe.getDescription()));
+          QString("%1\nIngredients:\n").arg(recipe.getRecipeName()));
+      for (const auto &ingredient : recipe.getIngredients()) {
+        inventoryText.append(QString("   - %1\n").arg(ingredient));
+      }
+      inventoryText.append(
+          QString("Description:\n%1\n\n").arg(recipe.getDescription()));
     }
   }
   return inventoryText;

@@ -6,22 +6,35 @@
 void Handling::craft(MainWindow *mainWindow, QString target) {
   auto targetRecipe =
       recipeBookObj.searchRecipeBook(player.getRecipeBook(), target);
+
   if (targetRecipe) {
-    int ingredient1Index = inventoryObj.searchInventory(
-        player.getInventory(), targetRecipe->getFirstIngredient());
-    int ingredient2Index = inventoryObj.searchInventory(
-        player.getInventory(), targetRecipe->getSecondIngredient());
-    if (ingredient1Index != -1 && ingredient2Index != -1) {
+    const auto &ingredients = targetRecipe->getIngredients();
+    std::vector<int> ingredientIndices;
+    bool canCraftTarget = true;
+
+    for (const auto &ingredient : ingredients) {
+      int ingredientIndex =
+          inventoryObj.searchInventory(player.getInventory(), ingredient);
+      if (ingredientIndex == -1) {
+        canCraftTarget = false;
+        break;
+      }
+      ingredientIndices.push_back(ingredientIndex);
+    }
+    if (canCraftTarget) {
       sfxPlayer.play("qrc:/audio/sfx/craft.mp3", sfxPlayer.getdefSfxVol(), 0);
       mainWindow->setDescription(QString("I crafted %1 %2.")
                                      .arg(handle.getArticle(target))
                                      .arg(target.toLower()));
+
       int recipeIndex = inventoryObj.searchInventory(
           player.getInventory(), targetRecipe->getRecipeName());
       inventoryObj.addItem(player.getInventory(), targetRecipe->getOutputItem(),
                            recipeIndex);
-      inventoryObj.removeItem(player.getInventory(), ingredient1Index);
-      inventoryObj.removeItem(player.getInventory(), ingredient2Index);
+
+      for (int index : ingredientIndices) {
+        inventoryObj.removeItem(player.getInventory(), index);
+      }
     } else {
       mainWindow->setDescription(
           QString("I didn't have the resources to make %1 %2.")

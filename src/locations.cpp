@@ -13,7 +13,7 @@ Location camp(
     "once again.\n\nExit: North",
     ":/images/camp.png", "qrc:/audio/music/placeholder.mp3",
     "qrc:/audio/ambience/mountainWind.mp3",
-    {{"ARROW", 1, 0, 0, "TOOLS", "NONE",
+    {{"ARROW", 3, 0, 0, "TOOLS", "NONE",
       "I could load it into my bow to hunt at a distance."},
      {"BOW", 1, 0, 0, "TOOLS", "ARROW",
       "If loaded with an arrow, it could be used for hunting."},
@@ -75,7 +75,9 @@ Location valley("valley",
                 "I arrived at a clearing. It seemed like a good spot for "
                 "hunting.\n\nExit: South",
                 ":/images/valley.png", "qrc:/audio/music/placeholder.mp3",
-                "qrc:/audio/ambience/mountainWind.mp3", {{}});
+                "qrc:/audio/ambience/mountainWind.mp3",
+                {{"FEATHER", 3, 0, 0, "RESOURCES", "NONE",
+                  "I could use it for crafting."}});
 
 QString Location::getName() const { return name; }
 QString Location::getDescription() const { return description; }
@@ -96,7 +98,7 @@ QString Location::locInventory() const {
         QString("%1: %2\n").arg(item.getName()).arg(item.getAmount()));
   }
   if (inventoryText != "") {
-    inventoryText.prepend("Looking at the ground, I saw:\n\n");
+    inventoryText.prepend("Looking at the ground, I saw:\n");
   } else {
     inventoryText.append("I didn't see anything of note on the ground.");
   }

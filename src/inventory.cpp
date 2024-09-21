@@ -20,12 +20,14 @@ Item &Inventory::getInventoryItem(std::vector<Item> &inventory, int index) {
   return inventory[index];
 }
 
-void Inventory::addItem(std::vector<Item> &inventory, const Item itemToAdd,
+void Inventory::addItem(std::vector<Item> &inventory, Item itemToAdd,
                         int itemIndex) {
   if (itemIndex == -1) {
+    itemToAdd.setQuantity(1);
     inventory.push_back(itemToAdd);
   } else {
-    inventory[itemIndex].setQuantity(inventory[itemIndex].getAmount() + 1);
+    inventory[itemIndex].setQuantity(inventory[itemIndex].getAmount() +
+                                     itemToAdd.getAmount());
   }
 }
 
