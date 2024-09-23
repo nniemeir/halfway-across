@@ -83,7 +83,7 @@ QString World::generateWeather() {
   float snowyProb = 20;
   float cloudyProb = 50;
   int prob = rand() % 100;
-  if (prob < blizzardProb) {
+  if (prob < blizzardProb && currentWeather != "snowing heavily") {
     return "snowing heavily";
   } else if (prob < snowyProb) {
     return "snowing";
