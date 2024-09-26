@@ -27,7 +27,7 @@ Player::Player()
                 "Used to fuel candle lanterns.",
                 {"TALLOW CANDLE", 1, 1, 10, "ANIMAL FAT", "NONE",
                  "I could use it to fuel my lantern."});
-  Recipe arrow("ARROWS", {"ROCK", "PIECE OF WOOD", "FEATHERS"},
+  Recipe arrow("ARROW", {"ROCK", "PIECE OF WOOD", "FEATHER"},
                "Could be loaded into a bow to hunt at a distance.",
                {"ARROW", 1, 0, 0, "TOOLS", "NONE",
                 "I could load it into my bow to hunt at a distance."});
