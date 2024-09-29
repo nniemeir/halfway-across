@@ -1,6 +1,7 @@
 #include "../../include/handling.h"
 
-void Handling::help(MainWindow *mainWindow) {
+void Handling::help(MainWindow *mainWindow)
+{
   mainWindow->setDescription(
       "AGAIN/G - repeat last command\n"
       "COOK (object) - cook something\n"
@@ -21,7 +22,9 @@ void Handling::help(MainWindow *mainWindow) {
       "REMOVE (object) - take off a clothing item\n"
       "SCREAM/SHOUT/YELL - alert animals to my presence\n"
       "SCRIPT - start writing journal to file\n"
+      "SHOOT (object) - shoot an arrow at something\n"
       "SIT (object) - sit on something\n"
+      "SKIN (object) - harvest fat, meat, and pelt from a slain animal\n"
       "SLEEP - advance to the next day\n"
       "STAND - stand up\n"
       "TAKE (object) - add an item to my inventory\n"

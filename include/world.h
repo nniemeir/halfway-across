@@ -3,10 +3,12 @@
 #include "../include/item.h"
 #include "../include/locations.h"
 
-class World {
+class World
+{
 public:
   World();
-  typedef enum {
+  typedef enum
+  {
     TRAVEL_YES = 1,
     TRAVEL_BLIZZARD,
     TRAVEL_TIRED
@@ -37,6 +39,8 @@ public:
   // Movement
   bool validDirection(const QString &value);
 
+  bool roll(const int probability);
+
 private:
   int day;
   Location *currentLocation;
@@ -48,6 +52,7 @@ private:
   QString generateWeather();
   std::vector<Item> fish;
   std::vector<QString> directions;
+  QString activeAnimal;
 };
 
 extern World world;

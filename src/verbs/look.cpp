@@ -3,35 +3,46 @@
 #include "../../include/world.h"
 
 void Handling::look(MainWindow *mainWindow, QString target,
-                    Location *location) {
+                    Location *location)
+{
   QMap<QString, std::function<void()>> lookLocations;
-  lookLocations["camp"] = [mainWindow, target, this]() {
+  lookLocations["Camp"] = [mainWindow, target, this]()
+  {
     lookCamp(mainWindow, target);
   };
-  lookLocations["campPath"] = [mainWindow, target, this]() {
-    lookCampPath(mainWindow, target);
+  lookLocations["The forest path"] = [mainWindow, target, this]()
+  {
+    lookForestPath(mainWindow, target);
   };
-  lookLocations["cave"] = [mainWindow, target, this]() {
+  lookLocations["The dark cave"] = [mainWindow, target, this]()
+  {
     lookCave(mainWindow, target);
   };
-  lookLocations["caveEntrance"] = [mainWindow, target, this]() {
+  lookLocations["The cave's entrance"] = [mainWindow, target, this]()
+  {
     lookCaveEntrance(mainWindow, target);
   };
-  lookLocations["lake"] = [mainWindow, target, this]() {
+  lookLocations["The lake"] = [mainWindow, target, this]()
+  {
     lookLake(mainWindow, target);
   };
-  lookLocations["valley"] = [mainWindow, target, this]() {
+  lookLocations["The valley"] = [mainWindow, target, this]()
+  {
     lookValley(mainWindow, target);
   };
 
-  if (lookLocations.contains(location->getName())) {
+  if (lookLocations.contains(location->getName()))
+  {
     lookLocations[location->getName()]();
-  } else {
+  }
+  else
+  {
     notAllowedInLocMsg(mainWindow, "look anywhere");
   }
 }
 
-void Handling::lookCamp(MainWindow *mainWindow, QString target) {
+void Handling::lookCamp(MainWindow *mainWindow, QString target)
+{
   QMap<QString, QString> descriptions = {
       {"AROUND", camp.getDescription()},
       {"BAG", player.bagInventory()},
@@ -45,31 +56,39 @@ void Handling::lookCamp(MainWindow *mainWindow, QString target) {
       {"OUTSIDE",
        QString("It was %1 outside.").arg(world.getCurrentWeather().toLower())}};
 
-  if (descriptions.contains(target)) {
+  if (descriptions.contains(target))
+  {
     mainWindow->setDescription(descriptions.value(target));
-  } else {
+  }
+  else
+  {
     notAllowedDirMsg(mainWindow, "look", target);
   }
 }
 
-void Handling::lookCampPath(MainWindow *mainWindow, QString target) {
+void Handling::lookForestPath(MainWindow *mainWindow, QString target)
+{
   QMap<QString, QString> descriptions = {
-      {"AROUND", campPath.getDescription()},
+      {"AROUND", forestPath.getDescription()},
       {"BAG", player.bagInventory()},
-      {"GROUND", campPath.locInventory()},
+      {"GROUND", forestPath.locInventory()},
       {"PATH", "The other branches of the path went off into the distance.\n"},
       {"UP", "The sky seemed empty that day."},
-      {"DOWN", campPath.locInventory()},
+      {"DOWN", forestPath.locInventory()},
       {"SELF", player.clothesInventory()}};
 
-  if (descriptions.contains(target)) {
+  if (descriptions.contains(target))
+  {
     mainWindow->setDescription(descriptions.value(target));
-  } else {
+  }
+  else
+  {
     notAllowedDirMsg(mainWindow, "look", target);
   }
 }
 
-void Handling::lookCave(MainWindow *mainWindow, QString target) {
+void Handling::lookCave(MainWindow *mainWindow, QString target)
+{
   QMap<QString, QString> descriptions = {
       {"AROUND", valley.getDescription()},
       {"BAG", player.bagInventory()},
@@ -78,14 +97,18 @@ void Handling::lookCave(MainWindow *mainWindow, QString target) {
              "on me."},
       {"DOWN", cave.locInventory()},
       {"SELF", player.clothesInventory()}};
-  if (descriptions.contains(target)) {
+  if (descriptions.contains(target))
+  {
     mainWindow->setDescription(descriptions.value(target));
-  } else {
+  }
+  else
+  {
     notAllowedDirMsg(mainWindow, "look", target);
   }
 }
 
-void Handling::lookCaveEntrance(MainWindow *mainWindow, QString target) {
+void Handling::lookCaveEntrance(MainWindow *mainWindow, QString target)
+{
   QMap<QString, QString> descriptions = {
       {"AROUND", caveEntrance.getDescription()},
       {"BAG", player.bagInventory()},
@@ -93,14 +116,18 @@ void Handling::lookCaveEntrance(MainWindow *mainWindow, QString target) {
       {"UP", "I felt smaller looking at the mountain."},
       {"DOWN", caveEntrance.locInventory()},
       {"SELF", player.clothesInventory()}};
-  if (descriptions.contains(target)) {
+  if (descriptions.contains(target))
+  {
     mainWindow->setDescription(descriptions.value(target));
-  } else {
+  }
+  else
+  {
     notAllowedDirMsg(mainWindow, "look", target);
   }
 }
 
-void Handling::lookLake(MainWindow *mainWindow, QString target) {
+void Handling::lookLake(MainWindow *mainWindow, QString target)
+{
   QMap<QString, QString> descriptions = {
       {"AROUND", lake.getDescription()},
       {"BAG", player.bagInventory()},
@@ -111,14 +138,18 @@ void Handling::lookLake(MainWindow *mainWindow, QString target) {
       {"DOWN", lake.locInventory()},
       {"SELF", player.clothesInventory()}};
 
-  if (descriptions.contains(target)) {
+  if (descriptions.contains(target))
+  {
     mainWindow->setDescription(descriptions.value(target));
-  } else {
+  }
+  else
+  {
     notAllowedDirMsg(mainWindow, "look", target);
   }
 }
 
-void Handling::lookValley(MainWindow *mainWindow, QString target) {
+void Handling::lookValley(MainWindow *mainWindow, QString target)
+{
   QMap<QString, QString> descriptions = {
       {"AROUND", valley.getDescription()},
       {"BAG", player.bagInventory()},
@@ -127,9 +158,12 @@ void Handling::lookValley(MainWindow *mainWindow, QString target) {
       {"UP", "The sky felt empty that day."},
       {"DOWN", valley.locInventory()},
       {"SELF", player.clothesInventory()}};
-  if (descriptions.contains(target)) {
+  if (descriptions.contains(target))
+  {
     mainWindow->setDescription(descriptions.value(target));
-  } else {
+  }
+  else
+  {
     notAllowedDirMsg(mainWindow, "look", target);
   }
 }

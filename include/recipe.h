@@ -2,9 +2,10 @@
 #define RECIPE_H
 #include "item.h"
 #include <QStringList>
-class Recipe {
+class Recipe
+{
 public:
-  Recipe(){};
+  Recipe() {};
   Recipe(const QString &name, const QStringList &ingredients,
          const QString &description, const Item &outputItem);
 
@@ -20,7 +21,8 @@ private:
   Item output;
 };
 
-class RecipeBook {
+class RecipeBook
+{
 public:
   RecipeBook() {}
   RecipeBook(std::vector<Recipe> &recipeBook);

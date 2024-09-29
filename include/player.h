@@ -4,7 +4,8 @@
 #include "item.h"
 #include "recipe.h"
 
-class Player : public Inventory {
+class Player : public Inventory
+{
 public:
   Player();
 

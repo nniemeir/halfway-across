@@ -3,7 +3,8 @@
 #include <QAudioOutput>
 #include <QMediaPlayer>
 #include <QUrl>
-class Audio {
+class Audio
+{
 public:
   Audio();
   void play(QString filePath, int volume, int isBackground);

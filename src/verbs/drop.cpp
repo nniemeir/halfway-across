@@ -4,15 +4,17 @@
 #include "../../include/player.h"
 
 void Handling::drop(MainWindow *mainWindow, QString target,
-                    Location *location) {
+                    Location *location)
+{
   int targetIndex = inventoryObj.searchInventory(player.getInventory(), target);
-  if (targetIndex != -1) {
+  if (targetIndex != -1)
+  {
     sfxPlayer.play("qrc:/audio/sfx/drop.mp3", sfxPlayer.getdefSfxVol(), 0);
     QString itemName =
         inventoryObj.getInventoryItem(player.getInventory(), targetIndex)
             .getName();
     mainWindow->setDescription(
-        QString("I dropped %1 %2.").arg(getArticle(target)).arg(itemName));
+        QString("I dropped %1 %2.").arg(getArticle(target)).arg(itemName.toLower()));
     int locationItemIndex =
         inventoryObj.searchInventory(location->getInventory(), target);
     inventoryObj.addItem(
@@ -20,7 +22,9 @@ void Handling::drop(MainWindow *mainWindow, QString target,
         player.getInventoryItem(player.getInventory(), targetIndex),
         locationItemIndex);
     inventoryObj.removeItem(player.getInventory(), targetIndex);
-  } else {
+  }
+  else
+  {
     missingItemMsg(mainWindow, getArticle(target) + " " + target);
   }
 }

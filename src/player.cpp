@@ -10,7 +10,8 @@ Player player;
 
 Player::Player()
     : health(100), mental(50), energy(1), hunger(100), thirst(100), warmth(50),
-      charm(50), standing(1), conspicuous(0), inventory(5), recipeBook(2) {
+      charm(50), standing(1), conspicuous(0), inventory(5), recipeBook(2)
+{
   // Format is QString name, int amount, int active, int effects, QString type,
   // QString description
   inventory.push_back({"FELT HAT", 1, 1, 5, "CLOTHING", "NONE",
@@ -36,21 +37,29 @@ Player::Player()
 }
 
 int Player::getHealth() const { return health; }
-int Player::setHealth(int h) {
+int Player::setHealth(int h)
+{
   health = constrainStat(h);
-  if (health == 0) {
+  if (health == 0)
+  {
     return 1;
-  } else {
+  }
+  else
+  {
     return 0;
   }
 }
 
 int Player::getMental() const { return mental; }
-int Player::setMental(int m) {
+int Player::setMental(int m)
+{
   mental = constrainStat(m);
-  if (mental == 0) {
+  if (mental == 0)
+  {
     return 1;
-  } else {
+  }
+  else
+  {
     return 0;
   }
 }
@@ -59,31 +68,43 @@ int Player::getEnergy() const { return energy; }
 void Player::setEnergy(int e) { energy = constrainStat(e); }
 
 int Player::getHunger() const { return hunger; }
-int Player::setHunger(int h) {
+int Player::setHunger(int h)
+{
   hunger = constrainStat(h);
-  if (hunger == 0) {
+  if (hunger == 0)
+  {
     return 1;
-  } else {
+  }
+  else
+  {
     return 0;
   }
 }
 
 int Player::getThirst() const { return thirst; }
-int Player::setThirst(int t) {
+int Player::setThirst(int t)
+{
   thirst = constrainStat(t);
-  if (thirst == 0) {
+  if (thirst == 0)
+  {
     return 1;
-  } else {
+  }
+  else
+  {
     return 0;
   }
 }
 
 int Player::getWarmth() const { return warmth; }
-int Player::setWarmth(int w) {
+int Player::setWarmth(int w)
+{
   warmth = constrainStat(w);
-  if (warmth == 0) {
+  if (warmth == 0)
+  {
     return 1;
-  } else {
+  }
+  else
+  {
     return 0;
   }
 }
@@ -105,47 +126,73 @@ int Player::constrainStat(int stat) { return std::max(0, std::min(stat, 100)); }
 
 // Warning messages were opted for over showing the player the associated ints
 // for the sake of realism
-QString Player::constructReflection() const {
+QString Player::constructReflection() const
+{
   QString reflection;
   reflection.append(QString("Day %1\n\n").arg(world.getDay()));
 
-  if (mental < LOW_STAT_THRESHOLD) {
+  if (mental < LOW_STAT_THRESHOLD)
+  {
     reflection.append("I was losing the will to continue. ");
-  } else if (LOW_STAT_THRESHOLD <= mental && mental < MEDIUM_STAT_THRESHOLD) {
+  }
+  else if (LOW_STAT_THRESHOLD <= mental && mental < MEDIUM_STAT_THRESHOLD)
+  {
     reflection.append("My depression was worsening. ");
-  } else if (MEDIUM_STAT_THRESHOLD <= mental && mental < HIGH_STAT_THRESHOLD) {
+  }
+  else if (MEDIUM_STAT_THRESHOLD <= mental && mental < HIGH_STAT_THRESHOLD)
+  {
     reflection.append("I felt a bit melancholy. ");
   }
 
-  if (warmth < LOW_STAT_THRESHOLD) {
+  if (warmth < LOW_STAT_THRESHOLD)
+  {
     reflection.append("I didn't think I could survive the cold much longer. ");
-  } else if (LOW_STAT_THRESHOLD <= warmth && warmth < MEDIUM_STAT_THRESHOLD) {
+  }
+  else if (LOW_STAT_THRESHOLD <= warmth && warmth < MEDIUM_STAT_THRESHOLD)
+  {
     reflection.append("The cold was becoming unbearable. ");
-  } else if (MEDIUM_STAT_THRESHOLD <= warmth && warmth < HIGH_STAT_THRESHOLD) {
+  }
+  else if (MEDIUM_STAT_THRESHOLD <= warmth && warmth < HIGH_STAT_THRESHOLD)
+  {
     reflection.append("The cold was starting to get to me. ");
   }
 
-  if (health < LOW_STAT_THRESHOLD) {
+  if (health < LOW_STAT_THRESHOLD)
+  {
     reflection.append("My health was deteriorating quickly. ");
-  } else if (LOW_STAT_THRESHOLD <= health && health < MEDIUM_STAT_THRESHOLD) {
+  }
+  else if (LOW_STAT_THRESHOLD <= health && health < MEDIUM_STAT_THRESHOLD)
+  {
     reflection.append("I felt very ill. ");
-  } else if (MEDIUM_STAT_THRESHOLD <= health && health < HIGH_STAT_THRESHOLD) {
+  }
+  else if (MEDIUM_STAT_THRESHOLD <= health && health < HIGH_STAT_THRESHOLD)
+  {
     reflection.append("I felt a little under the weather. ");
   }
 
-  if (hunger < LOW_STAT_THRESHOLD) {
+  if (hunger < LOW_STAT_THRESHOLD)
+  {
     reflection.append("I was starving. ");
-  } else if (LOW_STAT_THRESHOLD <= hunger && hunger < MEDIUM_STAT_THRESHOLD) {
+  }
+  else if (LOW_STAT_THRESHOLD <= hunger && hunger < MEDIUM_STAT_THRESHOLD)
+  {
     reflection.append("I needed to eat something soon. ");
-  } else if (MEDIUM_STAT_THRESHOLD <= hunger && hunger < HIGH_STAT_THRESHOLD) {
+  }
+  else if (MEDIUM_STAT_THRESHOLD <= hunger && hunger < HIGH_STAT_THRESHOLD)
+  {
     reflection.append("I was starting to get hungry. ");
   }
 
-  if (thirst < LOW_STAT_THRESHOLD) {
+  if (thirst < LOW_STAT_THRESHOLD)
+  {
     reflection.append("My throat was very dry. ");
-  } else if (LOW_STAT_THRESHOLD <= thirst && thirst < MEDIUM_STAT_THRESHOLD) {
+  }
+  else if (LOW_STAT_THRESHOLD <= thirst && thirst < MEDIUM_STAT_THRESHOLD)
+  {
     reflection.append("I needed to drink something soon. ");
-  } else if (MEDIUM_STAT_THRESHOLD <= thirst && thirst < HIGH_STAT_THRESHOLD) {
+  }
+  else if (MEDIUM_STAT_THRESHOLD <= thirst && thirst < HIGH_STAT_THRESHOLD)
+  {
     reflection.append("I was starting to get thirsty. ");
   }
   return reflection;
@@ -153,45 +200,61 @@ QString Player::constructReflection() const {
 
 // Limits on how many of each type of clothing item can be equipped at once will
 // be implemented in the future
-QString Player::clothesInventory() {
+QString Player::clothesInventory()
+{
   QString inventoryText;
-  for (const auto &item : inventory) {
-    if (item.getType() == "CLOTHING" && item.getActive() == 1) {
+  for (const auto &item : inventory)
+  {
+    if (item.getType() == "CLOTHING" && item.getActive() == 1)
+    {
       inventoryText.append(QString("%1\n").arg(item.getName()));
     }
   }
-  if (inventoryText != "") {
+  if (inventoryText != "")
+  {
     inventoryText.prepend("I was wearing:\n");
-  } else {
+  }
+  else
+  {
     inventoryText.append("I was not wearing anything.");
   }
   return inventoryText;
 }
 
 // The space inside the player's inventory will likely be limited in the future
-QString Player::bagInventory() {
+QString Player::bagInventory()
+{
   QString inventoryText;
-  for (const auto &item : inventory) {
-    if (item.getType() != "CLOTHING" && item.getType() != "") {
+  for (const auto &item : inventory)
+  {
+    if (item.getType() != "CLOTHING" && item.getType() != "")
+    {
       inventoryText.append(
           QString("%1: %2\n").arg(item.getName()).arg(item.getAmount()));
     }
   }
-  if (inventoryText != "") {
+  if (inventoryText != "")
+  {
     inventoryText.prepend("Looking in my possibles bag, I saw:\n");
-  } else {
+  }
+  else
+  {
     inventoryText.append("My possibles bag was empty.");
   }
   return inventoryText;
 }
 
-QString Player::showRecipeBook() {
+QString Player::showRecipeBook()
+{
   QString inventoryText;
-  for (const auto &recipe : recipeBook) {
-    if (recipe.getRecipeName() != "") {
+  for (const auto &recipe : recipeBook)
+  {
+    if (recipe.getRecipeName() != "")
+    {
       inventoryText.append(
           QString("%1\nIngredients:\n").arg(recipe.getRecipeName()));
-      for (const auto &ingredient : recipe.getIngredients()) {
+      for (const auto &ingredient : recipe.getIngredients())
+      {
         inventoryText.append(QString("   - %1\n").arg(ingredient));
       }
       inventoryText.append(

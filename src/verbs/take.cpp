@@ -4,10 +4,12 @@
 #include "../../include/player.h"
 
 void Handling::take(MainWindow *mainWindow, QString target,
-                    Location *location) {
+                    Location *location)
+{
   int itemIndex =
       inventoryObj.searchInventory(location->getInventory(), target);
-  if (itemIndex != -1) {
+  if (itemIndex != -1)
+  {
     sfxPlayer.play("qrc:/audio/sfx/take.mp3", sfxPlayer.getdefSfxVol(), 0);
     QString itemName =
         inventoryObj.getInventoryItem(location->getInventory(), itemIndex)
@@ -23,7 +25,9 @@ void Handling::take(MainWindow *mainWindow, QString target,
         inventoryObj.getInventoryItem(location->getInventory(), itemIndex),
         playerItemIndex);
     inventoryObj.removeItem(location->getInventory(), itemIndex);
-  } else {
+  }
+  else
+  {
     mainWindow->setDescription(QString("There wasn't %1 %2 there.")
                                    .arg(handle.getArticle(target))
                                    .arg(target.toLower()));

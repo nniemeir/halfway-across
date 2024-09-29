@@ -27,6 +27,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ${PROJECT_SOURCES}
         include/audio.h
         include/handling.h
+        include/hunting.h
         include/inventory.h
         include/item.h
         include/locations.h
@@ -60,7 +61,9 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/verbs/read.cpp
         src/verbs/remove.cpp
         src/verbs/script.cpp
+        src/verbs/shoot.cpp
         src/verbs/sit.cpp
+        src/verbs/skin.cpp
         src/verbs/sleep.cpp
         src/verbs/stand.cpp
         src/verbs/take.cpp

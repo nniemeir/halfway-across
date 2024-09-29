@@ -3,8 +3,10 @@
 Journal journal("journal-" + QDate::currentDate().toString("MM-dd-yy") +
                 ".txt");
 
-bool Journal::writeFile(const QString &outputText) {
-  if (!file.isOpen()) {
+bool Journal::writeFile(const QString &outputText)
+{
+  if (!file.isOpen())
+  {
     qDebug() << "File is not open for writing";
     return false;
   }

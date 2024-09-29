@@ -18,16 +18,21 @@ World::World()
             "It was a rare fish that could be eaten if I cooked it."}},
       directions{"NORTH", "WEST", "SOUTH", "EAST", "N", "W", "S", "E"} {}
 
-bool World::validDirection(const QString &value) {
+bool World::validDirection(const QString &value)
+{
   return std::find(directions.begin(), directions.end(), value) !=
          directions.end();
 }
 
-QString World::advanceDay() {
+QString World::advanceDay()
+{
   player.setEnergy(1);
-  if (player.setHunger(player.getHunger() - 20)) {
+  if (player.setHunger(player.getHunger() - 20))
+  {
     return "HUNGER";
-  } else if (player.setThirst(player.getThirst() - 30)) {
+  }
+  else if (player.setThirst(player.getThirst() - 30))
+  {
     return "THIRST";
   }
   setChiseledIce(0);
@@ -37,7 +42,8 @@ QString World::advanceDay() {
   return "";
 }
 
-void World::initializeLocation(Location *initialLocation) {
+void World::initializeLocation(Location *initialLocation)
+{
   currentLocation = initialLocation;
 }
 
@@ -45,7 +51,8 @@ int World::getDay() const { return day; }
 
 Location *World::getCurrentLocation() const { return currentLocation; }
 
-void World::setCurrentLocation(Location *location) {
+void World::setCurrentLocation(Location *location)
+{
   currentLocation = location;
 }
 
@@ -55,12 +62,18 @@ void World::setChiseledIce(int newValue) { chiseledIce = newValue; }
 
 // A chance existing for the weather to trap the player at camp is intended to
 // encourage them to plan ahead
-int World::travelChecks() {
-  if (currentWeather == "snowing heavily") {
+int World::travelChecks()
+{
+  if (currentWeather == "snowing heavily")
+  {
     return TRAVEL_BLIZZARD;
-  } else if (player.getEnergy() == 0) {
+  }
+  else if (player.getEnergy() == 0)
+  {
     return TRAVEL_TIRED;
-  } else {
+  }
+  else
+  {
     return TRAVEL_YES;
   }
 }
@@ -71,42 +84,72 @@ QString World::getCurrentWeather() const { return currentWeather; }
 
 // A given day's temperature will have an effect on
 // how high the warmth stat must be to avoid losing health
-int World::generateTemperature() {
+int World::generateTemperature()
+{
   int temperature = rand() % (30 + 1);
   return temperature;
 }
 
 // A given day's weather will have an effect on
 // what actions the player can take and how likely they are to succeed at them
-QString World::generateWeather() {
+QString World::generateWeather()
+{
   float blizzardProb = 5;
   float snowyProb = 20;
   float cloudyProb = 50;
   int prob = rand() % 100;
-  if (prob < blizzardProb && currentWeather != "snowing heavily") {
+  if (prob < blizzardProb && currentWeather != "snowing heavily")
+  {
     return "snowing heavily";
-  } else if (prob < snowyProb) {
+  }
+  else if (prob < snowyProb)
+  {
     return "snowing";
-  } else if (prob < cloudyProb) {
+  }
+  else if (prob < cloudyProb)
+  {
     return "cloudy";
-  } else {
+  }
+  else
+  {
     return "clear";
   }
 }
 
+bool World::roll(const int probability)
+{
+  int num = rand() % 100;
+  if (num < probability)
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}
+
 // The odds will differ by bait type once that is implemented
-QString World::generateFish() {
+QString World::generateFish()
+{
   float brownTroutProb = 10;
   float rainbowTroutProb = 30;
   float brookTroutProb = 60;
   int prob = rand() % 100;
-  if (prob < brownTroutProb) {
+  if (prob < brownTroutProb)
+  {
     return "BROWN TROUT";
-  } else if (prob < rainbowTroutProb) {
+  }
+  else if (prob < rainbowTroutProb)
+  {
     return "RAINBOW TROUT";
-  } else if (prob < brookTroutProb) {
+  }
+  else if (prob < brookTroutProb)
+  {
     return "BROOK TROUT";
-  } else {
+  }
+  else
+  {
     return "CUTTHROAT TROUT";
   }
 }

@@ -15,15 +15,20 @@ Item Recipe::getOutputItem() const { return output; }
 
 std::optional<Recipe>
 RecipeBook::searchRecipeBook(const std::vector<Recipe> &recipeBook,
-                             const QString &itemName) const {
+                             const QString &itemName) const
+{
   auto it = std::find_if(recipeBook.begin(), recipeBook.end(),
-                         [&itemName](const Recipe &recipe) {
+                         [&itemName](const Recipe &recipe)
+                         {
                            return recipe.getRecipeName() == itemName;
                          });
 
-  if (it != recipeBook.end()) {
+  if (it != recipeBook.end())
+  {
     return *it;
-  } else {
+  }
+  else
+  {
     return std::nullopt;
   }
 }

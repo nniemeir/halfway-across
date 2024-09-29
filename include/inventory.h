@@ -10,6 +10,7 @@ public:
   Item &getInventoryItem(std::vector<Item> &inventory, int index);
   void addItem(std::vector<Item> &inventory, const Item ItemToAdd,
                int ItemIndex);
+  void addLoot(std::vector<Item> &inventory, std::vector<Item> itemList);
   void removeItem(std::vector<Item> &inventory, int index);
 };
 

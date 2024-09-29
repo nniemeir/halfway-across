@@ -2,7 +2,8 @@
 #define ITEM_H
 #include <qstring.h>
 
-class Item {
+class Item
+{
 public:
   Item()
       : name(""), amount(0), active(0), effect(0), type(""), payload("NONE"),
@@ -12,7 +13,8 @@ public:
       : name(n), amount(a), active(act), effect(eff), type(t), payload(p),
         description(d) {}
 
-  Item cookMeat(const Item &raw) const {
+  Item cookMeat(const Item &raw) const
+  {
     return Item("COOKED " + raw.name, 1, 0, raw.effect, "FOOD", "NONE",
                 "I could eat it to ease my hunger.");
   }

@@ -3,7 +3,8 @@
 #include "../include/mainwindow.h"
 #include <QRegularExpression>
 
-class Handling {
+class Handling
+{
 public:
   Handling();
   // Formatting
@@ -46,14 +47,14 @@ private:
   void look(MainWindow *mainWindow, QString target, Location *location);
   void load(MainWindow *mainWindow, QString target);
   void lookCamp(MainWindow *mainWindow, QString target);
-  void lookCampPath(MainWindow *mainWindow, QString target);
+  void lookForestPath(MainWindow *mainWindow, QString target);
   void lookCave(MainWindow *mainWindow, QString target);
   void lookCaveEntrance(MainWindow *mainWindow, QString target);
   void lookLake(MainWindow *mainWindow, QString target);
   void lookValley(MainWindow *mainWindow, QString target);
   void move(MainWindow *mainWindow, QString target, Location *location);
   void moveCamp(MainWindow *mainWindow, QString target);
-  void moveCampPath(MainWindow *mainWindow, QString target);
+  void moveForestPath(MainWindow *mainWindow, QString target);
   void moveCave(MainWindow *mainWindow, QString target);
   void moveCaveEntrance(MainWindow *mainWindow, QString target);
   void moveCaveLit(MainWindow *mainWindow, QString target);
@@ -62,8 +63,10 @@ private:
   void read(MainWindow *mainWindow, QString target);
   void remove(MainWindow *mainWindow, QString target);
   void script(MainWindow *mainWindow);
+  void shoot(MainWindow *mainWindow, QString target, Location *location);
   void sit(MainWindow *mainWindow, QString target, Location *location);
   void sitCamp(MainWindow *mainWindow, QString target);
+  void skin(MainWindow *mainWindow, QString target, Location *location);
   void sleep(MainWindow *mainWindow, Location *location);
   void stand(MainWindow *mainWindow);
   void take(MainWindow *mainWindow, QString target, Location *location);
