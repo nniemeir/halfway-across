@@ -2,27 +2,24 @@
 #define ITEM_H
 #include <qstring.h>
 
-class Item
-{
+class Item {
 public:
-  Item()
-      : name(""), amount(0), active(0), effect(0), type(""), payload("NONE"),
-        description("") {}
-  Item(const QString &n, int a, int act, int eff, const QString &t,
+  Item(){};
+  Item(const QString &n, int a, int act, int e, int w, const QString &t,
        const QString &p, const QString &d)
-      : name(n), amount(a), active(act), effect(eff), type(t), payload(p),
-        description(d) {}
+      : name(n), amount(a), active(act), effect(e), weight(w), type(t),
+        payload(p), description(d) {}
 
-  Item cookMeat(const Item &raw) const
-  {
-    return Item("COOKED " + raw.name, 1, 0, raw.effect, "FOOD", "NONE",
-                "I could eat it to ease my hunger.");
+  Item cookMeat(const Item &raw) const {
+    return Item("COOKED " + raw.name, 1, 0, raw.effect, raw.weight, "FOOD",
+                "NONE", "I could eat it to ease my hunger.");
   }
 
   QString getName() const;
   int getAmount() const;
   int getActive() const;
   int getEffect() const;
+  int getWeight() const;
   QString getType() const;
   QString getPayload() const;
   QString getDescription() const;
@@ -35,6 +32,7 @@ private:
   int amount;
   int active;
   int effect;
+  int weight;
   QString type;
   QString payload;
   QString description;

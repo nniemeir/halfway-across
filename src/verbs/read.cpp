@@ -2,14 +2,10 @@
 #include "../../include/player.h"
 
 // This will be fully implemented at a later time
-void Handling::read(MainWindow *mainWindow, QString target)
-{
-  if (target == "RECIPES")
-  {
-    mainWindow->setDescription(player.showRecipeBook());
-  }
-  else
-  {
+void Handling::read(MainWindow *mainWindow, QString target) {
+  if (target == "RECIPES") {
+    mainWindow->setDescription(playerObj.displayRecipeBook());
+  } else {
     missingItemMsg(mainWindow, target);
   }
 }

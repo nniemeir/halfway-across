@@ -26,6 +26,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
         include/audio.h
+        include/fishing.h
         include/handling.h
         include/hunting.h
         include/inventory.h
@@ -37,13 +38,15 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         include/world.h
         resources/resources.qrc
         src/audio.cpp
+        src/fishing.cpp
         src/handling.cpp
+        src/hunting.cpp
         src/inventory.cpp
         src/item.cpp
         src/journal.cpp
         src/locations.cpp
         src/player.cpp
-  	    src/recipe.cpp
+        src/recipe.cpp
         src/world.cpp
         src/verbs/begin.cpp
         src/verbs/cook.cpp
@@ -53,6 +56,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/verbs/drop.cpp
         src/verbs/eat.cpp
         src/verbs/examine.cpp
+        src/verbs/fill.cpp
         src/verbs/help.cpp
         src/verbs/hunt.cpp
         src/verbs/load.cpp

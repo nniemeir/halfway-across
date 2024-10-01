@@ -4,39 +4,35 @@
 #include "item.h"
 #include "recipe.h"
 
-class Player : public Inventory
-{
+class Player : public Inventory {
 public:
   Player();
 
-  // Stats management
   int getHealth() const;
-  int setHealth(int health);
   int getMental() const;
-  int setMental(int mental);
   int getEnergy() const;
-  void setEnergy(int energy);
   int getHunger() const;
-  int setHunger(int hunger);
   int getThirst() const;
-  int setThirst(int thirst);
   int getWarmth() const;
-  int setWarmth(int warmth);
   int getCharm() const;
-  void setCharm(int charm);
   int getStanding() const;
-  void setStanding(int standing);
-  bool getConspicuous() const;
-  void setConspicuous(bool newValue);
-  int constrainStat(int stat);
-  QString constructReflection() const;
-
-  // Inventory
+  int getCryCooldown() const;
   std::vector<Item> &getInventory();
-  QString clothesInventory();
-  QString bagInventory();
-  QString showRecipeBook();
   std::vector<Recipe> &getRecipeBook();
+  int setHealth(int health);
+  int setMental(int mental);
+  void setEnergy(int energy);
+  int setHunger(int hunger);
+  int setThirst(int thirst);
+  int setWarmth(int warmth);
+  void setCharm(int charm);
+  void setStanding(int standing);
+  void setCryCooldown(int s);
+  int constrainStat(int stat);
+  QString displayBagInventory() const;
+  QString displayClothesInventory() const;
+  QString displayRecipeBook() const;
+  QString displayWarnings() const;
 
 private:
   int health;
@@ -47,11 +43,11 @@ private:
   int warmth;
   int charm;
   int standing;
-  bool conspicuous;
+  int cryCooldown;
   std::vector<Item> inventory;
   std::vector<Recipe> recipeBook;
 };
 
-extern Player player;
+extern Player playerObj;
 
 #endif

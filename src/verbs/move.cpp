@@ -4,210 +4,148 @@
 #include "../../include/world.h"
 
 void Handling::move(MainWindow *mainWindow, QString target,
-                    Location *location)
-{
+                    Location *location) {
 
   QMap<QString, std::function<void()>> moveLocations;
-  moveLocations["Camp"] = [mainWindow, target, this]()
-  {
+  moveLocations["Camp"] = [mainWindow, target, this]() {
     moveCamp(mainWindow, target);
   };
-  moveLocations["The forest path"] = [mainWindow, target, this]()
-  {
+  moveLocations["The forest path"] = [mainWindow, target, this]() {
     moveForestPath(mainWindow, target);
   };
-  moveLocations["The dark cave"] = [mainWindow, target, this]()
-  {
+  moveLocations["The dark cave"] = [mainWindow, target, this]() {
     moveCave(mainWindow, target);
   };
-  moveLocations["The cave's entrance"] = [mainWindow, target, this]()
-  {
+  moveLocations["The cave's entrance"] = [mainWindow, target, this]() {
     moveCaveEntrance(mainWindow, target);
   };
-  moveLocations["The well-lit cave"] = [mainWindow, target, this]()
-  {
+  moveLocations["The well-lit cave"] = [mainWindow, target, this]() {
     moveCaveLit(mainWindow, target);
   };
-  moveLocations["The lake"] = [mainWindow, target, this]()
-  {
+  moveLocations["The lake"] = [mainWindow, target, this]() {
     moveLake(mainWindow, target);
   };
-  moveLocations["The valley"] = [mainWindow, target, this]()
-  {
+  moveLocations["The valley"] = [mainWindow, target, this]() {
     moveValley(mainWindow, target);
   };
 
-  if (player.getStanding() == 1)
-  {
-    if (world.validDirection(target))
-    {
-      if (moveLocations.contains(location->getName()))
-      {
+  if (playerObj.getStanding() == 1) {
+    if (worldObj.validDirection(target)) {
+      if (moveLocations.contains(location->getName())) {
         moveLocations[location->getName()]();
-      }
-      else
-      {
+      } else {
         notAllowedInLocMsg(mainWindow, "move anywhere");
       }
-    }
-    else
-    {
+    } else {
       mainWindow->setDescription(
           QString("%1 was not a direction I was aware of.")
               .arg(target.toLower()));
     }
-  }
-  else
-  {
+  } else {
     mainWindow->setDescription("I had to stand up first.");
   }
 }
 
-void Handling::moveCamp(MainWindow *mainWindow, QString target)
-{
-  if (target == "NORTH" || target == "N")
-  {
-    int canTravel = world.travelChecks();
-    switch (canTravel)
-    {
-    case world.TRAVEL_BLIZZARD:
+void Handling::moveCamp(MainWindow *mainWindow, QString target) {
+  if (target == "NORTH" || target == "N") {
+    if (worldObj.getCurrentWeather() == "snowing heavily") {
       mainWindow->setDescription(
           "I couldn't risk traveling in such a blizzard.\n");
-      break;
-    case world.TRAVEL_TIRED:
+    } else if (playerObj.getEnergy() == 0) {
       tiredMsg(mainWindow);
-      break;
-    case world.TRAVEL_YES:
+    } else {
       sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(),
                      0);
       mainWindow->setLocation(camp.getMusicPath(), camp.getAmbiencePath(),
                               &forestPath);
-      break;
     }
-  }
-  else
-  {
+  } else {
     notAllowedDirMsg(mainWindow, "move", target);
   }
 }
 
-void Handling::moveForestPath(MainWindow *mainWindow, QString target)
-{
-  if (target == "SOUTH" || target == "S")
-  {
+void Handling::moveForestPath(MainWindow *mainWindow, QString target) {
+  if (target == "SOUTH" || target == "S") {
     sfxPlayer.play("qrc:/audio/sfx/moveStone.mp3", sfxPlayer.getdefSfxVol(), 0);
-    mainWindow->setLocation(forestPath.getMusicPath(), forestPath.getAmbiencePath(),
-                            &camp);
-  }
-  else if (player.getEnergy() == 1)
-  {
-    if (target == "WEST" || target == "W")
-    {
+    mainWindow->setLocation(forestPath.getMusicPath(),
+                            forestPath.getAmbiencePath(), &camp);
+  } else if (playerObj.getEnergy() == 1) {
+    if (target == "WEST" || target == "W") {
       sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(),
                      0);
       mainWindow->setLocation(forestPath.getMusicPath(),
                               forestPath.getAmbiencePath(), &lake);
-      player.setEnergy(0);
-    }
-    else if (target == "EAST" || target == "E")
-    {
+      playerObj.setEnergy(0);
+    } else if (target == "EAST" || target == "E") {
       sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(),
                      0);
       mainWindow->setLocation(forestPath.getMusicPath(),
                               forestPath.getAmbiencePath(), &caveEntrance);
-      player.setEnergy(0);
-    }
-    else if (target == "NORTH" || target == "N")
-    {
+      playerObj.setEnergy(0);
+    } else if (target == "NORTH" || target == "N") {
       sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(),
                      0);
       mainWindow->setLocation(forestPath.getMusicPath(),
                               forestPath.getAmbiencePath(), &valley);
-      player.setEnergy(0);
-    }
-    else
-    {
+      playerObj.setEnergy(0);
+    } else {
       notAllowedDirMsg(mainWindow, "move", target);
     }
-  }
-  else
-  {
+  } else {
     tiredMsg(mainWindow);
   }
 }
 
-void Handling::moveCave(MainWindow *mainWindow, QString target)
-{
-  if (target == "WEST" || target == "W")
-  {
+void Handling::moveCave(MainWindow *mainWindow, QString target) {
+  if (target == "WEST" || target == "W") {
     sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(), 0);
     mainWindow->setLocation(cave.getMusicPath(), cave.getAmbiencePath(),
                             &caveEntrance);
-  }
-  else
-  {
+  } else {
     notAllowedDirMsg(mainWindow, "move", target);
   }
 }
 
-void Handling::moveCaveLit(MainWindow *mainWindow, QString target)
-{
-  if (target == "WEST" || target == "W")
-  {
+void Handling::moveCaveLit(MainWindow *mainWindow, QString target) {
+  if (target == "WEST" || target == "W") {
     sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(), 0);
     mainWindow->setLocation(cave.getMusicPath(), cave.getAmbiencePath(),
                             &caveEntrance);
-  }
-  else
-  {
+  } else {
     notAllowedDirMsg(mainWindow, "move", target);
   }
 }
 
-void Handling::moveCaveEntrance(MainWindow *mainWindow, QString target)
-{
-  if (target == "WEST" || target == "W")
-  {
+void Handling::moveCaveEntrance(MainWindow *mainWindow, QString target) {
+  if (target == "WEST" || target == "W") {
     sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(), 0);
     mainWindow->setLocation(caveEntrance.getMusicPath(),
                             caveEntrance.getAmbiencePath(), &forestPath);
-  }
-  else if (target == "EAST" || target == "E")
-  {
+  } else if (target == "EAST" || target == "E") {
     sfxPlayer.play("qrc:/audio/sfx/moveStone.mp3", sfxPlayer.getdefSfxVol(), 0);
     mainWindow->setLocation(caveEntrance.getMusicPath(),
                             caveEntrance.getAmbiencePath(), &cave);
-  }
-  else
-  {
+  } else {
     notAllowedDirMsg(mainWindow, "move", target);
   }
 }
 
-void Handling::moveLake(MainWindow *mainWindow, QString target)
-{
-  if (target == "EAST" || target == "E")
-  {
+void Handling::moveLake(MainWindow *mainWindow, QString target) {
+  if (target == "EAST" || target == "E") {
     sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(), 0);
     mainWindow->setLocation(lake.getMusicPath(), lake.getAmbiencePath(),
                             &forestPath);
-  }
-  else
-  {
+  } else {
     notAllowedDirMsg(mainWindow, "move", target);
   }
 }
 
-void Handling::moveValley(MainWindow *mainWindow, QString target)
-{
-  if (target == "SOUTH" || target == "S")
-  {
+void Handling::moveValley(MainWindow *mainWindow, QString target) {
+  if (target == "SOUTH" || target == "S") {
     sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(), 0);
     mainWindow->setLocation(valley.getMusicPath(), valley.getAmbiencePath(),
                             &forestPath);
-  }
-  else
-  {
+  } else {
     notAllowedDirMsg(mainWindow, "move", target);
   }
 }

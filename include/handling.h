@@ -3,28 +3,24 @@
 #include "../include/mainwindow.h"
 #include <QRegularExpression>
 
-class Handling
-{
+class Handling {
 public:
   Handling();
   // Formatting
   QString getArticle(QString target);
-  // General handling
-  int validateVerb(QString input);
-  void splitInput(MainWindow *mainWindow, QString input);
-  void handleVerb(MainWindow *mainWindow, QString verb, QString target,
-                  Location *location);
   // Journal
   QString getLastCommand() const;
   void setLastCommand(QString command);
+  // General handling
+  void handleVerb(MainWindow *mainWindow, QString verb, QString target,
+                  Location *location);
+  void splitInput(MainWindow *mainWindow, QString input);
+  int validateVerb(QString input);
 
 private:
-  // Input validation
-  std::vector<QString> argVerbs;
-  std::vector<QString> noArgVerbs;
-  QString removeFillerWords(const QString &text, const QStringList &words);
-  // Journal
-  QString lastCommand;
+  // Filler word removal
+  static void initFillerWords(const QStringList &words);
+  QString removeFillerWords(const QString &text);
   // Messages
   void gameOverMsg(MainWindow *mainWindow, QString reason);
   void missingItemMsg(MainWindow *mainWindow, QString target);
@@ -38,10 +34,12 @@ private:
   void craft(MainWindow *mainWindow, QString target);
   void cry(MainWindow *mainWindow);
   void drink(MainWindow *mainWindow, QString target, Location *location);
+  void drinkCanteen(MainWindow *mainWindow, QString target);
   void drinkLake(MainWindow *mainWindow, QString target);
   void drop(MainWindow *mainWindow, QString target, Location *location);
   void eat(MainWindow *mainWindow, QString target);
   void examine(MainWindow *mainWindow, QString target);
+  void fill(MainWindow *mainWindow, QString target, Location *location);
   void help(MainWindow *mainWindow);
   void hunt(MainWindow *mainWindow, QString target, Location *location);
   void look(MainWindow *mainWindow, QString target, Location *location);
@@ -81,8 +79,17 @@ private:
   void waitLake(MainWindow *mainWindow);
   void wear(MainWindow *mainWindow, QString target);
   void yell(MainWindow *mainWindow);
+  // Input validation
+  std::vector<QString> argVerbs;
+  std::vector<QString> noArgVerbs;
+  // Filler word removal
+  QStringList fillerWords;
+  static QRegularExpression fillerWordsRegex;
+  static const QRegularExpression multiSpaces;
+  // Journal
+  QString lastCommand;
 };
 
-extern Handling handle;
+extern Handling handlingObj;
 
 #endif

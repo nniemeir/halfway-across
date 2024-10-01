@@ -3,8 +3,7 @@
 #include "inventory.h"
 #include "item.h"
 
-class Location : public Inventory
-{
+class Location : public Inventory {
 public:
   Location();
   Location(const QString &name, const QString &description,
@@ -17,7 +16,6 @@ public:
   QString getAmbiencePath() const;
   QString getMusicPath() const;
   QString setDescription(QString message);
-
   std::vector<Item> &getInventory();
   QString locInventory() const;
 

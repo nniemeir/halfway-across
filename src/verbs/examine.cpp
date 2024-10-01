@@ -1,18 +1,15 @@
 #include "../../include/handling.h"
 #include "../../include/player.h"
 
-void Handling::examine(MainWindow *mainWindow, QString target)
-{
-  int targetIndex = inventoryObj.searchInventory(player.getInventory(), target);
-  if (targetIndex != -1)
-  {
+void Handling::examine(MainWindow *mainWindow, QString target) {
+  int targetIndex =
+      inventoryObj.searchInventory(playerObj.getInventory(), target);
+  if (targetIndex != -1) {
     QString description =
-        inventoryObj.getInventoryItem(player.getInventory(), targetIndex)
+        inventoryObj.getInventoryItem(playerObj.getInventory(), targetIndex)
             .getDescription();
     mainWindow->setDescription(description);
-  }
-  else
-  {
+  } else {
     missingItemMsg(mainWindow, getArticle(target) + " " + target);
   }
 }

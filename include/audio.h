@@ -3,21 +3,20 @@
 #include <QAudioOutput>
 #include <QMediaPlayer>
 #include <QUrl>
-class Audio
-{
+class Audio {
 public:
   Audio();
-  void play(QString filePath, int volume, int isBackground);
   float getdefAmbienceVol() const;
   float getdefMusicVol() const;
   float getdefSfxVol() const;
+  void play(QString filePath, int volume, int isBackground);
 
 private:
   float defAmbienceVol;
   float defMusicVol;
   float defSfxVol;
-  QMediaPlayer *music;
   QAudioOutput *audioOutput;
+  QMediaPlayer *music;
 };
 
 extern Audio ambiencePlayer;

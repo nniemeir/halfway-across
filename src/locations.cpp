@@ -13,25 +13,28 @@ Location camp(
     "once again.\n\nExit: North",
     ":/images/camp.png", "qrc:/audio/music/placeholder.mp3",
     "qrc:/audio/ambience/mountainWind.mp3",
-    {{"ARROW", 3, 0, 0, "TOOLS", "NONE",
+    {{"ARROW", 3, 0, 0, 0, "TOOLS", "NONE",
       "I could load it into my bow to hunt at a distance."},
-     {"BOW", 1, 0, 0, "TOOLS", "ARROW",
+     {"BOW", 1, 0, 0, 0, "TOOLS", "ARROW",
       "If loaded with an arrow, it could be used for hunting."},
-     {"FISHING ROD", 1, 0, 0, "TOOLS", "RENDERED FAT",
+     {"FISHING ROD", 1, 0, 0, 0, "TOOLS", "RENDERED FAT",
       "If loaded with bait such as rendered fat, I could catch fish with it."},
-     {"HUNTING KNIFE", 1, 0, 0, "TOOLS", "NONE",
+     {"HUNTING KNIFE", 1, 0, 0, 0, "TOOLS", "NONE",
       "I could use this to skin animals."},
-     {"LANTERN", 1, 0, 0, "TOOLS", "TALLOW CANDLE",
-      "If loaded with a tallow candle, I could use it to light my way."}});
+     {"LANTERN", 1, 0, 0, 0, "TOOLS", "TALLOW CANDLE",
+      "If loaded with a tallow candle, I could use it to light my way."},
+     {"CHISEL", 1, 0, 0, 0, "TOOLS", "NONE",
+      "I could use it to break through ice."},
+     {"CANTEEN", 1, 0, 100, 0, "TOOLS", "NONE", "I could store water in it."}});
 
-Location
-    forestPath("The forest path",
-               "I moved through a break in the trees for a while before "
-               "reaching a fork in the road.\n\nExits: North, South, East, West",
-               ":/images/forestPath.png", "qrc:/audio/music/placeholder.mp3",
-               "qrc:/audio/ambience/mountainWind.mp3",
-               {{"PIECE OF WOOD", 1, 0, 0, "RESOURCES", "NONE",
-                 "I could use it to fuel my campfire or to craft items."}});
+Location forestPath(
+    "The forest path",
+    "I moved through a break in the trees for a while before "
+    "reaching a fork in the road.\n\nExits: North, South, East, West",
+    ":/images/forestPath.png", "qrc:/audio/music/placeholder.mp3",
+    "qrc:/audio/ambience/mountainWind.mp3",
+    {{"PIECE OF WOOD", 1, 0, 0, 0, "RESOURCES", "NONE",
+      "I could use it to fuel my campfire or to craft items."}});
 
 Location
     caveEntrance("The cave's entrance",
@@ -40,20 +43,21 @@ Location
                  ":/images/caveEntrance.png",
                  "qrc:/audio/music/placeholder.mp3",
                  "qrc:/audio/ambience/mountainWind.mp3",
-                 {{"ROCK", 1, 0, 0, "TOOLS", "NONE",
+                 {{"ROCK", 1, 0, 0, 0, "TOOLS", "NONE",
                    "I could use it to distract animals."}});
 
 Location cave("The dark cave",
               "Entering the cave, I saw nothing but darkness.\n\nExit: West",
               ":/images/cave.png", "qrc:/audio/music/placeholder.mp3",
               "qrc:/audio/ambience/mountainWind.mp3",
-              {{"ROCK", 1, 0, 0, "TOOLS", "NONE",
+              {{"ROCK", 1, 0, 0, 0, "TOOLS", "NONE",
                 "I could use it to distract animals."}});
 
-Location caveLit("The well-lit cave", "My lantern now lit the way.\n\nExit: West",
+Location caveLit("The well-lit cave",
+                 "My lantern now lit the way.\n\nExit: West",
                  ":/images/caveLit.png", "qrc:/audio/music/placeholder.mp3",
                  "qrc:/audio/ambience/mountainWind.mp3",
-                 {{"ROCK", 1, 0, 0, "TOOLS", "NONE",
+                 {{"ROCK", 1, 0, 0, 0, "TOOLS", "NONE",
                    "I could use it to distract animals."}});
 
 Location intro("Introduction Menu",
@@ -65,12 +69,10 @@ Location intro("Introduction Menu",
 Location lake("The lake",
               "I arrived at a lake after an hour's journey.\n\nExit: East",
               ":/images/lake.png", "qrc:/audio/music/placeholder.mp3",
-              "qrc:/audio/ambience/mountainWind.mp3",
-              {{"CHISEL", 1, 0, 0, "TOOLS", "NONE",
-                "I could use it to break through ice."}});
+              "qrc:/audio/ambience/mountainWind.mp3", {{}});
 
-Location perished("Perished Menu", "\n\nType QUIT to exit.", ":/images/perished.png",
-                  "qrc:/audio/music/placeholder.mp3",
+Location perished("Perished Menu", "\n\nType QUIT to exit.",
+                  ":/images/perished.png", "qrc:/audio/music/placeholder.mp3",
                   "qrc:/audio/ambience/mountainWind.mp3", {{{}}});
 
 Location valley("The valley",
@@ -78,7 +80,7 @@ Location valley("The valley",
                 "hunting.\n\nExit: South",
                 ":/images/valley.png", "qrc:/audio/music/placeholder.mp3",
                 "qrc:/audio/ambience/mountainWind.mp3",
-                {{"FEATHER", 3, 0, 0, "RESOURCES", "NONE",
+                {{"FEATHER", 3, 0, 0, 0, "RESOURCES", "NONE",
                   "I could use it for crafting."}});
 
 QString Location::getName() const { return name; }
@@ -86,28 +88,22 @@ QString Location::getDescription() const { return description; }
 QString Location::getImage() const { return image; }
 QString Location::getAmbiencePath() const { return ambiencePath; }
 QString Location::getMusicPath() const { return musicPath; }
-QString Location::setDescription(QString message)
-{
+QString Location::setDescription(QString message) {
   description = message + description;
   return description;
 }
 
 std::vector<Item> &Location::getInventory() { return inventory; }
 
-QString Location::locInventory() const
-{
+QString Location::locInventory() const {
   QString inventoryText;
-  for (const auto &item : inventory)
-  {
+  for (const auto &item : inventory) {
     inventoryText.append(
-        QString("%1: %2\n").arg(item.getName()).arg(item.getAmount()));
+        QString("%1: %2 \n").arg(item.getName()).arg(item.getAmount()));
   }
-  if (inventoryText != "")
-  {
+  if (inventoryText != "") {
     inventoryText.prepend("Looking at the ground, I saw:\n");
-  }
-  else
-  {
+  } else {
     inventoryText.append("I didn't see anything of note on the ground.");
   }
   return inventoryText;

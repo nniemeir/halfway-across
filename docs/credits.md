@@ -7,7 +7,7 @@ chiselLake: Breaking ice by Aurelon -- https://freesound.org/s/422621/ -- Licens
 
 craft: WoodSnap7.wav by zimbot -- https://freesound.org/s/89400/ -- License: Attribution 4.0
 
-drink: Water Splashes in the River. by Tiger_v15 -- https://freesound.org/s/223968/ -- License: Attribution 4.0
+drink: Sipping Drink by Sheyvan -- https://freesound.org/s/471078/ -- License: Creative Commons 0
 
 drop: Dropping, Metal Pin on Wood, A.wav by InspectorJ -- https://freesound.org/s/414437/ -- License: Attribution 4.0
 
@@ -19,11 +19,17 @@ fishSet: Dropping tiny pebble in still water surface by jorickhoofd -- https://f
 
 flint: 05_Flint and steel.wav by 16FThumaF -- https://freesound.org/s/499027/ -- License: Creative Commons 0
 
+hunt: Bow Drawn by Paveroux -- https://freesound.org/s/490556/ -- License: Creative Commons 0
+
+lakeSplash: Water Splashes in the River. by Tiger_v15 -- https://freesound.org/s/223968/ -- License: Attribution 4.0
+
 lanternRustle: Candle Lantern by theshaggyfreak -- https://freesound.org/s/315762/ -- License: Attribution 4.0
 
 moveSnow: Snow walk. Slow, fast, very fast. wav by rempen -- https://freesound.org/s/556060/ -- License: Attribution NonCommercial 4.0
 
 moveStone: Walking on stone by vicleb -- https://freesound.org/s/712859/ -- License: Creative Commons 0
+
+skin: Sword stab 4 by ihitokage -- https://freesound.org/s/395365/ -- License: Creative Commons 0
 
 sleep: Sheets Shuffling by Flem0527 -- https://freesound.org/s/629974/ -- License: Creative Commons 0
 

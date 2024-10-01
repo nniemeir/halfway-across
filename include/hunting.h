@@ -1,33 +1,34 @@
 #ifndef HUNTING_H
 #define HUNTING_H
-#include "../include/mainwindow.h"
+#include "../include/item.h"
+#include "../include/locations.h"
 
-class Hunting
-{
+class Hunting {
 public:
   Hunting();
-  void hunt(MainWindow *mainWindow, QString target,
-            Location *location);
-  bool recoveredArrow(bool hitTarget);
-  void skinAnimal(MainWindow *mainWindow, QString target);
-  bool assessDamage(QString target);
   QString getActiveAnimal() const;
-  void setActiveAnimal(QString animal);
-  bool hitTarget(QString target);
+  int getDailyHunts() const;
   std::vector<Item> &getSlainAnimals();
+  void setActiveAnimal(QString animal);
+  int activity(QString target, int arrowIndex);
+  bool assessDamage(QString target);
+  bool hitTarget(QString target);
+  bool recoveredArrow(bool hitTarget);
+  bool skinAnimal(QString target, Location *location);
+  void resetDailyHunts();
 
 private:
   bool foundAnimal(QString target);
-  void huntScenario(MainWindow *mainWindow, QString target, int arrowIndex);
-  std::vector<QString> validAnimals;
   std::vector<Item> slainAnimals;
-  QString activeAnimal;
+  std::vector<QString> validAnimals;
   std::vector<Item> bearParts;
   std::vector<Item> deerParts;
   std::vector<Item> foxParts;
   std::vector<Item> rabbitParts;
+  QString activeAnimal;
+  int dailyHunts;
 };
 
-extern Hunting hunting;
+extern Hunting huntingObj;
 
 #endif // HUNTING_H

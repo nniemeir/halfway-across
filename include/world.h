@@ -3,57 +3,37 @@
 #include "../include/item.h"
 #include "../include/locations.h"
 
-class World
-{
+class World {
 public:
   World();
-  typedef enum
-  {
+  typedef enum {
     TRAVEL_YES = 1,
     TRAVEL_BLIZZARD,
     TRAVEL_TIRED
   } TravelResponses;
 
-  // Day
-  QString advanceDay();
-  int getDay() const;
-
-  // Location
+  int getChiseledIce() const;
   Location *getCurrentLocation() const;
-  void initializeLocation(Location *initialLocation);
-  void setCurrentLocation(Location *location);
-
-  // Day-specific
   int getCurrentTemperature() const;
   QString getCurrentWeather() const;
-  int getChiseledIce() const;
+  int getDay() const;
   void setChiseledIce(int newValue);
-  bool getConspicuous() const;
-  void setConspicuous(bool newValue);
-  int travelChecks();
+  void setCurrentLocation(Location *location);
 
-  // Fishing
-  QString generateFish();
-  std::vector<Item> &getFishInventory();
-
-  // Movement
+  QString advanceDay();
+  bool roll(const int probability);
   bool validDirection(const QString &value);
 
-  bool roll(const int probability);
-
 private:
-  int day;
   Location *currentLocation;
+  int day;
   int currentTemperature;
   QString currentWeather;
   int chiseledIce;
-  bool conspicuous;
   int generateTemperature();
   QString generateWeather();
-  std::vector<Item> fish;
   std::vector<QString> directions;
-  QString activeAnimal;
 };
 
-extern World world;
+extern World worldObj;
 #endif

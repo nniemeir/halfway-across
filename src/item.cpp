@@ -8,6 +8,8 @@ int Item::getActive() const { return active; }
 
 int Item::getEffect() const { return effect; }
 
+int Item::getWeight() const { return weight; }
+
 QString Item::getType() const { return type; }
 
 QString Item::getPayload() const { return payload; }
