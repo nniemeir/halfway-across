@@ -5,7 +5,10 @@
 void Handling::yell(MainWindow *mainWindow) {
   if (huntingObj.getActiveAnimal() != "bear") {
     huntingObj.setActiveAnimal("");
+    mainWindow->setDescription("I let out a sharp cry that alerted surrounding "
+                               "animals to my prescence.");
+  } else {
+    mainWindow->setDescription(
+        "Shouting did little to frighten the nearby bear.");
   }
-  mainWindow->setDescription("I let out a sharp cry that alerted surrounding "
-                             "animals to my prescence.");
 }

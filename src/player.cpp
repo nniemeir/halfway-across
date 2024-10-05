@@ -98,15 +98,18 @@ void Player::setStanding(int s) { standing = constrainStat(s); }
 void Player::setCryCooldown(int s) { cryCooldown = s; }
 int Player::constrainStat(int stat) { return std::max(0, std::min(stat, 100)); }
 QString Player::displayBagInventory() const {
-  QString inventoryText;
+  QStringList inventoryItemsText;
   for (const auto &item : inventory) {
     if (item.getType() != "CLOTHING" && item.getType() != "") {
-      inventoryText.append(
-          QString("%1: %2\n").arg(item.getName()).arg(item.getAmount()));
+      inventoryItemsText.append(
+          QString("%1: %2").arg(item.getName()).arg(item.getAmount()));
     }
   }
-  if (inventoryText != "") {
-    inventoryText.prepend("Looking in my possibles bag, I saw:\n");
+  std::sort(inventoryItemsText.begin(), inventoryItemsText.end());
+  QString inventoryText;
+  if (!inventoryItemsText.isEmpty()) {
+    inventoryText.append("Looking in my possibles bag, I saw:\n");
+    inventoryText.append(inventoryItemsText.join("\n"));
   } else {
     inventoryText.append("My possibles bag was empty.");
   }
@@ -116,14 +119,17 @@ QString Player::displayBagInventory() const {
 // Limits on how many of each type of clothing item can be equipped at once will
 // be implemented in the future
 QString Player::displayClothesInventory() const {
-  QString inventoryText;
+  QStringList inventoryItemsText;
   for (const auto &item : inventory) {
     if (item.getType() == "CLOTHING" && item.getActive() == 1) {
-      inventoryText.append(QString("%1\n").arg(item.getName()));
+      inventoryItemsText.append(item.getName());
     }
   }
-  if (inventoryText != "") {
-    inventoryText.prepend("I was wearing:\n");
+  std::sort(inventoryItemsText.begin(), inventoryItemsText.end());
+  QString inventoryText;
+  if (!inventoryItemsText.isEmpty()) {
+    inventoryText.append("I was wearing:\n");
+    inventoryText.append(inventoryItemsText.join("\n"));
   } else {
     inventoryText.append("I was not wearing anything.");
   }

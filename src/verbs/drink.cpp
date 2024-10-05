@@ -25,7 +25,8 @@ void Handling::drinkLake(MainWindow *mainWindow, QString target) {
   if (target == "LAKE") {
     if (worldObj.getChiseledIce() == 1) {
       if (playerObj.getThirst() < 100) {
-        sfxPlayer.play("qrc:/audio/sfx/lakeSplash.mp3", sfxPlayer.getdefSfxVol(), 0);
+        sfxPlayer.play("qrc:/audio/sfx/lakeSplash.mp3",
+                       sfxPlayer.getdefSfxVol(), 0);
         mainWindow->setDescription(
             "I felt more refreshed after drinking some cold water.");
         playerObj.setThirst(playerObj.getThirst() + 20);

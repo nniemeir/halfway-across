@@ -1,8 +1,6 @@
-#include "../include/handling.h"
 #include "../include/hunting.h"
 #include "../include/player.h"
 #include "../include/world.h"
-
 
 Hunting::Hunting() {
 

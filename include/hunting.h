@@ -2,6 +2,7 @@
 #define HUNTING_H
 #include "../include/item.h"
 #include "../include/locations.h"
+#include <QMap>
 
 class Hunting {
 public:

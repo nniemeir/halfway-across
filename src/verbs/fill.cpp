@@ -13,7 +13,8 @@ void Handling::fill(MainWindow *mainWindow, QString target,
         if (inventoryObj
                 .getInventoryItem(playerObj.getInventory(), canteenIndex)
                 .getEffect() != 100) {
-          sfxPlayer.play("qrc:/audio/sfx/lakeSplash.mp3", sfxPlayer.getdefSfxVol(), 0);
+          sfxPlayer.play("qrc:/audio/sfx/lakeSplash.mp3",
+                         sfxPlayer.getdefSfxVol(), 0);
           mainWindow->setDescription("I filled my canteen with water.");
           inventoryObj.getInventoryItem(playerObj.getInventory(), canteenIndex)
               .setEffect(100);

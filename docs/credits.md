@@ -29,6 +29,8 @@ moveSnow: Snow walk. Slow, fast, very fast. wav by rempen -- https://freesound.o
 
 moveStone: Walking on stone by vicleb -- https://freesound.org/s/712859/ -- License: Creative Commons 0
 
+read: Page flipping.wav by carlerichudon10 -- https://freesound.org/s/466375/ -- License: Creative Commons 0
+
 skin: Sword stab 4 by ihitokage -- https://freesound.org/s/395365/ -- License: Creative Commons 0
 
 sleep: Sheets Shuffling by Flem0527 -- https://freesound.org/s/629974/ -- License: Creative Commons 0
@@ -37,4 +39,7 @@ take: Grab1.wav by sound_and_fury -- https://freesound.org/s/652661/ -- License:
 
 ### Ambience sourced from FreeSound.org
 
-mountainWind: High Winds Through Bare Trees by lakewoodsound -- https://freesound.org/s/719095/ -- License: Creative Commons 0
+campfire - wood burning sound by engyclick -- https://freesound.org/s/713604/ -- License: Creative Commons 0
+
+caveWind & mountainWind: High Winds Through Bare Trees by lakewoodsound -- https://freesound.org/s/719095/ -- License: Creative Commons 0
+

@@ -5,7 +5,8 @@
 class Recipe {
 public:
   Recipe(){};
-  Recipe(const QString &n, const QStringList &i, const QString &d, const Item &o)
+  Recipe(const QString &n, const QStringList &i, const QString &d,
+         const Item &o)
       : name(n), ingredients(i), description(d), output(o) {}
 
   QString getRecipeName() const;

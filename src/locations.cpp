@@ -12,7 +12,7 @@ Location camp(
     "I woke up sore, that familiar ache of winter mornings felt "
     "once again.\n\nExit: North",
     ":/images/camp.png", "qrc:/audio/music/placeholder.mp3",
-    "qrc:/audio/ambience/mountainWind.mp3",
+    "qrc:/audio/ambience/campfire.mp3",
     {{"ARROW", 3, 0, 0, 0, "TOOLS", "NONE",
       "I could load it into my bow to hunt at a distance."},
      {"BOW", 1, 0, 0, 0, "TOOLS", "ARROW",
@@ -49,22 +49,22 @@ Location
 Location cave("The dark cave",
               "Entering the cave, I saw nothing but darkness.\n\nExit: West",
               ":/images/cave.png", "qrc:/audio/music/placeholder.mp3",
-              "qrc:/audio/ambience/mountainWind.mp3",
+              "qrc:/audio/ambience/caveWind.mp3",
               {{"ROCK", 1, 0, 0, 0, "TOOLS", "NONE",
                 "I could use it to distract animals."}});
 
 Location caveLit("The well-lit cave",
                  "My lantern now lit the way.\n\nExit: West",
                  ":/images/caveLit.png", "qrc:/audio/music/placeholder.mp3",
-                 "qrc:/audio/ambience/mountainWind.mp3",
+                 "qrc:/audio/ambience/caveWind.mp3",
                  {{"ROCK", 1, 0, 0, 0, "TOOLS", "NONE",
                    "I could use it to distract animals."}});
 
 Location intro("Introduction Menu",
                "HALFWAY ACROSS\n\nType BEGIN to continue.\nType HELP for a "
                "list of commands.",
-               ":/images/intro.png", "qrc:/audio/music/placeholder.mp3",
-               "qrc:/audio/ambience/mountainWind.mp3", {{}});
+               ":/images/intro.png", "qrc:/audio/music/placeholder.mp3", "",
+               {{}});
 
 Location lake("The lake",
               "I arrived at a lake after an hour's journey.\n\nExit: East",
@@ -96,13 +96,16 @@ QString Location::setDescription(QString message) {
 std::vector<Item> &Location::getInventory() { return inventory; }
 
 QString Location::locInventory() const {
-  QString inventoryText;
+  QStringList inventoryItemsText;
   for (const auto &item : inventory) {
-    inventoryText.append(
-        QString("%1: %2 \n").arg(item.getName()).arg(item.getAmount()));
+    inventoryItemsText.append(
+        QString("%1: %2").arg(item.getName()).arg(item.getAmount()));
   }
-  if (inventoryText != "") {
-    inventoryText.prepend("Looking at the ground, I saw:\n");
+  std::sort(inventoryItemsText.begin(), inventoryItemsText.end());
+  QString inventoryText;
+  if (!inventoryItemsText.isEmpty()) {
+    inventoryText.append("Looking at the ground, I saw:\n");
+    inventoryText.append(inventoryItemsText.join("\n"));
   } else {
     inventoryText.append("I didn't see anything of note on the ground.");
   }

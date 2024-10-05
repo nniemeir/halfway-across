@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/">
+        <file>audio/ambience/campfire.mp3</file>
+        <file>audio/ambience/caveWind.mp3</file>
         <file>audio/ambience/mountainWind.mp3</file>
         <file>audio/music/placeholder.mp3</file>
         <file>audio/sfx/arrow.mp3</file>
@@ -16,6 +18,7 @@
         <file>audio/sfx/lanternRustle.mp3</file>
         <file>audio/sfx/moveSnow.mp3</file>
         <file>audio/sfx/moveStone.mp3</file>
+        <file>audio/sfx/read.mp3</file>
         <file>audio/sfx/skin.mp3</file>
         <file>audio/sfx/sleep.mp3</file>
         <file>audio/sfx/take.mp3</file>
