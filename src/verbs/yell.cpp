@@ -2,13 +2,12 @@
 #include "../../include/hunting.h"
 #include "../../include/mainwindow.h"
 
-void Handling::yell(MainWindow *mainWindow) {
-  if (huntingObj.getActiveAnimal() != "bear") {
+void Handling::yell(MainWindow *mainWindow, Location *location) {
+  if (huntingObj.getActiveAnimal() != "BEAR") {
     huntingObj.setActiveAnimal("");
     mainWindow->setDescription("I let out a sharp cry that alerted surrounding "
                                "animals to my prescence.");
   } else {
-    mainWindow->setDescription(
-        "Shouting did little to frighten the nearby bear.");
+    gameOverMsg(mainWindow, "HEALTH");
   }
 }

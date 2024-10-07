@@ -70,13 +70,25 @@ int Hunting::activity(QString target, int arrowIndex) {
   }
 }
 
-// This function will be expanded to calculate where the animal was hit and
-// deduct health accordingly
-bool Hunting::assessDamage(QString target) { return true; }
+bool Hunting::assessDamage(QString target) {
+  QMap<QString, int> probabilities = {
+      {"BEAR", 80}, {"DEER", 70}, {"FOX", 60}, {"RABBIT", 70}};
+  int chance = 0;
+  if (probabilities.contains(target)) {
+    chance = probabilities.value(target);
+  }
+  return worldObj.roll(chance);
+}
 
-// This function will be expanded to calculate if a shot hits the animal based
-// on its size
-bool Hunting::hitTarget(QString target) { return true; }
+bool Hunting::hitTarget(QString target) {
+  QMap<QString, int> probabilities = {
+      {"BEAR", 20}, {"DEER", 70}, {"FOX", 40}, {"RABBIT", 30}};
+  int chance = 0;
+  if (probabilities.contains(target)) {
+    chance = probabilities.value(target);
+  }
+  return worldObj.roll(chance);
+}
 
 bool Hunting::recoveredArrow(bool hitTarget) {
   int chance;

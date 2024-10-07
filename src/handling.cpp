@@ -9,10 +9,10 @@ Handling::Handling() {
               "MOVE",  "READ",  "REMOVE", "SHOOT", "SIT",  "SKIN",
               "STAND", "TAKE",  "USE",    "WEAR"};
 
-  noArgVerbs = {"BEGIN",  "CRY",   "E",       "HELP",     "N",
-                "Q",      "QUIT",  "REFLECT", "S",        "SCREAM",
-                "SCRIPT", "SHOUT", "SLEEP",   "UNSCRIPT", "VERSION",
-                "W",      "WAIT",  "X",       "YELL",     "Z"};
+  noArgVerbs = {"BEGIN", "CRY",   "E",        "HELP",    "N",      "Q",
+                "QUIT",  "R",     "REFLECT",  "S",       "SCREAM", "SCRIPT",
+                "SHOUT", "SLEEP", "UNSCRIPT", "VERSION", "W",      "WAIT",
+                "X",     "YELL",  "Z"};
 
   fillerWords = {"A", "AN", "AT", "COOKED", "FROM", "IN", "ON", "THE", "TO"};
 }
@@ -86,6 +86,9 @@ void Handling::handleVerb(MainWindow *mainWindow, QString verb, QString target,
   actions["Q"] = [mainWindow, this]() { mainWindow->closeProgram(); };
   actions["QUIT"] = [mainWindow, this]() { mainWindow->closeProgram(); };
   actions["READ"] = [mainWindow, target, this]() { read(mainWindow, target); };
+  actions["R"] = [mainWindow, this]() {
+    mainWindow->setDescription(playerObj.displayWarnings());
+  };
   actions["REFLECT"] = [mainWindow, this]() {
     mainWindow->setDescription(playerObj.displayWarnings());
   };
@@ -95,12 +98,16 @@ void Handling::handleVerb(MainWindow *mainWindow, QString verb, QString target,
   actions["S"] = [mainWindow, verb, location, this]() {
     move(mainWindow, verb, location);
   };
-  actions["SCREAM"] = [mainWindow, this]() { yell(mainWindow); };
+  actions["SCREAM"] = [mainWindow, location, this]() {
+    yell(mainWindow, location);
+  };
   actions["SCRIPT"] = [mainWindow, this]() { script(mainWindow); };
   actions["SHOOT"] = [mainWindow, target, location, this]() {
     shoot(mainWindow, target, location);
   };
-  actions["SHOUT"] = [mainWindow, this]() { yell(mainWindow); };
+  actions["SHOUT"] = [mainWindow, location, this]() {
+    yell(mainWindow, location);
+  };
   actions["SIT"] = [mainWindow, target, location, this]() {
     sit(mainWindow, target, location);
   };
@@ -129,7 +136,9 @@ void Handling::handleVerb(MainWindow *mainWindow, QString verb, QString target,
   actions["X"] = [mainWindow, target, location, this]() {
     examine(mainWindow, target);
   };
-  actions["YELL"] = [mainWindow, this]() { yell(mainWindow); };
+  actions["YELL"] = [mainWindow, location, this]() {
+    yell(mainWindow, location);
+  };
   actions["Z"] = [mainWindow, location, this]() { wait(mainWindow, location); };
 
   if (actions.contains(verb)) {

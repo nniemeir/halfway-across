@@ -18,7 +18,7 @@ void Handling::help(MainWindow *mainWindow) {
       "LOOK/L (object) - look at something\n"
       "QUIT - terminate the session\n"
       "READ - read something\n"
-      "REFLECT - get information about stats\n"
+      "REFLECT/R - get information about stats\n"
       "REMOVE (object) - take off a clothing item\n"
       "SCREAM/SHOUT/YELL - alert animals to my presence\n"
       "SCRIPT - start writing journal to file\n"

@@ -78,7 +78,7 @@ private:
   void waitFishing(MainWindow *mainWindow, int rodIndex);
   void waitLake(MainWindow *mainWindow);
   void wear(MainWindow *mainWindow, QString target);
-  void yell(MainWindow *mainWindow);
+  void yell(MainWindow *mainWindow, Location *location);
   // Input validation
   std::vector<QString> argVerbs;
   std::vector<QString> noArgVerbs;

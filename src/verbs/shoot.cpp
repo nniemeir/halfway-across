@@ -27,8 +27,15 @@ void Handling::shoot(MainWindow *mainWindow, QString target,
               huntingObj.getSlainAnimals(), databaseAnimalIndex);
           inventoryObj.addItem(location->getInventory(), animal,
                                locationAnimalIndex);
-          huntingObj.setActiveAnimal("");
+        } else {
+          mainWindow->setDescription(
+              QString("The %1 managed to escape me after I shot it.")
+                  .arg(target.toLower()));
         }
+        huntingObj.setActiveAnimal("");
+      } else {
+        mainWindow->setDescription(
+            QString("I failed to hit the %1.").arg(target.toLower()));
       }
     } else {
       mainWindow->setDescription(
