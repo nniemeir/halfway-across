@@ -26,6 +26,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
         include/audio.h
+        include/characters.h
         include/fishing.h
         include/handling.h
         include/hunting.h
@@ -38,6 +39,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         include/world.h
         resources/resources.qrc
         src/audio.cpp
+        src/characters.cpp
         src/fishing.cpp
         src/handling.cpp
         src/hunting.cpp
@@ -48,12 +50,12 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/player.cpp
         src/recipe.cpp
         src/world.cpp
+        src/verbs/ask.cpp
         src/verbs/begin.cpp
         src/verbs/cook.cpp
         src/verbs/craft.cpp
         src/verbs/cry.cpp
         src/verbs/drink.cpp
-        src/verbs/drop.cpp
         src/verbs/eat.cpp
         src/verbs/examine.cpp
         src/verbs/fill.cpp
@@ -62,6 +64,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/verbs/load.cpp
         src/verbs/look.cpp
         src/verbs/move.cpp
+        src/verbs/put.cpp
         src/verbs/read.cpp
         src/verbs/remove.cpp
         src/verbs/script.cpp
@@ -71,6 +74,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/verbs/sleep.cpp
         src/verbs/stand.cpp
         src/verbs/take.cpp
+        src/verbs/tell.cpp
         src/verbs/use.cpp
         src/verbs/version.cpp
         src/verbs/wait.cpp

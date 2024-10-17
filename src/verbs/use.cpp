@@ -2,7 +2,6 @@
 #include "../../include/handling.h"
 #include "../../include/player.h"
 #include "../../include/world.h"
-#include <QDebug>
 void Handling::use(MainWindow *mainWindow, QString target, Location *location) {
 
   QMap<QString, std::function<void()>> useLocations;

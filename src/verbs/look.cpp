@@ -1,33 +1,44 @@
+#include "../../include/characters.h"
 #include "../../include/handling.h"
 #include "../../include/player.h"
 #include "../../include/world.h"
 
 void Handling::look(MainWindow *mainWindow, QString target,
                     Location *location) {
-  QMap<QString, std::function<void()>> lookLocations;
-  lookLocations["Camp"] = [mainWindow, target, this]() {
-    lookCamp(mainWindow, target);
-  };
-  lookLocations["The forest path"] = [mainWindow, target, this]() {
-    lookForestPath(mainWindow, target);
-  };
-  lookLocations["The dark cave"] = [mainWindow, target, this]() {
-    lookCave(mainWindow, target);
-  };
-  lookLocations["The cave's entrance"] = [mainWindow, target, this]() {
-    lookCaveEntrance(mainWindow, target);
-  };
-  lookLocations["The lake"] = [mainWindow, target, this]() {
-    lookLake(mainWindow, target);
-  };
-  lookLocations["The valley"] = [mainWindow, target, this]() {
-    lookValley(mainWindow, target);
-  };
+  if (!ensembleObj.isCharacterName(target)) {
+    QMap<QString, std::function<void()>> lookLocations;
+    lookLocations["Camp"] = [mainWindow, target, this]() {
+      lookCamp(mainWindow, target);
+    };
+    lookLocations["The forest path"] = [mainWindow, target, this]() {
+      lookForestPath(mainWindow, target);
+    };
+    lookLocations["The dark cave"] = [mainWindow, target, this]() {
+      lookCave(mainWindow, target);
+    };
+    lookLocations["The cave's entrance"] = [mainWindow, target, this]() {
+      lookCaveEntrance(mainWindow, target);
+    };
+    lookLocations["The lake"] = [mainWindow, target, this]() {
+      lookLake(mainWindow, target);
+    };
+    lookLocations["The valley"] = [mainWindow, target, this]() {
+      lookValley(mainWindow, target);
+    };
 
-  if (lookLocations.contains(location->getName())) {
-    lookLocations[location->getName()]();
+    if (lookLocations.contains(location->getName())) {
+      lookLocations[location->getName()]();
+    } else {
+      notAllowedInLocMsg(mainWindow, "look anywhere");
+    }
   } else {
-    notAllowedInLocMsg(mainWindow, "look anywhere");
+    if (QString::compare(target, worldObj.getActiveCharacter()->getName(),
+                         Qt::CaseInsensitive) == 0) {
+      mainWindow->setDescription(
+          worldObj.getActiveCharacter()->getDescription());
+    } else {
+      characterNotActiveMsg(mainWindow, target);
+    }
   }
 }
 

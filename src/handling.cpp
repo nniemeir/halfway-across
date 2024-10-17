@@ -1,20 +1,21 @@
 #include "../include/handling.h"
 #include "../include/player.h"
 #include "../include/world.h"
+#include <QDebug>
 
 Handling::Handling() {
 
-  argVerbs = {"COOK",  "CRAFT", "DRINK",  "DROP",  "EAT",  "EXAMINE",
-              "FILL",  "GO",    "HUNT",   "L",     "LOAD", "LOOK",
-              "MOVE",  "READ",  "REMOVE", "SHOOT", "SIT",  "SKIN",
-              "STAND", "TAKE",  "USE",    "WEAR"};
+  argVerbs = {"ASK",  "COOK", "CRAFT",  "DRINK", "DROP", "EAT",  "EXAMINE",
+              "FILL", "GO",   "HUNT",   "L",     "LOAD", "LOOK", "MOVE",
+              "PUT",  "READ", "REMOVE", "SHOOT", "SIT",  "SKIN", "STAND",
+              "TAKE", "TELL", "USE",    "WEAR"};
 
   noArgVerbs = {"BEGIN", "CRY",   "E",        "HELP",    "N",      "Q",
                 "QUIT",  "R",     "REFLECT",  "S",       "SCREAM", "SCRIPT",
                 "SHOUT", "SLEEP", "UNSCRIPT", "VERSION", "W",      "WAIT",
                 "X",     "YELL",  "Z"};
 
-  fillerWords = {"A", "AN", "AT", "COOKED", "FROM", "IN", "ON", "THE", "TO"};
+  fillerWords = {"A", "AN", "AT", "COOKED", "FROM", "IN", "THE", "TO"};
 }
 
 Handling handlingObj;
@@ -33,10 +34,13 @@ QString Handling::getLastCommand() const { return lastCommand; }
 void Handling::setLastCommand(QString command) { lastCommand = command; }
 
 void Handling::handleVerb(MainWindow *mainWindow, QString verb, QString target,
-                          Location *location) {
+                          QString subject, Location *location) {
   QMap<QString, std::function<void()>> actions;
   // The handling for the verb "AGAIN" is located in
   // MainWindow::handleReturnPressed
+  actions["ASK"] = [mainWindow, target, subject, location, this]() {
+    ask(mainWindow, target, subject, location);
+  };
   actions["BEGIN"] = [mainWindow, location, this]() {
     begin(mainWindow, location);
   };
@@ -50,8 +54,8 @@ void Handling::handleVerb(MainWindow *mainWindow, QString verb, QString target,
   actions["DRINK"] = [mainWindow, target, location, this]() {
     drink(mainWindow, target, location);
   };
-  actions["DROP"] = [mainWindow, target, location, this]() {
-    drop(mainWindow, target, location);
+  actions["DROP"] = [mainWindow, target, subject, location, this]() {
+    put(mainWindow, target, "GROUND", location);
   };
   actions["E"] = [mainWindow, verb, location, this]() {
     move(mainWindow, verb, location);
@@ -82,6 +86,9 @@ void Handling::handleVerb(MainWindow *mainWindow, QString verb, QString target,
   };
   actions["N"] = [mainWindow, verb, location, this]() {
     move(mainWindow, verb, location);
+  };
+  actions["PUT"] = [mainWindow, target, subject, location, this]() {
+    put(mainWindow, target, subject, location);
   };
   actions["Q"] = [mainWindow, this]() { mainWindow->closeProgram(); };
   actions["QUIT"] = [mainWindow, this]() { mainWindow->closeProgram(); };
@@ -121,6 +128,9 @@ void Handling::handleVerb(MainWindow *mainWindow, QString verb, QString target,
   actions["TAKE"] = [mainWindow, target, location, this]() {
     take(mainWindow, target, location);
   };
+  actions["TELL"] = [mainWindow, target, subject, location, this]() {
+    tell(mainWindow, target, subject, location);
+  };
   actions["UNSCRIPT"] = [mainWindow, this]() { unscript(mainWindow); };
   actions["USE"] = [mainWindow, target, location, this]() {
     use(mainWindow, target, location);
@@ -151,24 +161,35 @@ void Handling::handleVerb(MainWindow *mainWindow, QString verb, QString target,
 
 void Handling::splitInput(MainWindow *mainWindow, QString input) {
   input = removeFillerWords(input);
-
-  QStringList parts = input.split(" ");
+  QStringList parts = input.split(" ", Qt::SkipEmptyParts);
 
   QString verb;
   QString target;
+  QString subject;
 
   if (!parts.isEmpty()) {
     verb = parts.at(0);
 
-    if (parts.size() > 1) {
-      target = parts.mid(1).join(" ");
+    for (int i = 1; i < parts.size(); ++i) {
+      if (parts.at(i) == "ABOUT" || parts.at(i) == "ON") {
+        target = parts.mid(1, i - 1).join(" ").trimmed();
+        subject = parts.mid(i + 1).join(" ").trimmed();
+        break;
+      }
+    }
+
+    if (target.isEmpty() && parts.size() > 1) {
+      target = parts.mid(1).join(" ").trimmed();
+      subject = "";
     }
   }
-  if (target == "") {
+
+  if (target.isEmpty()) {
     mainWindow->setDescription(
         QString("I didn't know what to %1.").arg(verb.toLower()));
   } else {
-    handleVerb(mainWindow, verb, target, worldObj.getCurrentLocation());
+    handleVerb(mainWindow, verb, target, subject,
+               worldObj.getCurrentLocation());
   }
 }
 
@@ -216,6 +237,12 @@ void Handling::gameOverMsg(MainWindow *mainWindow, QString reason) {
   mainWindow->setLocation(worldObj.getCurrentLocation()->getMusicPath(),
                           worldObj.getCurrentLocation()->getAmbiencePath(),
                           &perished);
+}
+
+void Handling::characterNotActiveMsg(MainWindow *mainWindow, QString target) {
+  mainWindow->setDescription(
+      QString("I didn't see anyone by the description of %1 in the area.")
+          .arg(target.toLower()));
 }
 
 void Handling::missingItemMsg(MainWindow *mainWindow, QString target) {

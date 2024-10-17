@@ -78,7 +78,7 @@ void MainWindow::setLocation(QString currentMusic, QString currentAmbience,
 
 void MainWindow::handleReturnPressed() {
   QString input = ui->inputText->text();
-  input = input.toUpper();
+  input = input.toUpper().trimmed();
   if (input == "G" || input == "AGAIN") {
     input = handlingObj.getLastCommand();
   }
@@ -90,7 +90,7 @@ void MainWindow::handleReturnPressed() {
   if (validated == 0) {
     handlingObj.splitInput(this, input);
   } else if (validated == 1) {
-    handlingObj.handleVerb(this, input, "", worldObj.getCurrentLocation());
+    handlingObj.handleVerb(this, input, "", "", worldObj.getCurrentLocation());
   } else {
     if (input != "") {
       setDescription(QString("I didn't know how to %1.").arg(input.toLower()));

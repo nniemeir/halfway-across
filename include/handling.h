@@ -12,7 +12,7 @@ public:
   QString getLastCommand() const;
   void setLastCommand(QString command);
   // General handling
-  void handleVerb(MainWindow *mainWindow, QString verb, QString target,
+  void handleVerb(MainWindow *mainWindow, QString verb, QString target, QString subject,
                   Location *location);
   void splitInput(MainWindow *mainWindow, QString input);
   int validateVerb(QString input);
@@ -22,6 +22,7 @@ private:
   static void initFillerWords(const QStringList &words);
   QString removeFillerWords(const QString &text);
   // Messages
+  void characterNotActiveMsg(MainWindow *mainWindow, QString target);
   void gameOverMsg(MainWindow *mainWindow, QString reason);
   void missingItemMsg(MainWindow *mainWindow, QString target);
   void notAllowedDirMsg(MainWindow *mainWindow, QString verb, QString target);
@@ -29,6 +30,9 @@ private:
   void tiredMsg(MainWindow *mainWindow);
   void waitMsg(MainWindow *mainWindow);
   // Verb-specific handling functions
+  void ask(MainWindow *mainWindow, QString target, QString subject, Location *location);
+  void askAmos(MainWindow *mainWindow, QString subject, Location *location);
+  void askIra(MainWindow *mainWindow, QString subject, Location *location);
   void begin(MainWindow *mainWindow, Location *location);
   void cook(MainWindow *mainWindow, QString target, Location *location);
   void craft(MainWindow *mainWindow, QString target);
@@ -36,7 +40,6 @@ private:
   void drink(MainWindow *mainWindow, QString target, Location *location);
   void drinkCanteen(MainWindow *mainWindow, QString target);
   void drinkLake(MainWindow *mainWindow, QString target);
-  void drop(MainWindow *mainWindow, QString target, Location *location);
   void eat(MainWindow *mainWindow, QString target);
   void examine(MainWindow *mainWindow, QString target);
   void fill(MainWindow *mainWindow, QString target, Location *location);
@@ -58,6 +61,7 @@ private:
   void moveCaveLit(MainWindow *mainWindow, QString target);
   void moveLake(MainWindow *mainWindow, QString target);
   void moveValley(MainWindow *mainWindow, QString target);
+  void put(MainWindow *mainWindow, QString target, QString reason, Location *location);
   void read(MainWindow *mainWindow, QString target);
   void remove(MainWindow *mainWindow, QString target);
   void script(MainWindow *mainWindow);
@@ -68,6 +72,9 @@ private:
   void sleep(MainWindow *mainWindow, Location *location);
   void stand(MainWindow *mainWindow);
   void take(MainWindow *mainWindow, QString target, Location *location);
+  void tell(MainWindow *mainWindow, QString target, QString subject, Location *location);
+  void tellAmos(MainWindow *mainWindow, QString subject, Location *location);
+  void tellIra(MainWindow *mainWindow, QString subject, Location *location);
   void use(MainWindow *mainWindow, QString target, Location *location);
   void useCamp(MainWindow *mainWindow, QString target);
   void useCave(MainWindow *mainWindow, QString target);

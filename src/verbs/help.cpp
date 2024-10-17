@@ -3,6 +3,7 @@
 void Handling::help(MainWindow *mainWindow) {
   mainWindow->setDescription(
       "AGAIN/G - repeat last command\n"
+      "ASK (target) ABOUT (subject) - ask a person in the area about a given topic\n"
       "COOK (object) - cook something\n"
       "CRAFT (object) - craft something\n"
       "CRY - relieve some stress\n"
@@ -28,6 +29,7 @@ void Handling::help(MainWindow *mainWindow) {
       "SLEEP - advance to the next day\n"
       "STAND - stand up\n"
       "TAKE (object) - add an item to my inventory\n"
+      "TELL (target) ABOUT (subject) - tell a person in the area about a given topic\n"
       "USE (object) - use something\n"
       "UNSCRIPT - stop writing journal to file\n"
       "VERSION - show program version\n"

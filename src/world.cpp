@@ -3,15 +3,16 @@
 #include "../include/hunting.h"
 #include "../include/player.h"
 
-
 World worldObj;
 
 // The temperature and weather for Day 1 are the same each time to avoid
 // immediately trapping the player at camp
 World::World()
-    : currentLocation(nullptr), day(1), currentTemperature(32),
-      currentWeather("clear"), chiseledIce(0),
+    : activeCharacter(nullptr), currentLocation(nullptr), day(1),
+      currentTemperature(32), currentWeather("clear"), chiseledIce(0),
       directions{"NORTH", "WEST", "SOUTH", "EAST", "N", "W", "S", "E"} {}
+
+Character *World::getActiveCharacter() { return activeCharacter; }
 
 int World::getChiseledIce() const { return chiseledIce; }
 
@@ -24,6 +25,10 @@ QString World::getCurrentWeather() const { return currentWeather; }
 int World::getDay() const { return day; }
 
 void World::setChiseledIce(int newValue) { chiseledIce = newValue; }
+
+void World::setActiveCharacter(Character *newCharacter) {
+  activeCharacter = newCharacter;
+}
 
 void World::setCurrentLocation(Location *location) {
   currentLocation = location;
@@ -49,6 +54,12 @@ QString World::advanceDay() {
   day++;
   currentTemperature = generateTemperature();
   currentWeather = generateWeather();
+  if (currentWeather != "snowing heavily" && day > 7) {
+    Character *potentialActiveCharacter = generateCharacter();
+    if (potentialActiveCharacter != nullptr) {
+      setActiveCharacter(potentialActiveCharacter);
+    }
+  }
   return "";
 }
 
@@ -64,6 +75,35 @@ bool World::roll(const int probability) {
 bool World::validDirection(const QString &value) {
   return std::find(directions.begin(), directions.end(), value) !=
          directions.end();
+}
+
+Character *World::generateCharacter() {
+  if (day == FIRST_IRA_ENCOUNTER) {
+    return ensembleObj.getCharacter(1); // Ira
+  }
+  if (day == FIRST_AMOS_ENCOUNTER) {
+    return ensembleObj.getCharacter(0); // Amos
+  }
+  int index = 0;
+  std::vector<int> matchesIndex = {};
+  for (auto const &characterObj : ensembleObj.getCharacters()) {
+    if (characterObj.getDaysSinceEncountered() >= characterObj.getFrequency() &&
+        !characterObj.getHatesPlayer()) {
+      matchesIndex.push_back(index);
+    }
+    index++;
+  }
+  if (matchesIndex.size() == 1) {
+    ensembleObj.getCharacter(matchesIndex[0])->setDaysSinceEncountered(0);
+    return ensembleObj.getCharacter(matchesIndex[0]);
+  } else if (matchesIndex.size() > 1) {
+    int chosenMatchIndex = rand() % matchesIndex.size();
+    ensembleObj.getCharacter(matchesIndex[chosenMatchIndex])
+        ->setDaysSinceEncountered(0);
+    return ensembleObj.getCharacter(matchesIndex[chosenMatchIndex]);
+  } else {
+    return nullptr;
+  }
 }
 
 // A given day's temperature will have an effect on

@@ -1,5 +1,12 @@
+### Ambience
 
-### SFX sourced from FreeSound.org
+campfire - wood burning sound by engyclick -- https://freesound.org/s/713604/ -- License: Creative Commons 0
+
+caveWind & mountainWind: High Winds Through Bare Trees by lakewoodsound -- https://freesound.org/s/719095/ -- License: Creative Commons 0
+
+### SFX
+
+ask: Created in-house by Jacob Niemeir -- License: Creative Commons 0
 
 arrow: Arrow_loose02.wav by SonoFxAudio -- https://freesound.org/s/649334/ -- License: Attribution 4.0
 
@@ -36,10 +43,3 @@ skin: Sword stab 4 by ihitokage -- https://freesound.org/s/395365/ -- License: C
 sleep: Sheets Shuffling by Flem0527 -- https://freesound.org/s/629974/ -- License: Creative Commons 0
 
 take: Grab1.wav by sound_and_fury -- https://freesound.org/s/652661/ -- License: Creative Commons 0
-
-### Ambience sourced from FreeSound.org
-
-campfire - wood burning sound by engyclick -- https://freesound.org/s/713604/ -- License: Creative Commons 0
-
-caveWind & mountainWind: High Winds Through Bare Trees by lakewoodsound -- https://freesound.org/s/719095/ -- License: Creative Commons 0
-
