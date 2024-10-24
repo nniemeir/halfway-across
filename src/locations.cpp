@@ -9,23 +9,27 @@ Location::Location(const QString &name, const QString &description,
 
 Location camp(
     "Camp",
-    "I woke up sore, that familiar ache of winter mornings felt "
-    "once again.\n\nExit: North",
+    "My camp provided some respite from the harsh winds that had been plaguing "
+    "me.\n\nExit: North",
     ":/images/camp.png", "qrc:/audio/music/placeholder.mp3",
     "qrc:/audio/ambience/campfire.mp3",
     {{"ARROW", 3, 0, 0, 0, "TOOLS", "NONE",
       "I could load it into my bow to hunt at a distance."},
      {"BOW", 1, 0, 0, 0, "TOOLS", "ARROW",
       "If loaded with an arrow, it could be used for hunting."},
+     {"CANTEEN", 1, 0, 100, 0, "TOOLS", "NONE", "I could store water in it."},
+     {"CHISEL", 1, 0, 0, 0, "TOOLS", "NONE",
+      "I could use it to break through ice."},
+     {"DRIED BEEF", 3, 0, 30, 0, "FOOD", "NONE",
+      "It could provide some sustenance, but not much else."},
      {"FISHING ROD", 1, 0, 0, 0, "TOOLS", "RENDERED FAT",
       "If loaded with bait such as rendered fat, I could catch fish with it."},
+     {"HARD TACK", 3, 0, 20, 0, "FOOD", "NONE",
+      "It could provide some sustenance, but not much else."},
      {"HUNTING KNIFE", 1, 0, 0, 0, "TOOLS", "NONE",
       "I could use this to skin animals."},
      {"LANTERN", 1, 0, 0, 0, "TOOLS", "TALLOW CANDLE",
-      "If loaded with a tallow candle, I could use it to light my way."},
-     {"CHISEL", 1, 0, 0, 0, "TOOLS", "NONE",
-      "I could use it to break through ice."},
-     {"CANTEEN", 1, 0, 100, 0, "TOOLS", "NONE", "I could store water in it."}});
+      "If loaded with a tallow candle, I could use it to light my way."}});
 
 Location forestPath(
     "The forest path",
@@ -67,7 +71,8 @@ Location intro("Introduction Menu",
                {{}});
 
 Location lake("The lake",
-              "I arrived at a lake after an hour's journey.\n\nExit: East",
+              "I arrived at a lake after an hour's journey, it could be a good "
+              "source of fish and water.\n\nExit: East",
               ":/images/lake.png", "qrc:/audio/music/placeholder.mp3",
               "qrc:/audio/ambience/mountainWind.mp3", {{}});
 

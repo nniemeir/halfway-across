@@ -43,3 +43,5 @@ skin: Sword stab 4 by ihitokage -- https://freesound.org/s/395365/ -- License: C
 sleep: Sheets Shuffling by Flem0527 -- https://freesound.org/s/629974/ -- License: Creative Commons 0
 
 take: Grab1.wav by sound_and_fury -- https://freesound.org/s/652661/ -- License: Creative Commons 0
+
+write: writing-short-8 by newagesoup -- https://freesound.org/s/335518/ -- License: Creative Commons 0

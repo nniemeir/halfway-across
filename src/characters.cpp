@@ -2,6 +2,7 @@
 
 QString Character::getName() const { return name; }
 QString Character::getDescription() const { return description; }
+QString Character::getLocation() const { return location; }
 
 bool Character::getDaysSinceEncountered() const { return daysSinceEncountered; }
 
@@ -29,9 +30,9 @@ std::vector<Item> amosInv = {
      "It was a small hat, providing almost no warmth."}};
 
 Character amos("Amos",
-               "Amos was an older man with a large black beard, dressed "
+               "Amos was an older man with a large black beard, dressed"
                "entirely in furs. I imagined he had been here for many years.",
-               7, false, 0, 0, amosInv);
+               "The forest path", 7, false, 0, 0, amosInv);
 
 std::vector<Item> iraInv = {
     {"FELT HAT", 1, 1, 5, 0, "CLOTHING", "NONE",
@@ -40,7 +41,7 @@ std::vector<Item> iraInv = {
 Character
     ira("Ira",
         "Ira was a disheveled looking man with scraggly ginger facial hair.",
-        14, false, 0, 0, iraInv);
+        "The forest path", 14, false, 0, 0, iraInv);
 
 Ensemble ensembleObj;
 

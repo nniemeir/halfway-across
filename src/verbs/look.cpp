@@ -32,10 +32,16 @@ void Handling::look(MainWindow *mainWindow, QString target,
       notAllowedInLocMsg(mainWindow, "look anywhere");
     }
   } else {
-    if (QString::compare(target, worldObj.getActiveCharacter()->getName(),
-                         Qt::CaseInsensitive) == 0) {
-      mainWindow->setDescription(
-          worldObj.getActiveCharacter()->getDescription());
+    if (worldObj.getActiveCharacter() != nullptr) {
+      if (QString::compare(target, worldObj.getActiveCharacter()->getName(),
+                           Qt::CaseInsensitive) == 0 &&
+          worldObj.getActiveCharacter()->getLocation() ==
+              worldObj.getCurrentLocation()->getName()) {
+        mainWindow->setDescription(
+            worldObj.getActiveCharacter()->getDescription());
+      } else {
+        characterNotActiveMsg(mainWindow, target);
+      }
     } else {
       characterNotActiveMsg(mainWindow, target);
     }

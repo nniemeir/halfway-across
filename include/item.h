@@ -1,7 +1,8 @@
 #ifndef ITEM_H
 #define ITEM_H
-#include <qstring.h>
 #include <QStringList>
+#include <qstring.h>
+
 class Item {
 public:
   Item(){};

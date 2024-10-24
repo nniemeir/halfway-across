@@ -5,6 +5,10 @@
 void Handling::eat(MainWindow *mainWindow, QString target) {
   int targetIndex = inventoryObj.searchInventory(playerObj.getInventory(),
                                                  "COOKED " + target);
+  if (targetIndex == -1) {
+    targetIndex =
+        inventoryObj.searchInventory(playerObj.getInventory(), target);
+  }
   if (targetIndex != -1) {
     if (inventoryObj.getInventoryItem(playerObj.getInventory(), targetIndex)
             .getType() == "FOOD") {
@@ -29,6 +33,6 @@ void Handling::eat(MainWindow *mainWindow, QString target) {
               .arg(handlingObj.getArticle(target), target.toLower()));
     }
   } else {
-    missingItemMsg(mainWindow, "any cooked " + target);
+    missingItemMsg(mainWindow, "any " + target);
   }
 }

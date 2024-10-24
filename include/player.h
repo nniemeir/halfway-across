@@ -3,6 +3,8 @@
 #include "inventory.h"
 #include "item.h"
 #include "recipe.h"
+#include <QMap>
+
 
 class Player : public Inventory {
 public:
@@ -31,8 +33,9 @@ public:
   int constrainStat(int stat);
   QString displayBagInventory() const;
   QString displayClothesInventory() const;
+  QString displayJournal() const;
   QString displayRecipeBook() const;
-  QString displayWarnings() const;
+  QString generateWarnings() const;
 
 private:
   int health;

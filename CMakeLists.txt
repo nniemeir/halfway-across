@@ -34,7 +34,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         include/item.h
         include/locations.h
         include/player.h
-        include/journal.h
+        include/script.h
         include/recipe.h
         include/world.h
         resources/resources.qrc
@@ -45,7 +45,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/hunting.cpp
         src/inventory.cpp
         src/item.cpp
-        src/journal.cpp
+        src/script.cpp
         src/locations.cpp
         src/player.cpp
         src/recipe.cpp
@@ -55,6 +55,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/verbs/cook.cpp
         src/verbs/craft.cpp
         src/verbs/cry.cpp
+        src/verbs/diagnose.cpp
         src/verbs/drink.cpp
         src/verbs/eat.cpp
         src/verbs/examine.cpp

@@ -1,6 +1,5 @@
 #include "../include/player.h"
 #include "../include/world.h"
-
 #define LOW_STAT_THRESHOLD 30
 #define MEDIUM_STAT_THRESHOLD 50
 #define HIGH_STAT_THRESHOLD 70
@@ -22,14 +21,14 @@ Player::Player()
                        "They were thick pants, providing warmth."});
   inventory.push_back({"PAIR OF MOCCASINS", 1, 1, 10, 0, "CLOTHING", "NONE",
                        "They were worn shoes, providing slight warmth."});
-  Recipe candle("TALLOW CANDLE", {"RENDERED FAT", "PIECE OF WOOD"},
-                "Used to fuel candle lanterns.",
-                {"TALLOW CANDLE", 1, 1, 10, 0, "ANIMAL FAT", "NONE",
-                 "I could use it to fuel my lantern."});
   Recipe arrow("ARROW", {"ROCK", "PIECE OF WOOD", "FEATHER"},
                "Could be loaded into a bow to hunt at a distance.",
                {"ARROW", 1, 0, 0, 0, "TOOLS", "NONE",
                 "I could load it into my bow to hunt at a distance."});
+  Recipe candle("TALLOW CANDLE", {"RENDERED FAT", "PIECE OF WOOD"},
+                "Used to fuel candle lanterns.",
+                {"TALLOW CANDLE", 1, 1, 10, 0, "ANIMAL FAT", "NONE",
+                 "I could use it to fuel my lantern."});
   recipeBook.push_back(arrow);
   recipeBook.push_back(candle);
 }
@@ -152,10 +151,10 @@ QString Player::displayRecipeBook() const {
   return inventoryText;
 }
 
-QString Player::displayWarnings() const {
+QString Player::generateWarnings() const {
   QString warnings;
-  warnings.append(QString("Day %1\n\n").arg(worldObj.getDay()));
-
+  warnings.append(
+      QString("It was %1 today. ").arg(worldObj.getCurrentWeather()));
   if (mental < LOW_STAT_THRESHOLD) {
     warnings.append("I was losing the will to continue. ");
   } else if (LOW_STAT_THRESHOLD <= mental && mental < MEDIUM_STAT_THRESHOLD) {
@@ -165,7 +164,8 @@ QString Player::displayWarnings() const {
   }
 
   if (warmth < LOW_STAT_THRESHOLD) {
-    warnings.append("I didn't think I could survive the cold much longer. ");
+    warnings.append(
+        "I didn't think that I could survive the cold much longer. ");
   } else if (LOW_STAT_THRESHOLD <= warmth && warmth < MEDIUM_STAT_THRESHOLD) {
     warnings.append("The cold was becoming unbearable. ");
   } else if (MEDIUM_STAT_THRESHOLD <= warmth && warmth < HIGH_STAT_THRESHOLD) {
@@ -196,4 +196,25 @@ QString Player::displayWarnings() const {
     warnings.append("I was starting to get thirsty. ");
   }
   return warnings;
+}
+
+// The contents of a given day's journal entry will differ in later versions
+// based on player actions and stats
+QString Player::displayJournal() const {
+  QString entry;
+  entry.append(QString("Day %1\n\n").arg(worldObj.getDay()));
+  QMap<int, QString> dayEntries = {
+      {1, "I finished setting up camp this morning, its not exactly "
+          "comfortable but it will have to do for now. I still have some "
+          "rations from the journey here, but I would be wise to hunt soon. I "
+          "could use the command LOOK AROUND to survey my surroundings."},
+      {2, "I want for little but seclusion, to disconnect from everything that "
+          "has become so alien to me."}};
+
+  if (dayEntries.contains(worldObj.getDay())) {
+    entry.append(dayEntries.value(worldObj.getDay()));
+  } else {
+    entry.append("A normal day in the mountains.");
+  }
+  return entry;
 }

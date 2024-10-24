@@ -1,5 +1,4 @@
 #include "../include/handling.h"
-#include "../include/player.h"
 #include "../include/world.h"
 #include <QDebug>
 
@@ -10,10 +9,10 @@ Handling::Handling() {
               "PUT",  "READ", "REMOVE", "SHOOT", "SIT",  "SKIN", "STAND",
               "TAKE", "TELL", "USE",    "WEAR"};
 
-  noArgVerbs = {"BEGIN", "CRY",   "E",        "HELP",    "N",      "Q",
-                "QUIT",  "R",     "REFLECT",  "S",       "SCREAM", "SCRIPT",
-                "SHOUT", "SLEEP", "UNSCRIPT", "VERSION", "W",      "WAIT",
-                "X",     "YELL",  "Z"};
+  noArgVerbs = {"BEGIN",  "CRY",   "DIAGNOSE", "E",        "HELP",    "N",
+                "Q",      "QUIT",  "R",        "REFLECT",  "S",       "SCREAM",
+                "SCRIPT", "SHOUT", "SLEEP",    "UNSCRIPT", "VERSION", "W",
+                "WAIT",   "X",     "YELL",     "Z"};
 
   fillerWords = {"A", "AN", "AT", "COOKED", "FROM", "IN", "THE", "TO"};
 }
@@ -35,127 +34,165 @@ void Handling::setLastCommand(QString command) { lastCommand = command; }
 
 void Handling::handleVerb(MainWindow *mainWindow, QString verb, QString target,
                           QString subject, Location *location) {
-  QMap<QString, std::function<void()>> actions;
   // The handling for the verb "AGAIN" is located in
   // MainWindow::handleReturnPressed
-  actions["ASK"] = [mainWindow, target, subject, location, this]() {
-    ask(mainWindow, target, subject, location);
-  };
-  actions["BEGIN"] = [mainWindow, location, this]() {
-    begin(mainWindow, location);
-  };
-  actions["COOK"] = [mainWindow, target, location, this]() {
-    cook(mainWindow, target, location);
-  };
-  actions["CRAFT"] = [mainWindow, target, this]() {
-    craft(mainWindow, target);
-  };
-  actions["CRY"] = [mainWindow, this]() { cry(mainWindow); };
-  actions["DRINK"] = [mainWindow, target, location, this]() {
-    drink(mainWindow, target, location);
-  };
-  actions["DROP"] = [mainWindow, target, subject, location, this]() {
-    put(mainWindow, target, "GROUND", location);
-  };
-  actions["E"] = [mainWindow, verb, location, this]() {
-    move(mainWindow, verb, location);
-  };
-  actions["EAT"] = [mainWindow, target, this]() { eat(mainWindow, target); };
-  actions["EXAMINE"] = [mainWindow, target, location, this]() {
-    examine(mainWindow, target);
-  };
-  actions["FILL"] = [mainWindow, target, location, this]() {
-    fill(mainWindow, target, location);
-  };
-  actions["GO"] = [mainWindow, target, location, this]() {
-    move(mainWindow, target, location);
-  };
-  actions["HELP"] = [mainWindow, target, this]() { help(mainWindow); };
-  actions["HUNT"] = [mainWindow, target, location, this]() {
-    hunt(mainWindow, target, location);
-  };
-  actions["L"] = [mainWindow, target, location, this]() {
-    look(mainWindow, target, location);
-  };
-  actions["LOAD"] = [mainWindow, target, this]() { load(mainWindow, target); };
-  actions["LOOK"] = [mainWindow, target, location, this]() {
-    look(mainWindow, target, location);
-  };
-  actions["MOVE"] = [mainWindow, target, location, this]() {
-    move(mainWindow, target, location);
-  };
-  actions["N"] = [mainWindow, verb, location, this]() {
-    move(mainWindow, verb, location);
-  };
-  actions["PUT"] = [mainWindow, target, subject, location, this]() {
-    put(mainWindow, target, subject, location);
-  };
-  actions["Q"] = [mainWindow, this]() { mainWindow->closeProgram(); };
-  actions["QUIT"] = [mainWindow, this]() { mainWindow->closeProgram(); };
-  actions["READ"] = [mainWindow, target, this]() { read(mainWindow, target); };
-  actions["R"] = [mainWindow, this]() {
-    mainWindow->setDescription(playerObj.displayWarnings());
-  };
-  actions["REFLECT"] = [mainWindow, this]() {
-    mainWindow->setDescription(playerObj.displayWarnings());
-  };
-  actions["REMOVE"] = [mainWindow, target, this]() {
-    remove(mainWindow, target);
-  };
-  actions["S"] = [mainWindow, verb, location, this]() {
-    move(mainWindow, verb, location);
-  };
-  actions["SCREAM"] = [mainWindow, location, this]() {
-    yell(mainWindow, location);
-  };
-  actions["SCRIPT"] = [mainWindow, this]() { script(mainWindow); };
-  actions["SHOOT"] = [mainWindow, target, location, this]() {
-    shoot(mainWindow, target, location);
-  };
-  actions["SHOUT"] = [mainWindow, location, this]() {
-    yell(mainWindow, location);
-  };
-  actions["SIT"] = [mainWindow, target, location, this]() {
-    sit(mainWindow, target, location);
-  };
-  actions["SKIN"] = [mainWindow, target, location, this]() {
-    skin(mainWindow, target, location);
-  };
-  actions["SLEEP"] = [mainWindow, location, this]() {
-    sleep(mainWindow, location);
-  };
-  actions["STAND"] = [mainWindow, this]() { stand(mainWindow); };
-  actions["TAKE"] = [mainWindow, target, location, this]() {
-    take(mainWindow, target, location);
-  };
-  actions["TELL"] = [mainWindow, target, subject, location, this]() {
-    tell(mainWindow, target, subject, location);
-  };
-  actions["UNSCRIPT"] = [mainWindow, this]() { unscript(mainWindow); };
-  actions["USE"] = [mainWindow, target, location, this]() {
-    use(mainWindow, target, location);
-  };
-  actions["VERSION"] = [mainWindow, this]() { version(mainWindow); };
-  actions["W"] = [mainWindow, verb, location, this]() {
-    move(mainWindow, verb, location);
-  };
-  actions["WAIT"] = [mainWindow, location, this]() {
-    wait(mainWindow, location);
-  };
-  actions["WEAR"] = [mainWindow, target, this]() { wear(mainWindow, target); };
-  actions["X"] = [mainWindow, target, location, this]() {
-    examine(mainWindow, target);
-  };
-  actions["YELL"] = [mainWindow, location, this]() {
-    yell(mainWindow, location);
-  };
-  actions["Z"] = [mainWindow, location, this]() { wait(mainWindow, location); };
+  if (verb == "Q" || verb == "QUIT") {
+    mainWindow->closeProgram();
+  }
 
-  if (actions.contains(verb)) {
-    actions[verb]();
+  else {
+    QMap<QString, std::function<void()>> gameplayActions;
+    QMap<QString, std::function<void()>> menuActions;
+    gameplayActions["ASK"] = [mainWindow, target, subject, location, this]() {
+      ask(mainWindow, target, subject, location);
+    };
+    gameplayActions["COOK"] = [mainWindow, target, location, this]() {
+      cook(mainWindow, target, location);
+    };
+    gameplayActions["CRAFT"] = [mainWindow, target, this]() {
+      craft(mainWindow, target);
+    };
+    gameplayActions["CRY"] = [mainWindow, this]() { cry(mainWindow); };
+    gameplayActions["DIAGNOSE"] = [mainWindow, location, this]() {
+      diagnose(mainWindow, location);
+    };
+    gameplayActions["DRINK"] = [mainWindow, target, location, this]() {
+      drink(mainWindow, target, location);
+    };
+    gameplayActions["DROP"] = [mainWindow, target, subject, location, this]() {
+      put(mainWindow, target, "GROUND", location);
+    };
+    gameplayActions["E"] = [mainWindow, verb, location, this]() {
+      move(mainWindow, verb, location);
+    };
+    gameplayActions["EAT"] = [mainWindow, target, this]() {
+      eat(mainWindow, target);
+    };
+    gameplayActions["EXAMINE"] = [mainWindow, target, location, this]() {
+      examine(mainWindow, target);
+    };
+    gameplayActions["FILL"] = [mainWindow, target, location, this]() {
+      fill(mainWindow, target, location);
+    };
+    gameplayActions["GO"] = [mainWindow, target, location, this]() {
+      move(mainWindow, target, location);
+    };
+    gameplayActions["HELP"] = [mainWindow, target, this]() {
+      help(mainWindow);
+    };
+    gameplayActions["HUNT"] = [mainWindow, target, location, this]() {
+      hunt(mainWindow, target, location);
+    };
+    gameplayActions["L"] = [mainWindow, target, location, this]() {
+      look(mainWindow, target, location);
+    };
+    gameplayActions["LOAD"] = [mainWindow, target, this]() {
+      load(mainWindow, target);
+    };
+    gameplayActions["LOOK"] = [mainWindow, target, location, this]() {
+      look(mainWindow, target, location);
+    };
+    gameplayActions["MOVE"] = [mainWindow, target, location, this]() {
+      move(mainWindow, target, location);
+    };
+    gameplayActions["N"] = [mainWindow, verb, location, this]() {
+      move(mainWindow, verb, location);
+    };
+    gameplayActions["PUT"] = [mainWindow, target, subject, location, this]() {
+      put(mainWindow, target, subject, location);
+    };
+    gameplayActions["READ"] = [mainWindow, location, target, this]() {
+      read(mainWindow, location, target);
+    };
+    gameplayActions["R"] = [mainWindow, location, this]() {
+      diagnose(mainWindow, location);
+    };
+    gameplayActions["REFLECT"] = [mainWindow, location, this]() {
+      diagnose(mainWindow, location);
+    };
+    gameplayActions["REMOVE"] = [mainWindow, target, this]() {
+      remove(mainWindow, target);
+    };
+    gameplayActions["S"] = [mainWindow, verb, location, this]() {
+      move(mainWindow, verb, location);
+    };
+    gameplayActions["SCREAM"] = [mainWindow, location, this]() {
+      yell(mainWindow, location);
+    };
+    gameplayActions["SCRIPT"] = [mainWindow, this]() { script(mainWindow); };
+    gameplayActions["SHOOT"] = [mainWindow, target, location, this]() {
+      shoot(mainWindow, target, location);
+    };
+    gameplayActions["SHOUT"] = [mainWindow, location, this]() {
+      yell(mainWindow, location);
+    };
+    gameplayActions["SIT"] = [mainWindow, target, location, this]() {
+      sit(mainWindow, target, location);
+    };
+    gameplayActions["SKIN"] = [mainWindow, target, location, this]() {
+      skin(mainWindow, target, location);
+    };
+    gameplayActions["SLEEP"] = [mainWindow, location, this]() {
+      sleep(mainWindow, location);
+    };
+    gameplayActions["STAND"] = [mainWindow, this]() { stand(mainWindow); };
+    gameplayActions["TAKE"] = [mainWindow, target, location, this]() {
+      take(mainWindow, target, location);
+    };
+    gameplayActions["TELL"] = [mainWindow, target, subject, location, this]() {
+      tell(mainWindow, target, subject, location);
+    };
+    gameplayActions["UNSCRIPT"] = [mainWindow, this]() {
+      unscript(mainWindow);
+    };
+    gameplayActions["USE"] = [mainWindow, target, location, this]() {
+      use(mainWindow, target, location);
+    };
+    gameplayActions["VERSION"] = [mainWindow, this]() { version(mainWindow); };
+    gameplayActions["W"] = [mainWindow, verb, location, this]() {
+      move(mainWindow, verb, location);
+    };
+    gameplayActions["WAIT"] = [mainWindow, location, this]() {
+      wait(mainWindow, location);
+    };
+    gameplayActions["WEAR"] = [mainWindow, target, this]() {
+      wear(mainWindow, target);
+    };
+    gameplayActions["X"] = [mainWindow, target, location, this]() {
+      examine(mainWindow, target);
+    };
+    gameplayActions["YELL"] = [mainWindow, location, this]() {
+      yell(mainWindow, location);
+    };
+    gameplayActions["Z"] = [mainWindow, location, this]() {
+      wait(mainWindow, location);
+    };
+    menuActions["BEGIN"] = [mainWindow, location, this]() {
+      begin(mainWindow, location);
+    };
+    menuActions["HELP"] = [mainWindow, this]() { help(mainWindow); };
+
+    if (location->getName() == "Perished Menu" ||
+        location->getName() == "Introduction Menu") {
+      handleVerbActions(mainWindow, verb, target, subject, location,
+                        menuActions, gameplayActions);
+    } else {
+      handleVerbActions(mainWindow, verb, target, subject, location,
+                        gameplayActions, menuActions);
+    }
+  }
+}
+
+void Handling::handleVerbActions(
+    MainWindow *mainWindow, QString verb, QString target, QString subject,
+    Location *location, QMap<QString, std::function<void()>> validActions,
+    QMap<QString, std::function<void()>> invalidActions) {
+  if (validActions.contains(verb)) {
+    validActions[verb]();
+  } else if (invalidActions.contains(verb)) {
+    notAllowedInLocMsg(mainWindow, verb);
   } else {
-    mainWindow->setDescription(
-        "My thoughts were pushing me in a direction that I didn't understand.");
+    confusedMsg(mainWindow);
   }
 }
 
@@ -243,6 +280,11 @@ void Handling::characterNotActiveMsg(MainWindow *mainWindow, QString target) {
   mainWindow->setDescription(
       QString("I didn't see anyone by the description of %1 in the area.")
           .arg(target.toLower()));
+}
+
+void Handling::confusedMsg(MainWindow *mainWindow) {
+  mainWindow->setDescription(
+      "My thoughts were pushing me in a nonsensical direction.");
 }
 
 void Handling::missingItemMsg(MainWindow *mainWindow, QString target) {
