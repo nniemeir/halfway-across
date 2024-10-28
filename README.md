@@ -13,6 +13,6 @@ Halfway Across is a parser-based interactive fiction game that follows a man nam
 - **Social Interaction:** Converse and trade with travelers, knowing that your dialogue choices will impact how they perceive you.
 
 ## Documentation
-[Guide](docs/guide.md)
+[Manual](docs/guide.md)
 
 [Credits](docs/credits.md)
