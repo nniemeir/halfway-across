@@ -13,6 +13,9 @@
 
 * Writing
 
+## Font
+Caveat: [The Caveat Project Authors](https://github.com/googlefonts/caveat) -- License: SIL Open Font License 1.1
+
 ## Ambient Sound
 
 Campfire: wood burning sound by [engyclick](https://freesound.org/s/713604/) -- License: Creative Commons 0
