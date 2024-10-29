@@ -15,6 +15,12 @@ To get information about your stats, use the command **REFLECT**.
 
 You can pass time by using the command **WAIT**.
 
+## User Interface
+The interface is split into three sections from top to bottom:
+1. Setting image
+2. Output
+3. Prompt
+
 ## Survival
 To survive the frontier, you must keep up on the following stats:
 - Health (maintained by avoiding injury)
