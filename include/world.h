@@ -38,6 +38,7 @@ private:
   Character *generateCharacter();
   int generateTemperature();
   QString generateWeather();
+  int generateTempDebuff();
   std::vector<QString> directions;
 };
 

@@ -264,7 +264,8 @@ void Handling::gameOverMsg(MainWindow *mainWindow, QString reason) {
       {"HEALTH", "My injuries were too grave for me to continue."},
       {"HUNGER", "I succumbed to my hunger."},
       {"MENTAL", "I had lost the will to continue."},
-      {"THIRST", "I succumbed to my thirst."}};
+      {"THIRST", "I succumbed to my thirst."},
+      {"WARMTH", "I could no longer bear the cold."}};
 
   if (stat.contains(reason)) {
     mainWindow->setDescription(perished.setDescription(stat.value(reason)));

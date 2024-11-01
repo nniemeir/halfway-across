@@ -2,6 +2,7 @@
 #include "../include/fishing.h"
 #include "../include/hunting.h"
 #include "../include/player.h"
+#include <qdebug.h>
 
 World worldObj;
 
@@ -9,7 +10,7 @@ World worldObj;
 // immediately trapping the player at camp
 World::World()
     : activeCharacter(nullptr), currentLocation(nullptr), day(1),
-      currentTemperature(32), currentWeather("clear"), chiseledIce(0),
+      currentTemperature(30), currentWeather("clear"), chiseledIce(0),
       directions{"NORTH", "WEST", "SOUTH", "EAST", "N", "W", "S", "E"} {}
 
 Character *World::getActiveCharacter() { return activeCharacter; }
@@ -47,6 +48,9 @@ QString World::advanceDay() {
     return "HUNGER";
   } else if (playerObj.setThirst(playerObj.getThirst() - 30)) {
     return "THIRST";
+  }
+  if (generateTempDebuff()) {
+    return "WARMTH";
   }
   setChiseledIce(0);
   huntingObj.resetDailyHunts();
@@ -106,11 +110,33 @@ Character *World::generateCharacter() {
   }
 }
 
-// A given day's temperature will have an effect on
+// A given day's temperature effects
 // how high the warmth stat must be to avoid losing health
 int World::generateTemperature() {
-  int temperature = rand() % (30 + 1);
-  return temperature;
+  int lowerBound;
+  int upperBound;
+  int temperature;
+  if (day <= 14) {
+    lowerBound = 20;
+    upperBound = 30;
+  } else if (day <= 28) {
+    lowerBound = 10;
+    upperBound = 20;
+  } else if (day <= 35) {
+    lowerBound = 0;
+    upperBound = 10;
+  } else if (day <= 42) {
+    lowerBound = 0;
+    upperBound = 5;
+  } else if (day <= 56) {
+    lowerBound = 10;
+    upperBound = 20;
+  } else {
+    lowerBound = 20;
+    upperBound = 30;
+  }
+  return lowerBound + rand() % (upperBound - lowerBound + 1);
+  ;
 }
 
 // A given day's weather will have an effect on
@@ -120,7 +146,8 @@ QString World::generateWeather() {
   float snowyProb = 20;
   float cloudyProb = 50;
   int prob = rand() % 100;
-  if (prob < blizzardProb && currentWeather != "snowing heavily") {
+  if (prob < blizzardProb && currentWeather != "snowing heavily" &&
+      currentTemperature <= 12) {
     return "snowing heavily";
   } else if (prob < snowyProb) {
     return "snowing";
@@ -129,4 +156,48 @@ QString World::generateWeather() {
   } else {
     return "clear";
   }
+}
+
+int World::generateTempDebuff() {
+  int currentWarmth = playerObj.getWarmth();
+  int healthLoss = 0;
+  if (currentTemperature < 5) {
+    if (currentWarmth < 25) {
+      return 1;
+    } else if (currentWarmth < 50) {
+      healthLoss = 20;
+    } else if (currentWarmth < 75) {
+      healthLoss = 10;
+    } else {
+      healthLoss = 5;
+    }
+  } else if (currentTemperature < 10) {
+    if (currentWarmth < 25) {
+      healthLoss = 20;
+    } else if (currentWarmth < 50) {
+      healthLoss = 10;
+    } else if (currentWarmth < 75) {
+      healthLoss = 5;
+    } else {
+      healthLoss = 2;
+    }
+  } else if (currentTemperature < 15) {
+    if (currentWarmth < 25) {
+      healthLoss = 10;
+    } else if (currentWarmth < 50) {
+      healthLoss = 5;
+    } else if (currentWarmth < 75) {
+      healthLoss = 2;
+    }
+  } else if (currentTemperature < 20) {
+    if (currentWarmth < 25) {
+      healthLoss = 5;
+    } else if (currentWarmth < 50) {
+      healthLoss = 2;
+    }
+  }
+  if (healthLoss > 0) {
+    return playerObj.setHealth(playerObj.getHealth() - healthLoss);
+  }
+  return 0;
 }

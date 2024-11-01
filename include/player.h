@@ -36,6 +36,7 @@ public:
   QString displayJournal() const;
   QString displayRecipeBook() const;
   QString generateWarnings() const;
+  QString generateWarmthWarning() const;
 
 private:
   int health;

@@ -95,6 +95,7 @@ int Player::setWarmth(int w) {
 void Player::setCharm(int c) { charm = constrainStat(c); }
 void Player::setStanding(int s) { standing = constrainStat(s); }
 void Player::setCryCooldown(int s) { cryCooldown = s; }
+
 int Player::constrainStat(int stat) { return std::max(0, std::min(stat, 100)); }
 QString Player::displayBagInventory() const {
   QStringList inventoryItemsText;
@@ -163,13 +164,9 @@ QString Player::generateWarnings() const {
     warnings.append("I felt a bit melancholy. ");
   }
 
-  if (warmth < LOW_STAT_THRESHOLD) {
-    warnings.append(
-        "I didn't think that I could survive the cold much longer. ");
-  } else if (LOW_STAT_THRESHOLD <= warmth && warmth < MEDIUM_STAT_THRESHOLD) {
-    warnings.append("The cold was becoming unbearable. ");
-  } else if (MEDIUM_STAT_THRESHOLD <= warmth && warmth < HIGH_STAT_THRESHOLD) {
-    warnings.append("The cold was starting to get to me. ");
+  QString warmthWarning = generateWarmthWarning();
+  if (warmthWarning != "") {
+    warnings.append(warmthWarning);
   }
 
   if (health < LOW_STAT_THRESHOLD) {
@@ -196,6 +193,53 @@ QString Player::generateWarnings() const {
     warnings.append("I was starting to get thirsty. ");
   }
   return warnings;
+}
+
+QString Player::generateWarmthWarning() const {
+  int currentTemperature = worldObj.getCurrentTemperature();
+  QString warning;
+  QString BStatMsg = "I felt a bit cold. ";
+  QString CStatMsg = "The cold was starting to get to me. ";
+  QString DStatMsg = "The cold was becoming unbearable. ";
+  QString FStatMsg =
+      "I didn't think that I could survive the cold much longer. ";
+
+  if (currentTemperature < 5) {
+    if (warmth < 25) {
+      warning = FStatMsg;
+    } else if (warmth < 50) {
+      warning = DStatMsg;
+
+    } else if (warmth < 75) {
+      warning = CStatMsg;
+    } else {
+      warning = BStatMsg;
+    }
+  } else if (currentTemperature < 10) {
+    if (warmth < 50) {
+      warning = DStatMsg;
+    } else if (warmth < 75) {
+      warning = CStatMsg;
+    } else {
+      warning = BStatMsg;
+    }
+  } else if (currentTemperature < 15) {
+    if (warmth < 25) {
+      warning = DStatMsg;
+    } else if (warmth < 50) {
+      warning = CStatMsg;
+    } else if (warmth < 75) {
+      warning = BStatMsg;
+    }
+  } else if (currentTemperature < 20) {
+    if (warmth < 25) {
+      warning = CStatMsg;
+    } else if (warmth < 50) {
+      warning = BStatMsg;
+    }
+  }
+
+  return warning;
 }
 
 // The contents of a given day's journal entry will differ in later versions
