@@ -5,30 +5,20 @@
 
 void Handling::move(MainWindow *mainWindow, QString target,
                     Location *location) {
-
-  QMap<QString, std::function<void()>> moveLocations;
-  moveLocations["Camp"] = [mainWindow, target, this]() {
-    moveCamp(mainWindow, target);
-  };
-  moveLocations["The forest path"] = [mainWindow, target, this]() {
-    moveForestPath(mainWindow, target);
-  };
-  moveLocations["The dark cave"] = [mainWindow, target, this]() {
-    moveCave(mainWindow, target);
-  };
-  moveLocations["The cave's entrance"] = [mainWindow, target, this]() {
-    moveCaveEntrance(mainWindow, target);
-  };
-  moveLocations["The well-lit cave"] = [mainWindow, target, this]() {
-    moveCaveLit(mainWindow, target);
-  };
-  moveLocations["The lake"] = [mainWindow, target, this]() {
-    moveLake(mainWindow, target);
-  };
-  moveLocations["The valley"] = [mainWindow, target, this]() {
-    moveValley(mainWindow, target);
-  };
-
+  QMap<QString, std::function<void()>> moveLocations{
+      {"Camp", [mainWindow, target, this]() { moveCamp(mainWindow, target); }},
+      {"The forest path",
+       [mainWindow, target, this]() { moveForestPath(mainWindow, target); }},
+      {"The dark cave",
+       [mainWindow, target, this]() { moveCave(mainWindow, target); }},
+      {"The cave's entrance",
+       [mainWindow, target, this]() { moveCaveEntrance(mainWindow, target); }},
+      {"The well-lit cave",
+       [mainWindow, target, this]() { moveCaveLit(mainWindow, target); }},
+      {"The lake",
+       [mainWindow, target, this]() { moveLake(mainWindow, target); }},
+      {"The valley",
+       [mainWindow, target, this]() { moveValley(mainWindow, target); }}};
   if (playerObj.getStanding() == 1) {
     if (worldObj.validDirection(target)) {
       if (moveLocations.contains(location->getName())) {

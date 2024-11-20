@@ -7,11 +7,13 @@ class Location : public Inventory {
 public:
   Location();
   Location(const QString &name, const QString &description,
-           const QString &image, const QString &musicPath,
-           const QString &ambiencePath, const std::vector<Item> &inventory);
+           const QString &compass, const QString &image,
+           const QString &musicPath, const QString &ambiencePath,
+           const std::vector<Item> &inventory);
 
   QString getName() const;
   QString getDescription() const;
+  QString getCompass() const;
   QString getImage() const;
   QString getAmbiencePath() const;
   QString getMusicPath() const;
@@ -22,6 +24,7 @@ public:
 private:
   QString name;
   QString description;
+  QString compass;
   QString image;
   QString musicPath;
   QString ambiencePath;

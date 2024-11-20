@@ -19,22 +19,31 @@
         <file>audio/sfx/lanternRustle.mp3</file>
         <file>audio/sfx/moveSnow.mp3</file>
         <file>audio/sfx/moveStone.mp3</file>
+        <file>audio/sfx/perished.mp3</file>
         <file>audio/sfx/read.mp3</file>
         <file>audio/sfx/skin.mp3</file>
         <file>audio/sfx/sleep.mp3</file>
         <file>audio/sfx/take.mp3</file>
+        <file>audio/sfx/tell.mp3</file>
         <file>audio/sfx/write.mp3</file>
         <file>fonts/Caveat.ttf</file>
-        <file>images/camp.png</file>
-        <file>images/cave.png</file>
-        <file>images/caveEntrance.png</file>
-        <file>images/caveLit.png</file>
-        <file>images/forestPath.png</file>
+        <file>images/characters/amos.png</file>
+        <file>images/compass/e.png</file>
+        <file>images/compass/ew.png</file>
+        <file>images/compass/n.png</file>
+        <file>images/compass/news.png</file>
+        <file>images/compass/s.png</file>
+        <file>images/compass/w.png</file>
         <file>images/icon.png</file>
-        <file>images/intro.png</file>
-        <file>images/lake.png</file>
-        <file>images/perished.png</file>
-        <file>images/valley.png</file>
+        <file>images/locations/camp.png</file>
+        <file>images/locations/cave.png</file>
+        <file>images/locations/caveEntrance.png</file>
+        <file>images/locations/caveLit.png</file>
+        <file>images/locations/forestPath.png</file>
+        <file>images/locations/intro.png</file>
+        <file>images/locations/lake.png</file>
+        <file>images/locations/perished.png</file>
+        <file>images/locations/valley.png</file>
         <file>stylesheets/stylesheet.qss</file>
     </qresource>
 </RCC>

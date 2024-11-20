@@ -2,7 +2,6 @@
 #include "../include/fishing.h"
 #include "../include/hunting.h"
 #include "../include/player.h"
-#include <qdebug.h>
 
 World worldObj;
 
@@ -10,7 +9,8 @@ World worldObj;
 // immediately trapping the player at camp
 World::World()
     : activeCharacter(nullptr), currentLocation(nullptr), day(1),
-      currentTemperature(30), currentWeather("clear"), chiseledIce(0),
+      currentTemperature(30), currentWeather("clear"), greetedNPC(0),
+      socialized(0), chiseledIce(0),
       directions{"NORTH", "WEST", "SOUTH", "EAST", "N", "W", "S", "E"} {}
 
 Character *World::getActiveCharacter() { return activeCharacter; }
@@ -25,6 +25,10 @@ QString World::getCurrentWeather() const { return currentWeather; }
 
 int World::getDay() const { return day; }
 
+int World::getGreetedNPC() const { return greetedNPC; }
+
+int World::getSocialized() const { return socialized; }
+
 void World::setChiseledIce(int newValue) { chiseledIce = newValue; }
 
 void World::setActiveCharacter(Character *newCharacter) {
@@ -34,6 +38,10 @@ void World::setActiveCharacter(Character *newCharacter) {
 void World::setCurrentLocation(Location *location) {
   currentLocation = location;
 }
+
+void World::setGreetedNPC(int newValue) { greetedNPC = newValue; }
+
+void World::setSocialized(int newValue) { socialized = newValue; }
 
 QString World::advanceDay() {
   playerObj.setEnergy(1);
@@ -53,6 +61,7 @@ QString World::advanceDay() {
     return "WARMTH";
   }
   setChiseledIce(0);
+  worldObj.setSocialized(0);
   huntingObj.resetDailyHunts();
   fishingObj.resetDailyFished();
   day++;
@@ -83,10 +92,10 @@ bool World::validDirection(const QString &value) {
 
 Character *World::generateCharacter() {
   if (day == FIRST_IRA_ENCOUNTER) {
-    return ensembleObj.getCharacter(1); // Ira
+    return ensembleObj.getCharacter(0); // Amos
   }
   if (day == FIRST_AMOS_ENCOUNTER) {
-    return ensembleObj.getCharacter(0); // Amos
+    return ensembleObj.getCharacter(1); // Ira
   }
   int index = 0;
   std::vector<int> matchesIndex = {};

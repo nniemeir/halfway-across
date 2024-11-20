@@ -3,7 +3,8 @@
 void Handling::help(MainWindow *mainWindow) {
   mainWindow->setDescription(
       "AGAIN/G - repeat last command\n"
-      "ASK (target) ABOUT (subject) - ask a person in the area about a given topic\n"
+      "ASK (target) ABOUT (subject) - ask a person in the area about a given "
+      "topic\n"
       "COOK (object) - cook something\n"
       "CRAFT (object) - craft something\n"
       "CRY - relieve some stress\n"

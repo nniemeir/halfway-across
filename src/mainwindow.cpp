@@ -7,7 +7,6 @@
 #include "../include/world.h"
 #include "src/ui_mainwindow.h"
 
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
   ui->setupUi(this);
@@ -44,6 +43,13 @@ void MainWindow::showEvent(QShowEvent *event) {
   }
 }
 
+void MainWindow::appendDescription(QString text) {
+  ui->outputArea->append(text);
+  if (scriptObj.getRecordingStatus()) {
+    scriptObj.writeFile(QString("%1\n").arg(text));
+  }
+}
+
 void MainWindow::setDescription(QString text) {
   ui->outputArea->setText(text);
   if (scriptObj.getRecordingStatus()) {
@@ -52,6 +58,16 @@ void MainWindow::setDescription(QString text) {
 }
 
 void MainWindow::closeProgram() { QApplication::quit(); }
+
+void MainWindow::setCompassImage(QString image) {
+  QPixmap pix(image);
+  ui->compass->setPixmap(pix);
+}
+
+void MainWindow::setSettingImage(QString image) {
+  QPixmap pix(image);
+  ui->settingImage->setPixmap(pix);
+}
 
 void MainWindow::setLocation(QString currentMusic, QString currentAmbience,
                              Location *object) {
@@ -63,8 +79,8 @@ void MainWindow::setLocation(QString currentMusic, QString currentAmbience,
           .setActive(0);
     }
     setDescription(object->getDescription());
-    QPixmap pix(object->getImage());
-    ui->settingImage->setPixmap(pix);
+    setCompassImage(object->getCompass());
+    setSettingImage(object->getImage());
     QString musicPath = object->getMusicPath();
     QString ambiencePath = object->getAmbiencePath();
     if (currentMusic != musicPath) {
@@ -74,6 +90,15 @@ void MainWindow::setLocation(QString currentMusic, QString currentAmbience,
       ambiencePlayer.play(ambiencePath, ambiencePlayer.getdefAmbienceVol(), 1);
     }
     worldObj.setCurrentLocation(object);
+    if (worldObj.getActiveCharacter() != nullptr &&
+        worldObj.getCurrentLocation()->getName() ==
+            worldObj.getActiveCharacter()->getLocation()) {
+      appendDescription(worldObj.getActiveCharacter()->getBrief());
+      if (worldObj.getDay() == 8) {
+        appendDescription(
+            "\nHint: I can start a conversation by using the command GREET.");
+      }
+    }
   }
 }
 

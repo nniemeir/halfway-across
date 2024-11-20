@@ -25,16 +25,19 @@ private:
   void handleVerbActions(MainWindow *mainWindow, QString verb, QString target,
                          QString subject, Location *location,
                          QMap<QString, std::function<void()>> validActions,
-                         QMap<QString, std::function<void()>> invalidActions);
+                         QMap<QString, std::function<void()>> invalidActions1,
+                         QMap<QString, std::function<void()>> invalidActions2);
   // Filler word removal
   static void initFillerWords(const QStringList &words);
   QString removeFillerWords(const QString &text);
   // Messages
   void characterNotActiveMsg(MainWindow *mainWindow, QString target);
   void gameOverMsg(MainWindow *mainWindow, QString reason);
+  void invalidTopicMsg(MainWindow *mainWindow);
   void missingItemMsg(MainWindow *mainWindow, QString target);
   void notAllowedDirMsg(MainWindow *mainWindow, QString verb, QString target);
   void notAllowedInLocMsg(MainWindow *mainWindow, QString action);
+  void notGreetedMsg(MainWindow *mainWindow);
   void tiredMsg(MainWindow *mainWindow);
   void waitMsg(MainWindow *mainWindow);
   // Verb-specific handling functions
@@ -53,6 +56,8 @@ private:
   void eat(MainWindow *mainWindow, QString target);
   void examine(MainWindow *mainWindow, QString target);
   void fill(MainWindow *mainWindow, QString target, Location *location);
+  void goodbye(MainWindow *mainWindow, Location *location);
+  void greet(MainWindow *mainWindow);
   void help(MainWindow *mainWindow);
   void hunt(MainWindow *mainWindow, QString target, Location *location);
   void look(MainWindow *mainWindow, QString target, Location *location);

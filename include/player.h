@@ -5,7 +5,6 @@
 #include "recipe.h"
 #include <QMap>
 
-
 class Player : public Inventory {
 public:
   Player();

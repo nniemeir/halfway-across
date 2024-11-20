@@ -34,6 +34,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         include/item.h
         include/locations.h
         include/player.h
+        include/scenarios.h
         include/script.h
         include/recipe.h
         include/world.h
@@ -49,7 +50,10 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/locations.cpp
         src/player.cpp
         src/recipe.cpp
+        src/scenarios.cpp
         src/world.cpp
+        src/scenarios/iraE1.cpp
+        src/scenarios/amosE1.cpp
         src/verbs/ask.cpp
         src/verbs/begin.cpp
         src/verbs/cook.cpp
@@ -60,6 +64,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/verbs/eat.cpp
         src/verbs/examine.cpp
         src/verbs/fill.cpp
+        src/verbs/goodbye.cpp
+        src/verbs/greet.cpp
         src/verbs/help.cpp
         src/verbs/hunt.cpp
         src/verbs/load.cpp

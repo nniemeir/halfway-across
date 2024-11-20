@@ -4,14 +4,11 @@
 #include "../../include/world.h"
 void Handling::use(MainWindow *mainWindow, QString target, Location *location) {
 
-  QMap<QString, std::function<void()>> useLocations;
-  useLocations["The dark cave"] = [mainWindow, target, this]() {
-    useCave(mainWindow, target);
-  };
-  useLocations["The lake"] = [mainWindow, target, this]() {
-    useLake(mainWindow, target);
-  };
-
+  QMap<QString, std::function<void()>> useLocations{
+      {"The dark cave",
+       [mainWindow, target, this]() { useCave(mainWindow, target); }},
+      {"The lake",
+       [mainWindow, target, this]() { useLake(mainWindow, target); }}};
   if (useLocations.contains(location->getName())) {
     useLocations[location->getName()]();
   } else {

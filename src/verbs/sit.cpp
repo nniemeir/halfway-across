@@ -3,10 +3,8 @@
 
 void Handling::sit(MainWindow *mainWindow, QString target, Location *location) {
 
-  QMap<QString, std::function<void()>> sitLocations;
-  sitLocations["Camp"] = [mainWindow, target, this]() {
-    sitCamp(mainWindow, target);
-  };
+  QMap<QString, std::function<void()>> sitLocations{
+      {"Camp", [mainWindow, target, this]() { sitCamp(mainWindow, target); }}};
 
   if (sitLocations.contains(location->getName())) {
     sitLocations[location->getName()]();

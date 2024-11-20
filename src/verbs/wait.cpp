@@ -4,10 +4,8 @@
 #include "../../include/player.h"
 
 void Handling::wait(MainWindow *mainWindow, Location *location) {
-
-  QMap<QString, std::function<void()>> waitLocations;
-  waitLocations["The lake"] = [mainWindow, this]() { waitLake(mainWindow); };
-
+  QMap<QString, std::function<void()>> waitLocations{
+      {"The lake", [mainWindow, this]() { waitLake(mainWindow); }}};
   if (waitLocations.contains(location->getName())) {
     waitLocations[location->getName()]();
   } else {

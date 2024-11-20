@@ -27,6 +27,9 @@ public:
   ~MainWindow();
   void setLocation(QString currentMusic, QString currentAmbience,
                    Location *object);
+  void setCompassImage(QString image);
+  void setSettingImage(QString image);
+  void appendDescription(QString text);
   void setDescription(QString text);
   void closeProgram();
 

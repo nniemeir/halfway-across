@@ -6,26 +6,21 @@
 void Handling::look(MainWindow *mainWindow, QString target,
                     Location *location) {
   if (!ensembleObj.isCharacterName(target)) {
-    QMap<QString, std::function<void()>> lookLocations;
-    lookLocations["Camp"] = [mainWindow, target, this]() {
-      lookCamp(mainWindow, target);
-    };
-    lookLocations["The forest path"] = [mainWindow, target, this]() {
-      lookForestPath(mainWindow, target);
-    };
-    lookLocations["The dark cave"] = [mainWindow, target, this]() {
-      lookCave(mainWindow, target);
-    };
-    lookLocations["The cave's entrance"] = [mainWindow, target, this]() {
-      lookCaveEntrance(mainWindow, target);
-    };
-    lookLocations["The lake"] = [mainWindow, target, this]() {
-      lookLake(mainWindow, target);
-    };
-    lookLocations["The valley"] = [mainWindow, target, this]() {
-      lookValley(mainWindow, target);
-    };
-
+    QMap<QString, std::function<void()>> lookLocations{
+        {"Camp",
+         [mainWindow, target, this]() { lookCamp(mainWindow, target); }},
+        {"The forest path",
+         [mainWindow, target, this]() { lookForestPath(mainWindow, target); }},
+        {"The dark cave",
+         [mainWindow, target, this]() { lookCave(mainWindow, target); }},
+        {"The cave's entrance",
+         [mainWindow, target, this]() {
+           lookCaveEntrance(mainWindow, target);
+         }},
+        {"The lake",
+         [mainWindow, target, this]() { lookLake(mainWindow, target); }},
+        {"The valley",
+         [mainWindow, target, this]() { lookValley(mainWindow, target); }}};
     if (lookLocations.contains(location->getName())) {
       lookLocations[location->getName()]();
     } else {

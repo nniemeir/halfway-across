@@ -54,6 +54,8 @@ MoveSnow: Snow walk. Slow, fast, very fast. wav by [rempen](https://freesound.or
 
 MoveStone: Walking on stone by [vicleb](https://freesound.org/s/712859/) -- License: Creative Commons 0
 
+Perished: bec low bell solo by [HMTSCCSound](https://freesound.org/s/554655/) -- License: Creative Commons 0
+
 Read: Page flipping.wav by [carlerichudon10](https://freesound.org/s/466375/) -- License: Creative Commons 0
 
 Skin: Sword stab 4 by [ihitokage](https://freesound.org/s/395365/) -- License: Creative Commons 0
@@ -61,6 +63,8 @@ Skin: Sword stab 4 by [ihitokage](https://freesound.org/s/395365/) -- License: C
 Sleep: Sheets Shuffling by [Flem0527](https://freesound.org/s/629974/) -- License: Creative Commons 0
 
 Take: Grab1.wav by [sound_and_fury](https://freesound.org/s/652661/) -- License: Creative Commons 0
+
+Tell: Created in-house by Jacob Niemeir -- License: Creative Commons 0
 
 Write: writing-short-8 by [newagesoup](https://freesound.org/s/335518/) -- License: Creative Commons 0
 

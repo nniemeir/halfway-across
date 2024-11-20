@@ -8,11 +8,9 @@ void Handling::drink(MainWindow *mainWindow, QString target,
   if (target == "CANTEEN") {
     drinkCanteen(mainWindow, target);
   } else {
-    QMap<QString, std::function<void()>> drinkLocations;
-    drinkLocations["The lake"] = [mainWindow, target, this]() {
-      drinkLake(mainWindow, target);
-    };
-
+    QMap<QString, std::function<void()>> drinkLocations{
+        {"The lake",
+         [mainWindow, target, this]() { drinkLake(mainWindow, target); }}};
     if (drinkLocations.contains(location->getName())) {
       drinkLocations[location->getName()]();
     } else {
