@@ -1,7 +1,5 @@
 #include "../include/recipe.h"
 
-RecipeBook recipeBookObj;
-
 QString Recipe::getRecipeName() const { return name; }
 QStringList Recipe::getIngredients() const { return ingredients; }
 QString Recipe::getDescription() const { return description; }
@@ -22,3 +20,5 @@ RecipeBook::searchRecipeBook(const std::vector<Recipe> &recipeBook,
     return std::nullopt;
   }
 }
+
+RecipeBook recipeBookObj;

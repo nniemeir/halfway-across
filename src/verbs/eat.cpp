@@ -3,27 +3,27 @@
 #include "../../include/player.h"
 
 void Handling::eat(MainWindow *mainWindow, QString target) {
-  int targetIndex = inventoryObj.searchInventory(playerObj.getInventory(),
-                                                 "COOKED " + target);
-  if (targetIndex == -1) {
-    targetIndex =
-        inventoryObj.searchInventory(playerObj.getInventory(), target);
+  int itemIndex = inventoryObj.searchInventory(playerObj.getInventory(),
+                                               "COOKED " + target);
+  if (itemIndex == ITEM_NOT_FOUND) {
+    itemIndex = inventoryObj.searchInventory(playerObj.getInventory(), target);
   }
-  if (targetIndex != -1) {
-    if (inventoryObj.getInventoryItem(playerObj.getInventory(), targetIndex)
+  if (itemIndex != ITEM_NOT_FOUND) {
+    if (inventoryObj.getInventoryItem(playerObj.getInventory(), itemIndex)
             .getType() == "FOOD") {
       if (playerObj.getHunger() < 100) {
-        sfxPlayer.play("qrc:/audio/sfx/eat.mp3", sfxPlayer.getdefSfxVol(), 0);
+        sfxPlayer.play("qrc:/audio/sfx/eat.mp3", sfxPlayer.getdefSfxVol(),
+                       false);
         QString itemName =
-            inventoryObj.getInventoryItem(playerObj.getInventory(), targetIndex)
+            inventoryObj.getInventoryItem(playerObj.getInventory(), itemIndex)
                 .getName();
         mainWindow->setDescription(
             QString("I ate some %1.").arg(itemName.toLower()));
         playerObj.setHunger(
             playerObj.getHunger() +
-            inventoryObj.getInventoryItem(playerObj.getInventory(), targetIndex)
+            inventoryObj.getInventoryItem(playerObj.getInventory(), itemIndex)
                 .getEffect());
-        inventoryObj.removeItem(playerObj.getInventory(), targetIndex);
+        inventoryObj.removeItem(playerObj.getInventory(), itemIndex);
       } else {
         mainWindow->setDescription("I wasn't hungry at the time.");
       }

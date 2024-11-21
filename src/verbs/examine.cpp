@@ -2,11 +2,11 @@
 #include "../../include/player.h"
 
 void Handling::examine(MainWindow *mainWindow, QString target) {
-  int targetIndex =
+  int itemIndex =
       inventoryObj.searchInventory(playerObj.getInventory(), target);
-  if (targetIndex != -1) {
+  if (itemIndex != ITEM_NOT_FOUND) {
     QString description =
-        inventoryObj.getInventoryItem(playerObj.getInventory(), targetIndex)
+        inventoryObj.getInventoryItem(playerObj.getInventory(), itemIndex)
             .getDescription();
     mainWindow->setDescription(description);
   } else {

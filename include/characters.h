@@ -27,7 +27,7 @@ public:
   std::vector<Item> &getInventory();
   void setDescription(QString newDescription);
   void setDaysSinceEncountered(int newDaysSince);
-  void setTimesEncountered(int newTimesEncountered);
+  void incrementTimesEncountered();
   void setEncounterState(int newState);
   void setFrequency(int newFrequency);
   void setHatesPlayer(bool newHatesPlayer);

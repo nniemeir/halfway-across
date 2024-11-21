@@ -4,22 +4,9 @@
 #include <QDebug>
 
 Handling::Handling() {
-
-  argVerbs = {"ASK",  "COOK", "CRAFT",  "DRINK", "DROP", "EAT",  "EXAMINE",
-              "FILL", "GO",   "HUNT",   "L",     "LOAD", "LOOK", "MOVE",
-              "PUT",  "READ", "REMOVE", "SHOOT", "SIT",  "SKIN", "STAND",
-              "TAKE", "TELL", "USE",    "WEAR"};
-
-  noArgVerbs = {"BEGIN",   "CRY",   "DIAGNOSE", "E",        "EXIT",
-                "GOODBYE", "GREET", "HELP",     "N",        "Q",
-                "QUIT",    "R",     "REFLECT",  "S",        "SCREAM",
-                "SCRIPT",  "SHOUT", "SLEEP",    "UNSCRIPT", "VERSION",
-                "W",       "WAIT",  "X",        "YELL",     "Z"};
-
   fillerWords = {"A", "AN", "AT", "COOKED", "FROM", "IN", "THE", "TO"};
+  initFillerWords(fillerWords);
 }
-
-Handling handlingObj;
 
 QString Handling::getArticle(QString target) {
   QStringList vowels = {"A", "E", "I", "O", "U"};
@@ -197,19 +184,38 @@ void Handling::splitInput(MainWindow *mainWindow, QString input) {
 // Inputted verb must match an element of argVerbs or noArgVerbs to be
 // considered valid
 int Handling::validateVerb(QString input) {
-  initFillerWords(fillerWords);
-  bool validArgVerb = false;
-  bool validNoArgVerb = false;
   QString inputVerb = input.split(" ").at(0);
-  if (std::find(argVerbs.begin(), argVerbs.end(), inputVerb) !=
-      argVerbs.end()) {
-    return 0;
+  QMap<QString, int> validVerbs{
+      {"ASK", VERB_ARG},        {"COOK", VERB_ARG},
+      {"CRAFT", VERB_ARG},      {"DRINK", VERB_ARG},
+      {"DROP", VERB_ARG},       {"EAT", VERB_ARG},
+      {"EXAMINE", VERB_ARG},    {"FILL", VERB_ARG},
+      {"GO", VERB_ARG},         {"HUNT", VERB_ARG},
+      {"L", VERB_ARG},          {"LOAD", VERB_ARG},
+      {"LOOK", VERB_ARG},       {"MOVE", VERB_ARG},
+      {"PUT", VERB_ARG},        {"READ", VERB_ARG},
+      {"REMOVE", VERB_ARG},     {"SHOOT", VERB_ARG},
+      {"SIT", VERB_ARG},        {"SKIN", VERB_ARG},
+      {"STAND", VERB_ARG},      {"TAKE", VERB_ARG},
+      {"TELL", VERB_ARG},       {"USE", VERB_ARG},
+      {"WEAR", VERB_ARG},       {"BEGIN", VERB_NO_ARG},
+      {"CRY", VERB_NO_ARG},     {"DIAGNOSE", VERB_NO_ARG},
+      {"E", VERB_NO_ARG},       {"EXIT", VERB_NO_ARG},
+      {"GOODBYE", VERB_NO_ARG}, {"GREET", VERB_NO_ARG},
+      {"HELP", VERB_NO_ARG},    {"N", VERB_NO_ARG},
+      {"Q", VERB_NO_ARG},       {"QUIT", VERB_NO_ARG},
+      {"R", VERB_NO_ARG},       {"REFLECT", VERB_NO_ARG},
+      {"S", VERB_NO_ARG},       {"SCREAM", VERB_NO_ARG},
+      {"SCRIPT", VERB_NO_ARG},  {"SHOUT", VERB_NO_ARG},
+      {"SLEEP", VERB_NO_ARG},   {"UNSCRIPT", VERB_NO_ARG},
+      {"VERSION", VERB_NO_ARG}, {"W", VERB_NO_ARG},
+      {"WAIT", VERB_NO_ARG},    {"X", VERB_NO_ARG},
+      {"YELL", VERB_NO_ARG},    {"Z", VERB_NO_ARG}};
+  if (validVerbs.contains(inputVerb)) {
+    return validVerbs.value(inputVerb);
+  } else {
+    return VERB_INVALID;
   }
-  if (std::find(noArgVerbs.begin(), noArgVerbs.end(), inputVerb) !=
-      noArgVerbs.end()) {
-    return 1;
-  }
-  return -1;
 }
 
 void Handling::initFillerWords(const QStringList &words) {
@@ -239,7 +245,8 @@ void Handling::gameOverMsg(MainWindow *mainWindow, QString reason) {
   mainWindow->setLocation(worldObj.getCurrentLocation()->getMusicPath(),
                           worldObj.getCurrentLocation()->getAmbiencePath(),
                           &perished);
-  sfxPlayer.play("qrc:/audio/sfx/perished.mp3", sfxPlayer.getdefSfxVol(), 0);
+  sfxPlayer.play("qrc:/audio/sfx/perished.mp3", sfxPlayer.getdefSfxVol(),
+                 false);
 }
 
 void Handling::characterNotActiveMsg(MainWindow *mainWindow, QString target) {
@@ -289,3 +296,5 @@ void Handling::waitMsg(MainWindow *mainWindow) {
 QRegularExpression Handling::fillerWordsRegex;
 
 const QRegularExpression Handling::multiSpaces(R"(\s+)");
+
+Handling handlingObj;

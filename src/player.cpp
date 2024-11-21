@@ -1,33 +1,29 @@
 #include "../include/player.h"
 #include "../include/world.h"
-#define LOW_STAT_THRESHOLD 30
-#define MEDIUM_STAT_THRESHOLD 50
-#define HIGH_STAT_THRESHOLD 70
-
-Player playerObj;
 
 Player::Player()
-    : health(100), mental(50), energy(1), hunger(100), thirst(100), warmth(50),
-      charm(50), standing(1), cryCooldown(0), inventory(5), recipeBook(2) {
+    : health(100), mental(50), energized(true), hunger(100), thirst(100),
+      warmth(50), charm(50), standing(true), cryCooldown(0), inventory(5),
+      recipeBook(2) {
   // Format is QString name, int amount, int active, int effects, int weight,
   // QString type, QString description
-  inventory.push_back({"FELT HAT", 1, 1, 5, 0, "CLOTHING", "NONE",
+  inventory.push_back({"FELT HAT", 1, true, 5, 0, "CLOTHING", "NONE",
                        "It was a small hat, providing almost no warmth."});
-  inventory.push_back({"LEATHER GLOVES", 1, 1, 5, 0, "CLOTHING", "NONE",
+  inventory.push_back({"LEATHER GLOVES", 1, true, 5, 0, "CLOTHING", "NONE",
                        "They were thin gloves, providing almost no warmth."});
-  inventory.push_back({"HEAVY COTTON SHIRT", 1, 1, 10, 0, "CLOTHING", "NONE",
+  inventory.push_back({"HEAVY COTTON SHIRT", 1, true, 10, 0, "CLOTHING", "NONE",
                        "It was a heavy shirt, providing slight warmth."});
-  inventory.push_back({"HEAVY COTTON TROUSERS", 1, 1, 20, 0, "CLOTHING", "NONE",
-                       "They were thick pants, providing warmth."});
-  inventory.push_back({"PAIR OF MOCCASINS", 1, 1, 10, 0, "CLOTHING", "NONE",
+  inventory.push_back({"HEAVY COTTON TROUSERS", 1, true, 20, 0, "CLOTHING",
+                       "NONE", "They were thick pants, providing warmth."});
+  inventory.push_back({"PAIR OF MOCCASINS", 1, true, 10, 0, "CLOTHING", "NONE",
                        "They were worn shoes, providing slight warmth."});
   Recipe arrow("ARROW", {"ROCK", "PIECE OF WOOD", "FEATHER"},
                "Could be loaded into a bow to hunt at a distance.",
-               {"ARROW", 1, 0, 0, 0, "TOOLS", "NONE",
+               {"ARROW", 1, false, 0, 0, "TOOLS", "NONE",
                 "I could load it into my bow to hunt at a distance."});
   Recipe candle("TALLOW CANDLE", {"RENDERED FAT", "PIECE OF WOOD"},
                 "Used to fuel candle lanterns.",
-                {"TALLOW CANDLE", 1, 1, 10, 0, "ANIMAL FAT", "NONE",
+                {"TALLOW CANDLE", 1, false, 10, 0, "ANIMAL FAT", "NONE",
                  "I could use it to fuel my lantern."});
   recipeBook.push_back(arrow);
   recipeBook.push_back(candle);
@@ -35,65 +31,66 @@ Player::Player()
 
 int Player::getHealth() const { return health; }
 int Player::getMental() const { return mental; }
-int Player::getEnergy() const { return energy; }
+bool Player::getEnergized() const { return energized; }
 int Player::getHunger() const { return hunger; }
 int Player::getThirst() const { return thirst; }
 int Player::getWarmth() const { return warmth; }
 int Player::getCharm() const { return charm; }
-int Player::getStanding() const { return standing; }
+bool Player::getStanding() const { return standing; }
 int Player::getCryCooldown() const { return cryCooldown; }
 std::vector<Item> &Player::getInventory() { return inventory; }
 std::vector<Recipe> &Player::getRecipeBook() { return recipeBook; }
 
-int Player::setHealth(int h) {
+// A stat change returning false indicates a game over condition
+bool Player::setHealth(int h) {
   health = constrainStat(h);
-  if (health == 0) {
-    return 1;
+  if (health != 0) {
+    return true;
   } else {
-    return 0;
+    return false;
   }
 }
 
-int Player::setMental(int m) {
+bool Player::setMental(int m) {
   mental = constrainStat(m);
-  if (mental == 0) {
-    return 1;
+  if (mental != 0) {
+    return true;
   } else {
-    return 0;
+    return false;
   }
 }
 
-void Player::setEnergy(int e) { energy = constrainStat(e); }
+void Player::setEnergized(bool e) { energized = constrainStat(e); }
 
-int Player::setHunger(int h) {
+bool Player::setHunger(int h) {
   hunger = constrainStat(h);
-  if (hunger == 0) {
-    return 1;
+  if (hunger != 0) {
+    return true;
   } else {
-    return 0;
+    return false;
   }
 }
 
-int Player::setThirst(int t) {
+bool Player::setThirst(int t) {
   thirst = constrainStat(t);
-  if (thirst == 0) {
-    return 1;
+  if (thirst != 0) {
+    return true;
   } else {
-    return 0;
+    return false;
   }
 }
 
-int Player::setWarmth(int w) {
+bool Player::setWarmth(int w) {
   warmth = constrainStat(w);
-  if (warmth == 0) {
-    return 1;
+  if (warmth != 0) {
+    return true;
   } else {
-    return 0;
+    return false;
   }
 }
 
 void Player::setCharm(int c) { charm = constrainStat(c); }
-void Player::setStanding(int s) { standing = constrainStat(s); }
+void Player::setStanding(bool s) { standing = constrainStat(s); }
 void Player::setCryCooldown(int s) { cryCooldown = s; }
 
 int Player::constrainStat(int stat) { return std::max(0, std::min(stat, 100)); }
@@ -121,7 +118,7 @@ QString Player::displayBagInventory() const {
 QString Player::displayClothesInventory() const {
   QStringList inventoryItemsText;
   for (const auto &item : inventory) {
-    if (item.getType() == "CLOTHING" && item.getActive() == 1) {
+    if (item.getType() == "CLOTHING" && item.getActive()) {
       inventoryItemsText.append(item.getName());
     }
   }
@@ -156,11 +153,11 @@ QString Player::generateWarnings() const {
   QString warnings;
   warnings.append(
       QString("It was %1 today. ").arg(worldObj.getCurrentWeather()));
-  if (mental < LOW_STAT_THRESHOLD) {
+  if (mental < STAT_LOW_THRESHOLD) {
     warnings.append("I was losing the will to continue. ");
-  } else if (LOW_STAT_THRESHOLD <= mental && mental < MEDIUM_STAT_THRESHOLD) {
+  } else if (STAT_LOW_THRESHOLD <= mental && mental < STAT_MEDIUM_THRESHOLD) {
     warnings.append("My depression was worsening. ");
-  } else if (MEDIUM_STAT_THRESHOLD <= mental && mental < HIGH_STAT_THRESHOLD) {
+  } else if (STAT_MEDIUM_THRESHOLD <= mental && mental < STAT_HIGH_THRESHOLD) {
     warnings.append("I felt a bit melancholy. ");
   }
 
@@ -169,27 +166,27 @@ QString Player::generateWarnings() const {
     warnings.append(warmthWarning);
   }
 
-  if (health < LOW_STAT_THRESHOLD) {
+  if (health < STAT_LOW_THRESHOLD) {
     warnings.append("My health was deteriorating quickly. ");
-  } else if (LOW_STAT_THRESHOLD <= health && health < MEDIUM_STAT_THRESHOLD) {
+  } else if (STAT_LOW_THRESHOLD <= health && health < STAT_MEDIUM_THRESHOLD) {
     warnings.append("I felt very ill. ");
-  } else if (MEDIUM_STAT_THRESHOLD <= health && health < HIGH_STAT_THRESHOLD) {
+  } else if (STAT_MEDIUM_THRESHOLD <= health && health < STAT_HIGH_THRESHOLD) {
     warnings.append("I felt a little under the weather. ");
   }
 
-  if (hunger < LOW_STAT_THRESHOLD) {
+  if (hunger < STAT_LOW_THRESHOLD) {
     warnings.append("I was starving. ");
-  } else if (LOW_STAT_THRESHOLD <= hunger && hunger < MEDIUM_STAT_THRESHOLD) {
+  } else if (STAT_LOW_THRESHOLD <= hunger && hunger < STAT_MEDIUM_THRESHOLD) {
     warnings.append("I needed to eat something soon. ");
-  } else if (MEDIUM_STAT_THRESHOLD <= hunger && hunger < HIGH_STAT_THRESHOLD) {
+  } else if (STAT_MEDIUM_THRESHOLD <= hunger && hunger < STAT_HIGH_THRESHOLD) {
     warnings.append("I was starting to get hungry. ");
   }
 
-  if (thirst < LOW_STAT_THRESHOLD) {
+  if (thirst < STAT_LOW_THRESHOLD) {
     warnings.append("My throat was very dry. ");
-  } else if (LOW_STAT_THRESHOLD <= thirst && thirst < MEDIUM_STAT_THRESHOLD) {
+  } else if (STAT_LOW_THRESHOLD <= thirst && thirst < STAT_MEDIUM_THRESHOLD) {
     warnings.append("I needed to drink something soon. ");
-  } else if (MEDIUM_STAT_THRESHOLD <= thirst && thirst < HIGH_STAT_THRESHOLD) {
+  } else if (STAT_MEDIUM_THRESHOLD <= thirst && thirst < STAT_HIGH_THRESHOLD) {
     warnings.append("I was starting to get thirsty. ");
   }
   return warnings;
@@ -262,3 +259,5 @@ QString Player::displayJournal() const {
   }
   return entry;
 }
+
+Player playerObj;

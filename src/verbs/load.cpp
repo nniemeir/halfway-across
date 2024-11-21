@@ -2,21 +2,21 @@
 #include "../../include/player.h"
 
 void Handling::load(MainWindow *mainWindow, QString target) {
-  int targetIndex =
+  int itemIndex =
       inventoryObj.searchInventory(playerObj.getInventory(), target);
-  if (targetIndex != -1) {
+  if (itemIndex != ITEM_NOT_FOUND) {
     QString payloadName =
-        inventoryObj.getInventoryItem(playerObj.getInventory(), targetIndex)
+        inventoryObj.getInventoryItem(playerObj.getInventory(), itemIndex)
             .getPayload();
     int payloadIndex =
         inventoryObj.searchInventory(playerObj.getInventory(), payloadName);
-    if (payloadIndex != -1) {
+    if (payloadIndex != ITEM_NOT_FOUND) {
       mainWindow->setDescription(QString("I loaded %1 %2 into my %3.")
                                      .arg(getArticle(payloadName),
                                           payloadName.toLower(),
                                           target.toLower()));
       inventoryObj.removeItem(playerObj.getInventory(), payloadIndex);
-      inventoryObj.getInventoryItem(playerObj.getInventory(), targetIndex)
+      inventoryObj.getInventoryItem(playerObj.getInventory(), itemIndex)
           .setEffect(100);
     } else {
       mainWindow->setDescription(

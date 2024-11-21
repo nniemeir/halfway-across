@@ -15,7 +15,8 @@ void Handling::ask(MainWindow *mainWindow, QString target, QString subject,
     if (validCharacters.contains(target)) {
       if (QString::compare(target, worldObj.getActiveCharacter()->getName(),
                            Qt::CaseInsensitive) == 0) {
-        sfxPlayer.play("qrc:/audio/sfx/ask.mp3", sfxPlayer.getdefSfxVol(), 0);
+        sfxPlayer.play("qrc:/audio/sfx/ask.mp3", sfxPlayer.getdefSfxVol(),
+                       false);
         validCharacters[target]();
         return;
       }

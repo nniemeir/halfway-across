@@ -4,48 +4,47 @@
 
 Hunting::Hunting() {
 
-  bearParts = {{"BEAR FAT", 1, 1, 0, 20, "FAT", "NONE",
+  bearParts = {{"BEAR FAT", 1, false, 0, 20, "FAT", "NONE",
                 "I could cook it to get rendered fat."},
-               {"BEAR MEAT", 1, 1, 50, 20, "RAW MEAT", "NONE",
+               {"BEAR MEAT", 1, false, 50, 20, "RAW MEAT", "NONE",
                 "If cooked, it could provide a filling meal."},
-               {"BEAR PELT", 1, 1, 0, 20, "PELT", "NONE",
+               {"BEAR PELT", 1, false, 0, 20, "PELT", "NONE",
                 "I could use it for crafting."}};
 
-  deerParts = {{"DEER FAT", 1, 1, 0, 20, "FAT", "NONE",
+  deerParts = {{"DEER FAT", 1, false, 0, 20, "FAT", "NONE",
                 "I could cook it to get rendered fat."},
-               {"DEER MEAT", 1, 1, 30, 20, "RAW MEAT", "NONE",
+               {"DEER MEAT", 1, false, 30, 20, "RAW MEAT", "NONE",
                 "If cooked, it could ease my hunger."},
-               {"DEER PELT", 1, 1, 0, 20, "PELT", "NONE",
+               {"DEER PELT", 1, false, 0, 20, "PELT", "NONE",
                 "I could use it for crafting."}};
 
-  foxParts = {{"FOX FAT", 1, 1, 0, 20, "FAT", "NONE",
+  foxParts = {{"FOX FAT", 1, false, 0, 20, "FAT", "NONE",
                "I could cook it to get rendered fat."},
-              {"FOX MEAT", 1, 1, 20, 20, "RAW MEAT", "NONE",
+              {"FOX MEAT", 1, false, 20, 20, "RAW MEAT", "NONE",
                "If cooked, it could provide some nourishment."},
-              {"FOX PELT", 1, 1, 0, 20, "PELT", "NONE",
+              {"FOX PELT", 1, false, 0, 20, "PELT", "NONE",
                "I could use it for crafting."}};
 
-  rabbitParts = {{"RABBIT FAT", 1, 1, 0, 20, "FAT", "NONE",
+  rabbitParts = {{"RABBIT FAT", 1, false, 0, 20, "FAT", "NONE",
                   "I could cook it to get rendered fat."},
-                 {"RABBIT MEAT", 1, 1, 15, 20, "RAW MEAT", "NONE",
+                 {"RABBIT MEAT", 1, false, 15, 20, "RAW MEAT", "NONE",
                   "If cooked, it could slightly ease my hunger."},
-                 {"RABBIT PELT", 1, 1, 0, 20, "PELT", "NONE",
+                 {"RABBIT PELT", 1, false, 0, 20, "PELT", "NONE",
                   "I could use it for crafting."}};
 
   slainAnimals = {
-      {"BEAR", 1, 0, 0, 100, "ANIMALS", "NONE",
+      {"BEAR", 1, false, 0, 100, "ANIMALS", "NONE",
        "The slain bear almost looks bigger on the ground."},
-      {"DEER", 1, 0, 0, 50, "ANIMALS", "NONE", "It was a lean doe."},
-      {"FOX", 1, 0, 0, 30, "ANIMALS", "NONE", "It wouldn't provide much meat."},
-      {"RABBIT", 1, 0, 0, 30, "ANIMALS", "NONE",
+      {"DEER", 1, false, 0, 50, "ANIMALS", "NONE", "It was a lean doe."},
+      {"FOX", 1, false, 0, 30, "ANIMALS", "NONE",
+       "It wouldn't provide much meat."},
+      {"RABBIT", 1, false, 0, 30, "ANIMALS", "NONE",
        "It would provide very little meat."}};
 
   validAnimals = {"BEAR", "DEER", "FOX", "RABBIT"};
 
   dailyHunts = 0;
 }
-
-Hunting huntingObj;
 
 QString Hunting::getActiveAnimal() const { return activeAnimal; }
 
@@ -61,12 +60,12 @@ int Hunting::activity(QString target, int arrowIndex) {
       validAnimals.end()) {
     if (foundAnimal(target)) {
       activeAnimal = target;
-      return 0;
+      return ANIMAL_FOUND;
     } else {
-      return 1;
+      return ANIMAL_NOT_FOUND;
     }
   } else {
-    return 2;
+    return ANIMAL_INVALID;
   }
 }
 
@@ -132,3 +131,5 @@ bool Hunting::foundAnimal(QString target) {
     return false;
   }
 }
+
+Hunting huntingObj;

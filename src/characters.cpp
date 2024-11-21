@@ -26,9 +26,7 @@ void Character::setDaysSinceEncountered(int newDaysSince) {
   daysSinceEncountered = newDaysSince;
 }
 
-void Character::setTimesEncountered(int newTimesEncountered) {
-  timesEncountered = newTimesEncountered;
-}
+void Character::incrementTimesEncountered() { timesEncountered++; }
 
 void Character::setEncounterState(int newState) { encounterState = newState; }
 
@@ -41,7 +39,7 @@ void Character::setHatesPlayer(bool newHatesPlayer) {
 void Character::setReputation(int newReputation) { reputation = newReputation; }
 
 std::vector<Item> amosInv = {
-    {"FELT HAT", 1, 1, 5, 0, "CLOTHING", "NONE",
+    {"FELT HAT", 1, false, 5, 0, "CLOTHING", "NONE",
      "It was a small hat, providing almost no warmth."}};
 
 Character amos("Amos",
@@ -52,7 +50,7 @@ Character amos("Amos",
                0, 0, 0, amosInv);
 
 std::vector<Item> iraInv = {
-    {"FELT HAT", 1, 1, 5, 0, "CLOTHING", "NONE",
+    {"FELT HAT", 1, false, 5, 0, "CLOTHING", "NONE",
      "It was a small hat, providing almost no warmth."}};
 
 Character
@@ -61,8 +59,6 @@ Character
         "There was a bewildered looking traveler at the fork in the road.",
         ":/images/characters/ira.png", "The forest path", 7, false, 50, 0, 0, 0,
         iraInv);
-
-Ensemble ensembleObj;
 
 Ensemble::Ensemble() { characters = {amos, ira}; }
 
@@ -81,3 +77,5 @@ bool Ensemble::isCharacterName(QString target) {
   }
   return false;
 }
+
+Ensemble ensembleObj;

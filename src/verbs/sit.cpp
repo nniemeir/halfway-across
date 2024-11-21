@@ -2,7 +2,6 @@
 #include "../../include/player.h"
 
 void Handling::sit(MainWindow *mainWindow, QString target, Location *location) {
-
   QMap<QString, std::function<void()>> sitLocations{
       {"Camp", [mainWindow, target, this]() { sitCamp(mainWindow, target); }}};
 
@@ -16,10 +15,10 @@ void Handling::sit(MainWindow *mainWindow, QString target, Location *location) {
 void Handling::sitCamp(MainWindow *mainWindow, QString target) {
   if (target == "LOG") {
     mainWindow->setDescription("I felt a bit cozier sitting by the fire.");
-    playerObj.setStanding(0);
+    playerObj.setStanding(false);
   } else if (target == "FIRE") {
     mainWindow->setDescription("I burned myself.");
-    if (playerObj.setHealth(playerObj.getHealth() - 20)) {
+    if (!playerObj.setHealth(playerObj.getHealth() - 20)) {
       gameOverMsg(mainWindow, "HEALTH");
     }
   } else {

@@ -9,7 +9,7 @@ public:
   float getdefAmbienceVol() const;
   float getdefMusicVol() const;
   float getdefSfxVol() const;
-  void play(QString filePath, int volume, int isBackground);
+  void play(QString filePath, int volume, bool isBackground);
 
 private:
   float defAmbienceVol;

@@ -1,6 +1,4 @@
 #include "../include/script.h"
-Script scriptObj("script-" + QDate::currentDate().toString("MM-dd-yy") +
-                 ".txt");
 
 bool Script::getRecordingStatus() { return recordingStatus; }
 
@@ -14,3 +12,6 @@ bool Script::writeFile(const QString &outputText) {
   out.flush();
   return true;
 }
+
+Script scriptObj("script-" + QDate::currentDate().toString("MM-dd-yy") +
+                 ".txt");

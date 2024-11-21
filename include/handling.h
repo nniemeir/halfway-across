@@ -6,6 +6,10 @@
 class Handling {
 public:
   Handling();
+  static constexpr int ITEM_NOT_FOUND = -1;
+  static constexpr int VERB_ARG = 0;
+  static constexpr int VERB_INVALID = -1;
+  static constexpr int VERB_NO_ARG = 1;
   // Formatting
   QString getArticle(QString target);
   // Script
@@ -103,9 +107,6 @@ private:
   void waitLake(MainWindow *mainWindow);
   void wear(MainWindow *mainWindow, QString target);
   void yell(MainWindow *mainWindow, Location *location);
-  // Input validation
-  std::vector<QString> argVerbs;
-  std::vector<QString> noArgVerbs;
   // Filler word removal
   QStringList fillerWords;
   static QRegularExpression fillerWordsRegex;

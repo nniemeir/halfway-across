@@ -4,7 +4,7 @@
 
 void Handling::begin(MainWindow *mainWindow, Location *location) {
   if (location->getName() == "Introduction Menu") {
-    sfxPlayer.play("qrc:/audio/sfx/write.mp3", sfxPlayer.getdefSfxVol(), 0);
+    sfxPlayer.play("qrc:/audio/sfx/write.mp3", sfxPlayer.getdefSfxVol(), false);
     mainWindow->setLocation(intro.getMusicPath(), intro.getAmbiencePath(),
                             &camp);
     mainWindow->setDescription(playerObj.displayJournal());

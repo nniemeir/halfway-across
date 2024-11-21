@@ -4,7 +4,7 @@ QString Item::getName() const { return name; }
 
 int Item::getAmount() const { return amount; }
 
-int Item::getActive() const { return active; }
+bool Item::getActive() const { return active; }
 
 int Item::getEffect() const { return effect; }
 
@@ -18,6 +18,6 @@ QString Item::getDescription() const { return description; }
 
 void Item::setEffect(int value) { effect = value; }
 
-void Item::setActive(int value) { active = value; }
+void Item::setActive(bool value) { active = value; }
 
 void Item::setQuantity(int value) { amount = value; }

@@ -14,14 +14,14 @@ float Audio::getdefMusicVol() const { return defMusicVol; }
 
 float Audio::getdefSfxVol() const { return defSfxVol; }
 
-void Audio::play(QString filePath, int volume, int isBackground) {
+void Audio::play(QString filePath, int volume, bool isBackground) {
   if (music->playbackState() == QMediaPlayer::PlayingState) {
     music->stop();
   }
   music->setAudioOutput(audioOutput);
   music->setSource(QUrl(filePath));
   audioOutput->setVolume(1);
-  if (isBackground == 1) {
+  if (isBackground) {
     music->setLoops(QMediaPlayer::Infinite);
   }
   music->play();

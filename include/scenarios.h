@@ -6,8 +6,8 @@
 class Scenario {
 public:
   Scenario(){};
-  const int START = 0;
-  const int END = 100;
+  static constexpr int START = 0;
+  static constexpr int END = 100;
   QString askAmosE1(QString subject, Location *location);
   QString askAmosE1S1(QString subject, Location *location);
   QString askIraE1(QString subject, Location *location);

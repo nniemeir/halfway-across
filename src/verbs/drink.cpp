@@ -21,10 +21,10 @@ void Handling::drink(MainWindow *mainWindow, QString target,
 
 void Handling::drinkLake(MainWindow *mainWindow, QString target) {
   if (target == "LAKE") {
-    if (worldObj.getChiseledIce() == 1) {
+    if (worldObj.getChiseledIce()) {
       if (playerObj.getThirst() < 100) {
         sfxPlayer.play("qrc:/audio/sfx/lakeSplash.mp3",
-                       sfxPlayer.getdefSfxVol(), 0);
+                       sfxPlayer.getdefSfxVol(), false);
         mainWindow->setDescription(
             "I felt more refreshed after drinking some cold water.");
         playerObj.setThirst(playerObj.getThirst() + 20);
@@ -44,10 +44,11 @@ void Handling::drinkCanteen(MainWindow *mainWindow, QString target) {
   if (playerObj.getThirst() != 100) {
     int canteenIndex =
         inventoryObj.searchInventory(playerObj.getInventory(), "CANTEEN");
-    if (canteenIndex != -1) {
+    if (canteenIndex != ITEM_NOT_FOUND) {
       if (inventoryObj.getInventoryItem(playerObj.getInventory(), canteenIndex)
               .getEffect() != 0) {
-        sfxPlayer.play("qrc:/audio/sfx/drink.mp3", sfxPlayer.getdefSfxVol(), 0);
+        sfxPlayer.play("qrc:/audio/sfx/drink.mp3", sfxPlayer.getdefSfxVol(),
+                       false);
         mainWindow->setDescription(
             "I quenched my thirst using the water in my canteen.");
         inventoryObj.getInventoryItem(playerObj.getInventory(), canteenIndex)

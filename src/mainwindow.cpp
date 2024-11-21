@@ -59,14 +59,14 @@ void MainWindow::setDescription(QString text) {
 
 void MainWindow::closeProgram() { QApplication::quit(); }
 
-void MainWindow::setCompassImage(QString image) {
-  QPixmap pix(image);
+void MainWindow::setCompassImage(QString imagePath) {
+  QPixmap pix(imagePath);
   ui->compass->setPixmap(pix);
 }
 
-void MainWindow::setSettingImage(QString image) {
-  QPixmap pix(image);
-  ui->settingImage->setPixmap(pix);
+void MainWindow::setLocationImage(QString imagePath) {
+  QPixmap pix(imagePath);
+  ui->location->setPixmap(pix);
 }
 
 void MainWindow::setLocation(QString currentMusic, QString currentAmbience,
@@ -74,20 +74,21 @@ void MainWindow::setLocation(QString currentMusic, QString currentAmbience,
   if (object) {
     int rodIndex =
         inventoryObj.searchInventory(playerObj.getInventory(), "FISHING ROD");
-    if (rodIndex != -1) {
+    if (rodIndex != Handling::ITEM_NOT_FOUND) {
       inventoryObj.getInventoryItem(playerObj.getInventory(), rodIndex)
-          .setActive(0);
+          .setActive(false);
     }
     setDescription(object->getDescription());
     setCompassImage(object->getCompass());
-    setSettingImage(object->getImage());
+    setLocationImage(object->getImage());
     QString musicPath = object->getMusicPath();
     QString ambiencePath = object->getAmbiencePath();
     if (currentMusic != musicPath) {
-      musicPlayer.play(musicPath, ambiencePlayer.getdefMusicVol(), 1);
+      musicPlayer.play(musicPath, ambiencePlayer.getdefMusicVol(), true);
     }
     if (currentAmbience != ambiencePath) {
-      ambiencePlayer.play(ambiencePath, ambiencePlayer.getdefAmbienceVol(), 1);
+      ambiencePlayer.play(ambiencePath, ambiencePlayer.getdefAmbienceVol(),
+                          true);
     }
     worldObj.setCurrentLocation(object);
     if (worldObj.getActiveCharacter() != nullptr &&
@@ -116,9 +117,9 @@ void MainWindow::handleReturnPressed() {
     scriptObj.writeFile(QString("> %1\n").arg(input));
   }
   int validated = handlingObj.validateVerb(input);
-  if (validated == 0) {
+  if (validated == Handling::VERB_ARG) {
     handlingObj.splitInput(this, input);
-  } else if (validated == 1) {
+  } else if (validated == Handling::VERB_NO_ARG) {
     handlingObj.handleVerb(this, input, "", "", worldObj.getCurrentLocation());
   } else {
     if (input != "") {

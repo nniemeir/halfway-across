@@ -10,9 +10,9 @@ void Handling::put(MainWindow *mainWindow, QString target, QString subject,
 
   if (inventories.contains(subject)) {
     std::vector<Item> destinationInv = inventories.value(subject);
-    int targetIndex =
+    int itemIndex =
         inventoryObj.searchInventory(playerObj.getInventory(), target);
-    if (targetIndex != -1) {
+    if (itemIndex != ITEM_NOT_FOUND) {
       sfxPlayer.play("qrc:/audio/sfx/drop.mp3", sfxPlayer.getdefSfxVol(), 0);
       mainWindow->setDescription(QString("I put the %1 on the %2.")
                                      .arg(target.toLower(), subject.toLower()));
@@ -20,9 +20,9 @@ void Handling::put(MainWindow *mainWindow, QString target, QString subject,
           inventoryObj.searchInventory(location->getInventory(), target);
       inventoryObj.addItem(
           location->getInventory(),
-          playerObj.getInventoryItem(playerObj.getInventory(), targetIndex),
+          playerObj.getInventoryItem(playerObj.getInventory(), itemIndex),
           locationItemIndex);
-      inventoryObj.removeItem(playerObj.getInventory(), targetIndex);
+      inventoryObj.removeItem(playerObj.getInventory(), itemIndex);
     } else {
       missingItemMsg(mainWindow, getArticle(target) + " " + target);
     }

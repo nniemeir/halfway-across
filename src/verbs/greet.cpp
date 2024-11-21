@@ -16,12 +16,12 @@ void Handling::greet(MainWindow *mainWindow) {
       QMap<QString, std::function<QString()>> validCharacters = {
           {"Amos", [this]() { return scenarioObj.greetAmos(); }},
           {"Ira", [this]() { return scenarioObj.greetIra(); }}};
-      sfxPlayer.play("qrc:/audio/sfx/ask.mp3", sfxPlayer.getdefSfxVol(), 0);
+      sfxPlayer.play("qrc:/audio/sfx/ask.mp3", sfxPlayer.getdefSfxVol(), false);
       QString characterName = worldObj.getActiveCharacter()->getName();
       QString greetingMessage = validCharacters[characterName]();
       mainWindow->setDescription(greetingMessage);
-      mainWindow->setSettingImage(worldObj.getActiveCharacter()->getImage());
-      worldObj.setGreetedNPC(1);
+      mainWindow->setLocationImage(worldObj.getActiveCharacter()->getImage());
+      worldObj.setGreetedNPC(true);
     } else {
       mainWindow->setDescription("There was no one around to greet.");
     }

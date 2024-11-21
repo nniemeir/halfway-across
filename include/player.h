@@ -8,26 +8,28 @@
 class Player : public Inventory {
 public:
   Player();
-
+  static constexpr int STAT_LOW_THRESHOLD = 30;
+  static constexpr int STAT_MEDIUM_THRESHOLD = 50;
+  static constexpr int STAT_HIGH_THRESHOLD = 70;
   int getHealth() const;
   int getMental() const;
-  int getEnergy() const;
+  bool getEnergized() const;
   int getHunger() const;
   int getThirst() const;
   int getWarmth() const;
   int getCharm() const;
-  int getStanding() const;
+  bool getStanding() const;
   int getCryCooldown() const;
   std::vector<Item> &getInventory();
   std::vector<Recipe> &getRecipeBook();
-  int setHealth(int health);
-  int setMental(int mental);
-  void setEnergy(int energy);
-  int setHunger(int hunger);
-  int setThirst(int thirst);
-  int setWarmth(int warmth);
+  bool setHealth(int health);
+  bool setMental(int mental);
+  void setEnergized(bool energized);
+  bool setHunger(int hunger);
+  bool setThirst(int thirst);
+  bool setWarmth(int warmth);
   void setCharm(int charm);
-  void setStanding(int standing);
+  void setStanding(bool standing);
   void setCryCooldown(int s);
   int constrainStat(int stat);
   QString displayBagInventory() const;
@@ -40,12 +42,12 @@ public:
 private:
   int health;
   int mental;
-  int energy;
+  bool energized;
   int hunger;
   int thirst;
   int warmth;
   int charm;
-  int standing;
+  bool standing;
   int cryCooldown;
   std::vector<Item> inventory;
   std::vector<Recipe> recipeBook;

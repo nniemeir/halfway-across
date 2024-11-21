@@ -12,23 +12,23 @@ void Handling::hunt(MainWindow *mainWindow, QString target,
             inventoryObj.searchInventory(playerObj.getInventory(), "BOW");
         int arrowIndex =
             inventoryObj.searchInventory(playerObj.getInventory(), "ARROW");
-        if (bowIndex != -1 && arrowIndex != -1) {
+        if (bowIndex != ITEM_NOT_FOUND && arrowIndex != ITEM_NOT_FOUND) {
           int huntResult = huntingObj.activity(target, arrowIndex);
           switch (huntResult) {
-          case 0:
+          case Hunting::ANIMAL_FOUND:
             sfxPlayer.play("qrc:/audio/sfx/hunt.mp3", sfxPlayer.getdefSfxVol(),
-                           0);
+                           false);
             mainWindow->setDescription(
                 QString("I spotted %1 %2.")
                     .arg(handlingObj.getArticle(target), target.toLower()));
             huntingObj.setActiveAnimal(target);
             break;
-          case 1:
+          case Hunting::ANIMAL_NOT_FOUND:
             mainWindow->setDescription(
                 QString("I was unable to find %1 %2 in the valley.")
                     .arg(handlingObj.getArticle(target), target.toLower()));
             break;
-          case 2:
+          case Hunting::ANIMAL_INVALID:
             mainWindow->setDescription(
                 QString(
                     "I thought of hunting %1, but it didn't seem reasonable in "

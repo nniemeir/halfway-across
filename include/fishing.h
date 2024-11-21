@@ -5,6 +5,7 @@
 class Fishing {
 public:
   Fishing();
+  int getDailyFished() const;
   std::vector<Item> &getFishInventory();
   QString activity(int rodIndex);
   QString generateFish();

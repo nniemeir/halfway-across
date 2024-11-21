@@ -9,8 +9,8 @@ void Handling::skin(MainWindow *mainWindow, QString target,
       inventoryObj.searchInventory(location->getInventory(), target);
   int knifeIndex =
       inventoryObj.searchInventory(playerObj.getInventory(), "HUNTING KNIFE");
-  if (knifeIndex != -1) {
-    if (animalIndex != -1) {
+  if (knifeIndex != ITEM_NOT_FOUND) {
+    if (animalIndex != ITEM_NOT_FOUND) {
       sfxPlayer.play("qrc:/audio/sfx/skin.mp3", sfxPlayer.getdefSfxVol(), 0);
       if (huntingObj.skinAnimal(target, location)) {
         mainWindow->setDescription(

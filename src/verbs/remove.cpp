@@ -2,16 +2,16 @@
 #include "../../include/player.h"
 
 void Handling::remove(MainWindow *mainWindow, QString target) {
-  int targetIndex =
+  int itemIndex =
       inventoryObj.searchInventory(playerObj.getInventory(), target);
-  if (targetIndex != -1) {
-    if (inventoryObj.getInventoryItem(playerObj.getInventory(), targetIndex)
-            .getActive() == 1) {
-      inventoryObj.getInventoryItem(playerObj.getInventory(), targetIndex)
-          .setActive(0);
+  if (itemIndex != ITEM_NOT_FOUND) {
+    if (inventoryObj.getInventoryItem(playerObj.getInventory(), itemIndex)
+            .getActive()) {
+      inventoryObj.getInventoryItem(playerObj.getInventory(), itemIndex)
+          .setActive(false);
       playerObj.setWarmth(
           playerObj.getWarmth() -
-          inventoryObj.getInventoryItem(playerObj.getInventory(), targetIndex)
+          inventoryObj.getInventoryItem(playerObj.getInventory(), itemIndex)
               .getEffect());
       mainWindow->setDescription(
           QString("I removed my %1.").arg(target.toLower()));

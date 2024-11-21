@@ -8,7 +8,7 @@ void Handling::shoot(MainWindow *mainWindow, QString target,
   int bowIndex = inventoryObj.searchInventory(playerObj.getInventory(), "BOW");
   int arrowIndex =
       inventoryObj.searchInventory(playerObj.getInventory(), "ARROW");
-  if (bowIndex != -1 && arrowIndex != -1) {
+  if (bowIndex != ITEM_NOT_FOUND && arrowIndex != ITEM_NOT_FOUND) {
     if (target == huntingObj.getActiveAnimal()) {
       sfxPlayer.play("qrc:/audio/sfx/arrow.mp3", sfxPlayer.getdefSfxVol(), 0);
       bool hit = huntingObj.hitTarget(target);

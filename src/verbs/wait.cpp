@@ -16,15 +16,19 @@ void Handling::wait(MainWindow *mainWindow, Location *location) {
 void Handling::waitLake(MainWindow *mainWindow) {
   int rodIndex =
       inventoryObj.searchInventory(playerObj.getInventory(), "FISHING ROD");
-  if (rodIndex != -1) {
-    Item rod =
-        inventoryObj.getInventoryItem(playerObj.getInventory(), rodIndex);
-    if (rod.getActive() == 1) {
-      sfxPlayer.play("qrc:/audio/sfx/fishReel.mp3", sfxPlayer.getdefSfxVol(),
-                     0);
-      inventoryObj.getInventoryItem(playerObj.getInventory(), rodIndex)
-          .setActive(0);
-      mainWindow->setDescription(fishingObj.activity(rodIndex));
+  if (rodIndex != ITEM_NOT_FOUND) {
+    if (fishingObj.getDailyFished() < 2) {
+      Item rod =
+          inventoryObj.getInventoryItem(playerObj.getInventory(), rodIndex);
+      if (rod.getActive()) {
+        sfxPlayer.play("qrc:/audio/sfx/fishReel.mp3", sfxPlayer.getdefSfxVol(),
+                       0);
+        inventoryObj.getInventoryItem(playerObj.getInventory(), rodIndex)
+            .setActive(false);
+        mainWindow->setDescription(fishingObj.activity(rodIndex));
+      }
+    } else {
+      mainWindow->setDescription("I was too tired to fish anymore that day.");
     }
   } else {
     waitMsg(mainWindow);

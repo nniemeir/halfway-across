@@ -15,14 +15,15 @@ void Handling::craft(MainWindow *mainWindow, QString target) {
     for (const auto &ingredient : ingredients) {
       int ingredientIndex =
           inventoryObj.searchInventory(playerObj.getInventory(), ingredient);
-      if (ingredientIndex == -1) {
+      if (ingredientIndex == ITEM_NOT_FOUND) {
         canCraftTarget = false;
         break;
       }
       ingredientIndices.push_back(ingredientIndex);
     }
     if (canCraftTarget) {
-      sfxPlayer.play("qrc:/audio/sfx/craft.mp3", sfxPlayer.getdefSfxVol(), 0);
+      sfxPlayer.play("qrc:/audio/sfx/craft.mp3", sfxPlayer.getdefSfxVol(),
+                     false);
       mainWindow->setDescription(
           QString("I crafted %1 %2.")
               .arg(handlingObj.getArticle(target), target.toLower()));

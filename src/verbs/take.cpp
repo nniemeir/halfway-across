@@ -7,7 +7,7 @@ void Handling::take(MainWindow *mainWindow, QString target,
                     Location *location) {
   int itemIndex =
       inventoryObj.searchInventory(location->getInventory(), target);
-  if (itemIndex != -1) {
+  if (itemIndex != ITEM_NOT_FOUND) {
     QString itemName =
         inventoryObj.getInventoryItem(location->getInventory(), itemIndex)
             .getName()

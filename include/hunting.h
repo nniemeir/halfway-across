@@ -7,6 +7,9 @@
 class Hunting {
 public:
   Hunting();
+  static constexpr int ANIMAL_INVALID = -1;
+  static constexpr int ANIMAL_FOUND = 0;
+  static constexpr int ANIMAL_NOT_FOUND = 1;
   QString getActiveAnimal() const;
   int getDailyHunts() const;
   std::vector<Item> &getSlainAnimals();

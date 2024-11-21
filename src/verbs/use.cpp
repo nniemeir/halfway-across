@@ -17,11 +17,11 @@ void Handling::use(MainWindow *mainWindow, QString target, Location *location) {
 }
 
 void Handling::useCave(MainWindow *mainWindow, QString target) {
-  int targetIndex =
+  int itemIndex =
       inventoryObj.searchInventory(playerObj.getInventory(), "LANTERN");
   if (target == "LANTERN") {
-    if (targetIndex != -1) {
-      if (inventoryObj.getInventoryItem(playerObj.getInventory(), targetIndex)
+    if (itemIndex != ITEM_NOT_FOUND) {
+      if (inventoryObj.getInventoryItem(playerObj.getInventory(), itemIndex)
               .getEffect() == 100) {
         sfxPlayer.play("qrc:/audio/sfx/flint.mp3", sfxPlayer.getdefSfxVol(), 0);
         mainWindow->setLocation(cave.getMusicPath(), cave.getAmbiencePath(),
@@ -42,18 +42,18 @@ void Handling::useCave(MainWindow *mainWindow, QString target) {
 void Handling::useLake(MainWindow *mainWindow, QString target) {
   if (target == "CHISEL") {
     if (inventoryObj.searchInventory(playerObj.getInventory(), "CHISEL") !=
-        -1) {
+        ITEM_NOT_FOUND) {
       sfxPlayer.play("qrc:/audio/sfx/chiselLake.mp3", sfxPlayer.getdefSfxVol(),
                      0);
       mainWindow->setDescription("I chiseled a hole in the ice.\n");
-      worldObj.setChiseledIce(1);
+      worldObj.setChiseledIce(true);
     } else {
       missingItemMsg(mainWindow, getArticle(target) + " " + target);
     }
   } else if (target == "FISHING ROD") {
     int rodIndex =
         inventoryObj.searchInventory(playerObj.getInventory(), "FISHING ROD");
-    if (rodIndex != -1) {
+    if (rodIndex != ITEM_NOT_FOUND) {
       if (worldObj.getChiseledIce()) {
         if (inventoryObj.getInventoryItem(playerObj.getInventory(), rodIndex)
                 .getEffect() == 100) {
@@ -62,7 +62,7 @@ void Handling::useLake(MainWindow *mainWindow, QString target) {
           sfxPlayer.play("qrc:/audio/sfx/fishSet.mp3", sfxPlayer.getdefSfxVol(),
                          0);
           inventoryObj.getInventoryItem(playerObj.getInventory(), rodIndex)
-              .setActive(1);
+              .setActive(true);
           mainWindow->setDescription(
               "I dropped my line into the hole I had cut into the ice.\n");
         } else {

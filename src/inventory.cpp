@@ -1,5 +1,5 @@
 #include "../include/inventory.h"
-Inventory inventoryObj;
+#include "../include/handling.h"
 
 Item &Inventory::getInventoryItem(std::vector<Item> &inventory,
                                   const int index) {
@@ -16,13 +16,13 @@ int Inventory::searchInventory(std::vector<Item> &inventory,
     int index = std::distance(inventory.begin(), it);
     return index;
   } else {
-    return -1;
+    return Handling::ITEM_NOT_FOUND;
   }
 }
 
 void Inventory::addItem(std::vector<Item> &inventory, Item itemToAdd,
                         const int itemIndex) {
-  if (itemIndex == -1) {
+  if (itemIndex == Handling::ITEM_NOT_FOUND) {
     itemToAdd.setQuantity(1);
     inventory.push_back(itemToAdd);
   } else {
@@ -75,3 +75,5 @@ void Inventory::removeItem(std::vector<Item> &inventory, const int itemIndex) {
     inventory[itemIndex].setQuantity(inventory[itemIndex].getAmount() - 1);
   }
 }
+
+Inventory inventoryObj;

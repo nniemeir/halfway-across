@@ -3,14 +3,10 @@
 #include "../include/hunting.h"
 #include "../include/player.h"
 
-World worldObj;
-
-// The temperature and weather for Day 1 are the same each time to avoid
-// immediately trapping the player at camp
 World::World()
     : activeCharacter(nullptr), currentLocation(nullptr), day(1),
-      currentTemperature(30), currentWeather("clear"), greetedNPC(0),
-      socialized(0), chiseledIce(0),
+      currentTemperature(30), currentWeather("clear"), greetedNPC(false),
+      socialized(false), chiseledIce(false),
       directions{"NORTH", "WEST", "SOUTH", "EAST", "N", "W", "S", "E"} {}
 
 Character *World::getActiveCharacter() { return activeCharacter; }
@@ -25,11 +21,11 @@ QString World::getCurrentWeather() const { return currentWeather; }
 
 int World::getDay() const { return day; }
 
-int World::getGreetedNPC() const { return greetedNPC; }
+bool World::getGreetedNPC() const { return greetedNPC; }
 
-int World::getSocialized() const { return socialized; }
+bool World::getSocialized() const { return socialized; }
 
-void World::setChiseledIce(int newValue) { chiseledIce = newValue; }
+void World::setChiseledIce(bool newValue) { chiseledIce = newValue; }
 
 void World::setActiveCharacter(Character *newCharacter) {
   activeCharacter = newCharacter;
@@ -39,12 +35,12 @@ void World::setCurrentLocation(Location *location) {
   currentLocation = location;
 }
 
-void World::setGreetedNPC(int newValue) { greetedNPC = newValue; }
+void World::setGreetedNPC(bool newValue) { greetedNPC = newValue; }
 
-void World::setSocialized(int newValue) { socialized = newValue; }
+void World::setSocialized(bool newValue) { socialized = newValue; }
 
 QString World::advanceDay() {
-  playerObj.setEnergy(1);
+  playerObj.setEnergized(true);
   int newCryCooldown;
   if (playerObj.getCryCooldown() >= 1) {
     newCryCooldown = playerObj.getCryCooldown() - 1;
@@ -52,16 +48,16 @@ QString World::advanceDay() {
     newCryCooldown = 0;
   }
   playerObj.setCryCooldown(newCryCooldown);
-  if (playerObj.setHunger(playerObj.getHunger() - 20)) {
+  if (!playerObj.setHunger(playerObj.getHunger() - 20)) {
     return "HUNGER";
-  } else if (playerObj.setThirst(playerObj.getThirst() - 30)) {
+  } else if (!playerObj.setThirst(playerObj.getThirst() - 30)) {
     return "THIRST";
   }
-  if (generateTempDebuff()) {
+  if (!generateTempDebuff()) {
     return "WARMTH";
   }
-  setChiseledIce(0);
-  worldObj.setSocialized(0);
+  setChiseledIce(false);
+  worldObj.setSocialized(false);
   huntingObj.resetDailyHunts();
   fishingObj.resetDailyFished();
   day++;
@@ -69,9 +65,7 @@ QString World::advanceDay() {
   currentWeather = generateWeather();
   if (currentWeather != "snowing heavily" && day > 7) {
     Character *potentialActiveCharacter = generateCharacter();
-    if (potentialActiveCharacter != nullptr) {
-      setActiveCharacter(potentialActiveCharacter);
-    }
+    setActiveCharacter(potentialActiveCharacter);
   }
   return "";
 }
@@ -91,22 +85,21 @@ bool World::validDirection(const QString &value) {
 }
 
 Character *World::generateCharacter() {
-  if (day == FIRST_IRA_ENCOUNTER) {
+  if (day == DAY_AMOS_E1) {
     return ensembleObj.getCharacter(0); // Amos
   }
-  if (day == FIRST_AMOS_ENCOUNTER) {
+  if (day == DAY_IRA_E1) {
     return ensembleObj.getCharacter(1); // Ira
   }
   int index = 0;
   std::vector<int> matchesIndex = {};
   for (auto const &characterObj : ensembleObj.getCharacters()) {
-    if (characterObj.getDaysSinceEncountered() >= characterObj.getFrequency() &&
-        !characterObj.getHatesPlayer()) {
+    if (characterObj.getDaysSinceEncountered() >= characterObj.getFrequency()) {
       matchesIndex.push_back(index);
     }
     index++;
   }
-  if (matchesIndex.size() == 1) {
+  if (matchesIndex.size()) {
     ensembleObj.getCharacter(matchesIndex[0])->setDaysSinceEncountered(0);
     return ensembleObj.getCharacter(matchesIndex[0]);
   } else if (matchesIndex.size() > 1) {
@@ -167,7 +160,7 @@ QString World::generateWeather() {
   }
 }
 
-int World::generateTempDebuff() {
+bool World::generateTempDebuff() {
   int currentWarmth = playerObj.getWarmth();
   int healthLoss = 0;
   if (currentTemperature < 5) {
@@ -208,5 +201,7 @@ int World::generateTempDebuff() {
   if (healthLoss > 0) {
     return playerObj.setHealth(playerObj.getHealth() - healthLoss);
   }
-  return 0;
+  return true;
 }
+
+World worldObj;

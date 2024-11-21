@@ -1,6 +1,5 @@
 #include "../include/scenarios.h"
 #include "../include/characters.h"
-Scenario scenarioObj;
 
 QString Scenario::greetAmos() {
   QMap<int, QString> greetingMsg = {
@@ -26,3 +25,5 @@ QString Scenario::greetIra() {
   }
   return "";
 }
+
+Scenario scenarioObj;
