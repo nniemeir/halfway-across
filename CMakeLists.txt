@@ -16,77 +16,77 @@ include_directories(${Qt5Core_INCLUDE_DIRS} ${Qt5Gui_INCLUDE_DIRS} ${Qt5Multimed
 
 set(PROJECT_SOURCES
         src/main.cpp
-        src/mainwindow.cpp
-        include/mainwindow.h
-        src/mainwindow.ui
+        src/ui/mainwindow.cpp
+        include/ui/mainwindow.h
+        src/ui/mainwindow.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(Halfway_Across
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
-        include/audio.h
-        include/characters.h
-        include/fishing.h
-        include/handling.h
-        include/hunting.h
-        include/inventory.h
-        include/item.h
-        include/locations.h
-        include/player.h
-        include/scenarios.h
-        include/script.h
-        include/recipe.h
-        include/world.h
+        include/core/audio.h
+        include/core/handling.h
+        include/core/world.h
+        include/entities/characters.h
+        include/entities/dialogue.h
+        include/entities/locations.h
+        include/entities/player.h
+        include/items/inventory.h
+        include/items/item.h
+        include/items/recipe.h
+        include/survival/fishing.h
+        include/survival/hunting.h
+        include/utils/script.h
         resources/resources.qrc
-        src/audio.cpp
-        src/characters.cpp
-        src/fishing.cpp
-        src/handling.cpp
-        src/hunting.cpp
-        src/inventory.cpp
-        src/item.cpp
-        src/script.cpp
-        src/locations.cpp
-        src/player.cpp
-        src/recipe.cpp
-        src/scenarios.cpp
-        src/world.cpp
-        src/scenarios/iraE1.cpp
-        src/scenarios/amosE1.cpp
-        src/verbs/ask.cpp
-        src/verbs/begin.cpp
-        src/verbs/cook.cpp
-        src/verbs/craft.cpp
-        src/verbs/cry.cpp
-        src/verbs/diagnose.cpp
-        src/verbs/drink.cpp
-        src/verbs/eat.cpp
-        src/verbs/examine.cpp
-        src/verbs/fill.cpp
-        src/verbs/goodbye.cpp
-        src/verbs/greet.cpp
-        src/verbs/help.cpp
-        src/verbs/hunt.cpp
-        src/verbs/load.cpp
-        src/verbs/look.cpp
-        src/verbs/move.cpp
-        src/verbs/put.cpp
-        src/verbs/read.cpp
-        src/verbs/remove.cpp
-        src/verbs/script.cpp
-        src/verbs/shoot.cpp
-        src/verbs/sit.cpp
-        src/verbs/skin.cpp
-        src/verbs/sleep.cpp
-        src/verbs/stand.cpp
-        src/verbs/take.cpp
-        src/verbs/tell.cpp
-        src/verbs/use.cpp
-        src/verbs/version.cpp
-        src/verbs/wait.cpp
-        src/verbs/wear.cpp
-        src/verbs/yell.cpp
+        src/core/audio.cpp
+        src/core/handling.cpp
+        src/core/world.cpp
+        src/entities/characters.cpp
+        src/entities/dialogue.cpp
+        src/entities/encounters/amosE1.cpp
+        src/entities/encounters/iraE1.cpp
+        src/entities/locations.cpp
+        src/entities/player.cpp
+        src/items/inventory.cpp
+        src/items/item.cpp
+        src/items/recipe.cpp
+        src/survival/fishing.cpp
+        src/survival/hunting.cpp
+        src/utils/script.cpp
+        src/verbs/dialogue/ask.cpp
+        src/verbs/dialogue/goodbye.cpp
+        src/verbs/dialogue/greet.cpp
+        src/verbs/dialogue/tell.cpp
+        src/verbs/items/cook.cpp
+        src/verbs/items/craft.cpp
+        src/verbs/items/drink.cpp
+        src/verbs/items/eat.cpp
+        src/verbs/items/examine.cpp
+        src/verbs/items/fill.cpp
+        src/verbs/items/load.cpp
+        src/verbs/items/put.cpp
+        src/verbs/items/read.cpp
+        src/verbs/items/remove.cpp
+        src/verbs/items/skin.cpp
+        src/verbs/items/take.cpp
+        src/verbs/items/use.cpp
+        src/verbs/items/wear.cpp
+        src/verbs/menu/begin.cpp
+        src/verbs/navigation/look.cpp
+        src/verbs/navigation/move.cpp
+        src/verbs/navigation/sit.cpp
+        src/verbs/navigation/stand.cpp
+        src/verbs/survival/cry.cpp
+        src/verbs/survival/hunt.cpp
+        src/verbs/survival/shoot.cpp
+        src/verbs/survival/yell.cpp
+        src/verbs/utils/diagnose.cpp
+        src/verbs/utils/help.cpp
+        src/verbs/utils/script.cpp
+        src/verbs/utils/version.cpp
+        src/verbs/world/sleep.cpp
+        src/verbs/world/wait.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET Halfway_Across APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
