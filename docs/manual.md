@@ -20,7 +20,7 @@ To get information about your stats, use the command **REFLECT**.
 You can pass time by using the command **WAIT**.
 
 ## User Interface
-![Menu Preview](../resources/images/menuPreview.png)
+![Menu Preview](../resources/images/manual/menuPreview.png)
 
 The interface is split into three sections from top to bottom:
 1. Setting image
