@@ -85,6 +85,8 @@ To put an item in your inventory, use the command **TAKE ITEM**.
 To remove an item from your inventory, use the command **DROP ITEM**.
 
 ## Social Interaction
+![Social Interaction Preview](../resources/images/manual/social.png)
+
 You can converse with the travelers that cross your path. Keep in mind that your dialogue choices will effect how the other person perceives you.
 
 To inquire about something, use the command **ASK PERSON'S NAME ABOUT TOPIC**. 
