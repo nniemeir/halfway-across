@@ -1,6 +1,6 @@
+#include "../../include/survival/hunting.h"
 #include "../../include/core/world.h"
 #include "../../include/entities/player.h"
-#include "../../include/survival/hunting.h"
 
 Hunting::Hunting() {
 
@@ -61,12 +61,10 @@ int Hunting::activity(QString target, int arrowIndex) {
     if (foundAnimal(target)) {
       activeAnimal = target;
       return ANIMAL_FOUND;
-    } else {
-      return ANIMAL_NOT_FOUND;
     }
-  } else {
-    return ANIMAL_INVALID;
+    return ANIMAL_NOT_FOUND;
   }
+  return ANIMAL_INVALID;
 }
 
 bool Hunting::assessDamage(QString target) {
@@ -98,9 +96,8 @@ bool Hunting::recoveredArrow(bool hitTarget) {
   }
   if (worldObj.roll(chance)) {
     return true;
-  } else {
-    return false;
   }
+  return false;
 }
 
 bool Hunting::skinAnimal(QString target, Location *location) {
@@ -127,9 +124,8 @@ bool Hunting::foundAnimal(QString target) {
   }
   if (worldObj.roll(chance)) {
     return true;
-  } else {
-    return false;
   }
+  return false;
 }
 
 Hunting huntingObj;

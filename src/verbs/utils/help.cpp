@@ -1,6 +1,6 @@
-#include "../../../include/core/handling.h"
+#include "../../../include/core/handling/verbhandler.h"
 
-void Handling::help(MainWindow *mainWindow) {
+void VerbHandler::help(MainWindow *mainWindow) {
   mainWindow->setDescription(
       "AGAIN/G - repeat last command\n"
       "ASK (target) ABOUT (subject) - ask a person in the area about a given "

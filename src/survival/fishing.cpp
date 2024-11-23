@@ -1,7 +1,7 @@
-#include "../../include/core/handling.h"
+#include "../../include/survival/fishing.h"
+#include "../../include/core/handling/verbhandler.h"
 #include "../../include/entities/player.h"
 #include "../../include/items/inventory.h"
-#include "../../include/survival/fishing.h"
 
 Fishing::Fishing()
     : fish{{"CUTTHROAT TROUT", 1, false, 25, 10, "RAW MEAT", "NONE",
@@ -23,7 +23,7 @@ QString Fishing::activity(int rodIndex) {
   if (generatedFish != "NOTHING") {
     int fishIndex = inventoryObj.searchInventory(fishingObj.getFishInventory(),
                                                  generatedFish);
-    if (fishIndex != Handling::ITEM_NOT_FOUND) {
+    if (fishIndex != VerbHandler::ITEM_NOT_FOUND) {
       int playerItemIndex =
           inventoryObj.searchInventory(playerObj.getInventory(), generatedFish);
       inventoryObj.addItem(playerObj.getInventory(),

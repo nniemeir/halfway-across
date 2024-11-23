@@ -1,8 +1,8 @@
 #include "../../../include/core/audio.h"
-#include "../../../include/core/handling.h"
+#include "../../../include/core/handling/verbhandler.h"
 #include "../../../include/core/world.h"
 
-void Handling::goodbye(MainWindow *mainWindow, Location *location) {
+void VerbHandler::goodbye(MainWindow *mainWindow, Location *location) {
   sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(),
                  false);
   mainWindow->setCompassImage(location->getCompass());

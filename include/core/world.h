@@ -21,7 +21,7 @@ public:
   void setCurrentLocation(Location *location);
   void setGreetedNPC(bool newValue);
   void setSocialized(bool newValue);
-
+  QString getActiveCharacterBrief();
   QString advanceDay();
   bool roll(const int probability);
   bool validDirection(const QString &value);

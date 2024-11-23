@@ -4,7 +4,7 @@
 #include "../../include/survival/hunting.h"
 
 World::World()
-    : activeCharacter(nullptr), currentLocation(nullptr), day(1),
+    : activeCharacter(nullptr), currentLocation(nullptr), day(7),
       currentTemperature(30), currentWeather("clear"), greetedNPC(false),
       socialized(false), chiseledIce(false),
       directions{"NORTH", "WEST", "SOUTH", "EAST", "N", "W", "S", "E"} {}
@@ -39,6 +39,19 @@ void World::setGreetedNPC(bool newValue) { greetedNPC = newValue; }
 
 void World::setSocialized(bool newValue) { socialized = newValue; }
 
+QString World::getActiveCharacterBrief() {
+    QString activeCharacterBrief;
+    if (activeCharacter != nullptr &&
+        currentLocation->getName() ==
+            activeCharacter->getLocation()) {
+        activeCharacterBrief.append(activeCharacter->getBrief());
+    }
+    if (day == 8) {activeCharacterBrief.append(
+            "\nHint: I can start a conversation by using the command GREET.");
+    }
+    return activeCharacterBrief;
+}
+
 QString World::advanceDay() {
   playerObj.setEnergized(true);
   int newCryCooldown;
@@ -50,7 +63,8 @@ QString World::advanceDay() {
   playerObj.setCryCooldown(newCryCooldown);
   if (!playerObj.setHunger(playerObj.getHunger() - 20)) {
     return "HUNGER";
-  } else if (!playerObj.setThirst(playerObj.getThirst() - 30)) {
+  }
+  if (!playerObj.setThirst(playerObj.getThirst() - 30)) {
     return "THIRST";
   }
   if (!generateTempDebuff()) {
@@ -74,9 +88,8 @@ bool World::roll(const int probability) {
   int num = rand() % 100;
   if (num < probability) {
     return true;
-  } else {
-    return false;
   }
+  return false;
 }
 
 bool World::validDirection(const QString &value) {
@@ -99,17 +112,17 @@ Character *World::generateCharacter() {
     }
     index++;
   }
-  if (matchesIndex.size()) {
+  if (matchesIndex.size() == 1) {
     ensembleObj.getCharacter(matchesIndex[0])->setDaysSinceEncountered(0);
     return ensembleObj.getCharacter(matchesIndex[0]);
-  } else if (matchesIndex.size() > 1) {
+  }
+  if (matchesIndex.size() > 1) {
     int chosenMatchIndex = rand() % matchesIndex.size();
     ensembleObj.getCharacter(matchesIndex[chosenMatchIndex])
         ->setDaysSinceEncountered(0);
     return ensembleObj.getCharacter(matchesIndex[chosenMatchIndex]);
-  } else {
-    return nullptr;
   }
+  return nullptr;
 }
 
 // A given day's temperature effects

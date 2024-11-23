@@ -16,9 +16,8 @@ RecipeBook::searchRecipeBook(const std::vector<Recipe> &recipeBook,
 
   if (it != recipeBook.end()) {
     return *it;
-  } else {
-    return std::nullopt;
   }
+  return std::nullopt;
 }
 
 RecipeBook recipeBookObj;

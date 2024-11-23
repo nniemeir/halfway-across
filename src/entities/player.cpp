@@ -1,5 +1,5 @@
-#include "../../include/core/world.h"
 #include "../../include/entities/player.h"
+#include "../../include/core/world.h"
 
 Player::Player()
     : health(100), mental(50), energized(true), hunger(100), thirst(100),
@@ -46,18 +46,16 @@ bool Player::setHealth(int h) {
   health = constrainStat(h);
   if (health != 0) {
     return true;
-  } else {
-    return false;
   }
+  return false;
 }
 
 bool Player::setMental(int m) {
   mental = constrainStat(m);
   if (mental != 0) {
     return true;
-  } else {
-    return false;
   }
+  return false;
 }
 
 void Player::setEnergized(bool e) { energized = constrainStat(e); }
@@ -66,27 +64,24 @@ bool Player::setHunger(int h) {
   hunger = constrainStat(h);
   if (hunger != 0) {
     return true;
-  } else {
-    return false;
   }
+  return false;
 }
 
 bool Player::setThirst(int t) {
   thirst = constrainStat(t);
   if (thirst != 0) {
     return true;
-  } else {
-    return false;
   }
+  return false;
 }
 
 bool Player::setWarmth(int w) {
   warmth = constrainStat(w);
   if (warmth != 0) {
     return true;
-  } else {
-    return false;
   }
+  return false;
 }
 
 void Player::setCharm(int c) { charm = constrainStat(c); }
@@ -97,19 +92,19 @@ int Player::constrainStat(int stat) { return std::max(0, std::min(stat, 100)); }
 QString Player::displayBagInventory() const {
   QStringList inventoryItemsText;
   for (const auto &item : inventory) {
-    if (item.getType() != "CLOTHING" && item.getType() != "") {
+    if (item.getType() != "CLOTHING" && !item.getType().isEmpty()) {
       inventoryItemsText.append(
           QString("%1: %2").arg(item.getName()).arg(item.getAmount()));
     }
   }
   std::sort(inventoryItemsText.begin(), inventoryItemsText.end());
   QString inventoryText;
-  if (!inventoryItemsText.isEmpty()) {
-    inventoryText.append("Looking in my possibles bag, I saw:\n");
-    inventoryText.append(inventoryItemsText.join("\n"));
-  } else {
+  if (inventoryItemsText.isEmpty()) {
     inventoryText.append("My possibles bag was empty.");
+    return inventoryText;
   }
+  inventoryText.append("Looking in my possibles bag, I saw:\n");
+  inventoryText.append(inventoryItemsText.join("\n"));
   return inventoryText;
 }
 
@@ -124,19 +119,19 @@ QString Player::displayClothesInventory() const {
   }
   std::sort(inventoryItemsText.begin(), inventoryItemsText.end());
   QString inventoryText;
-  if (!inventoryItemsText.isEmpty()) {
-    inventoryText.append("I was wearing:\n");
-    inventoryText.append(inventoryItemsText.join("\n"));
-  } else {
+  if (inventoryItemsText.isEmpty()) {
     inventoryText.append("I was not wearing anything.");
+    return inventoryText;
   }
+  inventoryText.append("I was wearing:\n");
+  inventoryText.append(inventoryItemsText.join("\n"));
   return inventoryText;
 }
 
 QString Player::displayRecipeBook() const {
   QString inventoryText;
   for (const auto &recipe : recipeBook) {
-    if (recipe.getRecipeName() != "") {
+    if (!recipe.getRecipeName().isEmpty()) {
       inventoryText.append(
           QString("%1\nIngredients:\n").arg(recipe.getRecipeName()));
       for (const auto &ingredient : recipe.getIngredients()) {
@@ -162,7 +157,7 @@ QString Player::generateWarnings() const {
   }
 
   QString warmthWarning = generateWarmthWarning();
-  if (warmthWarning != "") {
+  if (!warmthWarning.isEmpty()) {
     warnings.append(warmthWarning);
   }
 
@@ -254,9 +249,9 @@ QString Player::displayJournal() const {
 
   if (dayEntries.contains(worldObj.getDay())) {
     entry.append(dayEntries.value(worldObj.getDay()));
-  } else {
-    entry.append("A normal day in the mountains.");
+    return entry;
   }
+  entry.append("A normal day in the mountains.");
   return entry;
 }
 

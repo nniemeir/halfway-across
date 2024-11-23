@@ -28,12 +28,12 @@ QString Location::locInventory() const {
   }
   std::sort(inventoryItemsText.begin(), inventoryItemsText.end());
   QString inventoryText;
-  if (!inventoryItemsText.isEmpty()) {
-    inventoryText.append("Looking at the ground, I saw:\n");
-    inventoryText.append(inventoryItemsText.join("\n"));
-  } else {
+  if (inventoryItemsText.isEmpty()) {
     inventoryText.append("I didn't see anything of note on the ground.");
+    return inventoryText;
   }
+  inventoryText.append("Looking at the ground, I saw:\n");
+  inventoryText.append(inventoryItemsText.join("\n"));
   return inventoryText;
 }
 

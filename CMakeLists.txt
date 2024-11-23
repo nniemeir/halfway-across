@@ -26,7 +26,10 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
         include/core/audio.h
-        include/core/handling.h
+        include/core/handling/encounterhandler.h
+        include/core/handling/inputhandler.h
+        include/core/handling/msghandler.h
+        include/core/handling/verbhandler.h
         include/core/world.h
         include/entities/characters.h
         include/entities/dialogue.h
@@ -40,7 +43,10 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         include/utils/script.h
         resources/resources.qrc
         src/core/audio.cpp
-        src/core/handling.cpp
+        src/core/handling/encounterhandler.cpp
+        src/core/handling/inputhandler.cpp
+        src/core/handling/msghandler.cpp
+        src/core/handling/verbhandler.cpp
         src/core/world.cpp
         src/entities/characters.cpp
         src/entities/dialogue.cpp
@@ -54,10 +60,9 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/survival/fishing.cpp
         src/survival/hunting.cpp
         src/utils/script.cpp
-        src/verbs/dialogue/ask.cpp
         src/verbs/dialogue/goodbye.cpp
         src/verbs/dialogue/greet.cpp
-        src/verbs/dialogue/tell.cpp
+        src/verbs/dialogue/talk.cpp
         src/verbs/items/cook.cpp
         src/verbs/items/craft.cpp
         src/verbs/items/drink.cpp
@@ -81,12 +86,12 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/verbs/survival/hunt.cpp
         src/verbs/survival/shoot.cpp
         src/verbs/survival/yell.cpp
+        src/verbs/time/sleep.cpp
+        src/verbs/time/wait.cpp
         src/verbs/utils/diagnose.cpp
         src/verbs/utils/help.cpp
         src/verbs/utils/script.cpp
         src/verbs/utils/version.cpp
-        src/verbs/world/sleep.cpp
-        src/verbs/world/wait.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET Halfway_Across APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

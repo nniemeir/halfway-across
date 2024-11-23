@@ -1,5 +1,5 @@
-#include "../../../include/core/handling.h"
+#include "../../../include/core/handling/verbhandler.h"
 
-void Handling::version(MainWindow *mainWindow) {
+void VerbHandler::version(MainWindow *mainWindow) {
   mainWindow->setDescription("Halfway Across Pre-Alpha");
 }

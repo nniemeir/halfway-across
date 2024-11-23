@@ -1,49 +1,48 @@
-#include "../../../include/core/handling.h"
+#include "../../../include/core/handling/msghandler.h"
+#include "../../../include/core/handling/verbhandler.h"
 #include "../../../include/core/world.h"
 #include "../../../include/entities/characters.h"
 #include "../../../include/entities/player.h"
 
-void Handling::look(MainWindow *mainWindow, QString target,
+void VerbHandler::look(MainWindow *mainWindow, QString target,
                     Location *location) {
-  if (!ensembleObj.isCharacterName(target)) {
-    QMap<QString, std::function<void()>> lookLocations{
-        {"Camp",
-         [mainWindow, target, this]() { lookCamp(mainWindow, target); }},
-        {"The forest path",
-         [mainWindow, target, this]() { lookForestPath(mainWindow, target); }},
-        {"The dark cave",
-         [mainWindow, target, this]() { lookCave(mainWindow, target); }},
-        {"The cave's entrance",
-         [mainWindow, target, this]() {
-           lookCaveEntrance(mainWindow, target);
-         }},
-        {"The lake",
-         [mainWindow, target, this]() { lookLake(mainWindow, target); }},
-        {"The valley",
-         [mainWindow, target, this]() { lookValley(mainWindow, target); }}};
-    if (lookLocations.contains(location->getName())) {
-      lookLocations[location->getName()]();
-    } else {
-      notAllowedInLocMsg(mainWindow, "look anywhere");
+  if (ensembleObj.isCharacterName(target)) {
+    if (worldObj.getActiveCharacter() == nullptr) {
+      msgHandlerObj.characterNotActiveMsg(mainWindow, target);
+      return;
     }
-  } else {
-    if (worldObj.getActiveCharacter() != nullptr) {
-      if (QString::compare(target, worldObj.getActiveCharacter()->getName(),
-                           Qt::CaseInsensitive) == 0 &&
-          worldObj.getActiveCharacter()->getLocation() ==
-              worldObj.getCurrentLocation()->getName()) {
-        mainWindow->setDescription(
-            worldObj.getActiveCharacter()->getDescription());
-      } else {
-        characterNotActiveMsg(mainWindow, target);
-      }
-    } else {
-      characterNotActiveMsg(mainWindow, target);
+    if (QString::compare(target, worldObj.getActiveCharacter()->getName(),
+                         Qt::CaseInsensitive) == 1 &&
+        worldObj.getActiveCharacter()->getLocation() ==
+            worldObj.getCurrentLocation()->getName()) {
+        msgHandlerObj.characterNotActiveMsg(mainWindow, target);
+      return;
     }
+    mainWindow->setDescription(worldObj.getActiveCharacter()->getDescription());
+    return;
   }
+
+  QMap<QString, std::function<void()>> lookLocations{
+      {"Camp", [mainWindow, target, this]() { lookCamp(mainWindow, target); }},
+      {"The forest path",
+       [mainWindow, target, this]() { lookForestPath(mainWindow, target); }},
+      {"The dark cave",
+       [mainWindow, target, this]() { lookCave(mainWindow, target); }},
+      {"The cave's entrance",
+       [mainWindow, target, this]() { lookCaveEntrance(mainWindow, target); }},
+      {"The lake",
+       [mainWindow, target, this]() { lookLake(mainWindow, target); }},
+      {"The valley",
+       [mainWindow, target, this]() { lookValley(mainWindow, target); }}};
+
+  if (!lookLocations.contains(location->getName())) {
+      msgHandlerObj.notAllowedInLocMsg(mainWindow, "look anywhere");
+      return;
+  }
+    lookLocations[location->getName()]();
 }
 
-void Handling::lookCamp(MainWindow *mainWindow, QString target) {
+void VerbHandler::lookCamp(MainWindow *mainWindow, QString target) {
   QMap<QString, QString> descriptions = {
       {"AROUND", camp.getDescription()},
       {"BAG", playerObj.displayBagInventory()},
@@ -57,14 +56,14 @@ void Handling::lookCamp(MainWindow *mainWindow, QString target) {
       {"OUTSIDE", QString("It was %1 outside.")
                       .arg(worldObj.getCurrentWeather().toLower())}};
 
-  if (descriptions.contains(target)) {
-    mainWindow->setDescription(descriptions.value(target));
-  } else {
-    notAllowedDirMsg(mainWindow, "look", target);
+  if (!descriptions.contains(target)) {
+      msgHandlerObj.notAllowedDirMsg(mainWindow, "look", target);
+      return;
   }
+    mainWindow->setDescription(descriptions.value(target));
 }
 
-void Handling::lookForestPath(MainWindow *mainWindow, QString target) {
+void VerbHandler::lookForestPath(MainWindow *mainWindow, QString target) {
   QMap<QString, QString> descriptions = {
       {"AROUND", forestPath.getDescription()},
       {"BAG", playerObj.displayBagInventory()},
@@ -74,14 +73,14 @@ void Handling::lookForestPath(MainWindow *mainWindow, QString target) {
       {"DOWN", forestPath.locInventory()},
       {"SELF", playerObj.displayClothesInventory()}};
 
-  if (descriptions.contains(target)) {
+    if (!descriptions.contains(target)) {
+      msgHandlerObj.notAllowedDirMsg(mainWindow, "look", target);
+        return;
+    }
     mainWindow->setDescription(descriptions.value(target));
-  } else {
-    notAllowedDirMsg(mainWindow, "look", target);
-  }
 }
 
-void Handling::lookCave(MainWindow *mainWindow, QString target) {
+void VerbHandler::lookCave(MainWindow *mainWindow, QString target) {
   QMap<QString, QString> descriptions = {
       {"AROUND", valley.getDescription()},
       {"BAG", playerObj.displayBagInventory()},
@@ -90,14 +89,15 @@ void Handling::lookCave(MainWindow *mainWindow, QString target) {
              "on me."},
       {"DOWN", cave.locInventory()},
       {"SELF", playerObj.displayClothesInventory()}};
-  if (descriptions.contains(target)) {
+
+    if (!descriptions.contains(target)) {
+      msgHandlerObj.notAllowedDirMsg(mainWindow, "look", target);
+        return;
+    }
     mainWindow->setDescription(descriptions.value(target));
-  } else {
-    notAllowedDirMsg(mainWindow, "look", target);
-  }
 }
 
-void Handling::lookCaveEntrance(MainWindow *mainWindow, QString target) {
+void VerbHandler::lookCaveEntrance(MainWindow *mainWindow, QString target) {
   QMap<QString, QString> descriptions = {
       {"AROUND", caveEntrance.getDescription()},
       {"BAG", playerObj.displayBagInventory()},
@@ -105,14 +105,15 @@ void Handling::lookCaveEntrance(MainWindow *mainWindow, QString target) {
       {"UP", "I felt smaller looking at the mountain."},
       {"DOWN", caveEntrance.locInventory()},
       {"SELF", playerObj.displayClothesInventory()}};
-  if (descriptions.contains(target)) {
+
+    if (!descriptions.contains(target)) {
+      msgHandlerObj.notAllowedDirMsg(mainWindow, "look", target);
+        return;
+    }
     mainWindow->setDescription(descriptions.value(target));
-  } else {
-    notAllowedDirMsg(mainWindow, "look", target);
-  }
 }
 
-void Handling::lookLake(MainWindow *mainWindow, QString target) {
+void VerbHandler::lookLake(MainWindow *mainWindow, QString target) {
   QMap<QString, QString> descriptions = {
       {"AROUND", lake.getDescription()},
       {"BAG", playerObj.displayBagInventory()},
@@ -123,14 +124,14 @@ void Handling::lookLake(MainWindow *mainWindow, QString target) {
       {"DOWN", lake.locInventory()},
       {"SELF", playerObj.displayClothesInventory()}};
 
-  if (descriptions.contains(target)) {
+    if (!descriptions.contains(target)) {
+      msgHandlerObj.notAllowedDirMsg(mainWindow, "look", target);
+        return;
+    }
     mainWindow->setDescription(descriptions.value(target));
-  } else {
-    notAllowedDirMsg(mainWindow, "look", target);
-  }
 }
 
-void Handling::lookValley(MainWindow *mainWindow, QString target) {
+void VerbHandler::lookValley(MainWindow *mainWindow, QString target) {
   QMap<QString, QString> descriptions = {
       {"AROUND", valley.getDescription()},
       {"BAG", playerObj.displayBagInventory()},
@@ -139,9 +140,10 @@ void Handling::lookValley(MainWindow *mainWindow, QString target) {
       {"UP", "The sky felt empty that day."},
       {"DOWN", valley.locInventory()},
       {"SELF", playerObj.displayClothesInventory()}};
-  if (descriptions.contains(target)) {
+
+    if (!descriptions.contains(target)) {
+      msgHandlerObj.notAllowedDirMsg(mainWindow, "look", target);
+        return;
+    }
     mainWindow->setDescription(descriptions.value(target));
-  } else {
-    notAllowedDirMsg(mainWindow, "look", target);
-  }
 }

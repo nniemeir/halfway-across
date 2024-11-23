@@ -1,9 +1,9 @@
+#include "../../include/ui/mainwindow.h"
 #include "../../include/core/audio.h"
-#include "../../include/core/handling.h"
+#include "../../include/core/handling/inputhandler.h"
+#include "../../include/core/handling/verbhandler.h"
 #include "../../include/core/world.h"
 #include "../../include/entities/locations.h"
-#include "../../include/entities/player.h"
-#include "../../include/ui/mainwindow.h"
 #include "../../include/utils/script.h"
 #include "src/ui/ui_mainwindow.h"
 
@@ -71,64 +71,58 @@ void MainWindow::setLocationImage(QString imagePath) {
 
 void MainWindow::setLocation(QString currentMusic, QString currentAmbience,
                              Location *object) {
-  if (object) {
-    int rodIndex =
-        inventoryObj.searchInventory(playerObj.getInventory(), "FISHING ROD");
-    if (rodIndex != Handling::ITEM_NOT_FOUND) {
-      inventoryObj.getInventoryItem(playerObj.getInventory(), rodIndex)
-          .setActive(false);
-    }
-    setDescription(object->getDescription());
-    setCompassImage(object->getCompass());
-    setLocationImage(object->getImage());
+  inventoryObj.deactivateLocationSpecificItems();
+  setDescription(object->getDescription());
+  setCompassImage(object->getCompass());
+  setLocationImage(object->getImage());
+  setLocationAudio(currentMusic, currentAmbience, object);
+  worldObj.setCurrentLocation(object);
+  QString activeCharacterBrief = worldObj.getActiveCharacterBrief();
+  if (!activeCharacterBrief.isEmpty()) {
+      appendDescription(activeCharacterBrief);
+  }
+}
+
+void MainWindow::setLocationAudio(QString currentMusic, QString currentAmbience, Location *object) {
     QString musicPath = object->getMusicPath();
     QString ambiencePath = object->getAmbiencePath();
     if (currentMusic != musicPath) {
-      musicPlayer.play(musicPath, ambiencePlayer.getdefMusicVol(), true);
+        musicPlayer.play(musicPath, ambiencePlayer.getdefMusicVol(), true);
     }
     if (currentAmbience != ambiencePath) {
-      ambiencePlayer.play(ambiencePath, ambiencePlayer.getdefAmbienceVol(),
-                          true);
+        ambiencePlayer.play(ambiencePath, ambiencePlayer.getdefAmbienceVol(), true);
     }
-    worldObj.setCurrentLocation(object);
-    if (worldObj.getActiveCharacter() != nullptr &&
-        worldObj.getCurrentLocation()->getName() ==
-            worldObj.getActiveCharacter()->getLocation()) {
-      appendDescription(worldObj.getActiveCharacter()->getBrief());
-      if (worldObj.getDay() == 8) {
-        appendDescription(
-            "\nHint: I can start a conversation by using the command GREET.");
-      }
-    }
-  }
 }
 
 void MainWindow::handleReturnPressed() {
   QString input = ui->inputText->text();
-  if (input == "") {
+  if (input.isEmpty()) {
     return;
   }
   input = input.toUpper().trimmed();
   if (input == "G" || input == "AGAIN") {
-    input = handlingObj.getLastCommand();
+    input = inputHandlerObj.getLastCommand();
   }
-  handlingObj.setLastCommand(input);
+  inputHandlerObj.setLastCommand(input);
   if (scriptObj.getRecordingStatus()) {
     scriptObj.writeFile(QString("> %1\n").arg(input));
   }
-  int validated = handlingObj.validateVerb(input);
-  if (validated == Handling::VERB_ARG) {
-    handlingObj.splitInput(this, input);
-  } else if (validated == Handling::VERB_NO_ARG) {
-    handlingObj.handleVerb(this, input, "", "", worldObj.getCurrentLocation());
-  } else {
-    if (input != "") {
-      setDescription(QString("I didn't know how to %1.").arg(input.toLower()));
-    } else {
-      handlingObj.confusedMsg(this);
-    }
+  int validated = inputHandlerObj.validateVerb(input);
+  if (validated == InputHandler::VERB_ARG) {
+    inputHandlerObj.splitInput(this, input);
+    ui->inputText->clear();
+    return;
   }
-  ui->inputText->clear();
+  if (validated == InputHandler::VERB_NO_ARG) {
+    verbHandlerObj.handleVerb(this, input, "", "", worldObj.getCurrentLocation());
+    ui->inputText->clear();
+    return;
+  }
+  if (!input.isEmpty()) {
+    setDescription(QString("I didn't know how to %1.").arg(input.toLower()));
+    ui->inputText->clear();
+    return;
+  }
 }
 
 MainWindow::~MainWindow() { delete ui; }

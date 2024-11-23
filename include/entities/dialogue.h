@@ -1,13 +1,19 @@
-#ifndef SCENARIOS_H
-#define SCENARIOS_H
+#ifndef DIALOGUE_H
+#define DIALOGUE_H
 #include "../../include/entities/locations.h"
 #include <QRegularExpression>
 
-class Scenario {
+class Dialogue {
 public:
-  Scenario(){};
+  Dialogue(){};
   static constexpr int START = 0;
   static constexpr int END = 100;
+  const QString ASK_INVALID = "It didn't seem like an appropriate question.";
+  const QString ASK_REFUSAL =
+      "I'm not sure I know you well enough to get into that.";
+  const QString DIALOGUE_OVER = "I don't have anymore time to talk.";
+  QString promptMsg;
+  QString getPromptMsg();
   QString askAmosE1(QString subject, Location *location);
   QString askAmosE1S1(QString subject, Location *location);
   QString askIraE1(QString subject, Location *location);
@@ -19,6 +25,6 @@ public:
   QString tellIraE1(QString subject, Location *location);
 };
 
-extern Scenario scenarioObj;
+extern Dialogue dialogueObj;
 
-#endif // SCENARIOS_H
+#endif // DIALOGUE_H

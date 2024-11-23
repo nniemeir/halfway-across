@@ -1,5 +1,7 @@
-#include "../../include/core/handling.h"
 #include "../../include/items/inventory.h"
+#include "../../include/core/handling/verbhandler.h"
+#include "../../include/entities/player.h"
+
 
 Item &Inventory::getInventoryItem(std::vector<Item> &inventory,
                                   const int index) {
@@ -13,22 +15,20 @@ int Inventory::searchInventory(std::vector<Item> &inventory,
                    [&](const Item &i) { return i.getName() == itemName; });
 
   if (it != inventory.end()) {
-    int index = std::distance(inventory.begin(), it);
-    return index;
-  } else {
-    return Handling::ITEM_NOT_FOUND;
+    return std::distance(inventory.begin(), it);
   }
+  return VerbHandler::ITEM_NOT_FOUND;
 }
 
 void Inventory::addItem(std::vector<Item> &inventory, Item itemToAdd,
                         const int itemIndex) {
-  if (itemIndex == Handling::ITEM_NOT_FOUND) {
+  if (itemIndex == VerbHandler::ITEM_NOT_FOUND) {
     itemToAdd.setQuantity(1);
     inventory.push_back(itemToAdd);
-  } else {
-    inventory[itemIndex].setQuantity(inventory[itemIndex].getAmount() +
-                                     itemToAdd.getAmount());
+    return;
   }
+  inventory[itemIndex].setQuantity(inventory[itemIndex].getAmount() +
+                                   itemToAdd.getAmount());
 }
 
 bool Inventory::addLoot(std::vector<Item> &inventory,
@@ -37,18 +37,18 @@ bool Inventory::addLoot(std::vector<Item> &inventory,
   bool fitAll = true;
   for (const auto &item : itemList) {
     int playerItemIndex =
-        inventoryObj.searchInventory(inventory, item.getName());
+        searchInventory(inventory, item.getName());
     int locationIndex =
-        inventoryObj.searchInventory(locationInventory, item.getName());
+        searchInventory(locationInventory, item.getName());
     if (fitsInventory(inventory, item)) {
-      inventoryObj.addItem(inventory, item, playerItemIndex);
-    } else {
-      inventoryObj.addItem(
-          locationInventory,
-          inventoryObj.getInventoryItem(inventory, playerItemIndex),
-          locationIndex);
-      fitAll = false;
+      addItem(inventory, item, playerItemIndex);
+      continue;
     }
+    addItem(
+        locationInventory,
+        getInventoryItem(inventory, playerItemIndex),
+        locationIndex);
+    fitAll = false;
   }
   return fitAll;
 }
@@ -63,17 +63,26 @@ bool Inventory::fitsInventory(const std::vector<Item> &inventory,
   }
   if (currentInventoryWeight + itemToAdd.getWeight() <= INVENTORY_CAPACITY) {
     return true;
-  } else {
-    return false;
   }
+  return false;
 }
 
 void Inventory::removeItem(std::vector<Item> &inventory, const int itemIndex) {
   if (inventory[itemIndex].getAmount() <= 1) {
     inventory.erase(inventory.begin() + itemIndex);
-  } else {
-    inventory[itemIndex].setQuantity(inventory[itemIndex].getAmount() - 1);
+    return;
   }
+  inventory[itemIndex].setQuantity(inventory[itemIndex].getAmount() - 1);
+}
+
+
+void Inventory::deactivateLocationSpecificItems() {
+    int rodIndex =
+        searchInventory(playerObj.getInventory(), "FISHING ROD");
+    if (rodIndex != VerbHandler::ITEM_NOT_FOUND) {
+        getInventoryItem(playerObj.getInventory(), rodIndex)
+        .setActive(false);
+    }
 }
 
 Inventory inventoryObj;

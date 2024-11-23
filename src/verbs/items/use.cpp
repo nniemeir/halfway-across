@@ -1,9 +1,11 @@
 #include "../../../include/core/audio.h"
-#include "../../../include/core/handling.h"
+#include "../../../include/core/handling/inputhandler.h"
+#include "../../../include/core/handling/msghandler.h"
+#include "../../../include/core/handling/verbhandler.h"
 #include "../../../include/core/world.h"
 #include "../../../include/entities/player.h"
 
-void Handling::use(MainWindow *mainWindow, QString target, Location *location) {
+void VerbHandler::use(MainWindow *mainWindow, QString target, Location *location) {
 
   QMap<QString, std::function<void()>> useLocations{
       {"The dark cave",
@@ -12,74 +14,72 @@ void Handling::use(MainWindow *mainWindow, QString target, Location *location) {
        [mainWindow, target, this]() { useLake(mainWindow, target); }}};
   if (useLocations.contains(location->getName())) {
     useLocations[location->getName()]();
-  } else {
-    notAllowedInLocMsg(mainWindow, "use anything");
+    return;
   }
+  msgHandlerObj.notAllowedInLocMsg(mainWindow, "use anything");
 }
 
-void Handling::useCave(MainWindow *mainWindow, QString target) {
-  int itemIndex =
-      inventoryObj.searchInventory(playerObj.getInventory(), "LANTERN");
+void VerbHandler::useCave(MainWindow *mainWindow, QString target) {
   if (target == "LANTERN") {
-    if (itemIndex != ITEM_NOT_FOUND) {
-      if (inventoryObj.getInventoryItem(playerObj.getInventory(), itemIndex)
-              .getEffect() == 100) {
-        sfxPlayer.play("qrc:/audio/sfx/flint.mp3", sfxPlayer.getdefSfxVol(), 0);
-        mainWindow->setLocation(cave.getMusicPath(), cave.getAmbiencePath(),
-                                &caveLit);
-      } else {
-        mainWindow->setDescription("My lantern needs a fuel source.");
-      }
-    } else {
+    int itemIndex = inventoryObj.searchInventory(playerObj.getInventory(), "LANTERN");
+    if (itemIndex == ITEM_NOT_FOUND) {
       mainWindow->setDescription("I didn't have a lantern.");
+      return;
     }
-  } else {
-    notAllowedInLocMsg(
-        mainWindow, QString("use %1 %2")
-                        .arg(handlingObj.getArticle(target), target.toLower()));
+    if (inventoryObj.getInventoryItem(playerObj.getInventory(), itemIndex)
+            .getEffect() != 100) {
+      mainWindow->setDescription("My lantern needs a fuel source.");
+      return;
+    }
+    sfxPlayer.play("qrc:/audio/sfx/flint.mp3", sfxPlayer.getdefSfxVol(), 0);
+    mainWindow->setLocation(cave.getMusicPath(), cave.getAmbiencePath(),
+                            &caveLit);
+    return;
   }
+  msgHandlerObj.notAllowedInLocMsg(
+      mainWindow, QString("use %1 %2")
+                      .arg(inputHandlerObj.getArticle(target), target.toLower()));
 }
 
-void Handling::useLake(MainWindow *mainWindow, QString target) {
+void VerbHandler::useLake(MainWindow *mainWindow, QString target) {
   if (target == "CHISEL") {
-    if (inventoryObj.searchInventory(playerObj.getInventory(), "CHISEL") !=
+    if (inventoryObj.searchInventory(playerObj.getInventory(), "CHISEL") ==
         ITEM_NOT_FOUND) {
-      sfxPlayer.play("qrc:/audio/sfx/chiselLake.mp3", sfxPlayer.getdefSfxVol(),
-                     0);
-      mainWindow->setDescription("I chiseled a hole in the ice.\n");
-      worldObj.setChiseledIce(true);
-    } else {
-      missingItemMsg(mainWindow, getArticle(target) + " " + target);
+      msgHandlerObj.missingItemMsg(mainWindow, inputHandlerObj.getArticle(target) + " " + target);
+      return;
     }
-  } else if (target == "FISHING ROD") {
+    sfxPlayer.play("qrc:/audio/sfx/chiselLake.mp3", sfxPlayer.getdefSfxVol(),
+                   0);
+    mainWindow->setDescription("I chiseled a hole in the ice.\n");
+    worldObj.setChiseledIce(true);
+    return;
+  }
+  if (target == "FISHING ROD") {
     int rodIndex =
         inventoryObj.searchInventory(playerObj.getInventory(), "FISHING ROD");
-    if (rodIndex != ITEM_NOT_FOUND) {
-      if (worldObj.getChiseledIce()) {
-        if (inventoryObj.getInventoryItem(playerObj.getInventory(), rodIndex)
-                .getEffect() == 100) {
-          inventoryObj.getInventoryItem(playerObj.getInventory(), rodIndex)
-              .setEffect(0);
-          sfxPlayer.play("qrc:/audio/sfx/fishSet.mp3", sfxPlayer.getdefSfxVol(),
-                         0);
-          inventoryObj.getInventoryItem(playerObj.getInventory(), rodIndex)
-              .setActive(true);
-          mainWindow->setDescription(
-              "I dropped my line into the hole I had cut into the ice.\n");
-        } else {
-          mainWindow->setDescription("I needed to put some bait on the line if "
-                                     "I expected to catch anything.\n");
-        }
-      } else {
-        mainWindow->setDescription(
-            "I needed to be near an exposed body of water to fish.\n");
-      }
-    } else {
-      missingItemMsg(mainWindow, getArticle(target) + " " + target);
+    if (rodIndex == ITEM_NOT_FOUND) {
+      msgHandlerObj.missingItemMsg(mainWindow, inputHandlerObj.getArticle(target) + " " + target);
+      return;
     }
-  } else {
-    notAllowedInLocMsg(
-        mainWindow, QString("use %1 %2")
-                        .arg(handlingObj.getArticle(target), target.toLower()));
+    if (!worldObj.getChiseledIce()) {
+      mainWindow->setDescription("The lake had frozen over.\n");
+      return;
+    }
+    if (inventoryObj.getInventoryItem(playerObj.getInventory(), rodIndex)
+            .getEffect() != 100) {
+      mainWindow->setDescription("I needed to put some bait on the line if "
+                                 "I expected to catch anything.\n");
+      return;
+    }
+    inventoryObj.getInventoryItem(playerObj.getInventory(), rodIndex)
+        .setEffect(0);
+    sfxPlayer.play("qrc:/audio/sfx/fishSet.mp3", sfxPlayer.getdefSfxVol(), 0);
+    inventoryObj.getInventoryItem(playerObj.getInventory(), rodIndex)
+        .setActive(true);
+    mainWindow->setDescription(
+        "I dropped my line into the hole I had cut into the ice.\n");
   }
+  msgHandlerObj.notAllowedInLocMsg(
+      mainWindow, QString("use %1 %2")
+          .arg(inputHandlerObj.getArticle(target), target.toLower()));
 }

@@ -1,11 +1,12 @@
-#include "../../../include/core/handling.h"
+#include "../../../include/core/handling/msghandler.h"
+#include "../../../include/core/handling/verbhandler.h"
 #include "../../../include/entities/player.h"
 
-void Handling::diagnose(MainWindow *mainWindow, Location *location) {
+void VerbHandler::diagnose(MainWindow *mainWindow, Location *location) {
   if (location->getName() == "Perished Menu" ||
       location->getName() == "Introduction Menu") {
-    notAllowedInLocMsg(mainWindow, "reflect");
-  } else {
-    mainWindow->setDescription(playerObj.generateWarnings());
+    msgHandlerObj.notAllowedInLocMsg(mainWindow, "reflect");
+    return;
   }
+  mainWindow->setDescription(playerObj.generateWarnings());
 }
