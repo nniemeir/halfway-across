@@ -4,7 +4,7 @@
 #include "../../../include/survival/hunting.h"
 
 void VerbHandler::skin(MainWindow *mainWindow, QString target,
-                    Location *location) {
+                       Location *location) {
   int animalIndex =
       inventoryObj.searchInventory(location->getInventory(), target);
   int knifeIndex =
@@ -20,7 +20,7 @@ void VerbHandler::skin(MainWindow *mainWindow, QString target,
     return;
   }
   sfxPlayer.play("qrc:/audio/sfx/skin.mp3", sfxPlayer.getdefSfxVol(), 0);
-  if (huntingObj.skinAnimal(target, location)) {
+  if (huntingObj.skinCarcass(target, location)) {
     mainWindow->setDescription(
         QString("I skinned the %1.").arg(target.toLower()));
     inventoryObj.removeItem(location->getInventory(), animalIndex);

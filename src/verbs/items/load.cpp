@@ -7,7 +7,8 @@ void VerbHandler::load(MainWindow *mainWindow, QString target) {
   int itemIndex =
       inventoryObj.searchInventory(playerObj.getInventory(), target);
   if (itemIndex == ITEM_NOT_FOUND) {
-    msgHandlerObj.missingItemMsg(mainWindow, inputHandlerObj.getArticle(target) + " " + target);
+    msgHandlerObj.missingItem(inputHandlerObj.getArticle(target) + " " +
+                              target);
     return;
   }
   QString payloadName =
@@ -16,9 +17,9 @@ void VerbHandler::load(MainWindow *mainWindow, QString target) {
   int payloadIndex =
       inventoryObj.searchInventory(playerObj.getInventory(), payloadName);
   if (payloadIndex == ITEM_NOT_FOUND) {
-    mainWindow->setDescription(
-        QString("I needed %1 %2.")
-            .arg(inputHandlerObj.getArticle(payloadName), payloadName.toLower()));
+    mainWindow->setDescription(QString("I needed %1 %2.")
+                                   .arg(inputHandlerObj.getArticle(payloadName),
+                                        payloadName.toLower()));
     return;
   }
   mainWindow->setDescription(QString("I loaded %1 %2 into my %3.")

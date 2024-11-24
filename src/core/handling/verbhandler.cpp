@@ -1,12 +1,11 @@
-#include "../../../include/core/handling/msghandler.h"
 #include "../../../include/core/handling/verbhandler.h"
+#include "../../../include/core/handling/msghandler.h"
 #include "../../../include/core/world.h"
 
 VerbHandler::VerbHandler() {}
 
-void VerbHandler::handleVerb(MainWindow *mainWindow, QString verb,
-                              QString target, QString subject,
-                              Location *location) {
+void VerbHandler::process(MainWindow *mainWindow, QString verb, QString target,
+                          QString subject, Location *location) {
   // The handling for the verb "AGAIN" is located in
   // MainWindow::handleReturnPressed
   if (verb == "EXIT" || verb == "Q" || verb == "QUIT") {
@@ -35,7 +34,7 @@ void VerbHandler::handleVerb(MainWindow *mainWindow, QString verb,
       {"E", [mainWindow, verb, location,
              this]() { move(mainWindow, verb, location); }},
       {"EAST", [mainWindow, verb, location,
-             this]() { move(mainWindow, verb, location); }},
+                this]() { move(mainWindow, verb, location); }},
       {"EAT", [mainWindow, target, this]() { eat(mainWindow, target); }},
       {"EXAMINE",
        [mainWindow, target, location, this]() { examine(mainWindow, target); }},
@@ -57,7 +56,7 @@ void VerbHandler::handleVerb(MainWindow *mainWindow, QString verb,
       {"N", [mainWindow, verb, location,
              this]() { move(mainWindow, verb, location); }},
       {"NORTH", [mainWindow, verb, location,
-                this]() { move(mainWindow, verb, location); }},
+                 this]() { move(mainWindow, verb, location); }},
       {"PUT", [mainWindow, target, subject, location,
                this]() { put(mainWindow, target, subject, location); }},
       {"READ", [mainWindow, location, target,
@@ -81,7 +80,7 @@ void VerbHandler::handleVerb(MainWindow *mainWindow, QString verb,
       {"SLEEP",
        [mainWindow, location, this]() { sleep(mainWindow, location); }},
       {"SOUTH", [mainWindow, verb, location,
-                this]() { move(mainWindow, verb, location); }},
+                 this]() { move(mainWindow, verb, location); }},
       {"STAND", [mainWindow, this]() { stand(mainWindow); }},
       {"TAKE", [mainWindow, target, location,
                 this]() { take(mainWindow, target, location); }},
@@ -104,22 +103,22 @@ void VerbHandler::handleVerb(MainWindow *mainWindow, QString verb,
        [mainWindow, location, this]() { begin(mainWindow, location); }},
       {"HELP", [mainWindow, this]() { help(mainWindow); }}};
 
-  if (worldObj.getGreetedNPC() && !worldObj.getSocialized()) {
-    handleVerbActions(mainWindow, verb, target, subject, location,
-                      dialogueActions, menuActions, gameplayActions);
+  if (worldObj.getConversing() && !worldObj.getConversedToday()) {
+    processActions(mainWindow, verb, target, subject, location, dialogueActions,
+                   menuActions, gameplayActions);
     return;
   }
   if (location->getName() == "Perished Menu" ||
       location->getName() == "Introduction Menu") {
-    handleVerbActions(mainWindow, verb, target, subject, location, menuActions,
-                      dialogueActions, gameplayActions);
+    processActions(mainWindow, verb, target, subject, location, menuActions,
+                   dialogueActions, gameplayActions);
     return;
   }
-  handleVerbActions(mainWindow, verb, target, subject, location,
-                    gameplayActions, dialogueActions, menuActions);
+  processActions(mainWindow, verb, target, subject, location, gameplayActions,
+                 dialogueActions, menuActions);
 }
 
-void VerbHandler::handleVerbActions(
+void VerbHandler::processActions(
     MainWindow *mainWindow, QString verb, QString target, QString subject,
     Location *location, QMap<QString, std::function<void()>> validActions,
     QMap<QString, std::function<void()>> invalidActions1,
@@ -129,10 +128,10 @@ void VerbHandler::handleVerbActions(
     return;
   }
   if (invalidActions1.contains(verb) || invalidActions2.contains(verb)) {
-    msgHandlerObj.notAllowedInLocMsg(mainWindow, verb);
+    mainWindow->setDescription(msgHandlerObj.invalidLocation(verb));
     return;
   }
-  msgHandlerObj.confusedMsg(mainWindow);
+  mainWindow->setDescription(MsgHandler::CONFUSED);
 }
 
 VerbHandler verbHandlerObj;

@@ -4,10 +4,10 @@
 #include "../../../include/entities/player.h"
 
 void VerbHandler::read(MainWindow *mainWindow, Location *location,
-                    QString target) {
+                       QString target) {
   if (location->getName() == "Perished Menu" ||
       location->getName() == "Introduction Menu") {
-    msgHandlerObj.notAllowedInLocMsg(mainWindow, "read");
+    msgHandlerObj.invalidLocation("read");
     return;
   }
   QMap<QString, QString> intangibleItems = {
@@ -15,7 +15,7 @@ void VerbHandler::read(MainWindow *mainWindow, Location *location,
       {"RECIPES", playerObj.displayRecipeBook()}};
 
   if (!intangibleItems.contains(target)) {
-    msgHandlerObj.missingItemMsg(mainWindow, target);
+    msgHandlerObj.missingItem(target);
     return;
   }
   sfxPlayer.play("qrc:/audio/sfx/read.mp3", sfxPlayer.getdefSfxVol(), 0);

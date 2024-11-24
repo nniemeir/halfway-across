@@ -5,14 +5,15 @@
 #include "../../../include/survival/hunting.h"
 
 void VerbHandler::hunt(MainWindow *mainWindow, QString target,
-                    Location *location) {
-  if (huntingObj.getDailyHunts() == 2) {
+                       Location *location) {
+  if (huntingObj.getDailyAttempts() == 2) {
     mainWindow->setDescription("I was too tired to hunt anymore that day.");
     return;
   }
   if (huntingObj.getActiveAnimal() == target) {
-    mainWindow->setDescription(QString("I was already hunting %1 %2.")
-                                   .arg(inputHandlerObj.getArticle(target), target.toLower()));
+    mainWindow->setDescription(
+        QString("I was already hunting %1 %2.")
+            .arg(inputHandlerObj.getArticle(target), target.toLower()));
     return;
   }
   if (location->getName() != "The valley") {
@@ -28,7 +29,7 @@ void VerbHandler::hunt(MainWindow *mainWindow, QString target,
     mainWindow->setDescription("I needed a bow and arrow to hunt.");
     return;
   }
-  int huntResult = huntingObj.activity(target, arrowIndex);
+  int huntResult = huntingObj.seek(target, arrowIndex);
   switch (huntResult) {
   case Hunting::ANIMAL_FOUND:
     sfxPlayer.play("qrc:/audio/sfx/hunt.mp3", sfxPlayer.getdefSfxVol(), false);

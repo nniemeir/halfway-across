@@ -5,7 +5,7 @@
 #include "../../../include/items/item.h"
 
 void VerbHandler::cook(MainWindow *mainWindow, QString target,
-                    Location *location) {
+                       Location *location) {
   if (location->getName() != "Camp") {
     mainWindow->setDescription("I needed to be near a campfire to cook.");
   }
@@ -13,16 +13,18 @@ void VerbHandler::cook(MainWindow *mainWindow, QString target,
   int itemIndex =
       inventoryObj.searchInventory(playerObj.getInventory(), target);
   if (itemIndex == ITEM_NOT_FOUND) {
-    msgHandlerObj.missingItemMsg(mainWindow, inputHandlerObj.getArticle(target) + " " + target);
+    mainWindow->setDescription(msgHandlerObj.missingItem(
+        inputHandlerObj.getArticle(target) + " " + target));
     return;
   }
 
-  QString itemType = playerObj.getInventoryItem(playerObj.getInventory(), itemIndex).getType();
+  QString itemType =
+      playerObj.getInventoryItem(playerObj.getInventory(), itemIndex).getType();
   if (itemType != "RAW MEAT" && itemType != "FAT") {
-      mainWindow->setDescription(
-      QString("I thought of cooking %1 %2, but dismissed the idea.")
-          .arg(inputHandlerObj.getArticle(target), target.toLower()));
-      return;
+    mainWindow->setDescription(
+        QString("I thought of cooking %1 %2, but dismissed the idea.")
+            .arg(inputHandlerObj.getArticle(target), target.toLower()));
+    return;
   }
 
   if (itemType == "RAW MEAT") {
@@ -33,7 +35,7 @@ void VerbHandler::cook(MainWindow *mainWindow, QString target,
         inventoryObj.getInventoryItem(playerObj.getInventory(), itemIndex));
     inventoryObj.removeItem(playerObj.getInventory(), itemIndex);
     int cookedItemIndex = inventoryObj.searchInventory(playerObj.getInventory(),
-                                                   cookedItem.getName());
+                                                       cookedItem.getName());
     inventoryObj.addItem(playerObj.getInventory(), cookedItem, cookedItemIndex);
     return;
   }

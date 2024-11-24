@@ -14,16 +14,16 @@ public:
   int getCurrentTemperature() const;
   QString getCurrentWeather() const;
   int getDay() const;
-  bool getGreetedNPC() const;
-  bool getSocialized() const;
+  bool getConversing() const;
+  bool getConversedToday() const;
   void setActiveCharacter(Character *newCharacter);
   void setChiseledIce(bool newValue);
   void setCurrentLocation(Location *location);
-  void setGreetedNPC(bool newValue);
-  void setSocialized(bool newValue);
+  void setConversing(bool newValue);
+  void setConversedtoday(bool newValue);
   QString getActiveCharacterBrief();
   QString advanceDay();
-  bool roll(const int probability);
+  bool rollDice(const int probability);
   bool validDirection(const QString &value);
 
 private:
@@ -36,10 +36,10 @@ private:
   Character *generateCharacter();
   int generateTemperature();
   QString generateWeather();
-  bool generateTempDebuff();
+  bool applyColdDmg();
   std::vector<QString> directions;
-  bool greetedNPC;
-  bool socialized;
+  bool conversing;
+  bool conversedtoday;
 };
 
 extern World worldObj;

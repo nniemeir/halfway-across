@@ -11,7 +11,7 @@ void VerbHandler::eat(MainWindow *mainWindow, QString target) {
     itemIndex = inventoryObj.searchInventory(playerObj.getInventory(), target);
   }
   if (itemIndex == ITEM_NOT_FOUND) {
-    msgHandlerObj.missingItemMsg(mainWindow, "any " + target);
+    mainWindow->setDescription(msgHandlerObj.missingItem("any " + target));
     return;
   }
   if (inventoryObj.getInventoryItem(playerObj.getInventory(), itemIndex)

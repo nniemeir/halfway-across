@@ -5,17 +5,17 @@
 #include "../../../include/entities/player.h"
 
 void VerbHandler::look(MainWindow *mainWindow, QString target,
-                    Location *location) {
+                       Location *location) {
   if (ensembleObj.isCharacterName(target)) {
     if (worldObj.getActiveCharacter() == nullptr) {
-      msgHandlerObj.characterNotActiveMsg(mainWindow, target);
+      mainWindow->setDescription(MsgHandler::CHARACTER_NOT_ACTIVE);
       return;
     }
     if (QString::compare(target, worldObj.getActiveCharacter()->getName(),
                          Qt::CaseInsensitive) == 1 &&
         worldObj.getActiveCharacter()->getLocation() ==
             worldObj.getCurrentLocation()->getName()) {
-        msgHandlerObj.characterNotActiveMsg(mainWindow, target);
+      mainWindow->setDescription(MsgHandler::CHARACTER_NOT_ACTIVE);
       return;
     }
     mainWindow->setDescription(worldObj.getActiveCharacter()->getDescription());
@@ -36,10 +36,10 @@ void VerbHandler::look(MainWindow *mainWindow, QString target,
        [mainWindow, target, this]() { lookValley(mainWindow, target); }}};
 
   if (!lookLocations.contains(location->getName())) {
-      msgHandlerObj.notAllowedInLocMsg(mainWindow, "look anywhere");
-      return;
+    mainWindow->setDescription(msgHandlerObj.invalidLocation("look anywhere"));
+    return;
   }
-    lookLocations[location->getName()]();
+  lookLocations[location->getName()]();
 }
 
 void VerbHandler::lookCamp(MainWindow *mainWindow, QString target) {
@@ -48,102 +48,102 @@ void VerbHandler::lookCamp(MainWindow *mainWindow, QString target) {
       {"BAG", playerObj.displayBagInventory()},
       {"FIRE", "The fire burned low."},
       {"BED", "The bed seemed to be quite worn."},
-      {"GROUND", camp.locInventory()},
+      {"GROUND", camp.displayItems()},
       {"SELF", playerObj.displayClothesInventory()},
       {"UP", "The cave ceiling seemed sturdy enough that it wouldn't collapse "
              "on me."},
-      {"DOWN", camp.locInventory()},
+      {"DOWN", camp.displayItems()},
       {"OUTSIDE", QString("It was %1 outside.")
                       .arg(worldObj.getCurrentWeather().toLower())}};
 
   if (!descriptions.contains(target)) {
-      msgHandlerObj.notAllowedDirMsg(mainWindow, "look", target);
-      return;
+    mainWindow->setDescription(msgHandlerObj.invalidDirection("look", target));
+    return;
   }
-    mainWindow->setDescription(descriptions.value(target));
+  mainWindow->setDescription(descriptions.value(target));
 }
 
 void VerbHandler::lookForestPath(MainWindow *mainWindow, QString target) {
   QMap<QString, QString> descriptions = {
       {"AROUND", forestPath.getDescription()},
       {"BAG", playerObj.displayBagInventory()},
-      {"GROUND", forestPath.locInventory()},
+      {"GROUND", forestPath.displayItems()},
       {"PATH", "The other branches of the path went off into the distance.\n"},
       {"UP", "The sky seemed empty that day."},
-      {"DOWN", forestPath.locInventory()},
+      {"DOWN", forestPath.displayItems()},
       {"SELF", playerObj.displayClothesInventory()}};
 
-    if (!descriptions.contains(target)) {
-      msgHandlerObj.notAllowedDirMsg(mainWindow, "look", target);
-        return;
-    }
-    mainWindow->setDescription(descriptions.value(target));
+  if (!descriptions.contains(target)) {
+    mainWindow->setDescription(msgHandlerObj.invalidDirection("look", target));
+    return;
+  }
+  mainWindow->setDescription(descriptions.value(target));
 }
 
 void VerbHandler::lookCave(MainWindow *mainWindow, QString target) {
   QMap<QString, QString> descriptions = {
       {"AROUND", valley.getDescription()},
       {"BAG", playerObj.displayBagInventory()},
-      {"GROUND", cave.locInventory()},
+      {"GROUND", cave.displayItems()},
       {"UP", "The cave ceiling seemed sturdy enough that it wouldn't collapse "
              "on me."},
-      {"DOWN", cave.locInventory()},
+      {"DOWN", cave.displayItems()},
       {"SELF", playerObj.displayClothesInventory()}};
 
-    if (!descriptions.contains(target)) {
-      msgHandlerObj.notAllowedDirMsg(mainWindow, "look", target);
-        return;
-    }
-    mainWindow->setDescription(descriptions.value(target));
+  if (!descriptions.contains(target)) {
+    mainWindow->setDescription(msgHandlerObj.invalidDirection("look", target));
+    return;
+  }
+  mainWindow->setDescription(descriptions.value(target));
 }
 
 void VerbHandler::lookCaveEntrance(MainWindow *mainWindow, QString target) {
   QMap<QString, QString> descriptions = {
       {"AROUND", caveEntrance.getDescription()},
       {"BAG", playerObj.displayBagInventory()},
-      {"GROUND", caveEntrance.locInventory()},
+      {"GROUND", caveEntrance.displayItems()},
       {"UP", "I felt smaller looking at the mountain."},
-      {"DOWN", caveEntrance.locInventory()},
+      {"DOWN", caveEntrance.displayItems()},
       {"SELF", playerObj.displayClothesInventory()}};
 
-    if (!descriptions.contains(target)) {
-      msgHandlerObj.notAllowedDirMsg(mainWindow, "look", target);
-        return;
-    }
-    mainWindow->setDescription(descriptions.value(target));
+  if (!descriptions.contains(target)) {
+    mainWindow->setDescription(msgHandlerObj.invalidDirection("look", target));
+    return;
+  }
+  mainWindow->setDescription(descriptions.value(target));
 }
 
 void VerbHandler::lookLake(MainWindow *mainWindow, QString target) {
   QMap<QString, QString> descriptions = {
       {"AROUND", lake.getDescription()},
       {"BAG", playerObj.displayBagInventory()},
-      {"GROUND", lake.locInventory()},
+      {"GROUND", lake.displayItems()},
       {"LAKE", "The lake had frozen over.\n"},
       {"MOUNTAIN", "Who knew what that mountain held?\n"},
       {"UP", "The sky felt empty that day."},
-      {"DOWN", lake.locInventory()},
+      {"DOWN", lake.displayItems()},
       {"SELF", playerObj.displayClothesInventory()}};
 
-    if (!descriptions.contains(target)) {
-      msgHandlerObj.notAllowedDirMsg(mainWindow, "look", target);
-        return;
-    }
-    mainWindow->setDescription(descriptions.value(target));
+  if (!descriptions.contains(target)) {
+    mainWindow->setDescription(msgHandlerObj.invalidDirection("look", target));
+    return;
+  }
+  mainWindow->setDescription(descriptions.value(target));
 }
 
 void VerbHandler::lookValley(MainWindow *mainWindow, QString target) {
   QMap<QString, QString> descriptions = {
       {"AROUND", valley.getDescription()},
       {"BAG", playerObj.displayBagInventory()},
-      {"GROUND", valley.locInventory()},
+      {"GROUND", valley.displayItems()},
       {"TREES", "The trees were covered in snow."},
       {"UP", "The sky felt empty that day."},
-      {"DOWN", valley.locInventory()},
+      {"DOWN", valley.displayItems()},
       {"SELF", playerObj.displayClothesInventory()}};
 
-    if (!descriptions.contains(target)) {
-      msgHandlerObj.notAllowedDirMsg(mainWindow, "look", target);
-        return;
-    }
-    mainWindow->setDescription(descriptions.value(target));
+  if (!descriptions.contains(target)) {
+    mainWindow->setDescription(msgHandlerObj.invalidDirection("look", target));
+    return;
+  }
+  mainWindow->setDescription(descriptions.value(target));
 }

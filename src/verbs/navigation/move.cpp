@@ -5,7 +5,7 @@
 #include "../../../include/entities/player.h"
 
 void VerbHandler::move(MainWindow *mainWindow, QString target,
-                    Location *location) {
+                       Location *location) {
   QMap<QString, std::function<void()>> moveLocations{
       {"Camp", [mainWindow, target, this]() { moveCamp(mainWindow, target); }},
       {"The forest path",
@@ -30,7 +30,7 @@ void VerbHandler::move(MainWindow *mainWindow, QString target,
     return;
   }
   if (!moveLocations.contains(location->getName())) {
-    msgHandlerObj.notAllowedInLocMsg(mainWindow, "move anywhere");
+    mainWindow->setDescription(msgHandlerObj.invalidLocation("move anywhere"));
     return;
   }
   moveLocations[location->getName()]();
@@ -44,7 +44,7 @@ void VerbHandler::moveCamp(MainWindow *mainWindow, QString target) {
       return;
     }
     if (!playerObj.getEnergized()) {
-      msgHandlerObj.tiredMsg(mainWindow);
+      mainWindow->setDescription(MsgHandler::TIRED);
       return;
     }
     sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(), 0);
@@ -52,7 +52,7 @@ void VerbHandler::moveCamp(MainWindow *mainWindow, QString target) {
                             &forestPath);
     return;
   }
-  msgHandlerObj.notAllowedDirMsg(mainWindow, "move", target);
+  mainWindow->setDescription(msgHandlerObj.invalidDirection("move", target));
 }
 
 void VerbHandler::moveForestPath(MainWindow *mainWindow, QString target) {
@@ -64,7 +64,7 @@ void VerbHandler::moveForestPath(MainWindow *mainWindow, QString target) {
     return;
   }
   if (!playerObj.getEnergized()) {
-   msgHandlerObj.tiredMsg(mainWindow);
+    mainWindow->setDescription(MsgHandler::TIRED);
     return;
   }
   if (target == "WEST" || target == "W") {
@@ -88,7 +88,7 @@ void VerbHandler::moveForestPath(MainWindow *mainWindow, QString target) {
     playerObj.setEnergized(false);
     return;
   }
-  msgHandlerObj.notAllowedDirMsg(mainWindow, "move", target);
+  mainWindow->setDescription(msgHandlerObj.invalidDirection("move", target));
 }
 
 void VerbHandler::moveCave(MainWindow *mainWindow, QString target) {
@@ -99,7 +99,7 @@ void VerbHandler::moveCave(MainWindow *mainWindow, QString target) {
                             &caveEntrance);
     return;
   }
-  msgHandlerObj.notAllowedDirMsg(mainWindow, "move", target);
+  mainWindow->setDescription(msgHandlerObj.invalidDirection("move", target));
 }
 
 void VerbHandler::moveCaveLit(MainWindow *mainWindow, QString target) {
@@ -110,7 +110,7 @@ void VerbHandler::moveCaveLit(MainWindow *mainWindow, QString target) {
                             &caveEntrance);
     return;
   }
-  msgHandlerObj.notAllowedDirMsg(mainWindow, "move", target);
+  mainWindow->setDescription(msgHandlerObj.invalidDirection("move", target));
 }
 
 void VerbHandler::moveCaveEntrance(MainWindow *mainWindow, QString target) {
@@ -128,7 +128,7 @@ void VerbHandler::moveCaveEntrance(MainWindow *mainWindow, QString target) {
                             caveEntrance.getAmbiencePath(), &cave);
     return;
   }
-  msgHandlerObj.notAllowedDirMsg(mainWindow, "move", target);
+  mainWindow->setDescription(msgHandlerObj.invalidDirection("move", target));
 }
 
 void VerbHandler::moveLake(MainWindow *mainWindow, QString target) {
@@ -139,7 +139,7 @@ void VerbHandler::moveLake(MainWindow *mainWindow, QString target) {
                             &forestPath);
     return;
   }
-  msgHandlerObj.notAllowedDirMsg(mainWindow, "move", target);
+  mainWindow->setDescription(msgHandlerObj.invalidDirection("move", target));
 }
 
 void VerbHandler::moveValley(MainWindow *mainWindow, QString target) {
@@ -150,5 +150,5 @@ void VerbHandler::moveValley(MainWindow *mainWindow, QString target) {
                             &forestPath);
     return;
   }
-  msgHandlerObj.notAllowedDirMsg(mainWindow, "move", target);
+  mainWindow->setDescription(msgHandlerObj.invalidDirection("move", target));
 }

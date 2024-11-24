@@ -11,26 +11,26 @@ public:
   static constexpr int ANIMAL_FOUND = 0;
   static constexpr int ANIMAL_NOT_FOUND = 1;
   QString getActiveAnimal() const;
-  int getDailyHunts() const;
+  int getDailyAttempts() const;
   std::vector<Item> &getSlainAnimals();
   void setActiveAnimal(QString animal);
-  int activity(QString target, int arrowIndex);
+  int seek(QString target, int arrowIndex);
   bool assessDamage(QString target);
   bool hitTarget(QString target);
   bool recoveredArrow(bool hitTarget);
-  bool skinAnimal(QString target, Location *location);
-  void resetDailyHunts();
+  bool skinCarcass(QString target, Location *location);
+  void resetDailyAttempts();
 
 private:
   bool foundAnimal(QString target);
-  std::vector<Item> slainAnimals;
+  std::vector<Item> animalCarcasses;
   std::vector<QString> validAnimals;
   std::vector<Item> bearParts;
   std::vector<Item> deerParts;
   std::vector<Item> foxParts;
   std::vector<Item> rabbitParts;
   QString activeAnimal;
-  int dailyHunts;
+  int dailyAttempts;
 };
 
 extern Hunting huntingObj;

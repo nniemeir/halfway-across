@@ -32,7 +32,7 @@ Hunting::Hunting() {
                  {"RABBIT PELT", 1, false, 0, 20, "PELT", "NONE",
                   "I could use it for crafting."}};
 
-  slainAnimals = {
+  animalCarcasses = {
       {"BEAR", 1, false, 0, 100, "ANIMALS", "NONE",
        "The slain bear almost looks bigger on the ground."},
       {"DEER", 1, false, 0, 50, "ANIMALS", "NONE", "It was a lean doe."},
@@ -43,19 +43,19 @@ Hunting::Hunting() {
 
   validAnimals = {"BEAR", "DEER", "FOX", "RABBIT"};
 
-  dailyHunts = 0;
+  dailyAttempts = 0;
 }
 
 QString Hunting::getActiveAnimal() const { return activeAnimal; }
 
-int Hunting::getDailyHunts() const { return dailyHunts; }
+int Hunting::getDailyAttempts() const { return dailyAttempts; }
 
-std::vector<Item> &Hunting::getSlainAnimals() { return slainAnimals; }
+std::vector<Item> &Hunting::getSlainAnimals() { return animalCarcasses; }
 
 void Hunting::setActiveAnimal(QString animal) { activeAnimal = animal; }
 
-int Hunting::activity(QString target, int arrowIndex) {
-  dailyHunts++;
+int Hunting::seek(QString target, int arrowIndex) {
+  dailyAttempts++;
   if (std::find(validAnimals.begin(), validAnimals.end(), target) !=
       validAnimals.end()) {
     if (foundAnimal(target)) {
@@ -74,7 +74,7 @@ bool Hunting::assessDamage(QString target) {
   if (probabilities.contains(target)) {
     chance = probabilities.value(target);
   }
-  return worldObj.roll(chance);
+  return worldObj.rollDice(chance);
 }
 
 bool Hunting::hitTarget(QString target) {
@@ -84,7 +84,7 @@ bool Hunting::hitTarget(QString target) {
   if (probabilities.contains(target)) {
     chance = probabilities.value(target);
   }
-  return worldObj.roll(chance);
+  return worldObj.rollDice(chance);
 }
 
 bool Hunting::recoveredArrow(bool hitTarget) {
@@ -94,13 +94,13 @@ bool Hunting::recoveredArrow(bool hitTarget) {
   } else {
     chance = 65;
   }
-  if (worldObj.roll(chance)) {
+  if (worldObj.rollDice(chance)) {
     return true;
   }
   return false;
 }
 
-bool Hunting::skinAnimal(QString target, Location *location) {
+bool Hunting::skinCarcass(QString target, Location *location) {
   QMap<QString, std::vector<Item>> animalParts = {{"BEAR", bearParts},
                                                   {"DEER", deerParts},
                                                   {"FOX", foxParts},
@@ -113,7 +113,7 @@ bool Hunting::skinAnimal(QString target, Location *location) {
   return false;
 }
 
-void Hunting::resetDailyHunts() { dailyHunts = 0; }
+void Hunting::resetDailyAttempts() { dailyAttempts = 0; }
 
 bool Hunting::foundAnimal(QString target) {
   QMap<QString, int> probabilities = {
@@ -122,7 +122,7 @@ bool Hunting::foundAnimal(QString target) {
   if (probabilities.contains(target)) {
     chance = probabilities.value(target);
   }
-  if (worldObj.roll(chance)) {
+  if (worldObj.rollDice(chance)) {
     return true;
   }
   return false;

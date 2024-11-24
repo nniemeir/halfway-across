@@ -5,7 +5,7 @@
 void VerbHandler::diagnose(MainWindow *mainWindow, Location *location) {
   if (location->getName() == "Perished Menu" ||
       location->getName() == "Introduction Menu") {
-    msgHandlerObj.notAllowedInLocMsg(mainWindow, "reflect");
+    mainWindow->setDescription(msgHandlerObj.invalidLocation("reflect"));
     return;
   }
   mainWindow->setDescription(playerObj.generateWarnings());

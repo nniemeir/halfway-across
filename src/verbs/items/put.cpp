@@ -6,7 +6,7 @@
 #include "../../../include/entities/player.h"
 
 void VerbHandler::put(MainWindow *mainWindow, QString target, QString subject,
-                   Location *location) {
+                      Location *location) {
   QMap<QString, std::vector<Item>> inventories = {
       {"GROUND", location->getInventory()}};
 
@@ -19,7 +19,8 @@ void VerbHandler::put(MainWindow *mainWindow, QString target, QString subject,
   int itemIndex =
       inventoryObj.searchInventory(playerObj.getInventory(), target);
   if (itemIndex == ITEM_NOT_FOUND) {
-    msgHandlerObj.missingItemMsg(mainWindow, inputHandlerObj.getArticle(target) + " " + target);
+    mainWindow->setDescription(msgHandlerObj.missingItem(
+        inputHandlerObj.getArticle(target) + " " + target));
     return;
   }
   sfxPlayer.play("qrc:/audio/sfx/drop.mp3", sfxPlayer.getdefSfxVol(), 0);

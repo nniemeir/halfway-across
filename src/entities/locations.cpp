@@ -1,16 +1,17 @@
 #include "../../include/entities/locations.h"
 
 Location::Location(const QString &name, const QString &description,
-                   const QString &compass, const QString &image,
+                   const QString &compassPath, const QString &imagePath,
                    const QString &musicPath, const QString &ambiencePath,
                    const std::vector<Item> &inventory)
-    : name(name), description(description), compass(compass), image(image),
-      musicPath(musicPath), ambiencePath(ambiencePath), inventory(inventory) {}
+    : name(name), description(description), compassPath(compassPath),
+      imagePath(imagePath), musicPath(musicPath), ambiencePath(ambiencePath),
+      inventory(inventory) {}
 
 QString Location::getName() const { return name; }
 QString Location::getDescription() const { return description; }
-QString Location::getCompass() const { return compass; }
-QString Location::getImage() const { return image; }
+QString Location::getCompassPath() const { return compassPath; }
+QString Location::getImagePath() const { return imagePath; }
 QString Location::getAmbiencePath() const { return ambiencePath; }
 QString Location::getMusicPath() const { return musicPath; }
 QString Location::setDescription(QString message) {
@@ -20,7 +21,7 @@ QString Location::setDescription(QString message) {
 
 std::vector<Item> &Location::getInventory() { return inventory; }
 
-QString Location::locInventory() const {
+QString Location::displayItems() const {
   QStringList inventoryItemsText;
   for (const auto &item : inventory) {
     inventoryItemsText.append(
@@ -41,7 +42,7 @@ Location camp(
     "Camp",
     "My camp provided some respite from the harsh winds that had been plaguing "
     "me.",
-    ":/images/compass/n.png", ":/images/locations/camp.png",
+    ":/images/compassPath/n.png", ":/images/locations/camp.png",
     "qrc:/audio/music/placeholder.mp3", "qrc:/audio/ambience/campfire.mp3",
     {{"ARROW", 3, false, 0, 0, "TOOLS", "NONE",
       "I could load it into my bow to hunt at a distance."},
@@ -62,34 +63,33 @@ Location camp(
      {"LANTERN", 1, false, 0, 0, "TOOLS", "TALLOW CANDLE",
       "If loaded with a tallow candle, I could use it to light my way."}});
 
-Location
-    forestPath("The forest path",
-               "I moved through a break in the trees for a while before "
-               "reaching a fork in the road.",
-               ":/images/compass/news.png", ":/images/locations/forestPath.png",
-               "qrc:/audio/music/placeholder.mp3",
-               "qrc:/audio/ambience/mountainWind.mp3",
-               {{"PIECE OF WOOD", 1, false, 0, 0, "RESOURCES", "NONE",
-                 "I could use it to fuel my campfire or to craft items."}});
+Location forestPath(
+    "The forest path",
+    "I moved through a break in the trees for a while before "
+    "reaching a fork in the road.",
+    ":/images/compassPath/news.png", ":/images/locations/forestPath.png",
+    "qrc:/audio/music/placeholder.mp3", "qrc:/audio/ambience/mountainWind.mp3",
+    {{"PIECE OF WOOD", 1, false, 0, 0, "RESOURCES", "NONE",
+      "I could use it to fuel my campfire or to craft items."}});
 
 Location caveEntrance(
     "The cave's entrance",
     "I happened upon a cave, it didn't seem like a good idea to "
     "find out what it contained.",
-    ":/images/compass/ew.png", ":/images/locations/caveEntrance.png",
+    ":/images/compassPath/ew.png", ":/images/locations/caveEntrance.png",
     "qrc:/audio/music/placeholder.mp3", "qrc:/audio/ambience/mountainWind.mp3",
     {{"ROCK", 1, false, 0, 0, "TOOLS", "NONE",
       "I could use it to distract animals."}});
 
 Location cave("The dark cave", "Entering the cave, I saw nothing but darkness.",
-              ":/images/compass/w.png", ":/images/locations/cave.png",
+              ":/images/compassPath/w.png", ":/images/locations/cave.png",
               "qrc:/audio/music/placeholder.mp3",
               "qrc:/audio/ambience/caveWind.mp3",
               {{"ROCK", 1, false, 0, 0, "TOOLS", "NONE",
                 "I could use it to distract animals."}});
 
 Location caveLit("The well-lit cave", "My lantern now lit the way.",
-                 ":/images/compass/w.png", ":/images/locations/caveLit.png",
+                 ":/images/compassPath/w.png", ":/images/locations/caveLit.png",
                  "qrc:/audio/music/placeholder.mp3",
                  "qrc:/audio/ambience/caveWind.mp3",
                  {{"ROCK", 1, false, 0, 0, "TOOLS", "NONE",
@@ -104,7 +104,7 @@ Location intro("Introduction Menu",
 Location lake("The lake",
               "I arrived at a lake after an hour's journey, it could be a good "
               "source of fish and water.",
-              ":/images/compass/e.png", ":/images/locations/lake.png",
+              ":/images/compassPath/e.png", ":/images/locations/lake.png",
               "qrc:/audio/music/placeholder.mp3",
               "qrc:/audio/ambience/mountainWind.mp3",
               {{"PIECE OF WOOD", 1, false, 0, 0, "RESOURCES", "NONE",
@@ -118,7 +118,7 @@ Location perished("Perished Menu", "\n\nType QUIT to exit.", "",
 Location valley("The valley",
                 "I arrived at a clearing. It seemed like a good spot for "
                 "hunting.",
-                ":/images/compass/s.png", ":/images/locations/valley.png",
+                ":/images/compassPath/s.png", ":/images/locations/valley.png",
                 "qrc:/audio/music/placeholder.mp3",
                 "qrc:/audio/ambience/mountainWind.mp3",
                 {{"FEATHER", 3, false, 0, 0, "RESOURCES", "NONE",

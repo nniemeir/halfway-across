@@ -4,9 +4,9 @@
 #include "../../include/survival/hunting.h"
 
 World::World()
-    : activeCharacter(nullptr), currentLocation(nullptr), day(7),
-      currentTemperature(30), currentWeather("clear"), greetedNPC(false),
-      socialized(false), chiseledIce(false),
+    : activeCharacter(nullptr), currentLocation(nullptr), day(1),
+      currentTemperature(30), currentWeather("clear"), conversing(false),
+      conversedtoday(false), chiseledIce(false),
       directions{"NORTH", "WEST", "SOUTH", "EAST", "N", "W", "S", "E"} {}
 
 Character *World::getActiveCharacter() { return activeCharacter; }
@@ -21,9 +21,9 @@ QString World::getCurrentWeather() const { return currentWeather; }
 
 int World::getDay() const { return day; }
 
-bool World::getGreetedNPC() const { return greetedNPC; }
+bool World::getConversing() const { return conversing; }
 
-bool World::getSocialized() const { return socialized; }
+bool World::getConversedToday() const { return conversedtoday; }
 
 void World::setChiseledIce(bool newValue) { chiseledIce = newValue; }
 
@@ -35,21 +35,21 @@ void World::setCurrentLocation(Location *location) {
   currentLocation = location;
 }
 
-void World::setGreetedNPC(bool newValue) { greetedNPC = newValue; }
+void World::setConversing(bool newValue) { conversing = newValue; }
 
-void World::setSocialized(bool newValue) { socialized = newValue; }
+void World::setConversedtoday(bool newValue) { conversedtoday = newValue; }
 
 QString World::getActiveCharacterBrief() {
-    QString activeCharacterBrief;
-    if (activeCharacter != nullptr &&
-        currentLocation->getName() ==
-            activeCharacter->getLocation()) {
-        activeCharacterBrief.append(activeCharacter->getBrief());
-    }
-    if (day == 8) {activeCharacterBrief.append(
-            "\nHint: I can start a conversation by using the command GREET.");
-    }
-    return activeCharacterBrief;
+  QString activeCharacterBrief;
+  if (activeCharacter != nullptr &&
+      currentLocation->getName() == activeCharacter->getLocation()) {
+    activeCharacterBrief.append(activeCharacter->getBrief());
+  }
+  if (day == 8) {
+    activeCharacterBrief.append(
+        "\nHint: I can start a conversation by using the command GREET.");
+  }
+  return activeCharacterBrief;
 }
 
 QString World::advanceDay() {
@@ -67,13 +67,13 @@ QString World::advanceDay() {
   if (!playerObj.setThirst(playerObj.getThirst() - 30)) {
     return "THIRST";
   }
-  if (!generateTempDebuff()) {
+  if (!applyColdDmg()) {
     return "WARMTH";
   }
   setChiseledIce(false);
-  worldObj.setSocialized(false);
-  huntingObj.resetDailyHunts();
-  fishingObj.resetDailyFished();
+  worldObj.setConversedtoday(false);
+  huntingObj.resetDailyAttempts();
+  fishingObj.resetDailyAttempts();
   day++;
   currentTemperature = generateTemperature();
   currentWeather = generateWeather();
@@ -84,7 +84,7 @@ QString World::advanceDay() {
   return "";
 }
 
-bool World::roll(const int probability) {
+bool World::rollDice(const int probability) {
   int num = rand() % 100;
   if (num < probability) {
     return true;
@@ -173,7 +173,7 @@ QString World::generateWeather() {
   }
 }
 
-bool World::generateTempDebuff() {
+bool World::applyColdDmg() {
   int currentWarmth = playerObj.getWarmth();
   int healthLoss = 0;
   if (currentTemperature < 5) {

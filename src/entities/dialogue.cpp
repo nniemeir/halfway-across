@@ -19,10 +19,10 @@ QString Dialogue::greetAmos() {
 
 QString Dialogue::greetIra() {
   QMap<int, QString> greetingMsg = {{0, "PLACEHOLDER MSG"}, {1, ""}};
-    int timesEncountered = ensembleObj.getCharacters()[1].getTimesEncountered();
-    if (greetingMsg.contains(timesEncountered)) {
-        return greetingMsg.value(timesEncountered);
-    }
+  int timesEncountered = ensembleObj.getCharacters()[1].getTimesEncountered();
+  if (greetingMsg.contains(timesEncountered)) {
+    return greetingMsg.value(timesEncountered);
+  }
   return "";
 }
 

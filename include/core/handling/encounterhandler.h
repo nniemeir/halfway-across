@@ -5,14 +5,16 @@
 class EncounterHandler {
 public:
   EncounterHandler();
-  void talkLogic(MainWindow *mainWindow, QString verb, QString target, QString subject, Location *location);
+  void talkLogic(MainWindow *mainWindow, QString verb, QString target,
+                 QString subject, Location *location);
+
 private:
   QMap<int, std::function<QString(QString, Location *)>> askAmosEncounters;
   QMap<int, std::function<QString(QString, Location *)>> askIraEncounters;
   QMap<int, std::function<QString(QString, Location *)>> tellAmosEncounters;
   QMap<int, std::function<QString(QString, Location *)>> tellIraEncounters;
-  void initEncounters();
-  void talkPlayVoice(QString verb);
+  void initMaps();
+  void playVoiceSfx(QString verb);
   QString getResponseMsg(QString verb, QString target, QString subject,
                          Location *location);
 };

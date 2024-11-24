@@ -2,7 +2,6 @@
 #include "../../include/core/handling/verbhandler.h"
 #include "../../include/entities/player.h"
 
-
 Item &Inventory::getInventoryItem(std::vector<Item> &inventory,
                                   const int index) {
   return inventory[index];
@@ -36,18 +35,14 @@ bool Inventory::addLoot(std::vector<Item> &inventory,
                         const std::vector<Item> itemList) {
   bool fitAll = true;
   for (const auto &item : itemList) {
-    int playerItemIndex =
-        searchInventory(inventory, item.getName());
-    int locationIndex =
-        searchInventory(locationInventory, item.getName());
+    int playerItemIndex = searchInventory(inventory, item.getName());
+    int locationIndex = searchInventory(locationInventory, item.getName());
     if (fitsInventory(inventory, item)) {
       addItem(inventory, item, playerItemIndex);
       continue;
     }
-    addItem(
-        locationInventory,
-        getInventoryItem(inventory, playerItemIndex),
-        locationIndex);
+    addItem(locationInventory, getInventoryItem(inventory, playerItemIndex),
+            locationIndex);
     fitAll = false;
   }
   return fitAll;
@@ -75,14 +70,11 @@ void Inventory::removeItem(std::vector<Item> &inventory, const int itemIndex) {
   inventory[itemIndex].setQuantity(inventory[itemIndex].getAmount() - 1);
 }
 
-
 void Inventory::deactivateLocationSpecificItems() {
-    int rodIndex =
-        searchInventory(playerObj.getInventory(), "FISHING ROD");
-    if (rodIndex != VerbHandler::ITEM_NOT_FOUND) {
-        getInventoryItem(playerObj.getInventory(), rodIndex)
-        .setActive(false);
-    }
+  int rodIndex = searchInventory(playerObj.getInventory(), "FISHING ROD");
+  if (rodIndex != VerbHandler::ITEM_NOT_FOUND) {
+    getInventoryItem(playerObj.getInventory(), rodIndex).setActive(false);
+  }
 }
 
 Inventory inventoryObj;

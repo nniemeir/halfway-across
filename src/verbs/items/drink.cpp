@@ -5,7 +5,7 @@
 #include "../../../include/entities/player.h"
 
 void VerbHandler::drink(MainWindow *mainWindow, QString target,
-                     Location *location) {
+                        Location *location) {
   if (target == "CANTEEN") {
     drinkCanteen(mainWindow, target);
     return;
@@ -17,7 +17,7 @@ void VerbHandler::drink(MainWindow *mainWindow, QString target,
     drinkLocations[location->getName()]();
     return;
   }
-  msgHandlerObj.notAllowedInLocMsg(mainWindow, "drink anything");
+  msgHandlerObj.invalidLocation("drink anything");
 }
 
 void VerbHandler::drinkLake(MainWindow *mainWindow, QString target) {
@@ -27,18 +27,18 @@ void VerbHandler::drinkLake(MainWindow *mainWindow, QString target) {
     return;
   }
   if (!worldObj.getChiseledIce()) {
-      mainWindow->setDescription("The lake was frozen over.");
-      return;
+    mainWindow->setDescription("The lake was frozen over.");
+    return;
   }
-    if (playerObj.getThirst() == 100) {
-        mainWindow->setDescription("I wasn't thirsty.");
-        return;
-    }
-      sfxPlayer.play("qrc:/audio/sfx/lakeSplash.mp3", sfxPlayer.getdefSfxVol(),
-                     false);
-      mainWindow->setDescription(
-          "I felt more refreshed after drinking some cold water.");
-      playerObj.setThirst(playerObj.getThirst() + 20);
+  if (playerObj.getThirst() == 100) {
+    mainWindow->setDescription("I wasn't thirsty.");
+    return;
+  }
+  sfxPlayer.play("qrc:/audio/sfx/lakeSplash.mp3", sfxPlayer.getdefSfxVol(),
+                 false);
+  mainWindow->setDescription(
+      "I felt more refreshed after drinking some cold water.");
+  playerObj.setThirst(playerObj.getThirst() + 20);
 }
 
 void VerbHandler::drinkCanteen(MainWindow *mainWindow, QString target) {

@@ -5,7 +5,7 @@
 #include "../../../include/items/inventory.h"
 
 void VerbHandler::take(MainWindow *mainWindow, QString target,
-                    Location *location) {
+                       Location *location) {
   int itemIndex =
       inventoryObj.searchInventory(location->getInventory(), target);
   if (itemIndex == ITEM_NOT_FOUND) {
@@ -19,7 +19,8 @@ void VerbHandler::take(MainWindow *mainWindow, QString target,
           .getName()
           .toLower();
   mainWindow->setDescription(
-      QString("I took %1 %2.").arg(inputHandlerObj.getArticle(itemName), itemName));
+      QString("I took %1 %2.")
+          .arg(inputHandlerObj.getArticle(itemName), itemName));
   int playerItemIndex =
       inventoryObj.searchInventory(playerObj.getInventory(), target);
   Item toAdd =

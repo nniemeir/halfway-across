@@ -4,22 +4,20 @@
 #include "../../../include/entities/dialogue.h"
 
 void VerbHandler::greet(MainWindow *mainWindow) {
-auto activeCharacter = worldObj.getActiveCharacter();
-if (activeCharacter == nullptr) {
+  auto activeCharacter = worldObj.getActiveCharacter();
+  if (activeCharacter == nullptr) {
     mainWindow->setDescription("There was no one around to greet.");
     return;
-}
-  if (worldObj.getSocialized()) {
-    mainWindow->setDescription(
-        QString("I had already spoken to %1 that day.")
-            .arg(activeCharacter->getName()));
+  }
+  if (worldObj.getConversedToday()) {
+    mainWindow->setDescription(QString("I had already spoken to %1 that day.")
+                                   .arg(activeCharacter->getName()));
     return;
   }
 
   if (activeCharacter->getHatesPlayer()) {
-    mainWindow->setDescription(
-        QString("%1 was unwilling to speak to me.")
-            .arg(activeCharacter->getName()));
+    mainWindow->setDescription(QString("%1 was unwilling to speak to me.")
+                                   .arg(activeCharacter->getName()));
     return;
   }
   mainWindow->setCompassImage("");
@@ -31,5 +29,5 @@ if (activeCharacter == nullptr) {
   QString greetingMessage = validCharacters[characterName]();
   mainWindow->setDescription(greetingMessage);
   mainWindow->setLocationImage(activeCharacter->getImage());
-  worldObj.setGreetedNPC(true);
+  worldObj.setConversing(true);
 }

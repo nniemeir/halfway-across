@@ -8,8 +8,9 @@ void VerbHandler::craft(MainWindow *mainWindow, QString target) {
   auto targetRecipe =
       recipeBookObj.searchRecipeBook(playerObj.getRecipeBook(), target);
   if (!targetRecipe) {
-    mainWindow->setDescription(QString("I didn't know how to make %1 %2.")
-                                   .arg(inputHandlerObj.getArticle(target), target.toLower()));
+    mainWindow->setDescription(
+        QString("I didn't know how to make %1 %2.")
+            .arg(inputHandlerObj.getArticle(target), target.toLower()));
     return;
   }
   const auto &ingredients = targetRecipe->getIngredients();
@@ -26,22 +27,22 @@ void VerbHandler::craft(MainWindow *mainWindow, QString target) {
     ingredientIndices.push_back(ingredientIndex);
   }
   if (!canCraftTarget) {
-      mainWindow->setDescription(
-          QString("I didn't have the resources to make %1 %2.")
-              .arg(inputHandlerObj.getArticle(target), target.toLower()));
-      return;
-  }
-    sfxPlayer.play("qrc:/audio/sfx/craft.mp3", sfxPlayer.getdefSfxVol(), false);
     mainWindow->setDescription(
-        QString("I crafted %1 %2.")
+        QString("I didn't have the resources to make %1 %2.")
             .arg(inputHandlerObj.getArticle(target), target.toLower()));
+    return;
+  }
+  sfxPlayer.play("qrc:/audio/sfx/craft.mp3", sfxPlayer.getdefSfxVol(), false);
+  mainWindow->setDescription(
+      QString("I crafted %1 %2.")
+          .arg(inputHandlerObj.getArticle(target), target.toLower()));
 
-    int recipeIndex = inventoryObj.searchInventory(
-        playerObj.getInventory(), targetRecipe->getRecipeName());
-    inventoryObj.addItem(playerObj.getInventory(),
-                         targetRecipe->getOutputItem(), recipeIndex);
+  int recipeIndex = inventoryObj.searchInventory(playerObj.getInventory(),
+                                                 targetRecipe->getRecipeName());
+  inventoryObj.addItem(playerObj.getInventory(), targetRecipe->getOutputItem(),
+                       recipeIndex);
 
-    for (int index : ingredientIndices) {
-      inventoryObj.removeItem(playerObj.getInventory(), index);
-    }
+  for (int index : ingredientIndices) {
+    inventoryObj.removeItem(playerObj.getInventory(), index);
+  }
 }

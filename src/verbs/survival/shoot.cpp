@@ -5,7 +5,7 @@
 #include "../../../include/survival/hunting.h"
 
 void VerbHandler::shoot(MainWindow *mainWindow, QString target,
-                     Location *location) {
+                        Location *location) {
   int bowIndex = inventoryObj.searchInventory(playerObj.getInventory(), "BOW");
   int arrowIndex =
       inventoryObj.searchInventory(playerObj.getInventory(), "ARROW");

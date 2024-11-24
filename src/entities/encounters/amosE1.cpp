@@ -1,3 +1,4 @@
+#include "../../../include/core/handling/msghandler.h"
 #include "../../../include/core/world.h"
 #include "../../../include/entities/characters.h"
 #include "../../../include/entities/dialogue.h"
@@ -9,7 +10,7 @@ QString Dialogue::askAmosE1(QString subject, Location *location) {
   if (worldObj.getActiveCharacter()->getEncounterState() == TOLD_ORIGIN) {
     return askAmosE1S1(subject, location);
   }
-  return ASK_INVALID;
+  return MsgHandler::TOPIC_INVALID;
 }
 
 QString Dialogue::askAmosE1S1(QString subject, Location *location) {
@@ -25,7 +26,7 @@ QString Dialogue::askAmosE1S1(QString subject, Location *location) {
            "wasn't long before I headed this way to try my hand at trapping. ";
   }
   if (subject == "HUNTING" || subject == "FISHING") {
-    return ASK_REFUSAL;
+    return MsgHandler::TOPIC_REFUSAL;
   }
   return "";
 }
@@ -38,7 +39,7 @@ QString Dialogue::tellAmosE1(QString subject, Location *location) {
     return tellAmosE1S3(subject, location);
   }
   if (worldObj.getActiveCharacter()->getEncounterState() == END) {
-    return DIALOGUE_OVER;
+    return MsgHandler::DIALOGUE_OVER;
   }
   return "";
 }
@@ -68,7 +69,7 @@ QString Dialogue::tellAmosE1S0(QString subject, Location *location) {
 QString Dialogue::tellAmosE1S3(QString subject, Location *location) {
   if (subject == "MY SUPPORT FOR CONFEDERACY") {
     worldObj.getActiveCharacter()->setReputation(
-    worldObj.getActiveCharacter()->getReputation() + 15);
+        worldObj.getActiveCharacter()->getReputation() + 15);
     worldObj.getActiveCharacter()->setEncounterState(END);
     promptMsg = "(I could: GOODBYE)";
     return "Maybe we have more in common than I thought. I imagine I'll see "

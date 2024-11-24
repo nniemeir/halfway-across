@@ -12,27 +12,25 @@ Fishing::Fishing()
             "It was an uncommon fish that could be eaten if I cooked it."},
            {"BROWN TROUT", 1, false, 35, 10, "RAW MEAT", "NONE",
             "It was a rare fish that could be eaten if I cooked it."}},
-      dailyFished(0) {}
+      dailyAttempts(0) {}
 
-int Fishing::getDailyFished() const { return dailyFished; }
+int Fishing::getDailyAttempts() const { return dailyAttempts; }
 
-std::vector<Item> &Fishing::getFishInventory() { return fish; }
+std::vector<Item> &Fishing::getInventory() { return fish; }
 
-QString Fishing::activity(int rodIndex) {
-  QString generatedFish = fishingObj.generateFish();
+QString Fishing::seek() {
+  QString generatedFish = rollforFish();
   if (generatedFish != "NOTHING") {
-    int fishIndex = inventoryObj.searchInventory(fishingObj.getFishInventory(),
-                                                 generatedFish);
+    int fishIndex = inventoryObj.searchInventory(getInventory(), generatedFish);
     if (fishIndex != VerbHandler::ITEM_NOT_FOUND) {
       int playerItemIndex =
           inventoryObj.searchInventory(playerObj.getInventory(), generatedFish);
-      inventoryObj.addItem(playerObj.getInventory(),
-                           inventoryObj.getInventoryItem(
-                               fishingObj.getFishInventory(), fishIndex),
-                           playerItemIndex);
+      inventoryObj.addItem(
+          playerObj.getInventory(),
+          inventoryObj.getInventoryItem(getInventory(), fishIndex),
+          playerItemIndex);
       return QString("I caught a %1!\n")
-          .arg(inventoryObj
-                   .getInventoryItem(fishingObj.getFishInventory(), fishIndex)
+          .arg(inventoryObj.getInventoryItem(getInventory(), fishIndex)
                    .getName()
                    .toLower());
     }
@@ -40,8 +38,8 @@ QString Fishing::activity(int rodIndex) {
   return "I waited a while but nothing was biting so I reeled in the line.";
 }
 
-QString Fishing::generateFish() {
-  dailyFished++;
+QString Fishing::rollforFish() {
+  dailyAttempts++;
   float brownTroutProb = 5;
   float brookTroutProb = 10;
   float nothingProb = 15;
@@ -62,6 +60,6 @@ QString Fishing::generateFish() {
   }
 }
 
-void Fishing::resetDailyFished() { dailyFished = 0; }
+void Fishing::resetDailyAttempts() { dailyAttempts = 0; }
 
 Fishing fishingObj;

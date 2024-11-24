@@ -5,7 +5,7 @@
 
 void VerbHandler::begin(MainWindow *mainWindow, Location *location) {
   if (location->getName() != "Introduction Menu") {
-    msgHandlerObj.notAllowedInLocMsg(mainWindow, "begin");
+    mainWindow->setDescription(msgHandlerObj.invalidLocation("begin"));
     return;
   }
   sfxPlayer.play("qrc:/audio/sfx/write.mp3", sfxPlayer.getdefSfxVol(), false);

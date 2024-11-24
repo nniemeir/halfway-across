@@ -5,15 +5,15 @@
 class Fishing {
 public:
   Fishing();
-  int getDailyFished() const;
-  std::vector<Item> &getFishInventory();
-  QString activity(int rodIndex);
-  QString generateFish();
-  void resetDailyFished();
+  int getDailyAttempts() const;
+  std::vector<Item> &getInventory();
+  QString seek();
+  QString rollforFish();
+  void resetDailyAttempts();
 
 private:
   std::vector<Item> fish;
-  int dailyFished;
+  int dailyAttempts;
 };
 
 extern Fishing fishingObj;

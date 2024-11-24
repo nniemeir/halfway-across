@@ -4,7 +4,7 @@
 #include "../../../include/entities/player.h"
 
 void VerbHandler::fill(MainWindow *mainWindow, QString target,
-                    Location *location) {
+                       Location *location) {
   int canteenIndex =
       inventoryObj.searchInventory(playerObj.getInventory(), "CANTEEN");
   if (location->getName() != "The lake") {

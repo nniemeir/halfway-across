@@ -5,7 +5,8 @@
 #include "../../../include/core/world.h"
 #include "../../../include/entities/player.h"
 
-void VerbHandler::use(MainWindow *mainWindow, QString target, Location *location) {
+void VerbHandler::use(MainWindow *mainWindow, QString target,
+                      Location *location) {
 
   QMap<QString, std::function<void()>> useLocations{
       {"The dark cave",
@@ -16,12 +17,13 @@ void VerbHandler::use(MainWindow *mainWindow, QString target, Location *location
     useLocations[location->getName()]();
     return;
   }
-  msgHandlerObj.notAllowedInLocMsg(mainWindow, "use anything");
+  mainWindow->setDescription(msgHandlerObj.invalidLocation("use anything"));
 }
 
 void VerbHandler::useCave(MainWindow *mainWindow, QString target) {
   if (target == "LANTERN") {
-    int itemIndex = inventoryObj.searchInventory(playerObj.getInventory(), "LANTERN");
+    int itemIndex =
+        inventoryObj.searchInventory(playerObj.getInventory(), "LANTERN");
     if (itemIndex == ITEM_NOT_FOUND) {
       mainWindow->setDescription("I didn't have a lantern.");
       return;
@@ -36,16 +38,17 @@ void VerbHandler::useCave(MainWindow *mainWindow, QString target) {
                             &caveLit);
     return;
   }
-  msgHandlerObj.notAllowedInLocMsg(
-      mainWindow, QString("use %1 %2")
-                      .arg(inputHandlerObj.getArticle(target), target.toLower()));
+  mainWindow->setDescription(msgHandlerObj.invalidLocation(
+      QString("use %1 %2")
+          .arg(inputHandlerObj.getArticle(target), target.toLower())));
 }
 
 void VerbHandler::useLake(MainWindow *mainWindow, QString target) {
   if (target == "CHISEL") {
     if (inventoryObj.searchInventory(playerObj.getInventory(), "CHISEL") ==
         ITEM_NOT_FOUND) {
-      msgHandlerObj.missingItemMsg(mainWindow, inputHandlerObj.getArticle(target) + " " + target);
+      mainWindow->setDescription(msgHandlerObj.missingItem(
+          inputHandlerObj.getArticle(target) + " " + target));
       return;
     }
     sfxPlayer.play("qrc:/audio/sfx/chiselLake.mp3", sfxPlayer.getdefSfxVol(),
@@ -58,11 +61,19 @@ void VerbHandler::useLake(MainWindow *mainWindow, QString target) {
     int rodIndex =
         inventoryObj.searchInventory(playerObj.getInventory(), "FISHING ROD");
     if (rodIndex == ITEM_NOT_FOUND) {
-      msgHandlerObj.missingItemMsg(mainWindow, inputHandlerObj.getArticle(target) + " " + target);
+      mainWindow->setDescription(msgHandlerObj.missingItem(
+          inputHandlerObj.getArticle(target) + " " + target));
       return;
     }
     if (!worldObj.getChiseledIce()) {
       mainWindow->setDescription("The lake had frozen over.\n");
+      return;
+    }
+    if (inventoryObj.getInventoryItem(playerObj.getInventory(), rodIndex)
+            .getActive()) {
+      sfxPlayer.play("qrc:/audio/sfx/fishReel.mp3", sfxPlayer.getdefSfxVol(),
+                     0),
+          mainWindow->setDescription("I reeled in my line.");
       return;
     }
     if (inventoryObj.getInventoryItem(playerObj.getInventory(), rodIndex)
@@ -79,7 +90,7 @@ void VerbHandler::useLake(MainWindow *mainWindow, QString target) {
     mainWindow->setDescription(
         "I dropped my line into the hole I had cut into the ice.\n");
   }
-  msgHandlerObj.notAllowedInLocMsg(
-      mainWindow, QString("use %1 %2")
-          .arg(inputHandlerObj.getArticle(target), target.toLower()));
+  mainWindow->setDescription(msgHandlerObj.invalidLocation(
+      QString("use %1 %2")
+          .arg(inputHandlerObj.getArticle(target), target.toLower())));
 }

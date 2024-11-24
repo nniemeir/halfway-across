@@ -167,7 +167,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="compass">
+        <widget class="QLabel" name="compassPath">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
            <horstretch>0</horstretch>

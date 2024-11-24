@@ -27,11 +27,13 @@ public:
   ~MainWindow();
   void setLocation(QString currentMusic, QString currentAmbience,
                    Location *object);
-  void setLocationAudio(QString currentMusic, QString currentAmbience, Location *object);
+  void setLocationAudio(QString currentMusic, QString currentAmbience,
+                        Location *object);
   void setCompassImage(QString imagePath);
   void setLocationImage(QString imagePath);
   void appendDescription(QString text);
   void setDescription(QString text);
+  void endGame(QString reason);
   void closeProgram();
 
 private:

@@ -8,10 +8,6 @@ public:
   Dialogue(){};
   static constexpr int START = 0;
   static constexpr int END = 100;
-  const QString ASK_INVALID = "It didn't seem like an appropriate question.";
-  const QString ASK_REFUSAL =
-      "I'm not sure I know you well enough to get into that.";
-  const QString DIALOGUE_OVER = "I don't have anymore time to talk.";
   QString promptMsg;
   QString getPromptMsg();
   QString askAmosE1(QString subject, Location *location);

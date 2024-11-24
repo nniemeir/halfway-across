@@ -1,8 +1,8 @@
 #include "../../include/utils/script.h"
 
-bool Script::getRecordingStatus() { return recordingStatus; }
+bool Script::getStatus() { return Status; }
 
-void Script::setRecordingStatus(bool status) { recordingStatus = status; }
+void Script::setStatus(bool status) { Status = status; }
 
 bool Script::writeFile(const QString &outputText) {
   if (!file.isOpen()) {
