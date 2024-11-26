@@ -17,12 +17,16 @@ void VerbHandler::wait(MainWindow *mainWindow, Location *location) {
 void VerbHandler::waitLake(MainWindow *mainWindow) {
   int rodIndex =
       inventoryObj.searchInventory(playerObj.getInventory(), "FISHING ROD");
-
-  if (!inventoryObj.getInventoryItem(playerObj.getInventory(), rodIndex)
-           .getActive()) {
-    mainWindow->setDescription(MsgHandler::WAIT);
+  if (inventoryObj.getInventoryItem(playerObj.getInventory(), rodIndex)
+          .getActive()) {
+    waitFishing(mainWindow, rodIndex);
     return;
   }
+  mainWindow->setDescription(MsgHandler::WAIT);
+  return;
+}
+
+void VerbHandler::waitFishing(MainWindow *mainWindow, int rodIndex) {
   if (fishingObj.getDailyAttempts() == 2) {
     mainWindow->setDescription("I was too tired to fish anymore that day.");
     return;

@@ -15,6 +15,7 @@ public:
   std::vector<Item> &getSlainAnimals();
   void setActiveAnimal(QString animal);
   int seek(QString target, int arrowIndex);
+  QString processSeekResult(QString target, int arrowIndex);
   bool assessDamage(QString target);
   bool hitTarget(QString target);
   bool recoveredArrow(bool hitTarget);

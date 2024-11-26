@@ -33,21 +33,17 @@ private:
   void help(MainWindow *mainWindow);
   void hunt(MainWindow *mainWindow, QString target, Location *location);
   void look(MainWindow *mainWindow, QString target, Location *location);
+  bool lookingAtCharacter(MainWindow *mainWindow, QString target,
+                          Location *location);
   void load(MainWindow *mainWindow, QString target);
-  void lookCamp(MainWindow *mainWindow, QString target);
-  void lookForestPath(MainWindow *mainWindow, QString target);
-  void lookCave(MainWindow *mainWindow, QString target);
-  void lookCaveEntrance(MainWindow *mainWindow, QString target);
-  void lookLake(MainWindow *mainWindow, QString target);
-  void lookValley(MainWindow *mainWindow, QString target);
   void move(MainWindow *mainWindow, QString target, Location *location);
-  void moveCamp(MainWindow *mainWindow, QString target);
-  void moveForestPath(MainWindow *mainWindow, QString target);
-  void moveCave(MainWindow *mainWindow, QString target);
-  void moveCaveEntrance(MainWindow *mainWindow, QString target);
-  void moveCaveLit(MainWindow *mainWindow, QString target);
-  void moveLake(MainWindow *mainWindow, QString target);
-  void moveValley(MainWindow *mainWindow, QString target);
+  bool moveCamp(MainWindow *mainWindow, QString target);
+  bool moveForestPath(MainWindow *mainWindow, QString target);
+  bool moveCave(MainWindow *mainWindow, QString target);
+  bool moveCaveEntrance(MainWindow *mainWindow, QString target);
+  bool moveCaveLit(MainWindow *mainWindow, QString target);
+  bool moveLake(MainWindow *mainWindow, QString target);
+  bool moveValley(MainWindow *mainWindow, QString target);
   void put(MainWindow *mainWindow, QString target, QString reason,
            Location *location);
   void read(MainWindow *mainWindow, Location *location, QString target);
@@ -55,7 +51,8 @@ private:
   void script(MainWindow *mainWindow);
   void shoot(MainWindow *mainWindow, QString target, Location *location);
   void sit(MainWindow *mainWindow, QString target, Location *location);
-  void sitCamp(MainWindow *mainWindow, QString target);
+  void sitOnFireAtCamp(MainWindow *mainWindow);
+  void sitOnLogAtCamp(MainWindow *mainWindow);
   void skin(MainWindow *mainWindow, QString target, Location *location);
   void sleep(MainWindow *mainWindow, Location *location);
   void stand(MainWindow *mainWindow);
@@ -63,9 +60,9 @@ private:
   void talk(MainWindow *mainWindow, QString verb, QString target,
             QString subject, Location *location);
   void use(MainWindow *mainWindow, QString target, Location *location);
-  void useCamp(MainWindow *mainWindow, QString target);
-  void useCave(MainWindow *mainWindow, QString target);
-  void useLake(MainWindow *mainWindow, QString target);
+  void useLanternAtCave(MainWindow *mainWindow);
+  void useChiselAtLake(MainWindow *mainWindow);
+  void useRodAtLake(MainWindow *mainWindow);
   void unscript(MainWindow *mainWindow);
   void version(MainWindow *mainWindow);
   void wait(MainWindow *mainWindow, Location *location);

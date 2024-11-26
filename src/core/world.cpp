@@ -6,7 +6,7 @@
 World::World()
     : activeCharacter(nullptr), currentLocation(nullptr), day(1),
       currentTemperature(30), currentWeather("clear"), conversing(false),
-      conversedtoday(false), chiseledIce(false),
+      conversedToday(false), chiseledIce(false),
       directions{"NORTH", "WEST", "SOUTH", "EAST", "N", "W", "S", "E"} {}
 
 Character *World::getActiveCharacter() { return activeCharacter; }
@@ -23,7 +23,7 @@ int World::getDay() const { return day; }
 
 bool World::getConversing() const { return conversing; }
 
-bool World::getConversedToday() const { return conversedtoday; }
+bool World::getConversedToday() const { return conversedToday; }
 
 void World::setChiseledIce(bool newValue) { chiseledIce = newValue; }
 
@@ -37,15 +37,22 @@ void World::setCurrentLocation(Location *location) {
 
 void World::setConversing(bool newValue) { conversing = newValue; }
 
-void World::setConversedtoday(bool newValue) { conversedtoday = newValue; }
+void World::setConversedToday(bool newValue) { conversedToday = newValue; }
 
 QString World::getActiveCharacterBrief() {
   QString activeCharacterBrief;
-  if (activeCharacter != nullptr &&
-      currentLocation->getName() == activeCharacter->getLocation()) {
-    activeCharacterBrief.append(activeCharacter->getBrief());
+  if (activeCharacter == nullptr) {
+    return activeCharacterBrief;
   }
-  if (day == 8) {
+  if (activeCharacter->getLocation() != currentLocation->getName()) {
+    return activeCharacterBrief;
+  }
+  if (activeCharacter->getTimesEncountered() == 0) {
+    activeCharacterBrief.append(activeCharacter->getUnknownBrief());
+  } else {
+    activeCharacterBrief.append(activeCharacter->getKnownBrief());
+  }
+  if (day == 8 && !conversedToday) {
     activeCharacterBrief.append(
         "\nHint: I can start a conversation by using the command GREET.");
   }
@@ -71,7 +78,7 @@ QString World::advanceDay() {
     return "WARMTH";
   }
   setChiseledIce(false);
-  worldObj.setConversedtoday(false);
+  worldObj.setConversedToday(false);
   huntingObj.resetDailyAttempts();
   fishingObj.resetDailyAttempts();
   day++;

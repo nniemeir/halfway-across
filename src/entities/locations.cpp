@@ -42,7 +42,7 @@ Location camp(
     "Camp",
     "My camp provided some respite from the harsh winds that had been plaguing "
     "me.",
-    ":/images/compassPath/n.png", ":/images/locations/camp.png",
+    ":/images/compass/n.png", ":/images/locations/camp.png",
     "qrc:/audio/music/placeholder.mp3", "qrc:/audio/ambience/campfire.mp3",
     {{"ARROW", 3, false, 0, 0, "TOOLS", "NONE",
       "I could load it into my bow to hunt at a distance."},
@@ -63,33 +63,34 @@ Location camp(
      {"LANTERN", 1, false, 0, 0, "TOOLS", "TALLOW CANDLE",
       "If loaded with a tallow candle, I could use it to light my way."}});
 
-Location forestPath(
-    "The forest path",
-    "I moved through a break in the trees for a while before "
-    "reaching a fork in the road.",
-    ":/images/compassPath/news.png", ":/images/locations/forestPath.png",
-    "qrc:/audio/music/placeholder.mp3", "qrc:/audio/ambience/mountainWind.mp3",
-    {{"PIECE OF WOOD", 1, false, 0, 0, "RESOURCES", "NONE",
-      "I could use it to fuel my campfire or to craft items."}});
+Location
+    forestPath("The forest path",
+               "I moved through a break in the trees for a while before "
+               "reaching a fork in the path.",
+               ":/images/compass/news.png", ":/images/locations/forestPath.png",
+               "qrc:/audio/music/placeholder.mp3",
+               "qrc:/audio/ambience/mountainWind.mp3",
+               {{"PIECE OF WOOD", 1, false, 0, 0, "RESOURCES", "NONE",
+                 "I could use it to fuel my campfire or to craft items."}});
 
 Location caveEntrance(
     "The cave's entrance",
     "I happened upon a cave, it didn't seem like a good idea to "
     "find out what it contained.",
-    ":/images/compassPath/ew.png", ":/images/locations/caveEntrance.png",
+    ":/images/compass/ew.png", ":/images/locations/caveEntrance.png",
     "qrc:/audio/music/placeholder.mp3", "qrc:/audio/ambience/mountainWind.mp3",
     {{"ROCK", 1, false, 0, 0, "TOOLS", "NONE",
       "I could use it to distract animals."}});
 
 Location cave("The dark cave", "Entering the cave, I saw nothing but darkness.",
-              ":/images/compassPath/w.png", ":/images/locations/cave.png",
+              ":/images/compass/w.png", ":/images/locations/cave.png",
               "qrc:/audio/music/placeholder.mp3",
               "qrc:/audio/ambience/caveWind.mp3",
               {{"ROCK", 1, false, 0, 0, "TOOLS", "NONE",
                 "I could use it to distract animals."}});
 
 Location caveLit("The well-lit cave", "My lantern now lit the way.",
-                 ":/images/compassPath/w.png", ":/images/locations/caveLit.png",
+                 ":/images/compass/w.png", ":/images/locations/caveLit.png",
                  "qrc:/audio/music/placeholder.mp3",
                  "qrc:/audio/ambience/caveWind.mp3",
                  {{"ROCK", 1, false, 0, 0, "TOOLS", "NONE",
@@ -104,7 +105,7 @@ Location intro("Introduction Menu",
 Location lake("The lake",
               "I arrived at a lake after an hour's journey, it could be a good "
               "source of fish and water.",
-              ":/images/compassPath/e.png", ":/images/locations/lake.png",
+              ":/images/compass/e.png", ":/images/locations/lake.png",
               "qrc:/audio/music/placeholder.mp3",
               "qrc:/audio/ambience/mountainWind.mp3",
               {{"PIECE OF WOOD", 1, false, 0, 0, "RESOURCES", "NONE",
@@ -118,7 +119,7 @@ Location perished("Perished Menu", "\n\nType QUIT to exit.", "",
 Location valley("The valley",
                 "I arrived at a clearing. It seemed like a good spot for "
                 "hunting.",
-                ":/images/compassPath/s.png", ":/images/locations/valley.png",
+                ":/images/compass/s.png", ":/images/locations/valley.png",
                 "qrc:/audio/music/placeholder.mp3",
                 "qrc:/audio/ambience/mountainWind.mp3",
                 {{"FEATHER", 3, false, 0, 0, "RESOURCES", "NONE",

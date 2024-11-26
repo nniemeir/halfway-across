@@ -21,13 +21,12 @@ void VerbHandler::greet(MainWindow *mainWindow) {
     return;
   }
   mainWindow->setCompassImage("");
-  QMap<QString, std::function<QString()>> validCharacters = {
-      {"Amos", [this]() { return dialogueObj.greetAmos(); }},
-      {"Ira", [this]() { return dialogueObj.greetIra(); }}};
+  QMap<QString, int> characterIndices = {{"Amos", Ensemble::AMOS_INDEX},
+                                         {"Ira", Ensemble::IRA_INDEX}};
   sfxPlayer.play("qrc:/audio/sfx/ask.mp3", sfxPlayer.getdefSfxVol(), false);
   QString characterName = activeCharacter->getName();
-  QString greetingMessage = validCharacters[characterName]();
-  mainWindow->setDescription(greetingMessage);
+  QString greetingMsg = dialogueObj.greetLogic(characterIndices[characterName]);
+  mainWindow->setDescription(greetingMsg);
   mainWindow->setLocationImage(activeCharacter->getImage());
   worldObj.setConversing(true);
 }

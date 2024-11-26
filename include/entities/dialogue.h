@@ -15,6 +15,7 @@ public:
   QString askIraE1(QString subject, Location *location);
   QString greetAmos();
   QString greetIra();
+  QString greetLogic(int ensembleIndex);
   QString tellAmosE1(QString subject, Location *location);
   QString tellAmosE1S0(QString subject, Location *location);
   QString tellAmosE1S3(QString subject, Location *location);

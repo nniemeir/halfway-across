@@ -9,6 +9,6 @@ void VerbHandler::goodbye(MainWindow *mainWindow, Location *location) {
   mainWindow->setLocationImage(location->getImagePath());
   mainWindow->setDescription("You set off on your way once again.");
   worldObj.setConversing(false);
-  worldObj.setConversedtoday(true);
+  worldObj.setConversedToday(true);
   worldObj.getActiveCharacter()->incrementTimesEncountered();
 }

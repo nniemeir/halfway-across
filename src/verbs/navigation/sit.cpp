@@ -4,29 +4,37 @@
 
 void VerbHandler::sit(MainWindow *mainWindow, QString target,
                       Location *location) {
-  QMap<QString, std::function<void()>> sitLocations{
-      {"Camp", [mainWindow, target, this]() { sitCamp(mainWindow, target); }}};
+  QMap<QString, std::function<void()>> sitCamp{
+      {{"FIRE", [mainWindow, this]() { sitOnFireAtCamp(mainWindow); }},
+       {"LOG", [mainWindow, this]() { sitOnLogAtCamp(mainWindow); }}}};
+
+  QMap<QString, QMap<QString, std::function<void()>>> sitLocations{
+      {"Camp", sitCamp}};
 
   if (!sitLocations.contains(location->getName())) {
     mainWindow->setDescription(
         msgHandlerObj.invalidLocation("sit on anything"));
     return;
   }
-  sitLocations[location->getName()]();
+  if (!sitLocations.contains(location->getName())) {
+    mainWindow->setDescription(msgHandlerObj.invalidLocation("sit anywhere"));
+    return;
+  }
+  if (sitLocations[location->getName()].contains(target)) {
+    sitLocations[location->getName()][target]();
+    return;
+  }
+  mainWindow->setDescription(msgHandlerObj.invalidLocation("sit"));
 }
 
-void VerbHandler::sitCamp(MainWindow *mainWindow, QString target) {
-  if (target == "LOG") {
-    mainWindow->setDescription("I felt a bit cozier sitting by the fire.");
-    playerObj.setStanding(false);
-    return;
+void VerbHandler::sitOnFireAtCamp(MainWindow *mainWindow) {
+  mainWindow->setDescription("I burned myself.");
+  if (!playerObj.setHealth(playerObj.getHealth() - 20)) {
+    mainWindow->endGame("HEALTH");
   }
-  if (target == "FIRE") {
-    mainWindow->setDescription("I burned myself.");
-    if (!playerObj.setHealth(playerObj.getHealth() - 20)) {
-      mainWindow->endGame("HEALTH");
-    }
-    return;
-  }
-  mainWindow->setDescription("I couldn't sit there.");
+}
+
+void VerbHandler::sitOnLogAtCamp(MainWindow *mainWindow) {
+  mainWindow->setDescription("I felt a bit cozier sitting by the fire.");
+  playerObj.setStanding(false);
 }

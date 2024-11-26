@@ -20,7 +20,7 @@ public:
   void setChiseledIce(bool newValue);
   void setCurrentLocation(Location *location);
   void setConversing(bool newValue);
-  void setConversedtoday(bool newValue);
+  void setConversedToday(bool newValue);
   QString getActiveCharacterBrief();
   QString advanceDay();
   bool rollDice(const int probability);
@@ -39,7 +39,7 @@ private:
   bool applyColdDmg();
   std::vector<QString> directions;
   bool conversing;
-  bool conversedtoday;
+  bool conversedToday;
 };
 
 extern World worldObj;

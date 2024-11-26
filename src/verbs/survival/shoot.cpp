@@ -46,5 +46,4 @@ void VerbHandler::shoot(MainWindow *mainWindow, QString target,
                                               databaseAnimalIndex);
   inventoryObj.addItem(location->getInventory(), animal, locationAnimalIndex);
   huntingObj.setActiveAnimal("");
-  return;
 }

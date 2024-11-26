@@ -1,4 +1,6 @@
 #include "../../include/survival/hunting.h"
+#include "../../include/core/audio.h"
+#include "../../include/core/handling/inputhandler.h"
 #include "../../include/core/world.h"
 #include "../../include/entities/player.h"
 
@@ -126,6 +128,27 @@ bool Hunting::foundAnimal(QString target) {
     return true;
   }
   return false;
+}
+
+QString Hunting::processSeekResult(QString target, int arrowIndex) {
+  int result = huntingObj.seek(target, arrowIndex);
+  QString resultMsg;
+  switch (result) {
+  case Hunting::ANIMAL_FOUND:
+    sfxPlayer.play("qrc:/audio/sfx/hunt.mp3", sfxPlayer.getdefSfxVol(), false);
+    huntingObj.setActiveAnimal(target);
+    resultMsg = QString("I spotted %1 %2.")
+                    .arg(inputHandlerObj.getArticle(target), target.toLower());
+  case Hunting::ANIMAL_NOT_FOUND:
+    resultMsg = QString("I was unable to find %1 %2 in the valley.")
+                    .arg(inputHandlerObj.getArticle(target), target.toLower());
+  case Hunting::ANIMAL_INVALID:
+    resultMsg =
+        QString("I thought of hunting %1, but it didn't seem reasonable in "
+                "the area.")
+            .arg(target.toLower());
+  }
+  return resultMsg;
 }
 
 Hunting huntingObj;
