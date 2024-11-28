@@ -89,6 +89,10 @@ To remove an item from your inventory, use the command **DROP ITEM**.
 
 You can converse with the travelers that cross your path. Keep in mind that your dialogue choices will effect how the other person perceives you.
 
+To start a conversation with a traveler in the area, use the command **GREET**.
+
 To inquire about something, use the command **ASK PERSON'S NAME ABOUT TOPIC**. 
 
 To inform the other person of something, use the command **TELL PERSON'S NAME ABOUT TOPIC**.
+
+To end a conversation, use the command **GOODBYE**.
