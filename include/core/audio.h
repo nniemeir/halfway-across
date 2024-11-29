@@ -3,13 +3,14 @@
 #include <QAudioOutput>
 #include <QMediaPlayer>
 #include <QUrl>
+
 class Audio {
 public:
   Audio();
+  void play(QString filePath, int volume, bool isBackground);
   float getdefAmbienceVol() const;
   float getdefMusicVol() const;
   float getdefSfxVol() const;
-  void play(QString filePath, int volume, bool isBackground);
 
 private:
   float defAmbienceVol;

@@ -31,16 +31,16 @@ QString MsgHandler::gameOver(QString reason) {
   return "Unable to determine reason for game over.";
 }
 
-QString MsgHandler::missingItem(QString target) {
-  return "I didn't have " + target.toLower() + " in my possession.";
-}
-
 QString MsgHandler::invalidDirection(QString verb, QString target) {
   return "I couldn't " + verb.toLower() + target.toLower() + " there.";
 }
 
 QString MsgHandler::invalidLocation(QString verb) {
   return "I couldn't " + verb.toLower() + " there.";
+}
+
+QString MsgHandler::missingItem(QString target) {
+  return "I didn't have " + target.toLower() + " in my possession.";
 }
 
 MsgHandler msgHandlerObj;

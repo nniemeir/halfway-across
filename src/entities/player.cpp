@@ -5,40 +5,53 @@ Player::Player()
     : health(100), mental(50), energized(true), hunger(100), thirst(100),
       warmth(50), charm(50), standing(true), cryCooldown(0), inventory(5),
       recipeBook(2) {
-  // Format is QString name, int amount, int active, int effects, int weight,
-  // QString type, QString description
-  inventory.push_back({"FELT HAT", 1, true, 5, 0, "CLOTHING", "NONE",
-                       "It was a small hat, providing almost no warmth."});
-  inventory.push_back({"LEATHER GLOVES", 1, true, 5, 0, "CLOTHING", "NONE",
-                       "They were thin gloves, providing almost no warmth."});
-  inventory.push_back({"HEAVY COTTON SHIRT", 1, true, 10, 0, "CLOTHING", "NONE",
-                       "It was a heavy shirt, providing slight warmth."});
-  inventory.push_back({"HEAVY COTTON TROUSERS", 1, true, 20, 0, "CLOTHING",
-                       "NONE", "They were thick pants, providing warmth."});
-  inventory.push_back({"PAIR OF MOCCASINS", 1, true, 10, 0, "CLOTHING", "NONE",
-                       "They were worn shoes, providing slight warmth."});
-  Recipe arrow("ARROW", {"ROCK", "PIECE OF WOOD", "FEATHER"},
-               "Could be loaded into a bow to hunt at a distance.",
-               {"ARROW", 1, false, 0, 0, "TOOLS", "NONE",
-                "I could load it into my bow to hunt at a distance."});
-  Recipe candle("TALLOW CANDLE", {"RENDERED FAT", "PIECE OF WOOD"},
-                "Used to fuel candle lanterns.",
-                {"TALLOW CANDLE", 1, false, 10, 0, "ANIMAL FAT", "NONE",
-                 "I could use it to fuel my lantern."});
+  inventory.push_back({"FELT HAT",
+                       "It was a small hat, providing almost no warmth.",
+                       "CLOTHING", "NONE", 1, true, 5, 0});
+  inventory.push_back({"LEATHER GLOVES",
+                       "They were thin gloves, providing almost no warmth.",
+                       "CLOTHING", "NONE", 1, true, 5, 0});
+  inventory.push_back({"HEAVY COTTON SHIRT",
+                       "It was a heavy shirt, providing slight warmth.",
+                       "CLOTHING", "NONE", 1, true, 10, 0});
+  inventory.push_back({"HEAVY COTTON TROUSERS",
+                       "They were thick pants, providing warmth.", "CLOTHING",
+                       "NONE", 1, true, 20, 0});
+  inventory.push_back({"PAIR OF MOCCASINS",
+                       "They were worn shoes, providing slight warmth.",
+                       "CLOTHING", "NONE", 1, true, 10, 0});
+  Recipe arrow("ARROW", "Could be loaded into a bow to hunt at a distance.",
+               {"ROCK", "PIECE OF WOOD", "FEATHER"},
+               {"ARROW", "I could load it into my bow to hunt at a distance.",
+                "TOOLS", "NONE", 1, false, 0, 0});
+  Recipe candle("TALLOW CANDLE", "Used to fuel candle lanterns.",
+                {"RENDERED FAT", "PIECE OF WOOD"},
+                {"TALLOW CANDLE", "I could use it to fuel my lantern.",
+                 "ANIMAL FAT", "NONE", 1, false, 10, 0});
   recipeBook.push_back(arrow);
   recipeBook.push_back(candle);
 }
 
 int Player::getHealth() const { return health; }
+
 int Player::getMental() const { return mental; }
+
 bool Player::getEnergized() const { return energized; }
+
 int Player::getHunger() const { return hunger; }
+
 int Player::getThirst() const { return thirst; }
+
 int Player::getWarmth() const { return warmth; }
+
 int Player::getCharm() const { return charm; }
+
 bool Player::getStanding() const { return standing; }
+
 int Player::getCryCooldown() const { return cryCooldown; }
+
 std::vector<Item> &Player::getInventory() { return inventory; }
+
 std::vector<Recipe> &Player::getRecipeBook() { return recipeBook; }
 
 // A stat change returning false indicates a game over condition
@@ -85,10 +98,13 @@ bool Player::setWarmth(int w) {
 }
 
 void Player::setCharm(int c) { charm = constrainStat(c); }
+
 void Player::setStanding(bool s) { standing = constrainStat(s); }
+
 void Player::setCryCooldown(int s) { cryCooldown = s; }
 
 int Player::constrainStat(int stat) { return std::max(0, std::min(stat, 100)); }
+
 QString Player::displayBagInventory() const {
   QStringList inventoryItemsText;
   for (const auto &item : inventory) {
@@ -126,6 +142,27 @@ QString Player::displayClothesInventory() const {
   inventoryText.append("I was wearing:\n");
   inventoryText.append(inventoryItemsText.join("\n"));
   return inventoryText;
+}
+
+// The contents of a given day's journal entry will differ in later versions
+// based on player actions and stats
+QString Player::displayJournal() const {
+  QString entry;
+  entry.append(QString("Day %1\n\n").arg(worldObj.getDay()));
+  QMap<int, QString> dayEntries = {
+      {1, "I finished setting up camp this morning, its not exactly "
+          "comfortable but it will have to do for now. I still have some "
+          "rations from the journey here, but I would be wise to hunt soon. I "
+          "could use the command LOOK AROUND to survey my surroundings."},
+      {2, "I want for little but seclusion, to disconnect from everything that "
+          "has become so alien to me."}};
+
+  if (dayEntries.contains(worldObj.getDay())) {
+    entry.append(dayEntries.value(worldObj.getDay()));
+    return entry;
+  }
+  entry.append("A normal day in the mountains.");
+  return entry;
 }
 
 QString Player::displayRecipeBook() const {
@@ -230,29 +267,7 @@ QString Player::generateWarmthWarning() const {
       warning = BStatMsg;
     }
   }
-
   return warning;
-}
-
-// The contents of a given day's journal entry will differ in later versions
-// based on player actions and stats
-QString Player::displayJournal() const {
-  QString entry;
-  entry.append(QString("Day %1\n\n").arg(worldObj.getDay()));
-  QMap<int, QString> dayEntries = {
-      {1, "I finished setting up camp this morning, its not exactly "
-          "comfortable but it will have to do for now. I still have some "
-          "rations from the journey here, but I would be wise to hunt soon. I "
-          "could use the command LOOK AROUND to survey my surroundings."},
-      {2, "I want for little but seclusion, to disconnect from everything that "
-          "has become so alien to me."}};
-
-  if (dayEntries.contains(worldObj.getDay())) {
-    entry.append(dayEntries.value(worldObj.getDay()));
-    return entry;
-  }
-  entry.append("A normal day in the mountains.");
-  return entry;
 }
 
 Player playerObj;

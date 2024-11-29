@@ -10,47 +10,46 @@ public:
             const QString &b, const QString &im, const QString &l, const int &f,
             const bool &h, const int &r, const int &t, const int &da,
             const int &es, std::vector<Item> &i, const QMap<int, QString> &gm)
-      : name(n), description(d), unknownBrief(ub), knownBrief(b), image(im),
+      : name(n), description(d), briefKnown(b), briefUnknown(ub), imagePath(im),
         location(l), frequency(f), hatesPlayer(h), reputation(r),
-        timesEncountered(t), daysSinceEncountered(da), encounterState(es),
-        inventory(i), greetingMsgs(gm) {}
-
+        daysSinceEncountered(da), timesEncountered(t), encounterState(es),
+        greetingMsgs(gm), inventory(i) {}
   QString getName() const;
   QString getDescription() const;
-  QString getUnknownBrief() const;
-  QString getKnownBrief() const;
-  QString getImage() const;
+  QString getBriefKnown() const;
+  QString getBriefUnknown() const;
+  QString getImagePath() const;
   QString getLocation() const;
-  QMap<int, QString> &getGreetingMsgs();
-  int getTimesEncountered() const;
-  int getDaysSinceEncountered() const;
-  int getEncounterState() const;
   int getFrequency() const;
   bool getHatesPlayer() const;
   int getReputation() const;
+  int getTimesEncountered() const;
+  int getDaysSinceEncountered() const;
+  int getEncounterState() const;
+  QMap<int, QString> &getGreetingMsgs();
   std::vector<Item> &getInventory();
   void setDescription(QString newDescription);
-  void setDaysSinceEncountered(int newDaysSince);
-  void incrementTimesEncountered();
-  void setEncounterState(int newState);
   void setFrequency(int newFrequency);
   void setHatesPlayer(bool newHatesPlayer);
   void setReputation(int newReputation);
+  void incrementTimesEncountered();
+  void setDaysSinceEncountered(int newDaysSince);
+  void setEncounterState(int newState);
 
 private:
   QString name;
   QString description;
-  QString unknownBrief;
-  QString knownBrief;
-  QString image;
+  QString briefKnown;
+  QString briefUnknown;
+  QString imagePath;
   QString location;
-  QMap<int, QString> greetingMsgs;
   int frequency;
   bool hatesPlayer;
   int reputation;
-  int timesEncountered;
   int daysSinceEncountered;
+  int timesEncountered;
   int encounterState;
+  QMap<int, QString> greetingMsgs;
   std::vector<Item> inventory;
 };
 
@@ -63,7 +62,6 @@ public:
   static constexpr int AMOS_INDEX = 0;
   static constexpr int IRA_INDEX = 1;
   Character *getCharacter(int index);
-  int searchEnsemble(const QString &itemName) const;
   std::vector<Character> &getCharacters();
   bool isCharacterName(QString target);
 

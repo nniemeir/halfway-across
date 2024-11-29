@@ -8,7 +8,6 @@ public:
   static constexpr int VERB_ARG = 0;
   static constexpr int VERB_INVALID = -1;
   static constexpr int VERB_NO_ARG = 1;
-
   // Formatting
   QString getArticle(QString target);
   // Script
@@ -26,6 +25,7 @@ private:
   static const QRegularExpression multiSpaces;
   QString lastCommand;
 };
+
 extern InputHandler inputHandlerObj;
 
-#endif // INPUTHANDLER_H
+#endif

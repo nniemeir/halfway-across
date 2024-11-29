@@ -4,39 +4,23 @@
 #include "../../include/items/inventory.h"
 
 Fishing::Fishing()
-    : fish{{"CUTTHROAT TROUT", 1, false, 25, 10, "RAW MEAT", "NONE",
-            "It was a common fish that could be eaten if I cooked it."},
-           {"BROOK TROUT", 1, false, 25, 10, "RAW MEAT", "NONE",
-            "It was a fairly common fish that could be eaten if I cooked it."},
-           {"RAINBOW TROUT", 1, false, 30, 10, "RAW MEAT", "NONE",
-            "It was an uncommon fish that could be eaten if I cooked it."},
-           {"BROWN TROUT", 1, false, 35, 10, "RAW MEAT", "NONE",
-            "It was a rare fish that could be eaten if I cooked it."}},
+    : fish{{"CUTTHROAT TROUT",
+            "It was a common fish that could be eaten if I cooked it.",
+            "RAW MEAT", "NONE", 1, false, 25, 10},
+           {"BROOK TROUT",
+            "It was a fairly common fish that could be eaten if I cooked it.",
+            "RAW MEAT", "NONE", 1, false, 25, 10},
+           {"RAINBOW TROUT",
+            "It was an uncommon fish that could be eaten if I cooked it.",
+            "RAW MEAT", "NONE", 1, false, 30, 10},
+           {"BROWN TROUT",
+            "It was a rare fish that could be eaten if I cooked it.",
+            "RAW MEAT", "NONE", 1, false, 35, 10}},
       dailyAttempts(0) {}
 
 int Fishing::getDailyAttempts() const { return dailyAttempts; }
 
 std::vector<Item> &Fishing::getInventory() { return fish; }
-
-QString Fishing::seek() {
-  QString generatedFish = rollforFish();
-  if (generatedFish != "NOTHING") {
-    int fishIndex = inventoryObj.searchInventory(getInventory(), generatedFish);
-    if (fishIndex != VerbHandler::ITEM_NOT_FOUND) {
-      int playerItemIndex =
-          inventoryObj.searchInventory(playerObj.getInventory(), generatedFish);
-      inventoryObj.addItem(
-          playerObj.getInventory(),
-          inventoryObj.getInventoryItem(getInventory(), fishIndex),
-          playerItemIndex);
-      return QString("I caught a %1!\n")
-          .arg(inventoryObj.getInventoryItem(getInventory(), fishIndex)
-                   .getName()
-                   .toLower());
-    }
-  }
-  return "I waited a while but nothing was biting so I reeled in the line.";
-}
 
 QString Fishing::rollforFish() {
   dailyAttempts++;
@@ -58,6 +42,26 @@ QString Fishing::rollforFish() {
   } else {
     return "CUTTHROAT TROUT";
   }
+}
+
+QString Fishing::seek() {
+  QString generatedFish = rollforFish();
+  if (generatedFish != "NOTHING") {
+    int fishIndex = inventoryObj.searchInventory(getInventory(), generatedFish);
+    if (fishIndex != VerbHandler::ITEM_NOT_FOUND) {
+      int playerItemIndex =
+          inventoryObj.searchInventory(playerObj.getInventory(), generatedFish);
+      inventoryObj.addItem(
+          playerObj.getInventory(),
+          inventoryObj.getInventoryItem(getInventory(), fishIndex),
+          playerItemIndex);
+      return QString("I caught a %1!\n")
+          .arg(inventoryObj.getInventoryItem(getInventory(), fishIndex)
+                   .getName()
+                   .toLower());
+    }
+  }
+  return "I waited a while but nothing was biting so I reeled in the line.";
 }
 
 void Fishing::resetDailyAttempts() { dailyAttempts = 0; }

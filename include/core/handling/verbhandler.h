@@ -15,6 +15,7 @@ private:
                       QMap<QString, std::function<void()>> validActions,
                       QMap<QString, std::function<void()>> invalidActions1,
                       QMap<QString, std::function<void()>> invalidActions2);
+  // Verb Functions
   void ask(MainWindow *mainWindow, QString target, QString subject,
            Location *location);
   void begin(MainWindow *mainWindow, Location *location);
@@ -71,5 +72,7 @@ private:
   void wear(MainWindow *mainWindow, QString target);
   void yell(MainWindow *mainWindow, Location *location);
 };
+
 extern VerbHandler verbHandlerObj;
-#endif // VERBHANDLER_H
+
+#endif

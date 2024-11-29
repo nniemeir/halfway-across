@@ -46,8 +46,9 @@ void VerbHandler::cook(MainWindow *mainWindow, QString target,
     int renderedFatIndex =
         inventoryObj.searchInventory(playerObj.getInventory(), "RENDERED FAT");
     inventoryObj.addItem(playerObj.getInventory(),
-                         {"RENDERED FAT", 1, false, 10, 0, "ANIMAL FAT", "NONE",
-                          "I could use it for crafting or as fishing bait."},
+                         {"RENDERED FAT",
+                          "I could use it for crafting or as fishing bait.",
+                          "ANIMAL FAT", "NONE", 1, false, 10, 0},
                          renderedFatIndex);
     return;
   }

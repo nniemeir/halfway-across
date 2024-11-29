@@ -27,6 +27,6 @@ void VerbHandler::greet(MainWindow *mainWindow) {
   QString characterName = activeCharacter->getName();
   QString greetingMsg = dialogueObj.greetLogic(characterIndices[characterName]);
   mainWindow->setDescription(greetingMsg);
-  mainWindow->setLocationImage(activeCharacter->getImage());
+  mainWindow->setLocationImage(activeCharacter->getImagePath());
   worldObj.setConversing(true);
 }

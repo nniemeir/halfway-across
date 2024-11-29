@@ -32,4 +32,5 @@ private:
 };
 
 extern Script scriptObj;
+
 #endif

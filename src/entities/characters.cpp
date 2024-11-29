@@ -1,16 +1,16 @@
 #include "../../include/entities/characters.h"
 
 QString Character::getName() const { return name; }
+
 QString Character::getDescription() const { return description; }
-QString Character::getUnknownBrief() const { return unknownBrief; }
-QString Character::getKnownBrief() const { return knownBrief; }
+
+QString Character::getBriefKnown() const { return briefKnown; }
+
+QString Character::getBriefUnknown() const { return briefUnknown; }
+
+QString Character::getImagePath() const { return imagePath; }
+
 QString Character::getLocation() const { return location; }
-
-int Character::getDaysSinceEncountered() const { return daysSinceEncountered; }
-
-int Character::getTimesEncountered() const { return timesEncountered; }
-
-int Character::getEncounterState() const { return encounterState; }
 
 int Character::getFrequency() const { return frequency; }
 
@@ -18,20 +18,19 @@ bool Character::getHatesPlayer() const { return hatesPlayer; }
 
 int Character::getReputation() const { return reputation; }
 
+int Character::getTimesEncountered() const { return timesEncountered; }
+
+int Character::getDaysSinceEncountered() const { return daysSinceEncountered; }
+
+int Character::getEncounterState() const { return encounterState; }
+
 QMap<int, QString> &Character::getGreetingMsgs() { return greetingMsgs; }
 
 std::vector<Item> &Character::getInventory() { return inventory; }
+
 void Character::setDescription(QString newDescription) {
   description = newDescription;
 }
-
-void Character::setDaysSinceEncountered(int newDaysSince) {
-  daysSinceEncountered = newDaysSince;
-}
-
-void Character::incrementTimesEncountered() { timesEncountered++; }
-
-void Character::setEncounterState(int newState) { encounterState = newState; }
 
 void Character::setFrequency(int newFrequency) { frequency = newFrequency; }
 
@@ -41,9 +40,17 @@ void Character::setHatesPlayer(bool newHatesPlayer) {
 
 void Character::setReputation(int newReputation) { reputation = newReputation; }
 
-std::vector<Item> amosInv = {
-    {"FELT HAT", 1, false, 5, 0, "CLOTHING", "NONE",
-     "It was a small hat, providing almost no warmth."}};
+void Character::incrementTimesEncountered() { timesEncountered++; }
+
+void Character::setDaysSinceEncountered(int newDaysSince) {
+  daysSinceEncountered = newDaysSince;
+}
+
+void Character::setEncounterState(int newState) { encounterState = newState; }
+
+std::vector<Item> amosInv = {{"FELT HAT",
+                              "It was a small hat, providing almost no warmth.",
+                              "CLOTHING", "NONE", 1, false, 5, 0}};
 
 Character amos(
     "Amos",
@@ -59,9 +66,9 @@ Character amos(
          "can use the command GOODBYE to end a conversation."},
      {1, ""}});
 
-std::vector<Item> iraInv = {
-    {"FELT HAT", 1, false, 5, 0, "CLOTHING", "NONE",
-     "It was a small hat, providing almost no warmth."}};
+std::vector<Item> iraInv = {{"FELT HAT",
+                             "It was a small hat, providing almost no warmth.",
+                             "CLOTHING", "NONE", 1, false, 5, 0}};
 
 Character ira(
     "Ira", "He was a disheveled looking man with scraggly ginger facial hair.",
@@ -74,8 +81,6 @@ Ensemble::Ensemble() { characters = {amos, ira}; }
 std::vector<Character> &Ensemble::getCharacters() { return characters; }
 
 Character *Ensemble::getCharacter(int index) { return &characters[index]; }
-
-QString Character::getImage() const { return image; }
 
 bool Ensemble::isCharacterName(QString target) {
   for (const auto &characterObj : characters) {

@@ -9,38 +9,39 @@ public:
   static constexpr int DAY_AMOS_E1 = 8;
   static constexpr int DAY_IRA_E1 = 13;
   Character *getActiveCharacter();
+  QString getActiveCharacterBrief();
   int getChiseledIce() const;
+  bool getConversing() const;
+  bool getConversedToday() const;
   Location *getCurrentLocation() const;
   int getCurrentTemperature() const;
   QString getCurrentWeather() const;
   int getDay() const;
-  bool getConversing() const;
-  bool getConversedToday() const;
   void setActiveCharacter(Character *newCharacter);
   void setChiseledIce(bool newValue);
-  void setCurrentLocation(Location *location);
   void setConversing(bool newValue);
   void setConversedToday(bool newValue);
-  QString getActiveCharacterBrief();
+  void setCurrentLocation(Location *location);
   QString advanceDay();
   bool rollDice(const int probability);
   bool validDirection(const QString &value);
 
 private:
-  Character *activeCharacter;
-  Location *currentLocation;
-  int day;
-  int currentTemperature;
-  QString currentWeather;
-  bool chiseledIce;
+  bool applyColdDmg();
   Character *generateCharacter();
   int generateTemperature();
   QString generateWeather();
-  bool applyColdDmg();
-  std::vector<QString> directions;
+  Character *activeCharacter;
+  Location *currentLocation;
+  int currentTemperature;
+  QString currentWeather;
+  bool chiseledIce;
   bool conversing;
   bool conversedToday;
+  int day;
+  std::vector<QString> directions;
 };
 
 extern World worldObj;
+
 #endif

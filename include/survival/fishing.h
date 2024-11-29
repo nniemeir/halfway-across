@@ -7,15 +7,15 @@ public:
   Fishing();
   int getDailyAttempts() const;
   std::vector<Item> &getInventory();
-  QString seek();
   QString rollforFish();
+  QString seek();
   void resetDailyAttempts();
 
 private:
-  std::vector<Item> fish;
   int dailyAttempts;
+  std::vector<Item> fish;
 };
 
 extern Fishing fishingObj;
 
-#endif // FISHING_H
+#endif

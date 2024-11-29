@@ -9,16 +9,18 @@ public:
   Location(const QString &name, const QString &description,
            const QString &compassPath, const QString &imagePath,
            const QString &musicPath, const QString &ambiencePath,
-           const std::vector<Item> &inventory);
-
+           const std::vector<Item> &inventory)
+      : name(name), description(description), compassPath(compassPath),
+        imagePath(imagePath), musicPath(musicPath), ambiencePath(ambiencePath),
+        inventory(inventory) {}
   QString getName() const;
   QString getDescription() const;
   QString getCompassPath() const;
   QString getImagePath() const;
   QString getAmbiencePath() const;
   QString getMusicPath() const;
-  QString setDescription(QString message);
   std::vector<Item> &getInventory();
+  QString setDescription(QString message);
   QString displayItems() const;
 
 private:
@@ -26,8 +28,8 @@ private:
   QString description;
   QString compassPath;
   QString imagePath;
-  QString musicPath;
   QString ambiencePath;
+  QString musicPath;
   std::vector<Item> inventory;
 };
 

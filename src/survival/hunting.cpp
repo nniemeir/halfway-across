@@ -5,47 +5,46 @@
 #include "../../include/entities/player.h"
 
 Hunting::Hunting() {
-
-  bearParts = {{"BEAR FAT", 1, false, 0, 20, "FAT", "NONE",
-                "I could cook it to get rendered fat."},
-               {"BEAR MEAT", 1, false, 50, 20, "RAW MEAT", "NONE",
-                "If cooked, it could provide a filling meal."},
-               {"BEAR PELT", 1, false, 0, 20, "PELT", "NONE",
-                "I could use it for crafting."}};
-
-  deerParts = {{"DEER FAT", 1, false, 0, 20, "FAT", "NONE",
-                "I could cook it to get rendered fat."},
-               {"DEER MEAT", 1, false, 30, 20, "RAW MEAT", "NONE",
-                "If cooked, it could ease my hunger."},
-               {"DEER PELT", 1, false, 0, 20, "PELT", "NONE",
-                "I could use it for crafting."}};
-
-  foxParts = {{"FOX FAT", 1, false, 0, 20, "FAT", "NONE",
-               "I could cook it to get rendered fat."},
-              {"FOX MEAT", 1, false, 20, 20, "RAW MEAT", "NONE",
-               "If cooked, it could provide some nourishment."},
-              {"FOX PELT", 1, false, 0, 20, "PELT", "NONE",
-               "I could use it for crafting."}};
-
-  rabbitParts = {{"RABBIT FAT", 1, false, 0, 20, "FAT", "NONE",
-                  "I could cook it to get rendered fat."},
-                 {"RABBIT MEAT", 1, false, 15, 20, "RAW MEAT", "NONE",
-                  "If cooked, it could slightly ease my hunger."},
-                 {"RABBIT PELT", 1, false, 0, 20, "PELT", "NONE",
-                  "I could use it for crafting."}};
+  dailyAttempts = 0;
 
   animalCarcasses = {
-      {"BEAR", 1, false, 0, 100, "ANIMALS", "NONE",
-       "The slain bear almost looks bigger on the ground."},
-      {"DEER", 1, false, 0, 50, "ANIMALS", "NONE", "It was a lean doe."},
-      {"FOX", 1, false, 0, 30, "ANIMALS", "NONE",
-       "It wouldn't provide much meat."},
-      {"RABBIT", 1, false, 0, 30, "ANIMALS", "NONE",
-       "It would provide very little meat."}};
+      {"BEAR", "The slain bear almost looks bigger on the ground.", "ANIMALS",
+       "NONE", 1, false, 0, 100},
+      {"DEER", "It was a lean doe.", "ANIMALS", "NONE", 1, false, 0, 50},
+      {"FOX", "It wouldn't provide much meat.", "ANIMALS", "NONE", 1, false, 0,
+       30},
+      {"RABBIT", "It would provide very little meat.", "ANIMALS", "NONE", 1,
+       false, 0, 30}};
 
   validAnimals = {"BEAR", "DEER", "FOX", "RABBIT"};
 
-  dailyAttempts = 0;
+  bearParts = {{"BEAR FAT", "I could cook it to get rendered fat.", "FAT",
+                "NONE", 1, false, 0, 20},
+               {"BEAR MEAT", "If cooked, it could provide a filling meal.",
+                "RAW MEAT", "NONE", 1, false, 50, 20},
+               {"BEAR PELT", "I could use it for crafting.", "PELT", "NONE", 1,
+                false, 0, 20}};
+
+  deerParts = {{"DEER FAT", "I could cook it to get rendered fat.", "FAT",
+                "NONE", 1, false, 0, 20},
+               {"DEER MEAT", "If cooked, it could ease my hunger.", "RAW MEAT",
+                "NONE", 1, false, 30, 20},
+               {"DEER PELT", "I could use it for crafting.", "PELT", "NONE", 1,
+                false, 0, 20}};
+
+  foxParts = {{"FOX FAT", "I could cook it to get rendered fat.", "FAT", "NONE",
+               1, false, 0, 20},
+              {"FOX MEAT", "If cooked, it could provide some nourishment.",
+               "RAW MEAT", "NONE", 1, false, 20, 20},
+              {"FOX PELT", "I could use it for crafting.", "PELT", "NONE", 1,
+               false, 0, 20}};
+
+  rabbitParts = {{"RABBIT FAT", "I could cook it to get rendered fat.", "FAT",
+                  "NONE", 1, false, 0, 20},
+                 {"RABBIT MEAT", "If cooked, it could slightly ease my hunger.",
+                  "RAW MEAT", "NONE", 1, false, 15, 20},
+                 {"RABBIT PELT", "I could use it for crafting.", "PELT", "NONE",
+                  1, false, 0, 20}};
 }
 
 QString Hunting::getActiveAnimal() const { return activeAnimal; }
@@ -55,6 +54,8 @@ int Hunting::getDailyAttempts() const { return dailyAttempts; }
 std::vector<Item> &Hunting::getSlainAnimals() { return animalCarcasses; }
 
 void Hunting::setActiveAnimal(QString animal) { activeAnimal = animal; }
+
+void Hunting::resetDailyAttempts() { dailyAttempts = 0; }
 
 int Hunting::seek(QString target, int arrowIndex) {
   dailyAttempts++;
@@ -69,14 +70,28 @@ int Hunting::seek(QString target, int arrowIndex) {
   return ANIMAL_INVALID;
 }
 
-bool Hunting::assessDamage(QString target) {
-  QMap<QString, int> probabilities = {
-      {"BEAR", 80}, {"DEER", 70}, {"FOX", 60}, {"RABBIT", 70}};
-  int chance = 0;
-  if (probabilities.contains(target)) {
-    chance = probabilities.value(target);
+QString Hunting::processSeekResult(QString target, int arrowIndex) {
+  int result = huntingObj.seek(target, arrowIndex);
+  QString resultMsg;
+  switch (result) {
+  case Hunting::ANIMAL_FOUND:
+    sfxPlayer.play("qrc:/audio/sfx/hunt.mp3", sfxPlayer.getdefSfxVol(), false);
+    huntingObj.setActiveAnimal(target);
+    resultMsg = QString("I spotted %1 %2.")
+                    .arg(inputHandlerObj.getArticle(target), target.toLower());
+    break;
+  case Hunting::ANIMAL_NOT_FOUND:
+    resultMsg = QString("I was unable to find %1 %2 in the valley.")
+                    .arg(inputHandlerObj.getArticle(target), target.toLower());
+    break;
+  case Hunting::ANIMAL_INVALID:
+    resultMsg =
+        QString("I thought of hunting %1, but it didn't seem reasonable in "
+                "the area.")
+            .arg(target.toLower());
+    break;
   }
-  return worldObj.rollDice(chance);
+  return resultMsg;
 }
 
 bool Hunting::hitTarget(QString target) {
@@ -102,6 +117,16 @@ bool Hunting::recoveredArrow(bool hitTarget) {
   return false;
 }
 
+bool Hunting::assessDamage(QString target) {
+  QMap<QString, int> probabilities = {
+      {"BEAR", 80}, {"DEER", 70}, {"FOX", 60}, {"RABBIT", 70}};
+  int chance = 0;
+  if (probabilities.contains(target)) {
+    chance = probabilities.value(target);
+  }
+  return worldObj.rollDice(chance);
+}
+
 bool Hunting::skinCarcass(QString target, Location *location) {
   QMap<QString, std::vector<Item>> animalParts = {{"BEAR", bearParts},
                                                   {"DEER", deerParts},
@@ -115,8 +140,6 @@ bool Hunting::skinCarcass(QString target, Location *location) {
   return false;
 }
 
-void Hunting::resetDailyAttempts() { dailyAttempts = 0; }
-
 bool Hunting::foundAnimal(QString target) {
   QMap<QString, int> probabilities = {
       {"BEAR", 5}, {"DEER", 40}, {"FOX", 20}, {"RABBIT", 35}};
@@ -128,30 +151,6 @@ bool Hunting::foundAnimal(QString target) {
     return true;
   }
   return false;
-}
-
-QString Hunting::processSeekResult(QString target, int arrowIndex) {
-  int result = huntingObj.seek(target, arrowIndex);
-  QString resultMsg;
-  switch (result) {
-  case Hunting::ANIMAL_FOUND:
-    sfxPlayer.play("qrc:/audio/sfx/hunt.mp3", sfxPlayer.getdefSfxVol(), false);
-    huntingObj.setActiveAnimal(target);
-    resultMsg = QString("I spotted %1 %2.")
-                    .arg(inputHandlerObj.getArticle(target), target.toLower());
-    break;
-  case Hunting::ANIMAL_NOT_FOUND:
-    resultMsg = QString("I was unable to find %1 %2 in the valley.")
-                    .arg(inputHandlerObj.getArticle(target), target.toLower());
-    break;
-  case Hunting::ANIMAL_INVALID:
-    resultMsg =
-        QString("I thought of hunting %1, but it didn't seem reasonable in "
-                "the area.")
-            .arg(target.toLower());
-    break;
-  }
-  return resultMsg;
 }
 
 Hunting huntingObj;

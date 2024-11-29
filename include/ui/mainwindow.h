@@ -1,6 +1,5 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
 #include "../../include/entities/locations.h"
 #include <QApplication>
 #include <QEvent>
@@ -21,7 +20,6 @@ QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow {
   Q_OBJECT
-
 public:
   MainWindow(QWidget *parent = nullptr);
   ~MainWindow();
@@ -29,10 +27,10 @@ public:
                    Location *object);
   void setLocationAudio(QString currentMusic, QString currentAmbience,
                         Location *object);
-  void setCompassImage(QString imagePath);
   void setLocationImage(QString imagePath);
-  void appendDescription(QString text);
+  void setCompassImage(QString imagePath);
   void setDescription(QString text);
+  void appendDescription(QString text);
   void endGame(QString reason);
   void closeProgram();
 
@@ -40,7 +38,6 @@ private:
   Ui::MainWindow *ui;
   void importStylesheet();
   void setUiProperties();
-
 private slots:
   void handleReturnPressed();
 

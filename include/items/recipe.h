@@ -2,23 +2,23 @@
 #define RECIPE_H
 #include "item.h"
 #include <QStringList>
+
 class Recipe {
 public:
   Recipe(){};
-  Recipe(const QString &n, const QStringList &i, const QString &d,
+  Recipe(const QString &n, const QString &d, const QStringList &i,
          const Item &o)
-      : name(n), ingredients(i), description(d), output(o) {}
-
+      : name(n), description(d), ingredients(i), outputItem(o) {}
   QString getRecipeName() const;
-  QStringList getIngredients() const;
   QString getDescription() const;
+  QStringList getIngredients() const;
   Item getOutputItem() const;
 
 private:
   QString name;
-  QStringList ingredients;
   QString description;
-  Item output;
+  QStringList ingredients;
+  Item outputItem;
 };
 
 class RecipeBook {
@@ -30,4 +30,5 @@ public:
 };
 
 extern RecipeBook recipeBookObj;
+
 #endif

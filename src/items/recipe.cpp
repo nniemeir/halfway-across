@@ -1,10 +1,12 @@
 #include "../../include/items/recipe.h"
 
 QString Recipe::getRecipeName() const { return name; }
-QStringList Recipe::getIngredients() const { return ingredients; }
+
 QString Recipe::getDescription() const { return description; }
 
-Item Recipe::getOutputItem() const { return output; }
+QStringList Recipe::getIngredients() const { return ingredients; }
+
+Item Recipe::getOutputItem() const { return outputItem; }
 
 std::optional<Recipe>
 RecipeBook::searchRecipeBook(const std::vector<Recipe> &recipeBook,

@@ -44,30 +44,9 @@ void MainWindow::showEvent(QShowEvent *event) {
   }
 }
 
-void MainWindow::appendDescription(QString text) {
-  ui->outputArea->append(text);
-  if (scriptObj.getStatus()) {
-    scriptObj.writeFile(QString("%1\n").arg(text));
-  }
-}
-
-void MainWindow::setDescription(QString text) {
-  ui->outputArea->setText(text);
-  if (scriptObj.getStatus()) {
-    scriptObj.writeFile(QString("%1\n").arg(text));
-  }
-}
-
-void MainWindow::closeProgram() { QApplication::quit(); }
-
 void MainWindow::setCompassImage(QString imagePath) {
   QPixmap pix(imagePath);
   ui->compassPath->setPixmap(pix);
-}
-
-void MainWindow::setLocationImage(QString imagePath) {
-  QPixmap pix(imagePath);
-  ui->location->setPixmap(pix);
 }
 
 void MainWindow::setLocation(QString currentMusic, QString currentAmbience,
@@ -96,6 +75,25 @@ void MainWindow::setLocationAudio(QString currentMusic, QString currentAmbience,
   }
 }
 
+void MainWindow::setLocationImage(QString imagePath) {
+  QPixmap pix(imagePath);
+  ui->location->setPixmap(pix);
+}
+
+void MainWindow::setDescription(QString text) {
+  ui->outputArea->setText(text);
+  if (scriptObj.getStatus()) {
+    scriptObj.writeFile(QString("%1\n").arg(text));
+  }
+}
+
+void MainWindow::appendDescription(QString text) {
+  ui->outputArea->append(text);
+  if (scriptObj.getStatus()) {
+    scriptObj.writeFile(QString("%1\n").arg(text));
+  }
+}
+
 void MainWindow::endGame(QString reason) {
   msgHandlerObj.gameOver(reason);
   this->setLocation(worldObj.getCurrentLocation()->getMusicPath(),
@@ -104,6 +102,8 @@ void MainWindow::endGame(QString reason) {
   sfxPlayer.play("qrc:/audio/sfx/perished.mp3", sfxPlayer.getdefSfxVol(),
                  false);
 };
+
+void MainWindow::closeProgram() { QApplication::quit(); }
 
 void MainWindow::handleReturnPressed() {
   QString input = ui->inputText->text();

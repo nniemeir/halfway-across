@@ -14,10 +14,11 @@ public:
   static const QString TIRED;
   static const QString WAIT;
   QString gameOver(QString reason);
-  QString missingItem(QString target);
   QString invalidDirection(QString verb, QString target);
   QString invalidLocation(QString verb);
+  QString missingItem(QString target);
 };
+
 extern MsgHandler msgHandlerObj;
 
-#endif // MSGHANDLER_H
+#endif

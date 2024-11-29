@@ -9,14 +9,14 @@ public:
                  QString subject, Location *location);
 
 private:
+  void initMaps();
+  QString getResponseMsg(QString verb, QString target, QString subject,
+                         Location *location);
+  void playVoiceSfx(QString verb);
   QMap<int, std::function<QString(QString, Location *)>> askAmosEncounters;
   QMap<int, std::function<QString(QString, Location *)>> askIraEncounters;
   QMap<int, std::function<QString(QString, Location *)>> tellAmosEncounters;
   QMap<int, std::function<QString(QString, Location *)>> tellIraEncounters;
-  void initMaps();
-  void playVoiceSfx(QString verb);
-  QString getResponseMsg(QString verb, QString target, QString subject,
-                         Location *location);
 };
 
 extern EncounterHandler encounterHandlerObj;

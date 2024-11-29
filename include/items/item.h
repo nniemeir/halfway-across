@@ -6,37 +6,35 @@
 class Item {
 public:
   Item(){};
-  Item(const QString &n, int a, bool act, int e, int w, const QString &t,
-       const QString &p, const QString &d)
-      : name(n), amount(a), active(act), effect(e), weight(w), type(t),
-        payload(p), description(d) {}
-
+  Item(const QString &n, const QString &d, const QString &t, const QString &p,
+       int a, bool act, int e, int w)
+      : name(n), description(d), type(t), payload(p), amount(a), active(act),
+        effect(e), weight(w) {}
   Item cookMeat(const Item &raw) const {
-    return Item("COOKED " + raw.name, 1, false, raw.effect, raw.weight, "FOOD",
-                "NONE", "I could eat it to ease my hunger.");
+    return Item("COOKED " + raw.name, "I could eat it to ease my hunger.",
+                "FOOD", "NONE", 1, false, raw.effect, raw.weight);
   }
-
   QString getName() const;
+  QString getDescription() const;
+  QString getType() const;
+  QString getPayload() const;
   int getAmount() const;
   bool getActive() const;
   int getEffect() const;
   int getWeight() const;
-  QString getType() const;
-  QString getPayload() const;
-  QString getDescription() const;
-  void setEffect(int value);
+  void setAmount(int value);
   void setActive(bool value);
-  void setQuantity(int value);
+  void setEffect(int value);
 
 private:
   QString name;
+  QString description;
+  QString type;
+  QString payload;
   int amount;
   bool active;
   int effect;
   int weight;
-  QString type;
-  QString payload;
-  QString description;
 };
 
 #endif

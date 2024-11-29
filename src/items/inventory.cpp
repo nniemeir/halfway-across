@@ -22,12 +22,12 @@ int Inventory::searchInventory(std::vector<Item> &inventory,
 void Inventory::addItem(std::vector<Item> &inventory, Item itemToAdd,
                         const int itemIndex) {
   if (itemIndex == VerbHandler::ITEM_NOT_FOUND) {
-    itemToAdd.setQuantity(1);
+    itemToAdd.setAmount(1);
     inventory.push_back(itemToAdd);
     return;
   }
-  inventory[itemIndex].setQuantity(inventory[itemIndex].getAmount() +
-                                   itemToAdd.getAmount());
+  inventory[itemIndex].setAmount(inventory[itemIndex].getAmount() +
+                                 itemToAdd.getAmount());
 }
 
 bool Inventory::addLoot(std::vector<Item> &inventory,
@@ -67,7 +67,7 @@ void Inventory::removeItem(std::vector<Item> &inventory, const int itemIndex) {
     inventory.erase(inventory.begin() + itemIndex);
     return;
   }
-  inventory[itemIndex].setQuantity(inventory[itemIndex].getAmount() - 1);
+  inventory[itemIndex].setAmount(inventory[itemIndex].getAmount() - 1);
 }
 
 void Inventory::deactivateLocationSpecificItems() {
