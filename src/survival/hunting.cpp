@@ -139,14 +139,17 @@ QString Hunting::processSeekResult(QString target, int arrowIndex) {
     huntingObj.setActiveAnimal(target);
     resultMsg = QString("I spotted %1 %2.")
                     .arg(inputHandlerObj.getArticle(target), target.toLower());
+    break;
   case Hunting::ANIMAL_NOT_FOUND:
     resultMsg = QString("I was unable to find %1 %2 in the valley.")
                     .arg(inputHandlerObj.getArticle(target), target.toLower());
+    break;
   case Hunting::ANIMAL_INVALID:
     resultMsg =
         QString("I thought of hunting %1, but it didn't seem reasonable in "
                 "the area.")
             .arg(target.toLower());
+    break;
   }
   return resultMsg;
 }
