@@ -1,4 +1,3 @@
-#include "../../../include/core/audio.h"
 #include "../../../include/core/handling/verbhandler.h"
 #include "../../../include/entities/player.h"
 #include "../../../include/survival/hunting.h"
@@ -19,7 +18,7 @@ void VerbHandler::skin(MainWindow *mainWindow, QString target,
             .arg(target.toLower()));
     return;
   }
-  sfxPlayer.play("qrc:/audio/sfx/skin.mp3", sfxPlayer.getdefSfxVol(), 0);
+  mainWindow->playSfx("qrc:/audio/sfx/skin.mp3");
   if (huntingObj.skinCarcass(target, location)) {
     mainWindow->setDescription(
         QString("I skinned the %1.").arg(target.toLower()));

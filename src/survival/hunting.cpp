@@ -70,12 +70,12 @@ int Hunting::seek(QString target, int arrowIndex) {
   return ANIMAL_INVALID;
 }
 
-QString Hunting::processSeekResult(QString target, int arrowIndex) {
+QString Hunting::processSeekResult(MainWindow *mainWindow, QString target, int arrowIndex) {
   int result = huntingObj.seek(target, arrowIndex);
   QString resultMsg;
   switch (result) {
   case Hunting::ANIMAL_FOUND:
-    sfxPlayer.play("qrc:/audio/sfx/hunt.mp3", sfxPlayer.getdefSfxVol(), false);
+    mainWindow->playSfx("qrc:/audio/sfx/hunt.mp3");
     huntingObj.setActiveAnimal(target);
     resultMsg = QString("I spotted %1 %2.")
                     .arg(inputHandlerObj.getArticle(target), target.toLower());

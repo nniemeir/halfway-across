@@ -1,4 +1,3 @@
-#include "../../../include/core/audio.h"
 #include "../../../include/core/handling/inputhandler.h"
 #include "../../../include/core/handling/verbhandler.h"
 #include "../../../include/entities/player.h"
@@ -30,7 +29,7 @@ void VerbHandler::take(MainWindow *mainWindow, QString target,
         QString("I didn't have enough space to take %1 %2 with me.")
             .arg(inputHandlerObj.getArticle(target), target.toLower()));
   }
-  sfxPlayer.play("qrc:/audio/sfx/take.mp3", sfxPlayer.getdefSfxVol(), 0);
+  mainWindow->playSfx("qrc:/audio/sfx/take.mp3");
   inventoryObj.addItem(
       playerObj.getInventory(),
       inventoryObj.getInventoryItem(location->getInventory(), itemIndex),

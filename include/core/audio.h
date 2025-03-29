@@ -20,8 +20,4 @@ private:
   QMediaPlayer *music;
 };
 
-extern Audio ambiencePlayer;
-extern Audio musicPlayer;
-extern Audio sfxPlayer;
-
 #endif

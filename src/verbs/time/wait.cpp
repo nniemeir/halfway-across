@@ -1,4 +1,3 @@
-#include "../../../include/core/audio.h"
 #include "../../../include/core/handling/msghandler.h"
 #include "../../../include/core/handling/verbhandler.h"
 #include "../../../include/entities/player.h"
@@ -31,7 +30,7 @@ void VerbHandler::waitFishing(MainWindow *mainWindow, int rodIndex) {
     mainWindow->setDescription("I was too tired to fish anymore that day.");
     return;
   }
-  sfxPlayer.play("qrc:/audio/sfx/fishReel.mp3", sfxPlayer.getdefSfxVol(), 0);
+  mainWindow->playSfx("qrc:/audio/sfx/fishReel.mp3");
   inventoryObj.getInventoryItem(playerObj.getInventory(), rodIndex)
       .setActive(false);
   mainWindow->setDescription(fishingObj.seek());

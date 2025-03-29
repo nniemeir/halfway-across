@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 #include "../../include/entities/locations.h"
+#include "../../include/core/audio.h"
 #include <QApplication>
 #include <QEvent>
 #include <QFile>
@@ -31,6 +32,7 @@ public:
   void setCompassImage(QString imagePath);
   void setDescription(QString text);
   void appendDescription(QString text);
+  void playSfx(const QString& filePath);
   void endGame(QString reason);
   void closeProgram();
 
@@ -38,6 +40,9 @@ private:
   Ui::MainWindow *ui;
   void importStylesheet();
   void setUiProperties();
+  Audio ambiencePlayer;
+  Audio musicPlayer;
+  Audio sfxPlayer;
 private slots:
   void handleReturnPressed();
 

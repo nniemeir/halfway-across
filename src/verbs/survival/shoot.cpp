@@ -19,7 +19,7 @@ void VerbHandler::shoot(MainWindow *mainWindow, QString target,
             .arg(inputHandlerObj.getArticle(target), target.toLower()));
     return;
   }
-  sfxPlayer.play("qrc:/audio/sfx/arrow.mp3", sfxPlayer.getdefSfxVol(), 0);
+  mainWindow->playSfx("qrc:/audio/sfx/arrow.mp3");
   bool hit = huntingObj.hitTarget(target);
   if (!huntingObj.recoveredArrow(hit)) {
     inventoryObj.removeItem(playerObj.getInventory(), arrowIndex);

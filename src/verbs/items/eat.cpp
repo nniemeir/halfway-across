@@ -1,4 +1,3 @@
-#include "../../../include/core/audio.h"
 #include "../../../include/core/handling/inputhandler.h"
 #include "../../../include/core/handling/msghandler.h"
 #include "../../../include/core/handling/verbhandler.h"
@@ -25,7 +24,7 @@ void VerbHandler::eat(MainWindow *mainWindow, QString target) {
     mainWindow->setDescription("I wasn't hungry at the time.");
     return;
   }
-  sfxPlayer.play("qrc:/audio/sfx/eat.mp3", sfxPlayer.getdefSfxVol(), false);
+  mainWindow->playSfx("qrc:/audio/sfx/eat.mp3");
   QString itemName =
       inventoryObj.getInventoryItem(playerObj.getInventory(), itemIndex)
           .getName();

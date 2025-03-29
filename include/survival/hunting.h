@@ -2,6 +2,7 @@
 #define HUNTING_H
 #include "../../include/entities/locations.h"
 #include "../../include/items/item.h"
+#include "../../include/ui/mainwindow.h"
 #include <QMap>
 
 class Hunting {
@@ -16,7 +17,7 @@ public:
   void setActiveAnimal(QString animal);
   void resetDailyAttempts();
   int seek(QString target, int arrowIndex);
-  QString processSeekResult(QString target, int arrowIndex);
+  QString processSeekResult(MainWindow *mainWindow, QString target, int arrowIndex);
   bool hitTarget(QString target);
   bool assessDamage(QString target);
   bool recoveredArrow(bool hitTarget);

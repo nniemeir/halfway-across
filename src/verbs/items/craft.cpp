@@ -1,4 +1,3 @@
-#include "../../../include/core/audio.h"
 #include "../../../include/core/handling/inputhandler.h"
 #include "../../../include/core/handling/verbhandler.h"
 #include "../../../include/entities/player.h"
@@ -32,7 +31,7 @@ void VerbHandler::craft(MainWindow *mainWindow, QString target) {
             .arg(inputHandlerObj.getArticle(target), target.toLower()));
     return;
   }
-  sfxPlayer.play("qrc:/audio/sfx/craft.mp3", sfxPlayer.getdefSfxVol(), false);
+  mainWindow->playSfx("qrc:/audio/sfx/craft.mp3");
   mainWindow->setDescription(
       QString("I crafted %1 %2.")
           .arg(inputHandlerObj.getArticle(target), target.toLower()));

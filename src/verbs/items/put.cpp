@@ -1,4 +1,3 @@
-#include "../../../include/core/audio.h"
 #include "../../../include/core/handling/inputhandler.h"
 #include "../../../include/core/handling/msghandler.h"
 #include "../../../include/core/handling/verbhandler.h"
@@ -23,7 +22,7 @@ void VerbHandler::put(MainWindow *mainWindow, QString target, QString subject,
         inputHandlerObj.getArticle(target) + " " + target));
     return;
   }
-  sfxPlayer.play("qrc:/audio/sfx/drop.mp3", sfxPlayer.getdefSfxVol(), 0);
+  mainWindow->playSfx("qrc:/audio/sfx/drop.mp3");
   mainWindow->setDescription(QString("I put the %1 on the %2.")
                                  .arg(target.toLower(), subject.toLower()));
   int locationItemIndex =

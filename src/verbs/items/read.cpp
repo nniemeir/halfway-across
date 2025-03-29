@@ -1,4 +1,3 @@
-#include "../../../include/core/audio.h"
 #include "../../../include/core/handling/msghandler.h"
 #include "../../../include/core/handling/verbhandler.h"
 #include "../../../include/entities/player.h"
@@ -18,6 +17,6 @@ void VerbHandler::read(MainWindow *mainWindow, Location *location,
     msgHandlerObj.missingItem(target);
     return;
   }
-  sfxPlayer.play("qrc:/audio/sfx/read.mp3", sfxPlayer.getdefSfxVol(), 0);
+  mainWindow->playSfx("qrc:/audio/sfx/read.mp3");
   mainWindow->setDescription(intangibleItems.value(target));
 }

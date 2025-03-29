@@ -1,4 +1,3 @@
-#include "../../../include/core/audio.h"
 #include "../../../include/core/handling/verbhandler.h"
 #include "../../../include/core/world.h"
 #include "../../../include/entities/player.h"
@@ -24,8 +23,7 @@ void VerbHandler::fill(MainWindow *mainWindow, QString target,
           .getEffect() == 100) {
     mainWindow->setDescription("My canteen was already full.");
   }
-  sfxPlayer.play("qrc:/audio/sfx/lakeSplash.mp3", sfxPlayer.getdefSfxVol(),
-                 false);
+  mainWindow->playSfx("qrc:/audio/sfx/lakeSplash.mp3");
   mainWindow->setDescription("I filled my canteen with water.");
   inventoryObj.getInventoryItem(playerObj.getInventory(), canteenIndex)
       .setEffect(100);

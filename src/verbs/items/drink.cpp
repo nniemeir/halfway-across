@@ -1,4 +1,3 @@
-#include "../../../include/core/audio.h"
 #include "../../../include/core/handling/msghandler.h"
 #include "../../../include/core/handling/verbhandler.h"
 #include "../../../include/core/world.h"
@@ -34,8 +33,7 @@ void VerbHandler::drinkLake(MainWindow *mainWindow, QString target) {
     mainWindow->setDescription("I wasn't thirsty.");
     return;
   }
-  sfxPlayer.play("qrc:/audio/sfx/lakeSplash.mp3", sfxPlayer.getdefSfxVol(),
-                 false);
+  mainWindow->playSfx("qrc:/audio/sfx/lakeSplash.mp3");
   mainWindow->setDescription(
       "I felt more refreshed after drinking some cold water.");
   playerObj.setThirst(playerObj.getThirst() + 20);
@@ -57,7 +55,7 @@ void VerbHandler::drinkCanteen(MainWindow *mainWindow, QString target) {
     mainWindow->setDescription("My canteen was empty.");
     return;
   }
-  sfxPlayer.play("qrc:/audio/sfx/drink.mp3", sfxPlayer.getdefSfxVol(), false);
+  mainWindow->playSfx("qrc:/audio/sfx/drink.mp3");
   mainWindow->setDescription(
       "I quenched my thirst using the water in my canteen.");
   inventoryObj.getInventoryItem(playerObj.getInventory(), canteenIndex)

@@ -75,6 +75,10 @@ void MainWindow::setLocationAudio(QString currentMusic, QString currentAmbience,
   }
 }
 
+void MainWindow::playSfx(const QString& filePath) {
+    sfxPlayer.play(filePath, sfxPlayer.getdefSfxVol(), false);
+}
+
 void MainWindow::setLocationImage(QString imagePath) {
   QPixmap pix(imagePath);
   ui->location->setPixmap(pix);

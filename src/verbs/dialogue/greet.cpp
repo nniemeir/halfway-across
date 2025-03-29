@@ -1,4 +1,3 @@
-#include "../../../include/core/audio.h"
 #include "../../../include/core/handling/verbhandler.h"
 #include "../../../include/core/world.h"
 #include "../../../include/entities/dialogue.h"
@@ -23,7 +22,7 @@ void VerbHandler::greet(MainWindow *mainWindow) {
   mainWindow->setCompassImage("");
   QMap<QString, int> characterIndices = {{"Amos", Ensemble::AMOS_INDEX},
                                          {"Ira", Ensemble::IRA_INDEX}};
-  sfxPlayer.play("qrc:/audio/sfx/ask.mp3", sfxPlayer.getdefSfxVol(), false);
+  mainWindow->playSfx("qrc:/audio/sfx/ask.mp3");
   QString characterName = activeCharacter->getName();
   QString greetingMsg = dialogueObj.greetLogic(characterIndices[characterName]);
   mainWindow->setDescription(greetingMsg);

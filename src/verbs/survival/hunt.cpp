@@ -28,5 +28,5 @@ void VerbHandler::hunt(MainWindow *mainWindow, QString target,
     mainWindow->setDescription("I needed a bow and arrow to hunt.");
     return;
   }
-  mainWindow->setDescription(huntingObj.processSeekResult(target, arrowIndex));
+  mainWindow->setDescription(huntingObj.processSeekResult(mainWindow, target, arrowIndex));
 }

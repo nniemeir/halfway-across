@@ -1,4 +1,3 @@
-#include "../../../include/core/audio.h"
 #include "../../../include/core/handling/inputhandler.h"
 #include "../../../include/core/handling/msghandler.h"
 #include "../../../include/core/handling/verbhandler.h"
@@ -41,7 +40,7 @@ void VerbHandler::useLanternAtCave(MainWindow *mainWindow) {
     mainWindow->setDescription("My lantern needs a fuel source.");
     return;
   }
-  sfxPlayer.play("qrc:/audio/sfx/flint.mp3", sfxPlayer.getdefSfxVol(), 0);
+  mainWindow->playSfx("qrc:/audio/sfx/flint.mp3");
   mainWindow->setLocation(cave.getMusicPath(), cave.getAmbiencePath(),
                           &caveLit);
 }
@@ -55,8 +54,8 @@ void VerbHandler::useRodAtLake(MainWindow *mainWindow) {
   }
   if (inventoryObj.getInventoryItem(playerObj.getInventory(), rodIndex)
           .getActive()) {
-    sfxPlayer.play("qrc:/audio/sfx/fishReel.mp3", sfxPlayer.getdefSfxVol(), 0),
-        mainWindow->setDescription("I reeled in my line.");
+    mainWindow->playSfx("qrc:/audio/sfx/fishReel.mp3");
+    mainWindow->setDescription("I reeled in my line.");
     return;
   }
   if (inventoryObj.getInventoryItem(playerObj.getInventory(), rodIndex)
@@ -67,7 +66,7 @@ void VerbHandler::useRodAtLake(MainWindow *mainWindow) {
   }
   inventoryObj.getInventoryItem(playerObj.getInventory(), rodIndex)
       .setEffect(0);
-  sfxPlayer.play("qrc:/audio/sfx/fishSet.mp3", sfxPlayer.getdefSfxVol(), 0);
+  mainWindow->playSfx("qrc:/audio/sfx/fishSet.mp3");
   inventoryObj.getInventoryItem(playerObj.getInventory(), rodIndex)
       .setActive(true);
   mainWindow->setDescription(
@@ -78,7 +77,7 @@ void VerbHandler::useChiselAtLake(MainWindow *mainWindow) {
   if (worldObj.getChiseledIce()) {
     return;
   }
-  sfxPlayer.play("qrc:/audio/sfx/chiselLake.mp3", sfxPlayer.getdefSfxVol(), 0);
+  mainWindow->playSfx("qrc:/audio/sfx/chiselLake.mp3");
   mainWindow->setDescription("I chiseled a hole in the ice.\n");
   worldObj.setChiseledIce(true);
 }

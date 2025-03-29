@@ -1,8 +1,9 @@
 #include "../../include/core/audio.h"
 
 Audio::Audio() {
-  music = new QMediaPlayer();
-  audioOutput = new QAudioOutput();
+  QObject *audioParent = new QObject();
+  music = new QMediaPlayer(audioParent);
+  audioOutput = new QAudioOutput(audioParent);
   defAmbienceVol = 0.8;
   defMusicVol = 0.9;
   defSfxVol = 1;
@@ -26,7 +27,3 @@ void Audio::play(QString filePath, int volume, bool isBackground) {
   }
   music->play();
 }
-
-Audio ambiencePlayer;
-Audio musicPlayer;
-Audio sfxPlayer;

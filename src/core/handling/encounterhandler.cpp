@@ -30,7 +30,7 @@ void EncounterHandler::talkLogic(MainWindow *mainWindow, QString verb,
   QString responseMsg = getResponseMsg(verb, target, subject, location);
 
   if (!responseMsg.isEmpty()) {
-    playVoiceSfx(verb);
+    playVoiceSfx(mainWindow, verb);
     mainWindow->setDescription(responseMsg);
     mainWindow->appendDescription(dialogueObj.getPromptMsg());
     return;
@@ -54,12 +54,12 @@ QString EncounterHandler::getResponseMsg(QString verb, QString target,
   return tellIraEncounters[timesEncountered](subject, location);
 }
 
-void EncounterHandler::playVoiceSfx(QString verb) {
+void EncounterHandler::playVoiceSfx(MainWindow *mainWindow, QString verb) {
   if (verb == "ASK") {
-    sfxPlayer.play("qrc:/audio/sfx/ask.mp3", sfxPlayer.getdefSfxVol(), 0);
+    mainWindow->playSfx("qrc:/audio/sfx/ask.mp3");
     return;
   }
-  sfxPlayer.play("qrc:/audio/sfx/tell.mp3", sfxPlayer.getdefSfxVol(), 0);
+  mainWindow->playSfx("qrc:/audio/sfx/tell.mp3");
 }
 
 EncounterHandler encounterHandlerObj;

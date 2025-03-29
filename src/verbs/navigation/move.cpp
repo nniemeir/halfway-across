@@ -1,4 +1,3 @@
-#include "../../../include/core/audio.h"
 #include "../../../include/core/handling/msghandler.h"
 #include "../../../include/core/handling/verbhandler.h"
 #include "../../../include/core/world.h"
@@ -61,7 +60,7 @@ bool VerbHandler::moveCamp(MainWindow *mainWindow, QString target) {
       mainWindow->setDescription(MsgHandler::TIRED);
       return true;
     }
-    sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(), 0);
+    mainWindow->playSfx("qrc:/audio/sfx/moveSnow.mp3");
     mainWindow->setLocation(camp.getMusicPath(), camp.getAmbiencePath(),
                             &forestPath);
     return true;
@@ -71,8 +70,7 @@ bool VerbHandler::moveCamp(MainWindow *mainWindow, QString target) {
 
 bool VerbHandler::moveForestPath(MainWindow *mainWindow, QString target) {
   if (target == "SOUTH" || target == "S") {
-    sfxPlayer.play("qrc:/audio/sfx/moveStone.mp3", sfxPlayer.getdefSfxVol(),
-                   false);
+    mainWindow->playSfx("qrc:/audio/sfx/moveStone.mp3");
     mainWindow->setLocation(forestPath.getMusicPath(),
                             forestPath.getAmbiencePath(), &camp);
     return true;
@@ -82,21 +80,21 @@ bool VerbHandler::moveForestPath(MainWindow *mainWindow, QString target) {
     return true;
   }
   if (target == "WEST" || target == "W") {
-    sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(), 0);
+    mainWindow->playSfx("qrc:/audio/sfx/moveSnow.mp3");
     mainWindow->setLocation(forestPath.getMusicPath(),
                             forestPath.getAmbiencePath(), &lake);
     playerObj.setEnergized(false);
     return true;
   }
   if (target == "EAST" || target == "E") {
-    sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(), 0);
+    mainWindow->playSfx("qrc:/audio/sfx/moveSnow.mp3");
     mainWindow->setLocation(forestPath.getMusicPath(),
                             forestPath.getAmbiencePath(), &caveEntrance);
     playerObj.setEnergized(false);
     return true;
   }
   if (target == "NORTH" || target == "N") {
-    sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(), 0);
+    mainWindow->playSfx("qrc:/audio/sfx/moveSnow.mp3");
     mainWindow->setLocation(forestPath.getMusicPath(),
                             forestPath.getAmbiencePath(), &valley);
     playerObj.setEnergized(false);
@@ -107,8 +105,7 @@ bool VerbHandler::moveForestPath(MainWindow *mainWindow, QString target) {
 
 bool VerbHandler::moveCave(MainWindow *mainWindow, QString target) {
   if (target == "WEST" || target == "W") {
-    sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(),
-                   false);
+    mainWindow->playSfx("qrc:/audio/sfx/moveSnow.mp3");
     mainWindow->setLocation(cave.getMusicPath(), cave.getAmbiencePath(),
                             &caveEntrance);
     return true;
@@ -118,8 +115,7 @@ bool VerbHandler::moveCave(MainWindow *mainWindow, QString target) {
 
 bool VerbHandler::moveCaveLit(MainWindow *mainWindow, QString target) {
   if (target == "WEST" || target == "W") {
-    sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(),
-                   false);
+    mainWindow->playSfx("qrc:/audio/sfx/moveSnow.mp3");
     mainWindow->setLocation(cave.getMusicPath(), cave.getAmbiencePath(),
                             &caveEntrance);
     return true;
@@ -129,15 +125,14 @@ bool VerbHandler::moveCaveLit(MainWindow *mainWindow, QString target) {
 
 bool VerbHandler::moveCaveEntrance(MainWindow *mainWindow, QString target) {
   if (target == "WEST" || target == "W") {
-    sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(),
-                   false);
+    mainWindow->playSfx("qrc:/audio/sfx/moveSnow.mp3");
     mainWindow->setLocation(caveEntrance.getMusicPath(),
                             caveEntrance.getAmbiencePath(), &forestPath);
     return true;
   }
   if (target == "EAST" || target == "E") {
-    sfxPlayer.play("qrc:/audio/sfx/moveStone.mp3", sfxPlayer.getdefSfxVol(),
-                   false);
+    mainWindow->playSfx("qrc:/audio/sfx/moveStone.mp3");
+
     mainWindow->setLocation(caveEntrance.getMusicPath(),
                             caveEntrance.getAmbiencePath(), &cave);
     return true;
@@ -147,8 +142,7 @@ bool VerbHandler::moveCaveEntrance(MainWindow *mainWindow, QString target) {
 
 bool VerbHandler::moveLake(MainWindow *mainWindow, QString target) {
   if (target == "EAST" || target == "E") {
-    sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(),
-                   false);
+    mainWindow->playSfx("qrc:/audio/sfx/moveSnow.mp3");
     mainWindow->setLocation(lake.getMusicPath(), lake.getAmbiencePath(),
                             &forestPath);
     return true;
@@ -158,8 +152,7 @@ bool VerbHandler::moveLake(MainWindow *mainWindow, QString target) {
 
 bool VerbHandler::moveValley(MainWindow *mainWindow, QString target) {
   if (target == "SOUTH" || target == "S") {
-    sfxPlayer.play("qrc:/audio/sfx/moveSnow.mp3", sfxPlayer.getdefSfxVol(),
-                   false);
+    mainWindow->playSfx("qrc:/audio/sfx/moveSnow.mp3");
     mainWindow->setLocation(valley.getMusicPath(), valley.getAmbiencePath(),
                             &forestPath);
     return true;
