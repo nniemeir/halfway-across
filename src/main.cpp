@@ -5,7 +5,7 @@ int main(int argc, char *argv[]) {
   a.setWindowIcon(QIcon(":/images/icon.png"));
   MainWindow w;
   srand(time(NULL));
-  w.resize(1280, 720);
-  w.show();
+  w.showFullScreen();
+
   return a.exec();
 }

@@ -3,6 +3,7 @@
 #include "../../include/entities/locations.h"
 #include <QRegularExpression>
 
+// Contains the logic for each dialogue scenario
 class Dialogue {
 public:
   Dialogue(){};

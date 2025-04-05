@@ -2,6 +2,7 @@
 #define INVENTORY_H
 #include "item.h"
 
+// Used for managing the items in the player's possession
 class Inventory {
 public:
   Inventory(){};

@@ -3,6 +3,7 @@
 #include "../../include/items/inventory.h"
 #include "../../include/items/item.h"
 
+// Contains attributes specific to each location
 class Location : public Inventory {
 public:
   Location();

@@ -3,6 +3,7 @@
 #include "item.h"
 #include <QStringList>
 
+// Recipes allow the player to craft new items from those that they already possess
 class Recipe {
 public:
   Recipe(){};

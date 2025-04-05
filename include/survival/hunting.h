@@ -5,6 +5,7 @@
 #include "../../include/ui/mainwindow.h"
 #include <QMap>
 
+// Handles the logic for the hunting activity
 class Hunting {
 public:
   Hunting();

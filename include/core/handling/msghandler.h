@@ -2,6 +2,7 @@
 #define MSGHANDLER_H
 #include "../../../include/ui/mainwindow.h"
 
+// Contains messages that are used repeatedly
 class MsgHandler {
 public:
   MsgHandler();

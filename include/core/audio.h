@@ -4,6 +4,7 @@
 #include <QMediaPlayer>
 #include <QUrl>
 
+// Handles audio playback through its QMediaPlayer and QAudioOutput objects
 class Audio {
 public:
   Audio();

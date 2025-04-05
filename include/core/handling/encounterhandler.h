@@ -2,6 +2,7 @@
 #define HANDLING_H
 #include "../../../include/ui/mainwindow.h"
 
+// Directs input towards the correct encounter logic for a given scenario
 class EncounterHandler {
 public:
   EncounterHandler();

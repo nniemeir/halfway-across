@@ -23,30 +23,8 @@ QPushButton {
     background-color: #c0c0c0;
 }
 
-QScrollDiceBar:vertical {
-background: #2f2f2f;
-width: 15px;
-margin: 0;
-}
-
-QScrollDiceBar::handle:vertical {
-background: #5b5b5b;
-}
-
-QScrollDiceBar::add-line:vertical {
-height: 0px;
-}
-
-QScrollDiceBar::sub-line:vertical {
-height: 0px;
-}
-
-QScrollDiceBar::add-page:vertical, QScrollDiceBar::sub-page:vertical {
-height: 0px;
-}
-
 #inputText {
 padding-top: 20%;
-padding-bottom: 20%;
 border: none;
+font-size: 24pt;
 }

@@ -6,6 +6,7 @@
 #include <QTextStream>
 #include <qstring.h>
 
+// Allows commands and output to be logged to a file, like Zork
 class Script {
 public:
   Script(const QString &filename)

@@ -5,6 +5,7 @@
 #include "../../include/items/recipe.h"
 #include <QMap>
 
+// Contains attributes specific to the player
 class Player : public Inventory {
 public:
   Player();

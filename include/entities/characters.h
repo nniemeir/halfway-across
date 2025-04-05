@@ -3,6 +3,7 @@
 #include "../../include/items/item.h"
 #include <QMap>
 
+// Contains attributes for human NPCs
 class Character {
 public:
   Character(){};
@@ -56,6 +57,7 @@ private:
 extern Character amos;
 extern Character ira;
 
+// Manages our Character objects
 class Ensemble {
 public:
   Ensemble();

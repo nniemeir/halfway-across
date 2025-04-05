@@ -29,24 +29,26 @@ void MainWindow::importStylesheet() {
 }
 
 void MainWindow::setUiProperties() {
-  ui->outputArea->setReadOnly(true);
-  ui->outputArea->setAlignment(Qt::AlignLeft);
-  ui->outputArea->setTextInteractionFlags(Qt::NoTextInteraction);
-  connect(ui->inputText, &QLineEdit::returnPressed, this,
+  ui->outputTextEdit->setReadOnly(true);
+  ui->outputTextEdit->setAlignment(Qt::AlignLeft);
+  ui->outputTextEdit->setTextInteractionFlags(Qt::NoTextInteraction);
+  ui->inputLineEdit->setText("");
+  ui->inputLineEdit->setFocus();
+  connect(ui->inputLineEdit, &QLineEdit::returnPressed, this,
           &MainWindow::handleReturnPressed);
 }
 
 void MainWindow::showEvent(QShowEvent *event) {
   QMainWindow::showEvent(event);
 
-  if (ui->inputText) {
-    QTimer::singleShot(0, this, [this]() { ui->inputText->setFocus(); });
+  if (ui->inputLineEdit) {
+    QTimer::singleShot(0, this, [this]() { ui->inputLineEdit->setFocus(); });
   }
 }
 
 void MainWindow::setCompassImage(QString imagePath) {
   QPixmap pix(imagePath);
-  ui->compassPath->setPixmap(pix);
+  ui->compassLabel->setPixmap(pix);
 }
 
 void MainWindow::setLocation(QString currentMusic, QString currentAmbience,
@@ -85,14 +87,14 @@ void MainWindow::setLocationImage(QString imagePath) {
 }
 
 void MainWindow::setDescription(QString text) {
-  ui->outputArea->setText(text);
+  ui->outputTextEdit->setText(text);
   if (scriptObj.getStatus()) {
     scriptObj.writeFile(QString("%1\n").arg(text));
   }
 }
 
 void MainWindow::appendDescription(QString text) {
-  ui->outputArea->append(text);
+  ui->outputTextEdit->append(text);
   if (scriptObj.getStatus()) {
     scriptObj.writeFile(QString("%1\n").arg(text));
   }
@@ -110,7 +112,7 @@ void MainWindow::endGame(QString reason) {
 void MainWindow::closeProgram() { QApplication::quit(); }
 
 void MainWindow::handleReturnPressed() {
-  QString input = ui->inputText->text();
+  QString input = ui->inputLineEdit->text();
   if (input.isEmpty()) {
     return;
   }
@@ -125,17 +127,17 @@ void MainWindow::handleReturnPressed() {
   int validated = inputHandlerObj.getVerbType(input);
   if (validated == InputHandler::VERB_ARG) {
     inputHandlerObj.parse(this, input);
-    ui->inputText->clear();
+    ui->inputLineEdit->clear();
     return;
   }
   if (validated == InputHandler::VERB_NO_ARG) {
     verbHandlerObj.process(this, input, "", "", worldObj.getCurrentLocation());
-    ui->inputText->clear();
+    ui->inputLineEdit->clear();
     return;
   }
   if (!input.isEmpty()) {
     setDescription(QString("I didn't know how to %1.").arg(input.toLower()));
-    ui->inputText->clear();
+    ui->inputLineEdit->clear();
     return;
   }
 }

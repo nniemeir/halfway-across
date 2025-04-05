@@ -3,6 +3,7 @@
 #include <QStringList>
 #include <qstring.h>
 
+// Contains attributes unique to each item
 class Item {
 public:
   Item(){};

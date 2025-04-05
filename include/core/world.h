@@ -3,6 +3,7 @@
 #include "../../include/entities/characters.h"
 #include "../../include/entities/locations.h"
 
+// Manages the game's environment
 class World {
 public:
   World();
