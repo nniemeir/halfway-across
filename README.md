@@ -20,3 +20,8 @@ Halfway Across is a parser-based interactive fiction game that follows a man nam
 [Credits](docs/credits.md)
 
 [Qt Application Compilation Guide](https://doc.qt.io/qtcreator/creator-build-example-application.html)
+
+## License
+GNU General Public License V2
+
+Copyright (c) 2025 Jacob Niemeir
