@@ -1,4 +1,4 @@
-#include "../../include/items/recipe.h"
+#include "items/recipe.h"
 
 QString Recipe::getRecipeName() const { return name; }
 

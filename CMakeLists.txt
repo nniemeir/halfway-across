@@ -127,6 +127,8 @@ set_target_properties(Halfway_Across PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
+include_directories(include)
+
 include(GNUInstallDirs)
 install(TARGETS Halfway_Across
     BUNDLE DESTINATION .

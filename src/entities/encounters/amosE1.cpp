@@ -1,7 +1,7 @@
-#include "../../../include/core/handling/msghandler.h"
-#include "../../../include/core/world.h"
-#include "../../../include/entities/characters.h"
-#include "../../../include/entities/dialogue.h"
+#include "core/handling/msghandler.h"
+#include "core/world.h"
+#include "entities/characters.h"
+#include "entities/dialogue.h"
 
 static constexpr int TOLD_ORIGIN = 1;
 static constexpr int ASK_HIMSELF = 2;

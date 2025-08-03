@@ -1,6 +1,6 @@
 #ifndef MSGHANDLER_H
 #define MSGHANDLER_H
-#include "../../../include/ui/mainwindow.h"
+#include "ui/mainwindow.h"
 
 // Contains messages that are used repeatedly
 class MsgHandler {

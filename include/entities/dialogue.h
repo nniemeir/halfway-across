@@ -1,6 +1,6 @@
 #ifndef DIALOGUE_H
 #define DIALOGUE_H
-#include "../../include/entities/locations.h"
+#include "entities/locations.h"
 #include <QRegularExpression>
 
 // Contains the logic for each dialogue scenario

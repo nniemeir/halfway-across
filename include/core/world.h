@@ -1,7 +1,7 @@
 #ifndef WORLD_H
 #define WORLD_H
-#include "../../include/entities/characters.h"
-#include "../../include/entities/locations.h"
+#include "entities/characters.h"
+#include "entities/locations.h"
 
 // Manages the game's environment
 class World {

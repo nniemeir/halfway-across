@@ -1,7 +1,7 @@
 #ifndef LOCATIONS_H
 #define LOCATIONS_H
-#include "../../include/items/inventory.h"
-#include "../../include/items/item.h"
+#include "items/inventory.h"
+#include "items/item.h"
 
 // Contains attributes specific to each location
 class Location : public Inventory {

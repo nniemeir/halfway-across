@@ -1,6 +1,6 @@
-#include "../../../include/core/handling/verbhandler.h"
-#include "../../../include/core/world.h"
-#include "../../../include/entities/dialogue.h"
+#include "core/handling/verbhandler.h"
+#include "core/world.h"
+#include "entities/dialogue.h"
 
 void VerbHandler::greet(MainWindow *mainWindow) {
   auto activeCharacter = worldObj.getActiveCharacter();

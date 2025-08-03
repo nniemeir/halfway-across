@@ -1,6 +1,6 @@
-#include "../../../include/core/handling/verbhandler.h"
-#include "../../../include/core/handling/msghandler.h"
-#include "../../../include/core/world.h"
+#include "core/handling/verbhandler.h"
+#include "core/handling/msghandler.h"
+#include "core/world.h"
 
 VerbHandler::VerbHandler() {}
 

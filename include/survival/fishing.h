@@ -1,6 +1,6 @@
 #ifndef FISHING_H
 #define FISHING_H
-#include "../../include/items/item.h"
+#include "items/item.h"
 
 // Handles the logic for the fishing activity
 class Fishing {

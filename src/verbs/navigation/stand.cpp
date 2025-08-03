@@ -1,5 +1,5 @@
-#include "../../../include/core/handling/verbhandler.h"
-#include "../../../include/entities/player.h"
+#include "core/handling/verbhandler.h"
+#include "entities/player.h"
 
 void VerbHandler::stand(MainWindow *mainWindow) {
   if (playerObj.getStanding()) {

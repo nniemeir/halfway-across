@@ -1,8 +1,8 @@
-#include "../../include/survival/hunting.h"
-#include "../../include/core/audio.h"
-#include "../../include/core/handling/inputhandler.h"
-#include "../../include/core/world.h"
-#include "../../include/entities/player.h"
+#include "survival/hunting.h"
+#include "core/audio.h"
+#include "core/handling/inputhandler.h"
+#include "core/world.h"
+#include "entities/player.h"
 
 Hunting::Hunting() {
   dailyAttempts = 0;

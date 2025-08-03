@@ -1,7 +1,7 @@
-#include "../../include/survival/fishing.h"
-#include "../../include/core/handling/verbhandler.h"
-#include "../../include/entities/player.h"
-#include "../../include/items/inventory.h"
+#include "survival/fishing.h"
+#include "core/handling/verbhandler.h"
+#include "entities/player.h"
+#include "items/inventory.h"
 
 Fishing::Fishing()
     : fish{{"CUTTHROAT TROUT",

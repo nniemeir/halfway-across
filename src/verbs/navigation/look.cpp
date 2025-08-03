@@ -1,8 +1,8 @@
-#include "../../../include/core/handling/msghandler.h"
-#include "../../../include/core/handling/verbhandler.h"
-#include "../../../include/core/world.h"
-#include "../../../include/entities/characters.h"
-#include "../../../include/entities/player.h"
+#include "core/handling/msghandler.h"
+#include "core/handling/verbhandler.h"
+#include "core/world.h"
+#include "entities/characters.h"
+#include "entities/player.h"
 
 bool VerbHandler::lookingAtCharacter(MainWindow *mainWindow, QString target,
                                      Location *location) {

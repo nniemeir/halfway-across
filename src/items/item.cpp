@@ -1,4 +1,4 @@
-#include "../../include/items/item.h"
+#include "items/item.h"
 
 QString Item::getName() const { return name; }
 

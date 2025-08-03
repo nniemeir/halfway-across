@@ -1,7 +1,7 @@
-#include "../../../include/core/handling/encounterhandler.h"
-#include "../../../include/core/handling/msghandler.h"
-#include "../../../include/core/world.h"
-#include "../../../include/entities/dialogue.h"
+#include "core/handling/encounterhandler.h"
+#include "core/handling/msghandler.h"
+#include "core/world.h"
+#include "entities/dialogue.h"
 
 EncounterHandler::EncounterHandler() { initMaps(); }
 

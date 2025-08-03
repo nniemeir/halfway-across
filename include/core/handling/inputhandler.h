@@ -1,6 +1,6 @@
 #ifndef INPUTHANDLER_H
 #define INPUTHANDLER_H
-#include "../../../include/ui/mainwindow.h"
+#include "ui/mainwindow.h"
 
 // Parses user input by separating it into verbs and targets, which then get passed to the verb handling functions
 class InputHandler {

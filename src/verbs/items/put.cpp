@@ -1,8 +1,8 @@
-#include "../../../include/core/handling/inputhandler.h"
-#include "../../../include/core/handling/msghandler.h"
-#include "../../../include/core/handling/verbhandler.h"
-#include "../../../include/entities/locations.h"
-#include "../../../include/entities/player.h"
+#include "core/handling/inputhandler.h"
+#include "core/handling/msghandler.h"
+#include "core/handling/verbhandler.h"
+#include "entities/locations.h"
+#include "entities/player.h"
 
 void VerbHandler::put(MainWindow *mainWindow, QString target, QString subject,
                       Location *location) {

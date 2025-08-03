@@ -1,8 +1,8 @@
 #ifndef HUNTING_H
 #define HUNTING_H
-#include "../../include/entities/locations.h"
-#include "../../include/items/item.h"
-#include "../../include/ui/mainwindow.h"
+#include "entities/locations.h"
+#include "items/item.h"
+#include "ui/mainwindow.h"
 #include <QMap>
 
 // Handles the logic for the hunting activity

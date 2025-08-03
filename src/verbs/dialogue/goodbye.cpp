@@ -1,5 +1,5 @@
-#include "../../../include/core/handling/verbhandler.h"
-#include "../../../include/core/world.h"
+#include "core/handling/verbhandler.h"
+#include "core/world.h"
 
 void VerbHandler::goodbye(MainWindow *mainWindow, Location *location) {
   mainWindow->playSfx("qrc:/audio/sfx/moveSnow.mp3");

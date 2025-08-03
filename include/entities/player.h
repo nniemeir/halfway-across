@@ -1,8 +1,8 @@
 #ifndef PLAYER_H_
 #define PLAYER_H_
-#include "../../include/items/inventory.h"
-#include "../../include/items/item.h"
-#include "../../include/items/recipe.h"
+#include "items/inventory.h"
+#include "items/item.h"
+#include "items/recipe.h"
 #include <QMap>
 
 // Contains attributes specific to the player

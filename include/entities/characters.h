@@ -1,6 +1,6 @@
 #ifndef CHARACTERS_H
 #define CHARACTERS_H
-#include "../../include/items/item.h"
+#include "items/item.h"
 #include <QMap>
 
 // Contains attributes for human NPCs

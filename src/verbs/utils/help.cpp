@@ -1,4 +1,4 @@
-#include "../../../include/core/handling/verbhandler.h"
+#include "core/handling/verbhandler.h"
 
 void VerbHandler::help(MainWindow *mainWindow) {
   mainWindow->setDescription(

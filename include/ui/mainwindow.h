@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-#include "../../include/entities/locations.h"
-#include "../../include/core/audio.h"
+#include "core/audio.h"
+#include "entities/locations.h"
 #include <QApplication>
 #include <QEvent>
 #include <QFile>

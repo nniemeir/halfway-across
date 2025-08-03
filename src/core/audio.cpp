@@ -1,4 +1,4 @@
-#include "../../include/core/audio.h"
+#include "core/audio.h"
 
 Audio::Audio() {
   QObject *audioParent = new QObject();

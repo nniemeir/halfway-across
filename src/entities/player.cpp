@@ -1,5 +1,5 @@
-#include "../../include/entities/player.h"
-#include "../../include/core/world.h"
+#include "entities/player.h"
+#include "core/world.h"
 
 Player::Player()
     : health(100), mental(50), energized(true), hunger(100), thirst(100),

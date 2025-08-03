@@ -1,5 +1,5 @@
-#include "../../../include/core/handling/verbhandler.h"
-#include "../../../include/survival/hunting.h"
+#include "core/handling/verbhandler.h"
+#include "survival/hunting.h"
 
 void VerbHandler::yell(MainWindow *mainWindow, Location *location) {
   if (huntingObj.getActiveAnimal() == "BEAR") {

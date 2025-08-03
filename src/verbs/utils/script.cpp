@@ -1,5 +1,5 @@
-#include "../../../include/utils/script.h"
-#include "../../../include/core/handling/verbhandler.h"
+#include "utils/script.h"
+#include "core/handling/verbhandler.h"
 
 void VerbHandler::script(MainWindow *mainWindow) {
   scriptObj.setStatus(true);

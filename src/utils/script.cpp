@@ -1,4 +1,4 @@
-#include "../../include/utils/script.h"
+#include "utils/script.h"
 
 bool Script::getStatus() { return Status; }
 

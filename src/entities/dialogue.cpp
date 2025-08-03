@@ -1,5 +1,5 @@
-#include "../../include/entities/dialogue.h"
-#include "../../include/entities/characters.h"
+#include "entities/dialogue.h"
+#include "entities/characters.h"
 
 QString Dialogue::getPromptMsg() { return promptMsg; }
 

@@ -1,7 +1,7 @@
-#include "../../../include/core/handling/inputhandler.h"
-#include "../../../include/core/handling/verbhandler.h"
-#include "../../../include/entities/player.h"
-#include "../../../include/items/inventory.h"
+#include "core/handling/inputhandler.h"
+#include "core/handling/verbhandler.h"
+#include "entities/player.h"
+#include "items/inventory.h"
 
 void VerbHandler::take(MainWindow *mainWindow, QString target,
                        Location *location) {

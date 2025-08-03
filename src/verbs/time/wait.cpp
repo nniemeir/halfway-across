@@ -1,7 +1,7 @@
-#include "../../../include/core/handling/msghandler.h"
-#include "../../../include/core/handling/verbhandler.h"
-#include "../../../include/entities/player.h"
-#include "../../../include/survival/fishing.h"
+#include "core/handling/msghandler.h"
+#include "core/handling/verbhandler.h"
+#include "entities/player.h"
+#include "survival/fishing.h"
 
 void VerbHandler::wait(MainWindow *mainWindow, Location *location) {
   QMap<QString, std::function<void()>> waitLocations{

@@ -1,6 +1,6 @@
 #ifndef VERBHANDLER_H
 #define VERBHANDLER_H
-#include "../../../include/ui/mainwindow.h"
+#include "ui/mainwindow.h"
 
 // Contains the logic for each supported verb
 class VerbHandler {

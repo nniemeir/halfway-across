@@ -1,4 +1,4 @@
-#include "../../../include/entities/dialogue.h"
+#include "entities/dialogue.h"
 
 QString Dialogue::askIraE1(QString subject, Location *location) {
   QString description;

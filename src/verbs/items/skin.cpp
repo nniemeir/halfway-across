@@ -1,6 +1,6 @@
-#include "../../../include/core/handling/verbhandler.h"
-#include "../../../include/entities/player.h"
-#include "../../../include/survival/hunting.h"
+#include "core/handling/verbhandler.h"
+#include "entities/player.h"
+#include "survival/hunting.h"
 
 void VerbHandler::skin(MainWindow *mainWindow, QString target,
                        Location *location) {

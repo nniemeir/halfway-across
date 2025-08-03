@@ -1,7 +1,7 @@
-#include "../../../include/core/handling/inputhandler.h"
-#include "../../../include/core/handling/verbhandler.h"
-#include "../../../include/entities/player.h"
-#include "../../../include/items/recipe.h"
+#include "core/handling/inputhandler.h"
+#include "core/handling/verbhandler.h"
+#include "entities/player.h"
+#include "items/recipe.h"
 
 void VerbHandler::craft(MainWindow *mainWindow, QString target) {
   auto targetRecipe =

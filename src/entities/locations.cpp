@@ -1,4 +1,4 @@
-#include "../../include/entities/locations.h"
+#include "entities/locations.h"
 
 QString Location::getName() const { return name; }
 

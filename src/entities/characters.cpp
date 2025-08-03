@@ -1,4 +1,4 @@
-#include "../../include/entities/characters.h"
+#include "entities/characters.h"
 
 QString Character::getName() const { return name; }
 

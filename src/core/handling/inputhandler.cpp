@@ -1,6 +1,6 @@
-#include "../../../include/core/handling/inputhandler.h"
-#include "../../../include/core/handling/verbhandler.h"
-#include "../../../include/core/world.h"
+#include "core/handling/inputhandler.h"
+#include "core/handling/verbhandler.h"
+#include "core/world.h"
 #include <QDebug>
 
 InputHandler::InputHandler() {

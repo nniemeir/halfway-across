@@ -1,7 +1,7 @@
-#include "../../include/core/world.h"
-#include "../../include/entities/player.h"
-#include "../../include/survival/fishing.h"
-#include "../../include/survival/hunting.h"
+#include "core/world.h"
+#include "entities/player.h"
+#include "survival/fishing.h"
+#include "survival/hunting.h"
 
 World::World()
     : activeCharacter(nullptr), currentLocation(nullptr), day(1),

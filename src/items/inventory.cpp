@@ -1,6 +1,6 @@
-#include "../../include/items/inventory.h"
-#include "../../include/core/handling/verbhandler.h"
-#include "../../include/entities/player.h"
+#include "items/inventory.h"
+#include "core/handling/verbhandler.h"
+#include "entities/player.h"
 
 Item &Inventory::getInventoryItem(std::vector<Item> &inventory,
                                   const int index) {

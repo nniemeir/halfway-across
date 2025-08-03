@@ -1,8 +1,8 @@
-#include "../../../include/core/handling/inputhandler.h"
-#include "../../../include/core/handling/msghandler.h"
-#include "../../../include/core/handling/verbhandler.h"
-#include "../../../include/entities/player.h"
-#include "../../../include/items/item.h"
+#include "core/handling/inputhandler.h"
+#include "core/handling/msghandler.h"
+#include "core/handling/verbhandler.h"
+#include "entities/player.h"
+#include "items/item.h"
 
 void VerbHandler::cook(MainWindow *mainWindow, QString target,
                        Location *location) {

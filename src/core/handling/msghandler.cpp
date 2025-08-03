@@ -1,4 +1,4 @@
-#include "../../../include/core/handling/msghandler.h"
+#include "core/handling/msghandler.h"
 
 MsgHandler::MsgHandler() {}
 
