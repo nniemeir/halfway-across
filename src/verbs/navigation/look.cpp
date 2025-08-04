@@ -43,23 +43,23 @@ void VerbHandler::look(MainWindow *mainWindow, QString target,
       {"OUTSIDE", QString("It was %1 outside.")
                       .arg(worldObj.getCurrentWeather().toLower())}};
 
-  QMap<QString, QString> forestPathDescriptions = {
+  static const QMap<QString, QString> forestPathDescriptions = {
       {"PATH", "The other branches of the path went off into the distance.\n"},
       {"UP", "The sky seemed empty that day."}};
 
-  QMap<QString, QString> caveDescriptions = {
+  static const QMap<QString, QString> caveDescriptions = {
       {"UP", "The cave ceiling seemed sturdy enough that it wouldn't collapse "
              "on me."}};
-  QMap<QString, QString> darkCaveDescriptions = {{}};
-  QMap<QString, QString> caveEntranceDescriptions = {
+  static const QMap<QString, QString> darkCaveDescriptions = {{}};
+  static const QMap<QString, QString> caveEntranceDescriptions = {
       {"UP", "I felt smaller looking at the mountain."}};
 
-  QMap<QString, QString> lakeDescriptions = {
+  static const QMap<QString, QString> lakeDescriptions = {
       {"LAKE", "The lake had frozen over.\n"},
       {"MOUNTAIN", "Who knew what that mountain held?\n"},
       {"UP", "The sky felt empty that day."}};
 
-  QMap<QString, QString> valleyDescriptions = {
+  static const QMap<QString, QString> valleyDescriptions = {
       {"TREES", "The trees were covered in snow."},
       {"UP", "The sky felt empty that day."}};
 

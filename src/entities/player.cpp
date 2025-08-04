@@ -149,7 +149,7 @@ QString Player::displayClothesInventory() const {
 QString Player::displayJournal() const {
   QString entry;
   entry.append(QString("Day %1\n\n").arg(worldObj.getDay()));
-  QMap<int, QString> dayEntries = {
+  static const QMap<int, QString> dayEntries = {
       {1, "I finished setting up camp this morning, its not exactly "
           "comfortable but it will have to do for now. I still have some "
           "rations from the journey here, but I would be wise to hunt soon. I "
@@ -227,10 +227,10 @@ QString Player::generateWarnings() const {
 QString Player::generateWarmthWarning() const {
   int currentTemperature = worldObj.getCurrentTemperature();
   QString warning;
-  QString BStatMsg = "I felt a bit cold. ";
-  QString CStatMsg = "The cold was starting to get to me. ";
-  QString DStatMsg = "The cold was becoming unbearable. ";
-  QString FStatMsg =
+  static const QString BStatMsg = "I felt a bit cold. ";
+  static const QString CStatMsg = "The cold was starting to get to me. ";
+  static const QString DStatMsg = "The cold was becoming unbearable. ";
+  static const QString FStatMsg =
       "I didn't think that I could survive the cold much longer. ";
 
   if (currentTemperature < 5) {

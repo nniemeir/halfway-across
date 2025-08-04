@@ -208,9 +208,9 @@ int World::generateTemperature() {
 // A given day's weather will have an effect on
 // what actions the player can take and how likely they are to succeed at them
 QString World::generateWeather() {
-  float blizzardProb = 5;
-  float snowyProb = 20;
-  float cloudyProb = 50;
+  static const float blizzardProb = 5;
+  static const float snowyProb = 20;
+  static const float cloudyProb = 50;
   int prob = rand() % 100;
   if (prob < blizzardProb && currentWeather != "snowing heavily" &&
       currentTemperature <= 12) {

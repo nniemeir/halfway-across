@@ -24,11 +24,11 @@ std::vector<Item> &Fishing::getInventory() { return fish; }
 
 QString Fishing::rollforFish() {
   dailyAttempts++;
-  float brownTroutProb = 5;
-  float brookTroutProb = 10;
-  float nothingProb = 15;
-  float rainbowTroutProb = 20;
-  float cutthroatProb = 50;
+  static const float brownTroutProb = 5;
+  static const float brookTroutProb = 10;
+  static const float nothingProb = 15;
+  static const float rainbowTroutProb = 20;
+  static const float cutthroatProb = 50;
   int prob = rand() % 100;
   if (prob < brownTroutProb) {
     return "BROWN TROUT";

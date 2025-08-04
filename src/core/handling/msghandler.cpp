@@ -18,7 +18,7 @@ const QString MsgHandler::TIRED =
 const QString MsgHandler::WAIT = "I waited a while.";
 
 QString MsgHandler::gameOver(QString reason) {
-  QMap<QString, QString> stat = {
+  static const QMap<QString, QString> stat = {
       {"HEALTH", "My injuries were too grave for me to continue."},
       {"HUNGER", "I succumbed to my hunger."},
       {"MENTAL", "I had lost the will to continue."},

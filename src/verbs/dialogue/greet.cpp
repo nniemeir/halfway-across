@@ -20,7 +20,7 @@ void VerbHandler::greet(MainWindow *mainWindow) {
     return;
   }
   mainWindow->setCompassImage("");
-  QMap<QString, int> characterIndices = {{"Amos", Ensemble::AMOS_INDEX},
+  static const QMap<QString, int> characterIndices = {{"Amos", Ensemble::AMOS_INDEX},
                                          {"Ira", Ensemble::IRA_INDEX}};
   mainWindow->playSfx("qrc:/audio/sfx/ask.mp3");
   QString characterName = activeCharacter->getName();

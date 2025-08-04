@@ -95,7 +95,7 @@ QString Hunting::processSeekResult(MainWindow *mainWindow, QString target, int a
 }
 
 bool Hunting::hitTarget(QString target) {
-  QMap<QString, int> probabilities = {
+  static const QMap<QString, int> probabilities = {
       {"BEAR", 20}, {"DEER", 70}, {"FOX", 40}, {"RABBIT", 30}};
   int chance = 0;
   if (probabilities.contains(target)) {
@@ -118,7 +118,7 @@ bool Hunting::recoveredArrow(bool hitTarget) {
 }
 
 bool Hunting::assessDamage(QString target) {
-  QMap<QString, int> probabilities = {
+  static const QMap<QString, int> probabilities = {
       {"BEAR", 80}, {"DEER", 70}, {"FOX", 60}, {"RABBIT", 70}};
   int chance = 0;
   if (probabilities.contains(target)) {
@@ -128,7 +128,7 @@ bool Hunting::assessDamage(QString target) {
 }
 
 bool Hunting::skinCarcass(QString target, Location *location) {
-  QMap<QString, std::vector<Item>> animalParts = {{"BEAR", bearParts},
+  static const QMap<QString, std::vector<Item>> animalParts = {{"BEAR", bearParts},
                                                   {"DEER", deerParts},
                                                   {"FOX", foxParts},
                                                   {"RABBIT", rabbitParts}};
@@ -141,7 +141,7 @@ bool Hunting::skinCarcass(QString target, Location *location) {
 }
 
 bool Hunting::foundAnimal(QString target) {
-  QMap<QString, int> probabilities = {
+  static const QMap<QString, int> probabilities = {
       {"BEAR", 5}, {"DEER", 40}, {"FOX", 20}, {"RABBIT", 35}};
   int chance;
   if (probabilities.contains(target)) {

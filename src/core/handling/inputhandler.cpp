@@ -9,7 +9,7 @@ InputHandler::InputHandler() {
 }
 
 QString InputHandler::getArticle(QString target) {
-  QStringList vowels = {"A", "E", "I", "O", "U"};
+  static const QStringList vowels = {"A", "E", "I", "O", "U"};
   QString firstLetter = target.at(0).toUpper();
   if (vowels.contains(firstLetter)) {
     return "an";
@@ -58,7 +58,7 @@ void InputHandler::parse(MainWindow *mainWindow, QString input) {
 // considered valid
 int InputHandler::getVerbType(QString input) {
   QString inputVerb = input.split(" ").at(0);
-  QMap<QString, int> validVerbs{
+  static const QMap<QString, int> validVerbs{
       {"ASK", VERB_ARG},         {"BEGIN", VERB_NO_ARG},
       {"COOK", VERB_ARG},        {"CRAFT", VERB_ARG},
       {"CRY", VERB_NO_ARG},      {"DIAGNOSE", VERB_NO_ARG},
