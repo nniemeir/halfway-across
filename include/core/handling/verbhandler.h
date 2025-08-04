@@ -6,7 +6,9 @@
 class VerbHandler {
 public:
   VerbHandler();
+
   static constexpr int ITEM_NOT_FOUND = -1;
+
   void process(MainWindow *mainWindow, QString verb, QString target,
                QString subject, Location *location);
 
@@ -16,6 +18,7 @@ private:
                       QMap<QString, std::function<void()>> validActions,
                       QMap<QString, std::function<void()>> invalidActions1,
                       QMap<QString, std::function<void()>> invalidActions2);
+
   // Verb Functions
   void ask(MainWindow *mainWindow, QString target, QString subject,
            Location *location);

@@ -11,17 +11,20 @@ void VerbHandler::remove(MainWindow *mainWindow, QString target) {
         inputHandlerObj.getArticle(target) + " " + target));
     return;
   }
+
   if (!inventoryObj.getInventoryItem(playerObj.getInventory(), itemIndex)
            .getActive()) {
     mainWindow->setDescription(
         QString("I was not wearing my %1.").arg(target.toLower()));
     return;
   }
+
   inventoryObj.getInventoryItem(playerObj.getInventory(), itemIndex)
       .setActive(false);
   playerObj.setWarmth(
       playerObj.getWarmth() -
       inventoryObj.getInventoryItem(playerObj.getInventory(), itemIndex)
           .getEffect());
+
   mainWindow->setDescription(QString("I removed my %1.").arg(target.toLower()));
 }

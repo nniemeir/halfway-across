@@ -7,11 +7,13 @@ void VerbHandler::cry(MainWindow *mainWindow) {
         "I was content enough that I didn't feel like crying.");
     return;
   }
+
   if (playerObj.getCryCooldown() != 0) {
     mainWindow->setDescription("I felt too numb to cry.");
     return;
   }
+
   playerObj.setMental(playerObj.getMental() + 10);
-  mainWindow->setDescription("Crying made me feel a little better.");
   playerObj.setCryCooldown(3);
+  mainWindow->setDescription("Crying made me feel a little better.");
 }

@@ -11,17 +11,20 @@ void VerbHandler::wear(MainWindow *mainWindow, QString target) {
         inputHandlerObj.getArticle(target) + " " + target));
     return;
   }
+
   if (inventoryObj.getInventoryItem(playerObj.getInventory(), itemIndex)
           .getActive()) {
     mainWindow->setDescription(
         QString("I was already wearing my %1.").arg(target.toLower()));
     return;
   }
+
   inventoryObj.getInventoryItem(playerObj.getInventory(), itemIndex)
       .setActive(true);
   playerObj.setWarmth(
       playerObj.getWarmth() +
       inventoryObj.getInventoryItem(playerObj.getInventory(), itemIndex)
           .getEffect());
+
   mainWindow->setDescription(QString("I put on my %1.").arg(target.toLower()));
 }

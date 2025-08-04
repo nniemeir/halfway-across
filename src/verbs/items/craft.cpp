@@ -12,6 +12,7 @@ void VerbHandler::craft(MainWindow *mainWindow, QString target) {
             .arg(inputHandlerObj.getArticle(target), target.toLower()));
     return;
   }
+
   const auto &ingredients = targetRecipe->getIngredients();
   std::vector<int> ingredientIndices;
   bool canCraftTarget = true;
@@ -25,16 +26,13 @@ void VerbHandler::craft(MainWindow *mainWindow, QString target) {
     }
     ingredientIndices.push_back(ingredientIndex);
   }
+
   if (!canCraftTarget) {
     mainWindow->setDescription(
         QString("I didn't have the resources to make %1 %2.")
             .arg(inputHandlerObj.getArticle(target), target.toLower()));
     return;
   }
-  mainWindow->playSfx("qrc:/audio/sfx/craft.mp3");
-  mainWindow->setDescription(
-      QString("I crafted %1 %2.")
-          .arg(inputHandlerObj.getArticle(target), target.toLower()));
 
   int recipeIndex = inventoryObj.searchInventory(playerObj.getInventory(),
                                                  targetRecipe->getRecipeName());
@@ -44,4 +42,9 @@ void VerbHandler::craft(MainWindow *mainWindow, QString target) {
   for (int index : ingredientIndices) {
     inventoryObj.removeItem(playerObj.getInventory(), index);
   }
+
+  mainWindow->playSfx("qrc:/audio/sfx/craft.mp3");
+  mainWindow->setDescription(
+      QString("I crafted %1 %2.")
+          .arg(inputHandlerObj.getArticle(target), target.toLower()));
 }

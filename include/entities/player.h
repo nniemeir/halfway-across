@@ -9,9 +9,8 @@
 class Player : public Inventory {
 public:
   Player();
-  static constexpr int STAT_LOW_THRESHOLD = 30;
-  static constexpr int STAT_MEDIUM_THRESHOLD = 50;
-  static constexpr int STAT_HIGH_THRESHOLD = 70;
+  
+  // Getters
   int getHealth() const;
   int getMental() const;
   bool getEnergized() const;
@@ -23,6 +22,8 @@ public:
   int getCryCooldown() const;
   std::vector<Item> &getInventory();
   std::vector<Recipe> &getRecipeBook();
+  
+  // Setters
   bool setHealth(int health);
   bool setMental(int mental);
   void setEnergized(bool energized);
@@ -33,12 +34,18 @@ public:
   void setStanding(bool standing);
   void setCryCooldown(int s);
   int constrainStat(int stat);
+  
+  // Dynamic messages
   QString displayBagInventory() const;
   QString displayClothesInventory() const;
   QString displayJournal() const;
   QString displayRecipeBook() const;
   QString generateWarnings() const;
   QString generateWarmthWarning() const;
+
+  static constexpr int STAT_LOW_THRESHOLD = 30;
+  static constexpr int STAT_MEDIUM_THRESHOLD = 50;
+  static constexpr int STAT_HIGH_THRESHOLD = 70;
 
 private:
   int health;

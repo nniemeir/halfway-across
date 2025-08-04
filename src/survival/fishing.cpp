@@ -29,6 +29,7 @@ QString Fishing::rollforFish() {
   static const float nothingProb = 15;
   static const float rainbowTroutProb = 20;
   static const float cutthroatProb = 50;
+
   int prob = rand() % 100;
   if (prob < brownTroutProb) {
     return "BROWN TROUT";
@@ -46,9 +47,10 @@ QString Fishing::rollforFish() {
 
 QString Fishing::seek() {
   QString generatedFish = rollforFish();
-  if (generatedFish != "NOTHING") {
+  if (generatedFish == "NOTHING") {
+      return "I waited a while but nothing was biting so I reeled in the line.";
+  }
     int fishIndex = inventoryObj.searchInventory(getInventory(), generatedFish);
-    if (fishIndex != VerbHandler::ITEM_NOT_FOUND) {
       int playerItemIndex =
           inventoryObj.searchInventory(playerObj.getInventory(), generatedFish);
       inventoryObj.addItem(
@@ -59,9 +61,6 @@ QString Fishing::seek() {
           .arg(inventoryObj.getInventoryItem(getInventory(), fishIndex)
                    .getName()
                    .toLower());
-    }
-  }
-  return "I waited a while but nothing was biting so I reeled in the line.";
 }
 
 void Fishing::resetDailyAttempts() { dailyAttempts = 0; }

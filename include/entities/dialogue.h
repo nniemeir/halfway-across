@@ -7,8 +7,7 @@
 class Dialogue {
 public:
   Dialogue(){};
-  static constexpr int START = 0;
-  static constexpr int END = 100;
+
   QString getPromptMsg();
   QString askAmosE1(QString subject, Location *location);
   QString askIraE1(QString subject, Location *location);
@@ -16,12 +15,16 @@ public:
   QString tellAmosE1(QString subject, Location *location);
   QString tellIraE1(QString subject, Location *location);
 
+  static constexpr int START = 0;
+  static constexpr int END = 100;
+
 private:
   QString askAmosE1S1(QString subject, Location *location);
   QString greetAmos();
   QString greetIra();
   QString tellAmosE1S0(QString subject, Location *location);
   QString tellAmosE1S3(QString subject, Location *location);
+  
   QString promptMsg;
 };
 

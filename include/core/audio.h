@@ -8,15 +8,18 @@
 class Audio {
 public:
   Audio();
+
+  // Getters
+  float getAmbienceVol() const;
+  float getMusicVol() const;
+  float getSfxVol() const;
+  
   void play(QString filePath, int volume, bool isBackground);
-  float getdefAmbienceVol() const;
-  float getdefMusicVol() const;
-  float getdefSfxVol() const;
 
 private:
-  float defAmbienceVol;
-  float defMusicVol;
-  float defSfxVol;
+  float ambienceVol;
+  float musicVol;
+  float sfxVol;
   QAudioOutput *audioOutput;
   QMediaPlayer *music;
 };

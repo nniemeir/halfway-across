@@ -6,11 +6,17 @@
 class Fishing {
 public:
   Fishing();
+  
+  // Getters
   int getDailyAttempts() const;
   std::vector<Item> &getInventory();
+  
+  // Setters
+  void resetDailyAttempts();
+  
+  // Logic
   QString rollforFish();
   QString seek();
-  void resetDailyAttempts();
 
 private:
   int dailyAttempts;

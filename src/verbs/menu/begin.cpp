@@ -7,7 +7,9 @@ void VerbHandler::begin(MainWindow *mainWindow, Location *location) {
     mainWindow->setDescription(msgHandlerObj.invalidLocation("begin"));
     return;
   }
-  mainWindow->playSfx("qrc:/audio/sfx/write.mp3");
+
   mainWindow->setLocation(intro.getMusicPath(), intro.getAmbiencePath(), &camp);
+
+  mainWindow->playSfx("qrc:/audio/sfx/write.mp3");
   mainWindow->setDescription(playerObj.displayJournal());
 }

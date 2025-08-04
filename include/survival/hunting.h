@@ -9,20 +9,27 @@
 class Hunting {
 public:
   Hunting();
-  static constexpr int ANIMAL_INVALID = -1;
-  static constexpr int ANIMAL_FOUND = 0;
-  static constexpr int ANIMAL_NOT_FOUND = 1;
+  
+  // Getters
   QString getActiveAnimal() const;
   int getDailyAttempts() const;
   std::vector<Item> &getSlainAnimals();
+  
+  // Setters
   void setActiveAnimal(QString animal);
   void resetDailyAttempts();
+  
+  // Logic
   int seek(QString target, int arrowIndex);
   QString processSeekResult(MainWindow *mainWindow, QString target, int arrowIndex);
   bool hitTarget(QString target);
   bool assessDamage(QString target);
   bool recoveredArrow(bool hitTarget);
   bool skinCarcass(QString target, Location *location);
+
+  static constexpr int ANIMAL_INVALID = -1;
+  static constexpr int ANIMAL_FOUND = 0;
+  static constexpr int ANIMAL_NOT_FOUND = 1;
 
 private:
   bool foundAnimal(QString target);

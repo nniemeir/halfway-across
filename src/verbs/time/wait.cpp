@@ -30,8 +30,9 @@ void VerbHandler::waitFishing(MainWindow *mainWindow, int rodIndex) {
     mainWindow->setDescription("I was too tired to fish anymore that day.");
     return;
   }
-  mainWindow->playSfx("qrc:/audio/sfx/fishReel.mp3");
   inventoryObj.getInventoryItem(playerObj.getInventory(), rodIndex)
       .setActive(false);
+
+  mainWindow->playSfx("qrc:/audio/sfx/fishReel.mp3");
   mainWindow->setDescription(fishingObj.seek());
 }

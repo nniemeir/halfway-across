@@ -8,12 +8,14 @@ void VerbHandler::sleep(MainWindow *mainWindow, Location *location) {
     mainWindow->setDescription(msgHandlerObj.invalidLocation("sleep safely"));
     return;
   }
+
   mainWindow->playSfx("qrc:/audio/sfx/sleep.mp3");
   QString reason = worldObj.advanceDay();
   if (!reason.isEmpty()) {
     mainWindow->endGame(reason);
     return;
   }
+
   mainWindow->playSfx("qrc:/audio/sfx/write.mp3");
   mainWindow->setDescription(playerObj.displayJournal());
 }

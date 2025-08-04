@@ -11,6 +11,7 @@ void VerbHandler::load(MainWindow *mainWindow, QString target) {
                               target);
     return;
   }
+
   QString payloadName =
       inventoryObj.getInventoryItem(playerObj.getInventory(), itemIndex)
           .getPayload();
@@ -22,10 +23,12 @@ void VerbHandler::load(MainWindow *mainWindow, QString target) {
                                         payloadName.toLower()));
     return;
   }
-  mainWindow->setDescription(QString("I loaded %1 %2 into my %3.")
-                                 .arg(inputHandlerObj.getArticle(payloadName),
-                                      payloadName.toLower(), target.toLower()));
+
   inventoryObj.removeItem(playerObj.getInventory(), payloadIndex);
   inventoryObj.getInventoryItem(playerObj.getInventory(), itemIndex)
       .setEffect(100);
+
+  mainWindow->setDescription(QString("I loaded %1 %2 into my %3.")
+                                 .arg(inputHandlerObj.getArticle(payloadName),
+                                      payloadName.toLower(), target.toLower()));
 }

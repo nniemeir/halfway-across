@@ -3,13 +3,16 @@
 #include "item.h"
 #include <QStringList>
 
-// Recipes allow the player to craft new items from those that they already possess
+// Recipes allow the player to craft new items from those that they already
+// possess
 class Recipe {
 public:
-  Recipe(){};
+  Recipe() {};
   Recipe(const QString &n, const QString &d, const QStringList &i,
          const Item &o)
       : name(n), description(d), ingredients(i), outputItem(o) {}
+
+  // Getters
   QString getRecipeName() const;
   QString getDescription() const;
   QStringList getIngredients() const;

@@ -4,16 +4,16 @@ Audio::Audio() {
   QObject *audioParent = new QObject();
   music = new QMediaPlayer(audioParent);
   audioOutput = new QAudioOutput(audioParent);
-  defAmbienceVol = 0.8;
-  defMusicVol = 0.9;
-  defSfxVol = 1;
+  ambienceVol = 0.8;
+  musicVol = 0.9;
+  sfxVol = 1;
 }
 
-float Audio::getdefAmbienceVol() const { return defAmbienceVol; }
+float Audio::getAmbienceVol() const { return ambienceVol; }
 
-float Audio::getdefMusicVol() const { return defMusicVol; }
+float Audio::getMusicVol() const { return musicVol; }
 
-float Audio::getdefSfxVol() const { return defSfxVol; }
+float Audio::getSfxVol() const { return sfxVol; }
 
 void Audio::play(QString filePath, int volume, bool isBackground) {
   if (music->playbackState() == QMediaPlayer::PlayingState) {

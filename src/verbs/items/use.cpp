@@ -19,16 +19,19 @@ void VerbHandler::use(MainWindow *mainWindow, QString target,
     mainWindow->setDescription(msgHandlerObj.invalidLocation("use anything"));
     return;
   }
+
   if (inventoryObj.searchInventory(playerObj.getInventory(), target) ==
       ITEM_NOT_FOUND) {
     mainWindow->setDescription(msgHandlerObj.missingItem(
         inputHandlerObj.getArticle(target) + " " + target));
     return;
   }
+
   if (useLocations[location->getName()].contains(target)) {
     useLocations[location->getName()][target]();
     return;
   }
+
   mainWindow->setDescription(msgHandlerObj.invalidLocation("use that"));
 }
 
@@ -40,6 +43,7 @@ void VerbHandler::useLanternAtCave(MainWindow *mainWindow) {
     mainWindow->setDescription("My lantern needs a fuel source.");
     return;
   }
+
   mainWindow->playSfx("qrc:/audio/sfx/flint.mp3");
   mainWindow->setLocation(cave.getMusicPath(), cave.getAmbiencePath(),
                           &caveLit);
@@ -48,27 +52,32 @@ void VerbHandler::useLanternAtCave(MainWindow *mainWindow) {
 void VerbHandler::useRodAtLake(MainWindow *mainWindow) {
   int rodIndex =
       inventoryObj.searchInventory(playerObj.getInventory(), "FISHING ROD");
-  if (!worldObj.getChiseledIce()) {
+
+    if (!worldObj.getChiseledIce()) {
     mainWindow->setDescription("The lake had frozen over.\n");
     return;
   }
+
   if (inventoryObj.getInventoryItem(playerObj.getInventory(), rodIndex)
           .getActive()) {
     mainWindow->playSfx("qrc:/audio/sfx/fishReel.mp3");
     mainWindow->setDescription("I reeled in my line.");
     return;
   }
+
   if (inventoryObj.getInventoryItem(playerObj.getInventory(), rodIndex)
           .getEffect() != 100) {
     mainWindow->setDescription("I needed to put some bait on the line if "
                                "I expected to catch anything.\n");
     return;
   }
+
   inventoryObj.getInventoryItem(playerObj.getInventory(), rodIndex)
       .setEffect(0);
-  mainWindow->playSfx("qrc:/audio/sfx/fishSet.mp3");
   inventoryObj.getInventoryItem(playerObj.getInventory(), rodIndex)
       .setActive(true);
+
+  mainWindow->playSfx("qrc:/audio/sfx/fishSet.mp3");
   mainWindow->setDescription(
       "I dropped my line into the hole I had cut into the ice.\n");
 }
@@ -77,7 +86,7 @@ void VerbHandler::useChiselAtLake(MainWindow *mainWindow) {
   if (worldObj.getChiseledIce()) {
     return;
   }
+  worldObj.setChiseledIce(true);
   mainWindow->playSfx("qrc:/audio/sfx/chiselLake.mp3");
   mainWindow->setDescription("I chiseled a hole in the ice.\n");
-  worldObj.setChiseledIce(true);
 }

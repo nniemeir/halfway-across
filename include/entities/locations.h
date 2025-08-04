@@ -14,6 +14,8 @@ public:
       : name(name), description(description), compassPath(compassPath),
         imagePath(imagePath), musicPath(musicPath), ambiencePath(ambiencePath),
         inventory(inventory) {}
+  
+  // Getters
   QString getName() const;
   QString getDescription() const;
   QString getCompassPath() const;
@@ -21,8 +23,11 @@ public:
   QString getAmbiencePath() const;
   QString getMusicPath() const;
   std::vector<Item> &getInventory();
-  QString setDescription(QString message);
   QString displayItems() const;
+
+  // Setters
+  QString setDescription(QString message);
+  
 
 private:
   QString name;

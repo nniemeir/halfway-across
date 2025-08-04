@@ -7,8 +7,8 @@
 class World {
 public:
   World();
-  static constexpr int DAY_AMOS_E1 = 8;
-  static constexpr int DAY_IRA_E1 = 13;
+  
+  // Getters
   Character *getActiveCharacter();
   QString getActiveCharacterBrief();
   int getChiseledIce() const;
@@ -18,20 +18,28 @@ public:
   int getCurrentTemperature() const;
   QString getCurrentWeather() const;
   int getDay() const;
+  
+  // Setters
   void setActiveCharacter(Character *newCharacter);
   void setChiseledIce(bool newValue);
   void setConversing(bool newValue);
   void setConversedToday(bool newValue);
   void setCurrentLocation(Location *location);
+  
+  // Logic
   QString advanceDay();
   bool rollDice(const int probability);
   bool validDirection(const QString &value);
+
+  static constexpr int DAY_AMOS_E1 = 8;
+  static constexpr int DAY_IRA_E1 = 13;
 
 private:
   bool applyColdDmg();
   Character *generateCharacter();
   int generateTemperature();
   QString generateWeather();
+
   Character *activeCharacter;
   Location *currentLocation;
   int currentTemperature;

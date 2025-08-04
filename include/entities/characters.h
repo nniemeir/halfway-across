@@ -15,6 +15,8 @@ public:
         location(l), frequency(f), hatesPlayer(h), reputation(r),
         daysSinceEncountered(da), timesEncountered(t), encounterState(es),
         greetingMsgs(gm), inventory(i) {}
+
+  // Getters
   QString getName() const;
   QString getDescription() const;
   QString getBriefKnown() const;
@@ -29,6 +31,8 @@ public:
   int getEncounterState() const;
   QMap<int, QString> &getGreetingMsgs();
   std::vector<Item> &getInventory();
+  
+  // Setters
   void setDescription(QString newDescription);
   void setFrequency(int newFrequency);
   void setHatesPlayer(bool newHatesPlayer);

@@ -9,18 +9,22 @@ bool VerbHandler::lookingAtCharacter(MainWindow *mainWindow, QString target,
   if (!ensembleObj.isCharacterName(target)) {
     return false;
   }
+
   auto activeCharacter = worldObj.getActiveCharacter();
   if (activeCharacter == nullptr) {
     mainWindow->setDescription(MsgHandler::CHARACTER_NOT_ACTIVE);
     return true;
   }
+
   if (QString::compare(target, activeCharacter->getName(),
                        Qt::CaseInsensitive) == 1 ||
       activeCharacter->getLocation() == location->getName()) {
     mainWindow->setDescription(MsgHandler::CHARACTER_NOT_ACTIVE);
     return true;
   }
+
   mainWindow->setDescription(activeCharacter->getDescription());
+
   return true;
 }
 
@@ -29,6 +33,7 @@ void VerbHandler::look(MainWindow *mainWindow, QString target,
   if (lookingAtCharacter(mainWindow, target, location)) {
     return;
   }
+
   QMap<QString, QString> generalDescriptions = {
       {"AROUND", location->getDescription()},
       {"BAG", playerObj.displayBagInventory()},
@@ -75,10 +80,12 @@ void VerbHandler::look(MainWindow *mainWindow, QString target,
     mainWindow->setDescription(generalDescriptions.value(target));
     return;
   }
+
   if (!locationDescriptionMaps.contains(location->getName())) {
     mainWindow->setDescription(msgHandlerObj.invalidLocation("look anywhere"));
     return;
   }
+
   mainWindow->setDescription(
       locationDescriptionMaps[location->getName()][target]);
 }

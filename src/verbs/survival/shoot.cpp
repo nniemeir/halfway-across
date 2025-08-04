@@ -13,17 +13,21 @@ void VerbHandler::shoot(MainWindow *mainWindow, QString target,
     mainWindow->setDescription("I couldn't shoot without a bow and arrow.");
     return;
   }
+
   if (target != huntingObj.getActiveAnimal()) {
     mainWindow->setDescription(
         QString("I didn't see %1 %2 in the area.")
             .arg(inputHandlerObj.getArticle(target), target.toLower()));
     return;
   }
+
   mainWindow->playSfx("qrc:/audio/sfx/arrow.mp3");
+
   bool hit = huntingObj.hitTarget(target);
   if (!huntingObj.recoveredArrow(hit)) {
     inventoryObj.removeItem(playerObj.getInventory(), arrowIndex);
   }
+
   if (!hit) {
     mainWindow->setDescription(
         QString("The %1 managed to escape me after I shot it.")
@@ -31,13 +35,13 @@ void VerbHandler::shoot(MainWindow *mainWindow, QString target,
     huntingObj.setActiveAnimal("");
     return;
   }
+
   if (!huntingObj.assessDamage(target)) {
     mainWindow->setDescription(
         QString("I failed to hit the %1.").arg(target.toLower()));
     return;
   }
-  mainWindow->setDescription(
-      QString("I managed to fell the %1.").arg(target.toLower()));
+
   int databaseAnimalIndex =
       inventoryObj.searchInventory(huntingObj.getSlainAnimals(), target);
   int locationAnimalIndex =
@@ -46,4 +50,8 @@ void VerbHandler::shoot(MainWindow *mainWindow, QString target,
                                               databaseAnimalIndex);
   inventoryObj.addItem(location->getInventory(), animal, locationAnimalIndex);
   huntingObj.setActiveAnimal("");
+
+  mainWindow->setDescription(
+      QString("I managed to fell the %1.").arg(target.toLower()));
+
 }

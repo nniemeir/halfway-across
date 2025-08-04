@@ -10,14 +10,17 @@ void VerbHandler::talk(MainWindow *mainWindow, QString verb, QString target,
     mainWindow->setDescription(MsgHandler::CHARACTER_NOT_ACTIVE);
     return;
   }
+
   if (QString::compare(target, activeCharacter->getName(),
                        Qt::CaseInsensitive) == 1) {
     mainWindow->setDescription(MsgHandler::CHARACTER_NOT_ACTIVE);
     return;
   }
+
   if (!worldObj.getConversing()) {
     mainWindow->setDescription(MsgHandler::CHARACTER_NOT_ACTIVE);
     return;
   }
+
   encounterHandlerObj.talkLogic(mainWindow, verb, target, subject, location);
 }

@@ -8,6 +8,7 @@ void VerbHandler::greet(MainWindow *mainWindow) {
     mainWindow->setDescription("There was no one around to greet.");
     return;
   }
+
   if (worldObj.getConversedToday()) {
     mainWindow->setDescription(QString("I had already spoken to %1 that day.")
                                    .arg(activeCharacter->getName()));
@@ -19,12 +20,13 @@ void VerbHandler::greet(MainWindow *mainWindow) {
                                    .arg(activeCharacter->getName()));
     return;
   }
+
   mainWindow->setCompassImage("");
   static const QMap<QString, int> characterIndices = {{"Amos", Ensemble::AMOS_INDEX},
                                          {"Ira", Ensemble::IRA_INDEX}};
-  mainWindow->playSfx("qrc:/audio/sfx/ask.mp3");
   QString characterName = activeCharacter->getName();
   QString greetingMsg = dialogueObj.greetLogic(characterIndices[characterName]);
+  mainWindow->playSfx("qrc:/audio/sfx/ask.mp3");
   mainWindow->setDescription(greetingMsg);
   mainWindow->setLocationImage(activeCharacter->getImagePath());
   worldObj.setConversing(true);

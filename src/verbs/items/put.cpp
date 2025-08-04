@@ -14,6 +14,7 @@ void VerbHandler::put(MainWindow *mainWindow, QString target, QString subject,
         QString("I couldn't put something on the %1.").arg(subject.toLower()));
     return;
   }
+
   std::vector<Item> destinationInv = inventories.value(subject);
   int itemIndex =
       inventoryObj.searchInventory(playerObj.getInventory(), target);
@@ -22,9 +23,7 @@ void VerbHandler::put(MainWindow *mainWindow, QString target, QString subject,
         inputHandlerObj.getArticle(target) + " " + target));
     return;
   }
-  mainWindow->playSfx("qrc:/audio/sfx/drop.mp3");
-  mainWindow->setDescription(QString("I put the %1 on the %2.")
-                                 .arg(target.toLower(), subject.toLower()));
+
   int locationItemIndex =
       inventoryObj.searchInventory(location->getInventory(), target);
   inventoryObj.addItem(
@@ -32,4 +31,8 @@ void VerbHandler::put(MainWindow *mainWindow, QString target, QString subject,
       playerObj.getInventoryItem(playerObj.getInventory(), itemIndex),
       locationItemIndex);
   inventoryObj.removeItem(playerObj.getInventory(), itemIndex);
+
+  mainWindow->playSfx("qrc:/audio/sfx/drop.mp3");
+  mainWindow->setDescription(QString("I put the %1 on the %2.")
+                                 .arg(target.toLower(), subject.toLower()));
 }

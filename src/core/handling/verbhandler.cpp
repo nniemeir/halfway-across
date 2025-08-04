@@ -12,6 +12,7 @@ void VerbHandler::process(MainWindow *mainWindow, QString verb, QString target,
     mainWindow->closeProgram();
     return;
   }
+
   QMap<QString, std::function<void()>> dialogueActions{
       {"ASK", [mainWindow, verb, target, subject, location,
                this]() { talk(mainWindow, verb, target, subject, location); }},
@@ -108,12 +109,14 @@ void VerbHandler::process(MainWindow *mainWindow, QString verb, QString target,
                    menuActions, gameplayActions);
     return;
   }
+
   if (location->getName() == "Perished Menu" ||
       location->getName() == "Introduction Menu") {
     processActions(mainWindow, verb, target, subject, location, menuActions,
                    dialogueActions, gameplayActions);
     return;
   }
+
   processActions(mainWindow, verb, target, subject, location, gameplayActions,
                  dialogueActions, menuActions);
 }
@@ -127,10 +130,12 @@ void VerbHandler::processActions(
     validActions[verb]();
     return;
   }
+
   if (invalidActions1.contains(verb) || invalidActions2.contains(verb)) {
     mainWindow->setDescription(msgHandlerObj.invalidLocation(verb));
     return;
   }
+
   mainWindow->setDescription(MsgHandler::CONFUSED);
 }
 

@@ -48,6 +48,7 @@ void VerbHandler::move(MainWindow *mainWindow, QString target,
     mainWindow->setDescription(msgHandlerObj.invalidLocation("move anywhere"));
     return;
   }
+
   bool dirValidInLocation = moveLocations[location->getName()]();
   if (!dirValidInLocation) {
     mainWindow->setDescription(msgHandlerObj.invalidDirection("move", target));
@@ -60,11 +61,13 @@ bool VerbHandler::moveCamp(MainWindow *mainWindow, QString target) {
       mainWindow->setDescription(MsgHandler::TIRED);
       return true;
     }
+
     mainWindow->playSfx("qrc:/audio/sfx/moveSnow.mp3");
     mainWindow->setLocation(camp.getMusicPath(), camp.getAmbiencePath(),
                             &forestPath);
     return true;
   }
+
   return false;
 }
 
@@ -79,6 +82,7 @@ bool VerbHandler::moveForestPath(MainWindow *mainWindow, QString target) {
     mainWindow->setDescription(MsgHandler::TIRED);
     return true;
   }
+
   if (target == "WEST" || target == "W") {
     mainWindow->playSfx("qrc:/audio/sfx/moveSnow.mp3");
     mainWindow->setLocation(forestPath.getMusicPath(),
@@ -86,6 +90,7 @@ bool VerbHandler::moveForestPath(MainWindow *mainWindow, QString target) {
     playerObj.setEnergized(false);
     return true;
   }
+
   if (target == "EAST" || target == "E") {
     mainWindow->playSfx("qrc:/audio/sfx/moveSnow.mp3");
     mainWindow->setLocation(forestPath.getMusicPath(),
@@ -93,6 +98,7 @@ bool VerbHandler::moveForestPath(MainWindow *mainWindow, QString target) {
     playerObj.setEnergized(false);
     return true;
   }
+
   if (target == "NORTH" || target == "N") {
     mainWindow->playSfx("qrc:/audio/sfx/moveSnow.mp3");
     mainWindow->setLocation(forestPath.getMusicPath(),
@@ -100,6 +106,7 @@ bool VerbHandler::moveForestPath(MainWindow *mainWindow, QString target) {
     playerObj.setEnergized(false);
     return true;
   }
+
   return false;
 }
 
@@ -130,6 +137,7 @@ bool VerbHandler::moveCaveEntrance(MainWindow *mainWindow, QString target) {
                             caveEntrance.getAmbiencePath(), &forestPath);
     return true;
   }
+
   if (target == "EAST" || target == "E") {
     mainWindow->playSfx("qrc:/audio/sfx/moveStone.mp3");
 
@@ -137,6 +145,7 @@ bool VerbHandler::moveCaveEntrance(MainWindow *mainWindow, QString target) {
                             caveEntrance.getAmbiencePath(), &cave);
     return true;
   }
+
   return false;
 }
 

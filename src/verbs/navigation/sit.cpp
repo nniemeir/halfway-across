@@ -16,14 +16,17 @@ void VerbHandler::sit(MainWindow *mainWindow, QString target,
         msgHandlerObj.invalidLocation("sit on anything"));
     return;
   }
+
   if (!sitLocations.contains(location->getName())) {
     mainWindow->setDescription(msgHandlerObj.invalidLocation("sit anywhere"));
     return;
   }
+
   if (sitLocations[location->getName()].contains(target)) {
     sitLocations[location->getName()][target]();
     return;
   }
+
   mainWindow->setDescription(msgHandlerObj.invalidLocation("sit"));
 }
 

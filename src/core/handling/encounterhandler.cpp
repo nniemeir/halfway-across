@@ -34,6 +34,7 @@ void EncounterHandler::talkLogic(MainWindow *mainWindow, QString verb,
     mainWindow->appendDescription(dialogueObj.getPromptMsg());
     return;
   }
+
   mainWindow->setDescription(MsgHandler::TOPIC_INVALID);
   mainWindow->appendDescription(dialogueObj.getPromptMsg());
 }
@@ -47,9 +48,11 @@ QString EncounterHandler::getResponseMsg(QString verb, QString target,
     }
     return askIraEncounters[timesEncountered](subject, location);
   }
+
   if (target == "AMOS") {
     return tellAmosEncounters[timesEncountered](subject, location);
   }
+
   return tellIraEncounters[timesEncountered](subject, location);
 }
 

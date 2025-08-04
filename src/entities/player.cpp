@@ -113,14 +113,18 @@ QString Player::displayBagInventory() const {
           QString("%1: %2").arg(item.getName()).arg(item.getAmount()));
     }
   }
+
   std::sort(inventoryItemsText.begin(), inventoryItemsText.end());
   QString inventoryText;
+
   if (inventoryItemsText.isEmpty()) {
     inventoryText.append("My possibles bag was empty.");
     return inventoryText;
   }
+
   inventoryText.append("Looking in my possibles bag, I saw:\n");
   inventoryText.append(inventoryItemsText.join("\n"));
+
   return inventoryText;
 }
 
@@ -133,14 +137,18 @@ QString Player::displayClothesInventory() const {
       inventoryItemsText.append(item.getName());
     }
   }
+
   std::sort(inventoryItemsText.begin(), inventoryItemsText.end());
   QString inventoryText;
+
   if (inventoryItemsText.isEmpty()) {
     inventoryText.append("I was not wearing anything.");
     return inventoryText;
   }
+
   inventoryText.append("I was wearing:\n");
   inventoryText.append(inventoryItemsText.join("\n"));
+
   return inventoryText;
 }
 
@@ -149,6 +157,7 @@ QString Player::displayClothesInventory() const {
 QString Player::displayJournal() const {
   QString entry;
   entry.append(QString("Day %1\n\n").arg(worldObj.getDay()));
+
   static const QMap<int, QString> dayEntries = {
       {1, "I finished setting up camp this morning, its not exactly "
           "comfortable but it will have to do for now. I still have some "
@@ -161,7 +170,9 @@ QString Player::displayJournal() const {
     entry.append(dayEntries.value(worldObj.getDay()));
     return entry;
   }
+
   entry.append("A normal day in the mountains.");
+
   return entry;
 }
 

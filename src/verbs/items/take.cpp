@@ -13,6 +13,7 @@ void VerbHandler::take(MainWindow *mainWindow, QString target,
             .arg(inputHandlerObj.getArticle(target), target.toLower()));
     return;
   }
+
   QString itemName =
       inventoryObj.getInventoryItem(location->getInventory(), itemIndex)
           .getName()
@@ -29,10 +30,12 @@ void VerbHandler::take(MainWindow *mainWindow, QString target,
         QString("I didn't have enough space to take %1 %2 with me.")
             .arg(inputHandlerObj.getArticle(target), target.toLower()));
   }
-  mainWindow->playSfx("qrc:/audio/sfx/take.mp3");
+
   inventoryObj.addItem(
       playerObj.getInventory(),
       inventoryObj.getInventoryItem(location->getInventory(), itemIndex),
       playerItemIndex);
   inventoryObj.removeItem(location->getInventory(), itemIndex);
+
+  mainWindow->playSfx("qrc:/audio/sfx/take.mp3");
 }

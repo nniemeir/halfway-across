@@ -11,6 +11,7 @@ void VerbHandler::examine(MainWindow *mainWindow, QString target) {
         inputHandlerObj.getArticle(target) + " " + target));
     return;
   }
+
   QString description =
       inventoryObj.getInventoryItem(playerObj.getInventory(), itemIndex)
           .getDescription();

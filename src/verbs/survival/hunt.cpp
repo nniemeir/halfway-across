@@ -9,18 +9,21 @@ void VerbHandler::hunt(MainWindow *mainWindow, QString target,
     mainWindow->setDescription("I was too tired to hunt anymore that day.");
     return;
   }
+
   if (huntingObj.getActiveAnimal() == target) {
     mainWindow->setDescription(
         QString("I was already hunting %1 %2.")
             .arg(inputHandlerObj.getArticle(target), target.toLower()));
     return;
   }
+
   if (location->getName() != "The valley") {
     mainWindow->setDescription(
         QString("%1 didn't seem like a good place to hunt.")
             .arg(location->getName()));
     return;
   }
+
   int bowIndex = inventoryObj.searchInventory(playerObj.getInventory(), "BOW");
   int arrowIndex =
       inventoryObj.searchInventory(playerObj.getInventory(), "ARROW");
@@ -28,5 +31,6 @@ void VerbHandler::hunt(MainWindow *mainWindow, QString target,
     mainWindow->setDescription("I needed a bow and arrow to hunt.");
     return;
   }
+
   mainWindow->setDescription(huntingObj.processSeekResult(mainWindow, target, arrowIndex));
 }

@@ -50,6 +50,7 @@ void InputHandler::parse(MainWindow *mainWindow, QString input) {
         QString("I didn't know what to %1.").arg(verb.toLower()));
     return;
   }
+
   verbHandlerObj.process(mainWindow, verb, target, subject,
                          worldObj.getCurrentLocation());
 }

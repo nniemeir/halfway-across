@@ -17,11 +17,13 @@ public:
       qDebug() << "Unable to create directory: " << dir.path();
     }
   }
+
   ~Script() {
     if (file.isOpen()) {
       file.close();
     }
   }
+  
   bool getStatus();
   void setStatus(bool status);
   bool writeFile(const QString &outputText);

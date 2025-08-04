@@ -9,10 +9,12 @@ void VerbHandler::eat(MainWindow *mainWindow, QString target) {
   if (itemIndex == ITEM_NOT_FOUND) {
     itemIndex = inventoryObj.searchInventory(playerObj.getInventory(), target);
   }
+
   if (itemIndex == ITEM_NOT_FOUND) {
     mainWindow->setDescription(msgHandlerObj.missingItem("any " + target));
     return;
   }
+
   if (inventoryObj.getInventoryItem(playerObj.getInventory(), itemIndex)
           .getType() != "FOOD") {
     mainWindow->setDescription(
@@ -20,18 +22,21 @@ void VerbHandler::eat(MainWindow *mainWindow, QString target) {
             .arg(inputHandlerObj.getArticle(target), target.toLower()));
     return;
   }
+
   if (playerObj.getHunger() == 100) {
     mainWindow->setDescription("I wasn't hungry at the time.");
     return;
   }
-  mainWindow->playSfx("qrc:/audio/sfx/eat.mp3");
+
   QString itemName =
       inventoryObj.getInventoryItem(playerObj.getInventory(), itemIndex)
           .getName();
-  mainWindow->setDescription(QString("I ate some %1.").arg(itemName.toLower()));
   playerObj.setHunger(
       playerObj.getHunger() +
       inventoryObj.getInventoryItem(playerObj.getInventory(), itemIndex)
           .getEffect());
   inventoryObj.removeItem(playerObj.getInventory(), itemIndex);
+
+  mainWindow->playSfx("qrc:/audio/sfx/eat.mp3");
+  mainWindow->setDescription(QString("I ate some %1.").arg(itemName.toLower()));
 }

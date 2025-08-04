@@ -6,6 +6,7 @@
 class Inventory {
 public:
   Inventory(){};
+
   Item &getInventoryItem(std::vector<Item> &inventory, const int index);
   int searchInventory(std::vector<Item> &inventory,
                       const QString &ItemName) const;
@@ -15,6 +16,7 @@ public:
                std::vector<Item> &locationInventory,
                const std::vector<Item> itemList);
   bool fitsInventory(const std::vector<Item> &inventory, const Item &itemToAdd);
+  
   void removeItem(std::vector<Item> &inventory, const int index);
   void deactivateLocationSpecificItems();
 

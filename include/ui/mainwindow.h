@@ -24,6 +24,8 @@ class MainWindow : public QMainWindow {
 public:
   MainWindow(QWidget *parent = nullptr);
   ~MainWindow();
+
+  // Setters
   void setLocation(QString currentMusic, QString currentAmbience,
                    Location *object);
   void setLocationAudio(QString currentMusic, QString currentAmbience,
@@ -32,6 +34,7 @@ public:
   void setCompassImage(QString imagePath);
   void setDescription(QString text);
   void appendDescription(QString text);
+
   void playSfx(const QString& filePath);
   void endGame(QString reason);
   void closeProgram();
@@ -43,6 +46,7 @@ private:
   Audio ambiencePlayer;
   Audio musicPlayer;
   Audio sfxPlayer;
+
 private slots:
   void handleReturnPressed();
 

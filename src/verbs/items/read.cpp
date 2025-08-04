@@ -9,6 +9,7 @@ void VerbHandler::read(MainWindow *mainWindow, Location *location,
     msgHandlerObj.invalidLocation("read");
     return;
   }
+
   QMap<QString, QString> intangibleItems = {
       {"JOURNAL", playerObj.displayJournal()},
       {"RECIPES", playerObj.displayRecipeBook()}};
@@ -17,6 +18,7 @@ void VerbHandler::read(MainWindow *mainWindow, Location *location,
     msgHandlerObj.missingItem(target);
     return;
   }
+
   mainWindow->playSfx("qrc:/audio/sfx/read.mp3");
   mainWindow->setDescription(intangibleItems.value(target));
 }

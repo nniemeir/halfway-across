@@ -16,18 +16,22 @@ QString World::getActiveCharacterBrief() {
   if (activeCharacter == nullptr) {
     return activeCharacterBrief;
   }
+
   if (activeCharacter->getLocation() != currentLocation->getName()) {
     return activeCharacterBrief;
   }
+
   if (activeCharacter->getTimesEncountered() == 0) {
     activeCharacterBrief.append(activeCharacter->getBriefUnknown());
   } else {
     activeCharacterBrief.append(activeCharacter->getBriefKnown());
   }
+
   if (day == 8 && !conversedToday) {
     activeCharacterBrief.append(
         "\nHint: I can start a conversation by using the command GREET.");
   }
+
   return activeCharacterBrief;
 }
 
@@ -68,26 +72,32 @@ QString World::advanceDay() {
     newCryCooldown = 0;
   }
   playerObj.setCryCooldown(newCryCooldown);
+
   if (!playerObj.setHunger(playerObj.getHunger() - 20)) {
     return "HUNGER";
   }
+
   if (!playerObj.setThirst(playerObj.getThirst() - 30)) {
     return "THIRST";
   }
+
   if (!applyColdDmg()) {
     return "WARMTH";
   }
+
   setChiseledIce(false);
   worldObj.setConversedToday(false);
   huntingObj.resetDailyAttempts();
   fishingObj.resetDailyAttempts();
   day++;
+
   currentTemperature = generateTemperature();
   currentWeather = generateWeather();
   if (currentWeather != "snowing heavily" && day > 7) {
     Character *potentialActiveCharacter = generateCharacter();
     setActiveCharacter(potentialActiveCharacter);
   }
+
   return "";
 }
 
@@ -142,9 +152,11 @@ bool World::applyColdDmg() {
       healthLoss = 2;
     }
   }
+
   if (healthLoss > 0) {
     return playerObj.setHealth(playerObj.getHealth() - healthLoss);
   }
+
   return true;
 }
 
@@ -152,9 +164,11 @@ Character *World::generateCharacter() {
   if (day == DAY_AMOS_E1) {
     return ensembleObj.getCharacter(0); // Amos
   }
+
   if (day == DAY_IRA_E1) {
     return ensembleObj.getCharacter(1); // Ira
   }
+
   int index = 0;
   std::vector<int> matchesIndex = {};
   for (auto const &characterObj : ensembleObj.getCharacters()) {
@@ -163,16 +177,19 @@ Character *World::generateCharacter() {
     }
     index++;
   }
+
   if (matchesIndex.size() == 1) {
     ensembleObj.getCharacter(matchesIndex[0])->setDaysSinceEncountered(0);
     return ensembleObj.getCharacter(matchesIndex[0]);
   }
+
   if (matchesIndex.size() > 1) {
     int chosenMatchIndex = rand() % matchesIndex.size();
     ensembleObj.getCharacter(matchesIndex[chosenMatchIndex])
         ->setDaysSinceEncountered(0);
     return ensembleObj.getCharacter(matchesIndex[chosenMatchIndex]);
   }
+
   return nullptr;
 }
 

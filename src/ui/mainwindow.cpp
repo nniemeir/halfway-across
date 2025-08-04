@@ -69,16 +69,18 @@ void MainWindow::setLocationAudio(QString currentMusic, QString currentAmbience,
                                   Location *object) {
   QString musicPath = object->getMusicPath();
   QString ambiencePath = object->getAmbiencePath();
+
   if (currentMusic != musicPath) {
-    musicPlayer.play(musicPath, ambiencePlayer.getdefMusicVol(), true);
+    musicPlayer.play(musicPath, ambiencePlayer.getMusicVol(), true);
   }
+
   if (currentAmbience != ambiencePath) {
-    ambiencePlayer.play(ambiencePath, ambiencePlayer.getdefAmbienceVol(), true);
+    ambiencePlayer.play(ambiencePath, ambiencePlayer.getAmbienceVol(), true);
   }
 }
 
 void MainWindow::playSfx(const QString& filePath) {
-    sfxPlayer.play(filePath, sfxPlayer.getdefSfxVol(), false);
+    sfxPlayer.play(filePath, sfxPlayer.getSfxVol(), false);
 }
 
 void MainWindow::setLocationImage(QString imagePath) {
@@ -105,7 +107,7 @@ void MainWindow::endGame(QString reason) {
   this->setLocation(worldObj.getCurrentLocation()->getMusicPath(),
                     worldObj.getCurrentLocation()->getAmbiencePath(),
                     &perished);
-  sfxPlayer.play("qrc:/audio/sfx/perished.mp3", sfxPlayer.getdefSfxVol(),
+  sfxPlayer.play("qrc:/audio/sfx/perished.mp3", sfxPlayer.getSfxVol(),
                  false);
 };
 
@@ -116,25 +118,30 @@ void MainWindow::handleReturnPressed() {
   if (input.isEmpty()) {
     return;
   }
+
   input = input.toUpper().trimmed();
   if (input == "G" || input == "AGAIN") {
     input = inputHandlerObj.getLastCommand();
   }
+
   inputHandlerObj.setLastCommand(input);
   if (scriptObj.getStatus()) {
     scriptObj.writeFile(QString("> %1\n").arg(input));
   }
+
   int validated = inputHandlerObj.getVerbType(input);
   if (validated == InputHandler::VERB_ARG) {
     inputHandlerObj.parse(this, input);
     ui->inputLineEdit->clear();
     return;
   }
+
   if (validated == InputHandler::VERB_NO_ARG) {
     verbHandlerObj.process(this, input, "", "", worldObj.getCurrentLocation());
     ui->inputLineEdit->clear();
     return;
   }
+
   if (!input.isEmpty()) {
     setDescription(QString("I didn't know how to %1.").arg(input.toLower()));
     ui->inputLineEdit->clear();

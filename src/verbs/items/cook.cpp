@@ -9,6 +9,7 @@ void VerbHandler::cook(MainWindow *mainWindow, QString target,
   if (location->getName() != "Camp") {
     mainWindow->setDescription("I needed to be near a campfire to cook.");
   }
+
   int itemIndex =
       inventoryObj.searchInventory(playerObj.getInventory(), target);
   if (itemIndex == ITEM_NOT_FOUND) {
